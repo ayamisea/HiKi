@@ -1,0 +1,7 @@
+# Django
+# https://www.djangoproject.com/
+Django==1.11
+
+# Deploy WSGI server
+# http://gunicorn.org/
+gunicorn==19.7.1
