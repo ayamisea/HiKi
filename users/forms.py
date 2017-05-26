@@ -104,3 +104,6 @@ class UserChangeForm(forms.ModelForm):
         :return str password:
         """
         return self.initial['password']
+
+class AuthenticationForm(BaseAuthenticationForm):
+    username = forms.EmailField()
