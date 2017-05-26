@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from .models import User
 from .forms import UserChangeForm, UserCreationForm
 
+
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
     fieldsets = (
