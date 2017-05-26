@@ -33,6 +33,25 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+    def create_user(self, email, password=None, **extra_fields):
+        """Create and save an EmailUser with the given email and password.
+        :param str email: user email
+        :param str password: user password
+        :return custom_user.models.EmailUser user: regular user
+        """
+        return self._create_user(email, password, **extra_fields)
+
+    def create_superuser(self, email, password, **extra_fields):
+        """Create and save an EmailUser with the given email and password.
+        :param str email: user email
+        :param str password: user password
+        :return custom_user.models.EmailUser user: admin user
+        """
+        return self._create_user(
+            email, password, verified=True,
+            is_staff=True, is_superuser=True,
+            **extra_fields)
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True, db_index=True)
     name = models.CharField(max_length=100)
