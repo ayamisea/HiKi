@@ -68,3 +68,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = _('user')
         verbose_name_plural = _('users')
         swappable = 'AUTH_USER_MODEL'
+
+    def get_full_name(self):
+        return self.name
+
+    def get_short_name(self):
+        return self.name
