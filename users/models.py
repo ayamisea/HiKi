@@ -3,6 +3,7 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 
 class UserManager(BaseUserManager):
     """Custom manager for User
@@ -62,3 +63,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
     USERNAME_FIELD = 'email'
+
+    class Meta:
+        verbose_name = _('user')
+        verbose_name_plural = _('users')
+        swappable = 'AUTH_USER_MODEL'
+
+    def get_full_name(self):
+        return self.name
+
+    def get_short_name(self):
+        return self.name
