@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Diary</title>
+
+
+        <!--Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    <script type="text/javascript">
+    //日曆
+    $( function() {
+      $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+    } );
+
+    //加入Tag
+    function addTag(obj)
+    {
+      var newElement = document.createElement("div");
+      var tag = document.getElementById("tagValue").value;
+      //設定這個input的屬性
+      //newElement.disabled="disabled";
+      //newElement.name = "newPictag[]";
+      newElement.name = tag;
+      newElement.innerHTML = "#" + tag;
+      newElement.style = "margin-right:10px;font-size:15px;display:inline-block;";
+      newElement.setAttribute('onmouseover', ' this.style = "margin-right:10px;font-size:15px;display:inline-block;text-decoration:line-through;"');
+      newElement.setAttribute('onmouseout', ' this.style = "margin-right:10px;font-size:15px;display:inline-block;"');
+      newElement.setAttribute('ondblclick', 'this.parentNode.removeChild(this);');
+
+      //最後再使用appendChild加到要加的元素裡
+      obj.appendChild(newElement);
+      document.getElementById("tagValue").value = "";
+    }
+
+    //Submit觸發
+    $(document).ready(function() {
+        $('#DiaryForm').submit(function() {
+            var collection = document.getElementById("Tag").childNodes;
+            var tagNum = collection.length;
+            alert(tagNum);
+            var i;
+            var tags = new Array();
+            for(i=0;i<tagNum;++i)
+            {
+                tags.push(collection[i].name);
+                alert(tags[i]);
+            }
+            document.getElementById("tags").value = tags;
+        });
+    });
+
+    //Google Map
+
+    </script>
+
+</head>
+<body>
+  <h3># New Diary</h3>
+
+  <form id="DiaryForm" method="post">
+      {% csrf_token %}
+
+      標題：{{ diary_form.title }} <br>
+      日期：{{ diary_form.date }} <br>
+      日記內容：{{ diary_form.content }} <br>
+
+      照片標籤：
+            <input class="btn btn-default" type="text" id="tagValue" placeholder="請輸入標籤">
+            <input class="btn btn-default" type="button" value="新增" onclick="addTag(Tag)"><br/>
+            <div id ="Tag" ></div> <br>
+      <input type="hidden" id="tags" name="tags" />
+      <input type="submit" name="send" value="儲存" />
+
+  </form>
+
+  <form action="/diaries/display" >
+    <button type="submit" style="margin-left: 30px;" >加入影像</button>
+  </form>
+
+
+</body>
+</html>

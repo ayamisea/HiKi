@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Display</title>
+</head>
+<body>
+  <h3># All Diaries</h3>
+  {{diary.title}} <br>
+  {% for d in diaryList %}
+      標題：{{d.title}}<br>
+      日期：{{d.date}}<br>
+      天氣：{{d.weather}}<br>
+      標籤：
+      {% for t in d.tags.all %}
+          {{t.tagName}}
+      {% endfor %}<br>
+
+      <li>有{{d.media_set.all|length }}個媒體</li>
+
+      {% for i in d.media_set.all %}
+          <h2>{{i.title}}</h2>
+          <p>{{i.description}}</p>
+          {% if i.type == "img" %}
+              <img src="{{mediaurl}}{{i.img}}" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
+          {% endif %}
+          {% if i.type == "video" %}
+              <video height="500" controls>
+                <source src="{{mediaurl}}{{i.img}}" type="video/mp4">
+                <source src="{{mediaurl}}{{i.img}}" type="video/ogg">
+                Your browser does not support HTML5 video.
+              </video>
+          {% endif %}
+          <br>
+      {% endfor %}
+
+      </br>
+      <hr>
+  {% endfor %}
+
+</body>
+</html>
