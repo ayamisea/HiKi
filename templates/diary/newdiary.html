@@ -77,12 +77,21 @@
     </script>
 
     <script type="text/javascript">
-    //日曆
+
+    //日曆 ============================================
     $( function() {
-      $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+      $( "#datepicker" ).datepicker({
+          dateFormat: 'yy-mm-dd',
+          minDate: new Date(2014, 6 - 1, 5),
+          maxDate: "0",
+          changeMonth: true,
+          changeYear: true,
+          showButtonPanel: true,
+
+      });
     } );
 
-    //加入Tag
+    //加入Tag  ========================================
     function addTag(obj)
     {
       var newElement = document.createElement("div");
@@ -102,24 +111,22 @@
       document.getElementById("tagValue").value = "";
     }
 
-    //Submit觸發
+    //Submit觸發  ======================================
     $(document).ready(function() {
         $('#DiaryForm').submit(function() {
             var collection = document.getElementById("Tag").childNodes;
             var tagNum = collection.length;
-            alert(tagNum);
             var i;
             var tags = new Array();
             for(i=0;i<tagNum;++i)
             {
                 tags.push(collection[i].name);
-                alert(tags[i]);
             }
             document.getElementById("tags").value = tags;
         });
     });
 
-    //Google Map
+    //Google Map  ======================================
       function initAutocomplete()
       {
             var latitude = 23.69781 ;
@@ -198,13 +205,12 @@
 
   <h3># New Diary</h3>
 
-  位選擇地點：
+  選擇地點：
   <input id="pac-input" class="controls" type="text" placeholder="輸入位置">
   <div id="map"></div><br>
 
   <form id="DiaryForm" method="post">
       {% csrf_token %}
-
       標題：{{ diary_form.title }} <br>
       日期：{{ diary_form.date }} <br>
       日記內容：{{ diary_form.content }} <br>
@@ -219,13 +225,9 @@
             <input type="hidden" id="longitude" name="lon" >
             <input type="hidden" id="location" name="loc">
 
-      <input type="submit" name="send"  style="margin-left: 30px;" value="儲存" />
-
+      <input type="submit" name="send"  style="margin-left: 30px;" value="下一步" />
   </form>
 
-  <form action="/diaries/display" >
-    <button type="submit" style="margin-left: 30px;" >加入影像</button>
-  </form>
   <br>
 
 </body>

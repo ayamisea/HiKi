@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .forms import DiaryForm
-from .models import Tag,Diary,Map
+from .forms import DiaryForm,MediaForm
+from .models import Tag,Diary,Map,Media
 from django.http import HttpResponseRedirect
 from django.http import Http404
 from django.http import HttpResponse
@@ -8,15 +8,24 @@ from django.conf import settings
 from decimal import *
 
 
+
 # Create your views here.
 def unit_test(request):
     return render(request, 'diary/unit_test.html')
 
+#display all diaries
 def display(request):
-    MapAPI = settings.GOOGLE_MAPS_API_KEY
     diaryList = Diary.objects.all()
     return render(request, 'diary/display.html',locals())
 
+#display one diariy
+def detail(request,pk):
+    mediaURL = settings.MEDIA_URL
+    MapAPI = settings.GOOGLE_MAPS_API_KEY
+    diary = Diary.objects.get(pk=pk)
+    return render(request, 'diary/detail.html', locals())
+
+#create new diary
 def newdiary(request):
     MapAPI=settings.GOOGLE_MAPS_API_KEY
     if request.method == 'POST':
@@ -44,13 +53,59 @@ def newdiary(request):
             new_diary.location=Map.objects.get(location=getloc)
             new_diary.getWeather()
             new_diary.save()
-            return HttpResponseRedirect('/diaries/display/')
+            request.session['diaryID'] = new_diary.id
+            return HttpResponseRedirect('/diaries/media-upload/')
         else:
             raise Http404
     else:
         diary_form = DiaryForm()
     return render(request, 'diary/newdiary.html', locals())
 
+# upload diary media
+def media_upload(request):
+    diaryID = request.session['diaryID']
+    if request.method =='POST':
+        media_form = MediaForm(request.POST, request.FILES)
+        if media_form.is_valid():
+            newMedia = media_form.save()
+            newMedia.diary = Diary.objects.get(pk=diaryID)
+            newMedia.save()
+            return HttpResponseRedirect('/diaries/media-upload/')
+        else:
+            raise Http404
+    else:
+        media_form = MediaForm()
+    return render(request, 'diary/upload-media.html',locals())
+
+# upload diary media display
+def media_upload_show(request):
+    mediaURL = settings.MEDIA_URL
+    if request.method == 'POST':
+        deleteID=request.POST.get('dID')
+        Media.objects.get(id=deleteID).delete()
+        return HttpResponseRedirect('/diaries/media-upload-show/')
+    if 'diaryID' in request.session:
+        diaryID = request.session['diaryID']
+        nowDiary = Diary.objects.get(pk = diaryID)
+        imgs= Media.objects.filter(diary=nowDiary)
+    else:
+        imgs = Media.objects.all()
+    return render(request,'diary/upload-media-display.html',locals())
+
+#display all map
+def map(request):
+    MapAPI = settings.GOOGLE_MAPS_API_KEY
+    maps = Map.objects.all()
+    maplist = list(maps)
+    return render(request, 'diary/display-map.html', locals())
+
+#display all media
+def media(request):
+    mediaList = Media.objects.all()
+    mediaURL = settings.MEDIA_URL
+    return render(request, 'diary/display-media.html', locals())
+
+#just test... ignore it
 def test(request):
     if request.is_ajax():
         tags = request.POST.getlist('tags[]')

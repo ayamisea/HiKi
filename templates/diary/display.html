@@ -4,64 +4,27 @@
     <meta charset="UTF-8">
     <title>Display</title>
 
-<style>
-   #map {
-    height: 300px;
-    width: 500px;
-   }
-</style>
+    <!--bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key={{MapAPI}}&callback=initMap">
-    </script>
+
 <body>
   <h3># All Diaries</h3>
-  {{diary.title}} <br>
   {% for d in diaryList %}
       標題：{{d.title}}<br>
       日期：{{d.date}}<br>
-      標籤：
-      {% for t in d.tags.all %}
-          {{t.tagName}}
-      {% endfor %}<br>
-      天氣： 平均溫度：{{d.weather_meantemp}}℃ <img src="https://icons.wxug.com/i/c/i/{{d.weather_cond}}.gif" alt="Smiley face" height="42" width="42"><br>
-      地點：<a target="_blank" href="http://maps.google.com/maps?q={{d.location.latitude}},{{d.location.longitude}}">{{d.location.location}}</a><br>
-      <div id="map"></div>
-      <script>
-      function initMap() {
-        var uluru = {lat: {{d.location.latitude}}, lng: {{d.location.longitude}}};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 7,
-          center: uluru
-        });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
-      }
-      </script>
-
-      <li>有{{d.media_set.all|length }}個媒體</li>
-
-      {% for i in d.media_set.all %}
-          <h2>{{i.title}}</h2>
-          <p>{{i.description}}</p>
-          {% if i.type == "img" %}
-              <img src="{{mediaurl}}{{i.img}}" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
-          {% endif %}
-          {% if i.type == "video" %}
-              <video height="500" controls>
-                <source src="{{mediaurl}}{{i.img}}" type="video/mp4">
-                <source src="{{mediaurl}}{{i.img}}" type="video/ogg">
-                Your browser does not support HTML5 video.
-              </video>
-          {% endif %}
-          <br>
-      {% endfor %}
-
+      內容：<br>
+      {{d.content}}<br>
+      <a class="btn btn-default" style="margin-left:20px" href="{% url 'detail' pk=d.pk %}">
+                        Read More <i class="fa fa-arrow-right"></i>
+      </a>
       </br>
       <hr>
   {% endfor %}
-
+    <form action="/diaries/unit_test" >
+          <button type="submit" style="margin-left: 30px;" >回首頁</button>
+    </form>
 </body>
 </html>

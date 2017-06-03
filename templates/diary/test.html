@@ -1,54 +1,7 @@
 <!DOCTYPE html >
 <html >
 <head>
-<!-- 新增標籤 -->
-<script type="text/javascript">
-    function addTag(obj)
-    {
-      var newElement = document.createElement("div");
-      var tag = document.getElementById("tagValue").value;
-      //設定這個input的屬性
-      //newElement.disabled="disabled";
-      //newElement.name = "newPictag[]";
-      newElement.name = tag;
-      newElement.innerHTML = "#" + tag;
-      newElement.style = "margin-right:10px;font-size:15px;display:inline-block;";
-      newElement.setAttribute('onmouseover', ' this.style = "margin-right:10px;font-size:15px;display:inline-block;text-decoration:line-through;"');
-      newElement.setAttribute('onmouseout', ' this.style = "margin-right:10px;font-size:15px;display:inline-block;"');
-      newElement.setAttribute('ondblclick', 'this.parentNode.removeChild(this);');
 
-      //最後再使用appendChild加到要加的元素裡
-      obj.appendChild(newElement);
-      document.getElementById("tagValue").value = "";
-    }
-
-    function showTag()
-    {
-        var collection = document.getElementById("Tag").childNodes;
-        var tagNum = collection.length;
-        alert(tagNum);
-        var i;
-        var tags = new Array();
-        for(i=0;i<tagNum;++i)
-        {
-            tags.push(collection[i].name);
-            alert(tags[i]);
-        }
-        $.ajax({
-            type:'POST',
-            url: '/diaries/test/',
-            data: {'tags':tags},
-            headers: {"X-CSRFToken":'{{ csrf_token }}'},
-            success: function (data) {
-                 //this gets called when server returns an OK response
-                 alert("it worked!");
-            },
-            error: function (data) {
-                 alert("it didnt work");
-            }
-        });
-    }
-</script>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,17 +11,7 @@
 
 </head>
 <body >
-    <p>
-        照片標籤：
-            <input class="btn btn-default" type="text" id="tagValue" placeholder="請輸入標籤">
-            <input class="btn btn-default" type="button" value="新增" onclick="addTag(Tag)"><br/>
-            <div id ="Tag" ></div>
 
-            <br/>
-    </p>
-
-    <input class="btn btn-default" type="button" value="showTag" onclick="showTag()"><br>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
 
 </body>

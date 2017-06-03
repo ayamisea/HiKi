@@ -35,7 +35,7 @@ class Diary(models.Model):
         urlGeo = 'http://api.wunderground.com/api/'+weaherAPI+'/geolookup/q/' + str(self.location.latitude) + ',' + str(self.location.longitude) + '.json'
         g = http.request('GET', urlGeo)
         zmw = json.loads(g.data.decode('utf-8'))['location']['l']
-        ymd = str(self.date.year) + str(self.date.month) + str(self.date.day)
+        ymd = str(self.date.year) + str(self.date.month).zfill(2) + str(self.date.day).zfill(2)
         urlW = 'http://api.wunderground.com/api/'+ weaherAPI+'/history_' + ymd + zmw + '.json'
         w = http.request('GET', urlW)
         weather = json.loads(w.data.decode('utf-8'))['history']
@@ -44,6 +44,7 @@ class Diary(models.Model):
             cond_list.append(data['icon'])
         self.weather_meantemp = weather['dailysummary'][0]['meantempm']
         self.weather_cond = Counter(cond_list).most_common(1)[0][0]
+        cond_list.clear()
     class Meta:  # 排序用
         ordering = ['date']
 
