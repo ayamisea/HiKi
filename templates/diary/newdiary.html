@@ -5,7 +5,65 @@
     <title>New Diary</title>
 
 
-        <!--Bootstrap-->
+  <style>
+      #map {
+        height: 40%;
+        width:30%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .controls {
+        margin-top: 10px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 50%;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      .pac-container {
+        font-family: Roboto;
+      }
+
+      #type-selector {
+        color: #fff;
+        background-color: #4d90fe;
+        padding: 5px 11px 0px 11px;
+      }
+
+      #type-selector label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+      #target {
+        width: 345px;
+      }
+    </style>
+
+
+    <!--Bootstrap-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -14,7 +72,9 @@
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+    <script src="https://maps.googleapis.com/maps/api/js?key={{MapAPI}}&libraries=places&language=zh-TW&callback=initAutocomplete"
+         async defer>
+    </script>
 
     <script type="text/javascript">
     //日曆
@@ -60,12 +120,87 @@
     });
 
     //Google Map
+      function initAutocomplete()
+      {
+            var latitude = 23.69781 ;
+            var longitude = 120.960515;
+            var location ='台灣';
+            var default_zoon =7;
+            var map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: latitude, lng: longitude}, //taiwan
+            zoom: default_zoon,
+            mapTypeId: 'roadmap'
+            });
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            map.addListener('bounds_changed', function() {
+             searchBox.setBounds(map.getBounds());
+            });
+
+            var markers = [];
+            searchBox.addListener('places_changed', function() {
+              var places = searchBox.getPlaces(); //得到輸入位置
+              if (places.length == 0) {
+                return;
+              }
+               markers.forEach(function(marker) {
+               marker.setMap(null);
+               });
+
+              markers = [];
+              var bounds = new google.maps.LatLngBounds();
+              places.forEach(function(place) {
+                if (!place.geometry) {
+                  console.log("Returned place contains no geometry");
+                  return;
+                }
+
+                location = input.value;
+                latitude = place.geometry.location.lat();
+                longitude = place.geometry.location.lng();
+                document.getElementById("latitude").value = latitude;
+                document.getElementById("longitude").value = longitude;
+                document.getElementById("location").value = location;
+
+                //圖示
+                var icon = {
+                  url:'https://cdn3.iconfinder.com/data/icons/flag-banner/256/flag-1-star-48.png',
+                  size: new google.maps.Size(71, 71),
+                  origin: new google.maps.Point(0, 0),
+                  anchor: new google.maps.Point(17, 34),
+                  scaledSize: new google.maps.Size(40, 40)
+                };
+                markers.push(new google.maps.Marker({
+                  map: map,
+                  icon: icon,
+                  title: place.name,
+                  position: place.geometry.location
+                })
+               );
+
+            if (place.geometry.viewport) {
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
 
     </script>
 
 </head>
+
 <body>
+
   <h3># New Diary</h3>
+
+  位選擇地點：
+  <input id="pac-input" class="controls" type="text" placeholder="輸入位置">
+  <div id="map"></div><br>
 
   <form id="DiaryForm" method="post">
       {% csrf_token %}
@@ -78,15 +213,20 @@
             <input class="btn btn-default" type="text" id="tagValue" placeholder="請輸入標籤">
             <input class="btn btn-default" type="button" value="新增" onclick="addTag(Tag)"><br/>
             <div id ="Tag" ></div> <br>
-      <input type="hidden" id="tags" name="tags" />
-      <input type="submit" name="send" value="儲存" />
+            <input type="hidden" id="tags" name="tags" />
+
+            <input type="hidden" id="latitude" name="lat" >
+            <input type="hidden" id="longitude" name="lon" >
+            <input type="hidden" id="location" name="loc">
+
+      <input type="submit" name="send"  style="margin-left: 30px;" value="儲存" />
 
   </form>
 
   <form action="/diaries/display" >
     <button type="submit" style="margin-left: 30px;" >加入影像</button>
   </form>
-
+  <br>
 
 </body>
 </html>

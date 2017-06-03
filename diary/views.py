@@ -1,34 +1,49 @@
 from django.shortcuts import render
 from .forms import DiaryForm
-from .models import Tag,Diary
+from .models import Tag,Diary,Map
 from django.http import HttpResponseRedirect
 from django.http import Http404
 from django.http import HttpResponse
-import json
+from django.conf import settings
+from decimal import *
+
 
 # Create your views here.
 def unit_test(request):
     return render(request, 'diary/unit_test.html')
 
 def display(request):
+    MapAPI = settings.GOOGLE_MAPS_API_KEY
     diaryList = Diary.objects.all()
     return render(request, 'diary/display.html',locals())
 
 def newdiary(request):
-    if request.method == 'POST' or request.is_ajax():
+    MapAPI=settings.GOOGLE_MAPS_API_KEY
+    if request.method == 'POST':
+        #map
+        getlat = Decimal(request.POST.get('lat'))
+        getlon =  Decimal(request.POST.get('lon'))
+        getloc = request.POST.get('loc')
+        #tags
         tags = request.POST.getlist('tags')
+        #diary
         diary_form = DiaryForm(request.POST)
         if diary_form.is_valid():
+            #diary
             new_diary = diary_form.save(commit=True)
+            #tags
             taglist = tags[0].split(',')
             for tag in taglist:
                 if not tag == '':
-                    if Tag.objects.filter(tagName=tag).exists():
-                        t = Tag.objects.get(tagName=tag)
-                    else:
-                        t = Tag.objects.create(tagName=tag)
+                    if not Tag.objects.filter(tagName=tag).exists():
+                        Tag.objects.create(tagName=tag)
                     new_diary.tags.add(Tag.objects.get(tagName=tag))
-            #new_diary.getWeather()
+            #map
+            if not Map.objects.filter(location=getloc).exists():
+                Map.objects.create(location=getloc, latitude=getlat, longitude=getlon)
+            new_diary.location=Map.objects.get(location=getloc)
+            new_diary.getWeather()
+            new_diary.save()
             return HttpResponseRedirect('/diaries/display/')
         else:
             raise Http404

@@ -3,18 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Display</title>
+
+<style>
+   #map {
+    height: 300px;
+    width: 500px;
+   }
+</style>
 </head>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key={{MapAPI}}&callback=initMap">
+    </script>
 <body>
   <h3># All Diaries</h3>
   {{diary.title}} <br>
   {% for d in diaryList %}
       標題：{{d.title}}<br>
       日期：{{d.date}}<br>
-      天氣：{{d.weather}}<br>
       標籤：
       {% for t in d.tags.all %}
           {{t.tagName}}
       {% endfor %}<br>
+      天氣： 平均溫度：{{d.weather_meantemp}}℃ <img src="https://icons.wxug.com/i/c/i/{{d.weather_cond}}.gif" alt="Smiley face" height="42" width="42"><br>
+      地點：<a target="_blank" href="http://maps.google.com/maps?q={{d.location.latitude}},{{d.location.longitude}}">{{d.location.location}}</a><br>
+      <div id="map"></div>
+      <script>
+      function initMap() {
+        var uluru = {lat: {{d.location.latitude}}, lng: {{d.location.longitude}}};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+      </script>
 
       <li>有{{d.media_set.all|length }}個媒體</li>
 

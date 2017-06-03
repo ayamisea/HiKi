@@ -32,10 +32,10 @@ class Diary(models.Model):
     def getWeather(self):
         weaherAPI= settings.WEATHER_API_KEY
         http = urllib3.PoolManager()
-        urlGeo = 'http://api.wunderground.com/api/'+ weaherAPI+'/geolookup/q/' + str(self.location.latitude) + ',' + str(self.location.longitude) + '.json'
+        urlGeo = 'http://api.wunderground.com/api/'+weaherAPI+'/geolookup/q/' + str(self.location.latitude) + ',' + str(self.location.longitude) + '.json'
         g = http.request('GET', urlGeo)
         zmw = json.loads(g.data.decode('utf-8'))['location']['l']
-        ymd = self.date.year + self.date.month + self.date.date
+        ymd = str(self.date.year) + str(self.date.month) + str(self.date.day)
         urlW = 'http://api.wunderground.com/api/'+ weaherAPI+'/history_' + ymd + zmw + '.json'
         w = http.request('GET', urlW)
         weather = json.loads(w.data.decode('utf-8'))['history']
