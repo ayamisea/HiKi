@@ -46,8 +46,10 @@
       //加入User地點
       var maplist = new Array();
        {% for m in maps %}
-          var temp = new Array('{{m.location}}',parseFloat('{{m.latitude}}'),parseFloat('{{m.longitude}}'));
-           maplist.push(temp);
+         {% ifnotequal m.location "null" %}
+            var temp = new Array('{{m.location}}',parseFloat('{{m.latitude}}'),parseFloat('{{m.longitude}}'));
+            maplist.push(temp);
+          {% endifnotequal %}
        {% endfor %}
 
       function setMarkers(map)
