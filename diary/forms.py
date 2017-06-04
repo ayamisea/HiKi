@@ -15,4 +15,9 @@ class MediaForm(forms.ModelForm):
     class Meta:
         model = Media
         fields = ['title', 'description', 'img']
+        widgets ={
+            'title': forms.TextInput(attrs={'class':'form-control ' , 'style':'width:200px ; display:inline'}),
+            'description': forms.Textarea(attrs={'class': 'form-control ', 'style': 'width:300px ;height:100px;margin-left:20px'}),
+            'img':forms.FileInput(attrs={'class':'btn btn-default'})
+        }
 

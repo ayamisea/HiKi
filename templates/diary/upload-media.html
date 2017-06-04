@@ -42,12 +42,13 @@ iframe
 
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ media_form.as_p }}
+        標題：{{ media_form.title }}<br>
+        敘述：{{ media_form.description}}<br>
+        上傳影像：{{ media_form.img}}<br>
+
         <input type="hidden" name="diaryID" value={{diaryID}} />
-        <input type="submit" value="加入媒體" name="option1" />
-
+        <input  class="btn btn-default" style="margin-left:20px" type="submit" value="加入媒體" name="option1" />
     </form>
-
 
     </br>
     <iframe src="/diaries/media-upload-show/" height="300" width=60%></iframe>

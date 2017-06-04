@@ -25,49 +25,64 @@
 </script>
 <body>
 
-      標題：{{diary.title}}<br>
+      <h3>標題：{{diary.title}}</h3> <br>
       日期：{{diary.date}}<br>
-      標籤：
-      {% for t in diary.tags.all %}
-          #{{t.tagName}}
-      {% endfor %}<br>
-      天氣： 平均溫度：{{diary.weather_meantemp}}℃ <img src="https://icons.wxug.com/i/c/i/{{diary.weather_cond}}.gif" alt="Smiley face" height="42" width="42"><br>
-      地點：<a target="_blank" href="http://maps.google.com/maps?q={{diary.location.latitude}},{{diary.location.longitude}}">{{diary.location.location}}</a><br>
-        <div id="map"></div>
-        <script>
-          function initMap() {
-            var uluru = {lat: {{diary.location.latitude}}, lng: {{diary.location.longitude}} };
-            var map = new google.maps.Map(document.getElementById('map'), {
-              zoom: 7,
-              center: uluru
-            });
-            var marker = new google.maps.Marker({
-              position: uluru,
-              map: map
-            });
-          }
-        </script>
-        <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key={{ MapAPI}}&callback=initMap">
-        </script>
-      內容：<br>{{diary.content}}<br><br>
-      有{{diary.media_set.all|length }}個媒體<br>
+      {% ifnotequal diary.tags.all|length 0 %}
+        標籤：
+        {% for t in diary.tags.all %}
+            #{{t.tagName}}
+        {% endfor %}<br>
+      {% endifnotequal %}
 
-      {% for i in diary.media_set.all %}
-          <li><b>{{i.title}}</b> [ {{i.description}} ]<br></li>
-          {% if i.type == "img" %}
-              <img src="{{mediaURL}}{{i.img}}" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
-          {% endif %}
-          {% if i.type == "video" %}
-              <video height="500" controls>
-                <source src="{{mediaURL}}{{i.img}}" type="video/mp4">
-                <source src="{{mediaURL}}{{i.img}}" type="video/ogg">
-                Your browser does not support HTML5 video.
-              </video>
-          {% endif %}
-          <br>
-      {% endfor %}
+      {% ifnotequal diary.location.location "null" %}
+        天氣： 平均溫度：{{diary.weather_meantemp}}℃ <img src="https://icons.wxug.com/i/c/i/{{diary.weather_cond}}.gif" alt="Smiley face" height="42" width="42"><br>
+        地點：<a target="_blank" href="http://maps.google.com/maps?q={{diary.location.latitude}},{{diary.location.longitude}}">{{diary.location.location}}</a><br>
+          <div id="map"></div>
+          <script>
+            function initMap() {
+              var uluru = {lat: {{diary.location.latitude}}, lng: {{diary.location.longitude}} };
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 7,
+                center: uluru
+              });
+              var marker = new google.maps.Marker({
+                position: uluru,
+                map: map
+              });
+            }
+          </script>
+          <script async defer
+          src="https://maps.googleapis.com/maps/api/js?key={{ MapAPI}}&callback=initMap">
+          </script>
+      {% endifnotequal %}
+
+      內容：<br>{{diary.content}}<br><br>
+
+      {% ifnotequal diary.media_set.all|length 0 %}
+        有{{diary.media_set.all|length }}個媒體<br>
+
+        {% for i in diary.media_set.all %}
+            <li><b>{{i.title}}</b> [ {{i.description}} ]<br></li>
+            {% if i.type == "img" %}
+                <img src="{{mediaURL}}{{i.img}}" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
+            {% endif %}
+            {% if i.type == "video" %}
+                <video height="500" controls>
+                  <source src="{{mediaURL}}{{i.img}}" type="video/mp4">
+                  <source src="{{mediaURL}}{{i.img}}" type="video/ogg">
+                  Your browser does not support HTML5 video.
+                </video>
+            {% endif %}
+            <br>
+        {% endfor %}
+      {% endifnotequal %}
+
       <br>
+      <form method="post" >
+          {% csrf_token %}
+          <input type="submit" style="margin-left: 30px;" name="delete" value="刪除"> <br>
+          <input type="submit" style="margin-left: 30px;" name="update" value="編輯"> [建置中...]<br><br>
+      </form>
     <form action="/diaries/display" >
           <button type="submit" style="margin-left: 30px;" >回日記</button>
     </form>

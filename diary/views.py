@@ -7,8 +7,6 @@ from django.http import HttpResponse
 from django.conf import settings
 from decimal import *
 
-
-
 # Create your views here.
 def unit_test(request):
     return render(request, 'diary/unit_test.html')
@@ -23,6 +21,21 @@ def detail(request,pk):
     mediaURL = settings.MEDIA_URL
     MapAPI = settings.GOOGLE_MAPS_API_KEY
     diary = Diary.objects.get(pk=pk)
+    if request.method=='POST':
+        if 'delete' in request.POST:
+            d = Diary.objects.get(id=pk)
+            m = Map.objects.get(location = d.location)
+            for t in d.tags.all(): #delete tags
+                if t.diary_set.count() == 1:
+                    Tag.objects.get(id= t.id).delete()
+            for img in d.media_set.all(): #delete media
+                Media.objects.get(id=img.id).delete()
+            if m.diary_set.count() == 1: #delete maps
+                m.delete()
+            d.delete()
+            return HttpResponseRedirect('/diaries/display/')
+        if 'update' in request.POST:
+            return HttpResponseRedirect('/diaries/unit_test/')
     return render(request, 'diary/detail.html', locals())
 
 #create new diary
@@ -31,7 +44,7 @@ def newdiary(request):
     if request.method == 'POST':
         #map
         getlat = Decimal(request.POST.get('lat'))
-        getlon =  Decimal(request.POST.get('lon'))
+        getlon = Decimal(request.POST.get('lon'))
         getloc = request.POST.get('loc')
         #tags
         tags = request.POST.getlist('tags')

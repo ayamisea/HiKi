@@ -22,7 +22,7 @@ class Diary(models.Model):
     userID = models.CharField(max_length=30, blank=False)
     title = models.CharField(max_length=30, blank=False)
     date = models.DateField()
-    content = models.CharField(max_length=1000,blank=True)
+    content = models.CharField(max_length=1000,blank=False)
     location = models.ForeignKey(Map,blank=True,null=True)
     tags = models.ManyToManyField(Tag)
     weather_meantemp = models.CharField(max_length=50, null=True)
@@ -42,8 +42,14 @@ class Diary(models.Model):
         cond_list = []
         for data in weather['observations']:
             cond_list.append(data['icon'])
-        self.weather_meantemp = weather['dailysummary'][0]['meantempm']
-        self.weather_cond = Counter(cond_list).most_common(1)[0][0]
+        try:
+            self.weather_meantemp = weather['dailysummary'][0]['meantempm']
+        except IndexError:
+            self.weather_meantemp = 'null'
+        try:
+            self.weather_cond = Counter(cond_list).most_common(1)[0][0]
+        except IndexError:
+            self.weather_cond = 'null'
         cond_list.clear()
     class Meta:  # 排序用
         ordering = ['date']
