@@ -2,9 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>All Tags</title>
+
+    <!--bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body>
+  <h3>#Display tags</h3>
+  標籤列：
 
+  <form action="" method="post">
+    {% csrf_token %}
+    {% for tag in tagList %}
+        <button type="submit" class="btn" style="margin-left:10px;display:inline" name="tag" value={{tag.id}} >{{tag.tagName}}</button>
+    {% endfor %}
+  </form>
+  <br>
+  <form action="/diaries/unit_test" >
+          <button type="submit" style="margin-left: 10px;" >回首頁</button>
+  </form>
+  <hr>
+  {% for diary in tagDiary %}
+    標題：{{diary.title}}<br>
+      日期：{{diary.date}}<br>
+      內容：<br>
+      {{diary.content}}<br>
+      <a class="btn btn-default" style="margin-left:20px" href="{% url 'detail' pk=diary.pk %}">
+                        Read More <i class="fa fa-arrow-right"></i>
+      </a>
+      </br>
+      <hr>
+  {% endfor %}
 </body>
 </html>

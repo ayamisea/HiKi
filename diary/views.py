@@ -118,6 +118,14 @@ def media(request):
     mediaURL = settings.MEDIA_URL
     return render(request, 'diary/display-media.html', locals())
 
+#display all tags and its diaries
+def tag(request):
+    tagList = Tag.objects.all()
+    if request.method == 'POST':
+        tagID = request.POST.get('tag')
+        tagDiary = Tag.objects.get(id=tagID).diary_set.all()
+    return render(request, 'diary/display-tag.html', locals())
+
 #just test... ignore it
 def test(request):
     if request.is_ajax():
