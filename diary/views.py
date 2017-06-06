@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .forms import DiaryForm,MediaForm
-from .models import Tag,Diary,Map,Media
+from .models import Tag,Diary,Map,Media,User
 from django.http import HttpResponseRedirect
 from django.http import Http404
 from django.http import HttpResponse
@@ -9,7 +9,10 @@ from decimal import *
 
 # Create your views here.
 def unit_test(request):
-    return render(request, 'diary/unit_test.html')
+    #test account
+    request.session['userID'] = User.objects.all().get(name = 'test').email
+    userID = request.session['userID']
+    return render(request, 'diary/unit_test.html',locals())
 
 #display all diaries
 def display(request):
@@ -63,6 +66,8 @@ def newdiary(request):
                 Map.objects.create(location=getloc, latitude=getlat, longitude=getlon)
             new_diary.location=Map.objects.get(location=getloc)
             new_diary.getWeather()
+            userID = request.session['userID']
+            new_diary.userID = User.objects.get(email = userID)
             new_diary.save()
             request.session['diaryID'] = new_diary.id
             return HttpResponseRedirect('/diaries/media-upload/')
@@ -104,19 +109,30 @@ def media_upload_show(request):
 #display all map
 def map(request):
     MapAPI = settings.GOOGLE_MAPS_API_KEY
-    maps = Map.objects.all()
-    maplist = list(maps)
+    user = User.objects.get(email = request.session['userID'])
+    maps = []
+    for diary in user.diary_set.all():
+        maps.append(diary.location)
     return render(request, 'diary/display-map.html', locals())
 
 #display all media
 def media(request):
-    mediaList = Media.objects.all()
+    user = User.objects.get(email=request.session['userID'])
+    mediaList = []
+    for media in Media.objects.all():
+        if media.diary.userID == user :
+            mediaList.append(media)
     mediaURL = settings.MEDIA_URL
     return render(request, 'diary/display-media.html', locals())
 
 #display all tags and its diaries
 def tag(request):
-    tagList = Tag.objects.all()
+    user = User.objects.get(email=request.session['userID'])
+    tagList = []
+    for diary in user.diary_set.all():
+        for tag in diary.tags.all():
+            if not tag in tagList:
+                tagList.append(tag)
     if request.method == 'POST':
         tagID = request.POST.get('tag')
         tagDiary = Tag.objects.get(id=tagID).diary_set.all()
