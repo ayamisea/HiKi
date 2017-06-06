@@ -1,5 +1,6 @@
 from django.db import models
-
+from django.contrib.auth import get_user_model
+User =  get_user_model()
 import urllib3
 import json
 from collections import Counter
@@ -19,6 +20,7 @@ class Tag(models.Model):
         return self.tagName
 
 class Diary(models.Model):
+    userID = models.ForeignKey(User,blank=True,null=True)
     title = models.CharField(max_length=30, blank=False)
     date = models.DateField()
     content = models.CharField(max_length=1000,blank=False)
