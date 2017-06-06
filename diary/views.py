@@ -178,17 +178,3 @@ def edit(request,pk):
     request.session['diaryID'] = pk
     return render(request, 'diary/edit.html', locals())
 
-#just test... ignore it
-def test(request):
-    if request.is_ajax():
-        tags = request.POST.getlist('tags[]')
-        for tag in tags:
-            if not tag == '':
-                if Tag.objects.filter(tagName=tag).exists():
-                    t = Tag.objects.get(tagName=tag)
-                else:
-                    t = Tag.objects.create(tagName=tag)
-        message = "This is ajax"
-        return HttpResponse(message)
-    else :
-        return render(request, 'diary/test.html')
