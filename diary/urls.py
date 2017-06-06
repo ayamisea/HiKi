@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^new/$', views.newdiary), # newdiary.html
     url(r'^media-upload/$', views.media_upload), # upload-media.html
     url(r'^media-upload-show/$', views.media_upload_show), # upload-media-display.html
+    url(r'^edit/(?P<pk>\d+)/$', views.edit,name='edit'), # edit.html
     url(r'^test/$', views.test),# test.html  #ignore it
 ]

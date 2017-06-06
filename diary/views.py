@@ -34,8 +34,6 @@ def detail(request,pk):
                 m.delete()
             d.delete()
             return HttpResponseRedirect('/diaries/display/')
-        if 'update' in request.POST:
-            return HttpResponseRedirect('/diaries/unit_test/')
     return render(request, 'diary/detail.html', locals())
 
 #create new diary
@@ -100,9 +98,7 @@ def media_upload_show(request):
     if 'diaryID' in request.session:
         diaryID = request.session['diaryID']
         nowDiary = Diary.objects.get(pk = diaryID)
-        imgs= Media.objects.filter(diary=nowDiary)
-    else:
-        imgs = Media.objects.all()
+        imgs= nowDiary.media_set.all()
     return render(request,'diary/upload-media-display.html',locals())
 
 #display all map
@@ -125,6 +121,62 @@ def tag(request):
         tagID = request.POST.get('tag')
         tagDiary = Tag.objects.get(id=tagID).diary_set.all()
     return render(request, 'diary/display-tag.html', locals())
+
+#edit diaries
+def edit(request,pk):
+    if request.method =="POST":
+        diaryID = request.session['diaryID']
+        editDiary = Diary.objects.get(id=diaryID)
+        # media
+        media_num = editDiary.media_set.count()
+        # map
+        getlat = Decimal(request.POST.get('lat'))
+        getlon = Decimal(request.POST.get('lon'))
+        getloc = request.POST.get('loc')
+        # tags
+        tags = request.POST.getlist('tags')
+        # diary
+        diary_form = DiaryForm(request.POST)
+        if diary_form.is_valid():
+            # update diary
+            editDiary.title = diary_form.cleaned_data['title']
+            editDiary.date = diary_form.cleaned_data['date']
+            editDiary.content = diary_form.cleaned_data['content']
+            #delete tags
+            for tag in editDiary.tags.all():
+                editDiary.tags.remove(Tag.objects.get(id=tag.id))
+                if tag.diary_set.count() == 0:
+                    Tag.objects.get(id=tag.id).delete()
+            #add tags
+            taglist = tags[0].split(',')
+            for tag in taglist:
+                if not tag =='':
+                    if not Tag.objects.filter(tagName = tag).exists():
+                        Tag.objects.create(tagName=tag)
+                    editDiary.tags.add(Tag.objects.get(tagName = tag))
+            #delete map
+            deleteMap = Map.objects.get(id = editDiary.location.id)
+            deleteMap.diary_set.remove(editDiary)
+            if deleteMap.diary_set.count() == 0:
+                deleteMap.delete()
+            #add map
+            if not Map.objects.filter(location=getloc).exists():
+                Map.objects.create(location=getloc, latitude=getlat, longitude=getlon)
+            editDiary.location = Map.objects.get(location=getloc)
+            editDiary.save()
+            return HttpResponseRedirect('/diaries/media-upload/')
+        else:
+            raise Http404
+    editDiary = Diary.objects.get(id=pk)
+    MapAPI = settings.GOOGLE_MAPS_API_KEY
+    editMap = editDiary.location
+    editTag = editDiary.tags.all()
+    diary_form = DiaryForm(initial={
+        'title': editDiary.title,
+        'date':editDiary.date,
+        'content':editDiary.content})
+    request.session['diaryID'] = pk
+    return render(request, 'diary/edit.html', locals())
 
 #just test... ignore it
 def test(request):

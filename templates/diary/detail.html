@@ -80,11 +80,13 @@
       <br>
       <form method="post" >
           {% csrf_token %}
-          <input type="submit" style="margin-left: 30px;" name="delete" value="刪除"> <br>
-          <input type="submit" style="margin-left: 30px;" name="update" value="編輯"> [建置中...]<br><br>
+          <input class="btn btn-default" type="submit" style="margin-left: 30px;" name="delete" value="刪除"> <br>
+          <a class="btn btn-default" style="margin-left:30px" href="{% url 'edit' pk=diary.pk %}">
+                        編輯 <i class="fa fa-arrow-right"></i>
+          </a>
       </form>
     <form action="/diaries/display" >
-          <button type="submit" style="margin-left: 30px;" >回日記</button>
+          <button class="btn btn-default" type="submit" style="margin-left: 30px;" >回日記</button>
     </form>
 </body>
 </html>

@@ -39,7 +39,8 @@ iframe
 <body>
 
     <h3># Media Uploader</h3>
-
+    {{diaryID}}
+    {{media_num}}
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         標題：{{ media_form.title }}<br>
@@ -51,6 +52,7 @@ iframe
     </form>
 
     </br>
+
     <iframe src="/diaries/media-upload-show/" height="300" width=60%></iframe>
     </br>
     </br>
