@@ -5,3 +5,7 @@ Django==1.11
 # Deploy WSGI server
 # http://gunicorn.org/
 gunicorn==19.7.1
+
+# urllib3
+# https://urllib3.readthedocs.io/en/latest/
+urllib3==1.21.1
