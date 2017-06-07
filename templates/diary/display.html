@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Display</title>
+
+    <!--bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <h3># All Diaries</h3>
+  {% for d in diaryList %}
+      標題：{{d.title}}<br>
+      日期：{{d.date}}<br>
+      內容：<br>
+      {{d.content}}<br>
+      <a class="btn btn-default" style="margin-left:20px" href="{% url 'detail' pk=d.pk %}">
+                        Read More <i class="fa fa-arrow-right"></i>
+      </a>
+      <br>
+      <hr>
+  {% endfor %}
+    <form action="/diaries/unit_test" >
+          <button type="submit" style="margin-left: 30px;" >回首頁</button>
+    </form>
+</body>
+</html>

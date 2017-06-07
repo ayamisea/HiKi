@@ -1,0 +1,27 @@
+{% extends 'users/homepage.html' %}
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{% static 'users/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column p-2">
+	<form method="POST" class="d-flex flex-column align-self-center">{% csrf_token %}
+		<div class="formrow flex-column flex-sm-row p-1">
+			<div class="mr-sm-auto" style="padding-right: 1vh"">{{ form.username.label_tag }}</div>
+			<div class="ml-sm-auto">{{ form.username }}</div>
+		</div>
+		<div class="formrow flex-column flex-sm-row p-1">
+			<div class="mr-sm-auto" style="padding-right: 1vh">{{ form.password.label_tag }}</div>
+			<div class="ml-sm-auto">{{ form.password }}</div>
+		</div>
+		<div class="formrow flex-column flex-sm-row p-1">
+    		<input class="btn btn-primary" style="width: 100%" type="submit" name="submit" value="Login">
+    	</div>
+	</form>
+	<div class="d-flex flex-row justify-content-center p-2">
+		<div class="h6">Don't have account?<a href="/accounts/signup">Sign Up</a></div>
+	</div>
+</div>	
+{% endblock %}
