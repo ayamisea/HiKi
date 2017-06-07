@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [
     url(r'^unit_test/$', views.unit_test), # unit_test.html
-    url(r'^display/$', views.display), # display.html
+    url(r'^$', views.display), # display.html
     url(r'^detail/(?P<pk>\d+)/$', views.detail, name='detail'), # detail.html
     url(r'^map/$', views.map), # display-map.html
     url(r'^media/$', views.media), # display-media.html
