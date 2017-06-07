@@ -101,11 +101,12 @@ ENV/
 .mypy_cache/
 
 # VS Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+# .vscode/*
+# !.vscode/settings.json
+# !.vscode/tasks.json
+# !.vscode/launch.json
+# !.vscode/extensions.json
+.vscode/
 
 # Sublime Text
 # cache files for sublime text

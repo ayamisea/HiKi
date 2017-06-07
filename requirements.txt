@@ -4,8 +4,6 @@ Django==1.11
 
 # Django Packages
 # https://djangopackages.org/
-# https://djangopackages.org/packages/p/django-crispy-forms/
-django-crispy-forms==1.6.1
 
 # Deploy WSGI server
 # http://gunicorn.org/

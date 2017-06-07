@@ -12,7 +12,7 @@ def user_signup(request):
         form = PublicUserCreationForm(data=request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+            base_login(request, user)
             return HttpResponse('Successed!')
     else:
         form = PublicUserCreationForm()
