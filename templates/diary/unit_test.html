@@ -11,38 +11,36 @@
 
 </head>
 <body>
+    目前的使用者：{{userID}}
+
   <h3># Diary</h3>
 
-    <form action="/diaries/display" >
+    <form action="/diary/" >
           <button type="submit" style="margin-left: 30px;" >所有日記</button> #列出所有的日記，可以查看單一日記，且可對日記刪除、更新
     </form>
     <br>
-    <form action="/diaries/new" >
+    <form action="/diary/new" >
             <button type="submit" style="margin-left: 30px;" >新增日記</button> #新增新的日記、並可上傳媒體
     </form>
 
   <h3># Map</h3>
 
-    <form action="/diaries/map" >
+    <form action="/diary/map" >
           <button type="submit" style="margin-left: 30px;" >旅遊足跡</button> #列出目前使用者去過的地方
     </form>
 
   <h3># Media</h3>
 
-    <form action="/diaries/media" >
+    <form action="/diary/media" >
           <button type="submit" style="margin-left: 30px;" >所有媒體</button>  #列出使用者上傳的媒體，為相簿功能
     </form>
 
   <h3># Tag</h3>
 
-  <form action="/diaries/tag" >
+  <form action="/diary/tag" >
           <button type="submit" style="margin-left: 30px;" >所有標籤</button> #根據tag列出日記
   </form>
 
-  <hr>
-  <h3># Install</h3>
-  <a href="https://urllib3.readthedocs.io/en/latest/">import urllib3</a><br>
-  <b style="margin-left:20px">$ pip install urllib3 </b>
 
 
 </body>
