@@ -13,7 +13,7 @@ def unit_test(request):
         userID = request.user.email
         return render(request, 'diary/unit_test.html',locals())
     else:
-        HttpResponseRedirect('/accounts/login/')
+        return HttpResponseRedirect('/accounts/login/')
 
 #display all diaries
 def display(request):
