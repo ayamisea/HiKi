@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Media</title>
+        <!--bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<h3># All Media</h3>
+  {% for media in mediaList %}
+    <h4><b>{{media.title}}</b></h4>
+    {{media.description}} <br>
+          {% if media.type == "img" %}
+              <img src="{{mediaURL}}{{media.img}}" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
+          {% endif %}
+          {% if media.type == "video" %}
+              <video height="500" controls>
+                <source src="{{mediaURL}}{{ media.img}}" type="video/mp4">
+                <source src="{{mediaURL}}{{ media.img}}" type="video/ogg">
+                Your browser does not support HTML5 video.
+              </video>
+          {% endif %}
+          <br>
+    <hr>
+  {% endfor %}
+
+</body>
+</html>
