@@ -4,19 +4,19 @@ from django.contrib.auth.views import (
 from django.shortcuts import redirect, render, HttpResponse
 from django.utils.translation import ugettext
 
-from .forms import AuthenticationForm, UserCreationForm
+from .forms import AuthenticationForm, PublicUserCreationForm
 
 
 def user_signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(data=request.POST)
+        form = PublicUserCreationForm(data=request.POST)
         if form.is_valid():
             user = form.save()
 
             login(request, user)
             return HttpResponse('Successed!')
     else:
-        form = UserCreationForm()
+        form = PublicUserCreationForm()
     return render(request, 'users/signup.html', {'form': form})
 
 def user_login(request):
