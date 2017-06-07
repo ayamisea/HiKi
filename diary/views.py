@@ -9,10 +9,11 @@ from decimal import *
 
 # Create your views here.
 def unit_test(request):
-    #test account
-    request.session['userID'] = User.objects.all().get(name = 'test').email
-    userID = request.session['userID']
-    return render(request, 'diary/unit_test.html',locals())
+    if request.user.is_authenticated:
+        userID = request.user.email
+        return render(request, 'diary/unit_test.html',locals())
+    else:
+        HttpResponseRedirect('/accounts/login/')
 
 #display all diaries
 def display(request):
@@ -36,7 +37,7 @@ def detail(request,pk):
             if m.diary_set.count() == 1: #delete maps
                 m.delete()
             d.delete()
-            return HttpResponseRedirect('/diaries/display/')
+            return HttpResponseRedirect('/diary/')
     return render(request, 'diary/detail.html', locals())
 
 #create new diary
@@ -66,11 +67,10 @@ def newdiary(request):
                 Map.objects.create(location=getloc, latitude=getlat, longitude=getlon)
             new_diary.location=Map.objects.get(location=getloc)
             new_diary.getWeather()
-            userID = request.session['userID']
-            new_diary.userID = User.objects.get(email = userID)
+            new_diary.userID = User.objects.get(email = request.user.email)
             new_diary.save()
             request.session['diaryID'] = new_diary.id
-            return HttpResponseRedirect('/diaries/media-upload/')
+            return HttpResponseRedirect('/diary/media-upload/')
         else:
             raise Http404
     else:
@@ -86,7 +86,7 @@ def media_upload(request):
             newMedia = media_form.save()
             newMedia.diary = Diary.objects.get(pk=diaryID)
             newMedia.save()
-            return HttpResponseRedirect('/diaries/media-upload/')
+            return HttpResponseRedirect('/diary/media-upload/')
         else:
             raise Http404
     else:
@@ -99,7 +99,7 @@ def media_upload_show(request):
     if request.method == 'POST':
         deleteID=request.POST.get('dID')
         Media.objects.get(id=deleteID).delete()
-        return HttpResponseRedirect('/diaries/media-upload-show/')
+        return HttpResponseRedirect('/diary/media-upload-show/')
     if 'diaryID' in request.session:
         diaryID = request.session['diaryID']
         nowDiary = Diary.objects.get(pk = diaryID)
@@ -109,7 +109,7 @@ def media_upload_show(request):
 #display all map
 def map(request):
     MapAPI = settings.GOOGLE_MAPS_API_KEY
-    user = User.objects.get(email = request.session['userID'])
+    user = User.objects.get(email = request.user.email)
     maps = []
     for diary in user.diary_set.all():
         maps.append(diary.location)
@@ -117,7 +117,7 @@ def map(request):
 
 #display all media
 def media(request):
-    user = User.objects.get(email=request.session['userID'])
+    user = User.objects.get(email = request.user.email)
     mediaList = []
     for media in Media.objects.all():
         if media.diary.userID == user :
@@ -127,7 +127,7 @@ def media(request):
 
 #display all tags and its diaries
 def tag(request):
-    user = User.objects.get(email=request.session['userID'])
+    user = User.objects.get(email = request.user.email)
     tagList = []
     for diary in user.diary_set.all():
         for tag in diary.tags.all():
@@ -180,7 +180,7 @@ def edit(request,pk):
                 Map.objects.create(location=getloc, latitude=getlat, longitude=getlon)
             editDiary.location = Map.objects.get(location=getloc)
             editDiary.save()
-            return HttpResponseRedirect('/diaries/media-upload/')
+            return HttpResponseRedirect('/diary/media-upload/')
         else:
             raise Http404
     editDiary = Diary.objects.get(id=pk)
