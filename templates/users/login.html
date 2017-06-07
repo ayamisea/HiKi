@@ -9,7 +9,7 @@
 <div class="d-flex flex-column p-2">
 	<form method="POST" class="d-flex flex-column align-self-center">{% csrf_token %}
 		<div class="formrow flex-column flex-sm-row p-1">
-			<div class="mr-sm-auto" style="padding-right: 1vh"">{{ form.username.label_tag }}</div>
+			<div class="mr-sm-auto" style="padding-right: 1vh;">{{ form.username.label_tag }}</div>
 			<div class="ml-sm-auto">{{ form.username }}</div>
 		</div>
 		<div class="formrow flex-column flex-sm-row p-1">
@@ -23,5 +23,5 @@
 	<div class="d-flex flex-row justify-content-center p-2">
 		<div class="h6">Don't have account?<a href="/accounts/signup">Sign Up</a></div>
 	</div>
-</div>	
+</div>
 {% endblock %}
