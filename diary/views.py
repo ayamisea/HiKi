@@ -112,7 +112,8 @@ def map(request):
     user = User.objects.get(email = request.user.email)
     maps = []
     for diary in user.diary_set.all():
-        maps.append(diary.location)
+        if not diary.location in maps:
+            maps.append(diary.location)
     return render(request, 'diary/display-map.html', locals())
 
 #display all media
