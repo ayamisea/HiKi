@@ -9,11 +9,6 @@ from django.contrib.auth.forms import (
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Field, Fieldset, Layout, Submit, HTML, Div
-from crispy_forms.bootstrap import FormActions
-
-
 User = get_user_model()
 
 
@@ -116,29 +111,6 @@ class PublicUserCreationForm(UserCreationForm):
     layout, and provides option to log the user in automatically when calling
     ``save()``.
     """
-    @cached_property
-    def helper(self):
-        helper = FormHelper()
-        helper.error_text_inline = False
-        helper.attr = {
-            'autocomplete': 'off', 'autocorrect': 'off',
-            'autocapitalize': 'off', 'spellcheck': 'false',
-        }
-        helper.label_class = 'sr-only'
-        helper.layout = Layout(
-            Fieldset(
-                '',
-                Field('email', placeholder=self.fields['email'].label),
-                Field('password1', placeholder=self.fields['password1'].label),
-                Field('password2', placeholder=self.fields['password2'].label),
-            ),
-            FormActions(
-                Submit(
-                    'save', _('Create Account'), css_class='btn-lg btn-block',
-                )
-            )
-        )
-        return helper
 
     def save(self, commit=True, auth=True):
         """Save user.
