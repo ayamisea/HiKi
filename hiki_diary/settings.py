@@ -136,3 +136,4 @@ MEDIA_URL = '/media/'
 
 GOOGLE_MAPS_API_KEY = 'AIzaSyChBwGKjWqJsZEFJjIlhE6yiFVljE5oUvg'
 WEATHER_API_KEY = 'caa01be39312b446' #https://www.wunderground.com/
+
