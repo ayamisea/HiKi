@@ -6,14 +6,16 @@ from django.http import Http404
 from django.http import HttpResponse
 from django.conf import settings
 from decimal import *
+from django.contrib import messages
 
 # Create your views here.
 def unit_test(request):
     if request.user.is_authenticated:
         userID = request.user.email
+
         return render(request, 'diary/unit_test.html',locals())
     else:
-        return HttpResponseRedirect('/accounts/login/')
+        return HttpResponseRedirect('/accounts/')
 
 #display all diaries
 def display(request):
@@ -72,7 +74,7 @@ def newdiary(request):
             request.session['diaryID'] = new_diary.id
             return HttpResponseRedirect('/diary/media-upload/')
         else:
-            raise Http404
+            messages.warning(request, '格式輸入錯誤')
     else:
         diary_form = DiaryForm()
     return render(request, 'diary/newdiary.html', locals())
@@ -110,19 +112,13 @@ def media_upload_show(request):
 def map(request):
     MapAPI = settings.GOOGLE_MAPS_API_KEY
     user = User.objects.get(email = request.user.email)
-    maps = []
-    for diary in user.diary_set.all():
-        if not diary.location in maps:
-            maps.append(diary.location)
+    maps = set([diary.location for diary in user.diary_set.all()])
     return render(request, 'diary/display-map.html', locals())
 
 #display all media
 def media(request):
     user = User.objects.get(email = request.user.email)
-    mediaList = []
-    for media in Media.objects.all():
-        if media.diary.userID == user :
-            mediaList.append(media)
+    mediaList = [media for media in Media.objects.all() if media.diary.userID == user]
     mediaURL = settings.MEDIA_URL
     return render(request, 'diary/display-media.html', locals())
 
