@@ -6,6 +6,7 @@ from django.http import Http404
 from django.http import HttpResponse
 from django.conf import settings
 from decimal import *
+from django.contrib import messages
 
 # Create your views here.
 def unit_test(request):
@@ -73,7 +74,7 @@ def newdiary(request):
             request.session['diaryID'] = new_diary.id
             return HttpResponseRedirect('/diary/media-upload/')
         else:
-            raise Http404
+            messages.warning(request, '格式輸入錯誤')
     else:
         diary_form = DiaryForm()
     return render(request, 'diary/newdiary.html', locals())

@@ -4,6 +4,7 @@ from .models import Diary,Media
 class DiaryForm(forms.ModelForm):
     class Meta:
         model = Diary
+        date = forms.DateField(required=False , input_formats = ['%Y-%m-%d'])
         fields = ['title', 'date','content']
         widgets = {
             'title': forms.TextInput(attrs={'class':'form-control ' , 'style':'width:200px ; display:inline'}),
