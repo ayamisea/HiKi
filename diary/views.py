@@ -14,7 +14,7 @@ def unit_test(request):
 
         return render(request, 'diary/unit_test.html',locals())
     else:
-        return HttpResponseRedirect('/accounts/login/')
+        return HttpResponseRedirect('/accounts/')
 
 #display all diaries
 def display(request):
