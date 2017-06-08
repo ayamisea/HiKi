@@ -7,25 +7,23 @@ from django.http import HttpResponse
 from django.conf import settings
 from decimal import *
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required(login_url='/accounts/')
 def unit_test(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/accounts/')
     userID = request.user.email
     return render(request, 'diary/unit_test.html',locals())
 
 #display all diaries
+@login_required(login_url='/accounts/')
 def display(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/accounts/')
     diaryList = Diary.objects.all()
     return render(request, 'diary/display.html',locals())
 
 #display one diariy
+@login_required(login_url='/accounts/')
 def detail(request,pk):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/accounts/')
     mediaURL = settings.MEDIA_URL
     MapAPI = settings.GOOGLE_MAPS_API_KEY
     diary = Diary.objects.get(pk=pk)
@@ -45,9 +43,8 @@ def detail(request,pk):
     return render(request, 'diary/detail.html', locals())
 
 #create new diary
+@login_required(login_url='/accounts/')
 def newdiary(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/accounts/')
     MapAPI=settings.GOOGLE_MAPS_API_KEY
     if request.method == 'POST':
         #map
@@ -84,9 +81,8 @@ def newdiary(request):
     return render(request, 'diary/newdiary.html', locals())
 
 # upload diary media
+@login_required(login_url='/accounts/')
 def media_upload(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/accounts/')
     diaryID = request.session['diaryID']
     if request.method =='POST':
         media_form = MediaForm(request.POST, request.FILES)
@@ -102,9 +98,8 @@ def media_upload(request):
     return render(request, 'diary/upload-media.html',locals())
 
 # upload diary media display
+@login_required(login_url='/accounts/')
 def media_upload_show(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/accounts/')
     mediaURL = settings.MEDIA_URL
     if request.method == 'POST':
         deleteID=request.POST.get('dID')
@@ -117,27 +112,24 @@ def media_upload_show(request):
     return render(request,'diary/upload-media-display.html',locals())
 
 #display all map
+@login_required(login_url='/accounts/')
 def map(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/accounts/')
     MapAPI = settings.GOOGLE_MAPS_API_KEY
     user = User.objects.get(email = request.user.email)
     maps = set([diary.location for diary in user.diary_set.all()])
     return render(request, 'diary/display-map.html', locals())
 
 #display all media
+@login_required(login_url='/accounts/')
 def media(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/accounts/')
     user = User.objects.get(email = request.user.email)
     mediaList = [media for media in Media.objects.all() if media.diary.userID == user]
     mediaURL = settings.MEDIA_URL
     return render(request, 'diary/display-media.html', locals())
 
 #display all tags and its diaries
+@login_required(login_url='/accounts/')
 def tag(request):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/accounts/')
     user = User.objects.get(email = request.user.email)
     tagList = []
     for diary in user.diary_set.all():
@@ -150,9 +142,8 @@ def tag(request):
     return render(request, 'diary/display-tag.html', locals())
 
 #edit diaries
+@login_required(login_url='/accounts/')
 def edit(request,pk):
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/accounts/')
     if request.method =="POST":
         diaryID = request.session['diaryID']
         editDiary = Diary.objects.get(id=diaryID)
