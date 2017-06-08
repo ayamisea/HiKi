@@ -3,16 +3,11 @@ Use $ python credentials.py --noauth_local_webserver
 """
 from __future__ import print_function
 import os
+import json
 
 from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
-
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-except ImportError:
-    flags = None
 
 SCOPES = 'https://www.googleapis.com/auth/gmail.send'
 
@@ -63,4 +58,10 @@ def get_credentials():
     return credentials
 
 if __name__ == '__main__':
+    try:
+        import argparse
+        flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
+    except ImportError:
+        flags = None
+
     main()
