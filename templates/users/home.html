@@ -1,10 +1,40 @@
-<form action="{% url 'signup' %}" method="POST">{% csrf_token %}
-{{ signup_form.as_p }}
-<input type="submit" name="submit" value="註冊">
-</form>
-<form action="{% url 'login' %}", method="POST">{% csrf_token %}
-{{ login_form.as_p }}
-<input type="hidden" name="next" value="/accounts/" />
-<input type="submit" name="submit" value="登入">
-</form>
-
+{% load static %}
+<!DOCTYPE html>
+    <head>  
+    	<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Hiki Diary</title>
+        <!-- Bootstrap -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'users/home.css' %}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+    </head>
+    <body class="container-fluid d-flex justify-content-center">
+		<main class="d-flex">
+			<div class="d-flex flex-column ">
+				<div class="d-flex flex-row p-2">
+					<div class="title">HIKI Diary</div>
+				</div>
+				<div class="d-flex flex-column p-2">
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item">
+							<a id="signuptab" class="nav-link" data-toggle="tab" href="#signup">Sign up</a>
+						</li>
+						<li class="nav-item">
+							<a id="logintab" class="nav-link active" data-toggle="tab" href="#login">Login</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+					  <div id="signup" class="tab-pane" role="tabpanel">
+					    {% include 'users/signup.html' %}
+					  </div>
+					  <div id="login" class="tab-pane active" role="tabpanel">
+					    {% include 'users/login.html' %}
+					  </div>
+					</div>
+				</div>
+			</div>
+		</main>
+    </body>
+</html>
