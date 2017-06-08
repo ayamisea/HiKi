@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'users',
-    'diary'
+    'diary',
+    'account'
 ]
 
 MIDDLEWARE_CLASSES = [

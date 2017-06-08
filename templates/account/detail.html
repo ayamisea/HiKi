@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Detail</title>
+</head>
+
+<body>
+	<h3># Detail</h3>
+	{{ account.date | date:"Y / m / d" }} <br>
+	{{ account.type }} <br>
+	{{ account.subtype }} <br>
+	{{ account.price }} <br>
+	{{ account.notes }} <br>
+
+	<form method="post" >
+    	{% csrf_token %}
+    	<input class="btn btn-default" type="submit" style="margin-left: 30px;" name="delete" value="刪除"> <br>
+    </form>
+</body>
