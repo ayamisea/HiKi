@@ -22,6 +22,7 @@ def detail(request, pk) :
 
 #create account
 def newAccount(request) :
+	account_form = AccountForm()
 	if request.method == 'POST' :
 		account_form = AccountForm(request.POST)
 		if account_form.is_valid() :
