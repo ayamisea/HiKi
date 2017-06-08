@@ -10,20 +10,22 @@ from django.contrib import messages
 
 # Create your views here.
 def unit_test(request):
-    if request.user.is_authenticated:
-        userID = request.user.email
-
-        return render(request, 'diary/unit_test.html',locals())
-    else:
+    if not request.user.is_authenticated:
         return HttpResponseRedirect('/accounts/')
+    userID = request.user.email
+    return render(request, 'diary/unit_test.html',locals())
 
 #display all diaries
 def display(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/accounts/')
     diaryList = Diary.objects.all()
     return render(request, 'diary/display.html',locals())
 
 #display one diariy
 def detail(request,pk):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/accounts/')
     mediaURL = settings.MEDIA_URL
     MapAPI = settings.GOOGLE_MAPS_API_KEY
     diary = Diary.objects.get(pk=pk)
@@ -44,6 +46,8 @@ def detail(request,pk):
 
 #create new diary
 def newdiary(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/accounts/')
     MapAPI=settings.GOOGLE_MAPS_API_KEY
     if request.method == 'POST':
         #map
@@ -81,6 +85,8 @@ def newdiary(request):
 
 # upload diary media
 def media_upload(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/accounts/')
     diaryID = request.session['diaryID']
     if request.method =='POST':
         media_form = MediaForm(request.POST, request.FILES)
@@ -97,6 +103,8 @@ def media_upload(request):
 
 # upload diary media display
 def media_upload_show(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/accounts/')
     mediaURL = settings.MEDIA_URL
     if request.method == 'POST':
         deleteID=request.POST.get('dID')
@@ -110,6 +118,8 @@ def media_upload_show(request):
 
 #display all map
 def map(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/accounts/')
     MapAPI = settings.GOOGLE_MAPS_API_KEY
     user = User.objects.get(email = request.user.email)
     maps = set([diary.location for diary in user.diary_set.all()])
@@ -117,6 +127,8 @@ def map(request):
 
 #display all media
 def media(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/accounts/')
     user = User.objects.get(email = request.user.email)
     mediaList = [media for media in Media.objects.all() if media.diary.userID == user]
     mediaURL = settings.MEDIA_URL
@@ -124,6 +136,8 @@ def media(request):
 
 #display all tags and its diaries
 def tag(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/accounts/')
     user = User.objects.get(email = request.user.email)
     tagList = []
     for diary in user.diary_set.all():
@@ -137,6 +151,8 @@ def tag(request):
 
 #edit diaries
 def edit(request,pk):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/accounts/')
     if request.method =="POST":
         diaryID = request.session['diaryID']
         editDiary = Diary.objects.get(id=diaryID)
