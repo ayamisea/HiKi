@@ -1,0 +1,10 @@
+<form action="{% url 'signup' %}" method="POST">{% csrf_token %}
+{{ signup_form.as_p }}
+<input type="submit" name="submit" value="註冊">
+</form>
+<form action="{% url 'login' %}", method="POST">{% csrf_token %}
+{{ login_form.as_p }}
+<input type="hidden" name="next" value="/accounts/" />
+<input type="submit" name="submit" value="登入">
+</form>
+
