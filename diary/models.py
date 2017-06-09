@@ -56,8 +56,8 @@ class Diary(models.Model):
         ordering = ['date']
 
 class Media(models.Model):
-    title = models.CharField(max_length=20)
-    description = models.CharField(max_length=100)
+    title = models.CharField(max_length=20,null=True)
+    description = models.CharField(max_length=100,null=True)
     img = models.FileField(upload_to = 'user_media/')
     diary = models.ForeignKey(Diary,on_delete=models.CASCADE,default=0)
     def __str__(self):
