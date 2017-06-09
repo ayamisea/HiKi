@@ -9,3 +9,9 @@ main {
 	width: 90%;
 	margin: 0vh 5%;
 }
+
+.custom-file-control:before{
+  content: "瀏覽";
+  background-color: #0ABAB5;
+  color:white;
+}

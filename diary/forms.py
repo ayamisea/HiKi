@@ -17,8 +17,8 @@ class MediaForm(forms.ModelForm):
         model = Media
         fields = ['title', 'description', 'img']
         widgets ={
-            'title': forms.TextInput(attrs={'placeholder':'給圖片取個名字嘛？', 'class':'form-control ', 'style':'display:inline;width:100%;'}),
-            'description': forms.Textarea(attrs={'placeholder':'說一說這張圖片吧？', 'class': 'form-control ', 'style':'width:100%;'}),
-            'img':forms.FileInput(attrs={'class':'btn btn-default', 'style':'width:100%;'})
+            'title': forms.TextInput(attrs={'placeholder':'給圖片取個名字嘛？', 'class':'form-control', 'style':'display:inline;width:100%;'}),
+            'description': forms.Textarea(attrs={'placeholder':'說一說這張圖片吧？', 'rows':'2','class': 'form-control', 'style':'width:100%;display:inline-block;'}),
+            'img':forms.FileInput(attrs={'class':'custom-file-input', 'style':'width:100%;display:inline-block;'})
         }
 
