@@ -1,3 +1,9 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'diary/upload-media.css' %}">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
 <style>
 	html , body {
 		height:100%;
@@ -5,36 +11,50 @@
 </style>
 
 <script>
- function resize() { 
- 	parent.document.getElementById("frame").height = document.body.scrollHeight;
- 	//將子頁面高度傳到父頁面框架
- } 
+//將子頁面高度傳到父頁面框架
+var size = function(event) { 
+	parent.document.getElementById("frame").height = document.body.scrollHeight;
+};
+window.addEventListener('resize', size, false)
+window.addEventListener('load', size, false)
 </script>
 
-<body onload="resize()">
-	{% for i in imgs %}
-	<div class="d-flex flex-column">
-		{% ifnotequal i.title null %}
-                <p><b>{{i.title}}</b>
-        {% endifnotequal %}
-        {% ifnotequal i.description null %}
-             [ {{i.description}} ]<br></p>
-        {% endifnotequal %}
-	    {% if i.type == "img" %}
-	        <img src="{{mediaURL}}{{i.img}}" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
-	    {% endif %}
-	    {% if i.type == "video" %}
-	        <video height="500" controls>
-	          <source src="{{mediaURL}}{{i.img}}" type="video/mp4">
-	          <source src="{{mediaURL}}{{i.img}}" type="video/ogg">
-	          Your browser does not support HTML5 video.
-	        </video>
-	    {% endif %}
-	    <form action="" method="post" enctype="multipart/form-data">
-	        {% csrf_token %}
-	        <button type="submit" name="dID" value={{i.id}} onclick="alert('成功刪除圖片')">Delete{{i.id}}</button>
-	    </form>
-	    <hr>
-	</div>
-	{% endfor %}
+<body class="d-flex">
+	<main onchange="resize()" class="d-flex align-content-start flex-wrap justify-content-between">
+		{% for i in imgs %}
+		<div class="p-1 d-flex flex-column" style="text-align:center;">
+			<div class="p-1" style="height:2rem;">
+				<div>
+					<b>
+					{% ifnotequal i.title null %}
+			        	{{i.title}}
+			        {% endifnotequal %}
+			        </b>
+			    </div>
+			    <!-- <div class="captain" style="width:200px;">
+			        {% ifnotequal i.description null %}
+			             [ {{i.description}} ]
+			        {% endifnotequal %}
+			    </div> -->
+	        </div>
+	        <div class="p-1 d-flex" style="height:200px;">
+			    <div class="img-thumbnail align-middle">
+				    {% if i.type == "img" %}
+			        <img src="{{mediaURL}}{{i.img}}" width="200" height=auto>
+				    {% endif %}
+				    {% if i.type == "video" %}
+			        <video height="500" controls>
+						<source src="{{mediaURL}}{{i.img}}" type="video/mp4">
+						<source src="{{mediaURL}}{{i.img}}" type="video/ogg">
+						Your browser does not support HTML5 video.
+			        </video>
+				    {% endif %}
+				</div>
+			</div>
+		    <form class="p-1" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+		        <button class="btn text-white" style="background-color: #0ABAB5;" type="submit" name="dID" value={{i.id}} onclick="alert('成功刪除：{{i.title}}')">Delete{{i.id}}</button>
+		    </form>
+		</div>
+		{% endfor %}
+	</main>
 </body>
