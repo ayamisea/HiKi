@@ -108,7 +108,7 @@ def media_upload_show(request):
     if 'diaryID' in request.session:
         diaryID = request.session['diaryID']
         nowDiary = Diary.objects.get(pk = diaryID)
-        imgs= nowDiary.media_set.all()
+        imgs= nowDiary.media_set.all().order_by('-id')
     return render(request,'diary/upload-media-display.html',locals())
 
 #display all map
