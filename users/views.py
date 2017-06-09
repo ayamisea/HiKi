@@ -14,6 +14,10 @@ def home(request):
         return redirect('/diary/')
     signup_form = PublicUserCreationForm()
     login_form = AuthenticationForm()
+    if request.GET.get('next'):
+        next = request.GET['next']
+    else:
+        next = '/'
 
     return render(request, 'users/home.html', locals())
 
