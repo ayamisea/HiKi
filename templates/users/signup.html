@@ -1,4 +1,4 @@
-<form method="POST" class="d-flex flex-column align-self-center">{% csrf_token %}
+<form method="POST" action="{% url 'signup' %}" class="d-flex flex-column align-self-center">{% csrf_token %}
 	<div class="formrow flex-column flex-sm-row p-1">
 		<div class="mr-sm-auto" style="padding-right: 1vh">{{ signup_form.email.label_tag }}</div>
 		<div class="ml-sm-auto">{{ signup_form.email }}</div>
