@@ -95,17 +95,17 @@
 		        	<img class="m-1 icon" src="{%static '/diary/content.png' %}">
 		        	{{ diary_form.content }}
 		        </div>
-		        <div class="m-1">
+		        <div class="d-flex m-1">
 		        	<img class="m-1 icon" src="{%static '/diary/tag.png' %}">
-			        <input class="btn btn-default w-50" type="text" id="tagValue" placeholder="請輸入標籤">
-			        <input class="btn btn-default" type="button" value="新增" onclick="addTag(Tag)"><br/>
+			        <input class="form-control w-50" type="text" id="tagValue" placeholder="請輸入標籤" style="display:inline-block;">
+			        <input class="btn text-white ml-1" style="background-color: #0ABAB5;" type="button" value="新增" onclick="addTag(Tag)" >
 			    </div>
-		        <div id ="Tag" class="pl-3" ></div> <br>
+		        <div id ="Tag" class="d-flex pl-3" ></div>
 				<div class="m-1 d-flex">
 					<img class="m-1 icon" src="{%static '/diary/placeholder.png' %}">
 					<div style="width: 100%;">
 						<input id="pac-input" class="controls" type="text" placeholder="輸入位置">
-						<div id="map"></div><br>
+						<div id="map"></div>
 					</div>	
 				</div>	
 		        <input type="hidden" id="tags" name="tags" />
@@ -113,7 +113,7 @@
 		        <input type="hidden" id="longitude" name="lon" value="120.960515">
 		        <input type="hidden" id="location" name="loc" value="null">
 		        <div class="m-1 d-flex align-self-center">
-		        <input type="submit" name="send" value="下一步" class="btn text-white" style="background-color: #0ABAB5;">
+		        	<input type="submit" name="send" value="下一步" class="btn text-white" style="background-color: #0ABAB5;">
 		        </div>
 			</form>
 		</main>

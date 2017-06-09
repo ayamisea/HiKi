@@ -21,30 +21,40 @@
 		{% include 'users/nav.html' with name="Media Uploader" %}
 		<main class="d-flex flex-column">
 		    <div class="d-flex p-2">
-			    <form action="" method="post" enctype="multipart/form-data" class="d-flex flex-column" style="width:100%">{% csrf_token %}
-			        <div class="d-flex">
-			        	{{ media_form.img}}
+			    <form action="" method="post" enctype="multipart/form-data" class="d-flex flex-column" style="width:100%;">{% csrf_token %}
+			        <div class="d-flex m-1">
+			        	<label class="custom-file" style="display: inline-block;width:100%;">
+			        		{{ media_form.img}}
+			        		<span class="custom-file-control form-control-file">添加檔案..</span>
+						</label>
 			        	<input type="hidden" name="diaryID" value={{diaryID}} />
 			        </div>
-			        <div class="d-flex">
+			        <div class="d-flex m-1">
 		        		{{ media_form.title }}
 		        	</div>
-		        	<div class="d-flex">
+		        	<div class="d-flex m-1">
 		        		{{ media_form.description}}
 		        	</div>
-		        	<div class="d-flex">
-		        		<input  class="btn btn-default" type="submit" value="加入媒體" name="option1" />
+		        	<div class="d-flex m-1 align-self-center">
+		        		<input class="btn btn-default text-white" style="background-color: #0ABAB5;" type="submit" value="加入媒體" name="option1" />
 		        	</div>
 			    </form>
 		    </div>
 			<div class="d-flex flex-column p-2">
-		    	<iframe id="frame" src="/diary/media-upload-show/" scrolling="no">
+		    	<iframe id="frame" class="form-control" src="/diary/media-upload-show/" scrolling="no">
 		    		{% include 'diary/upload-media-display.html' %}
 		    	</iframe>
 		    </div>
-		    <div class="d-flex">
-		    	<a class="btn btn-default" href="{% url 'detail' pk=diaryID %}">確認 <i class="fa fa-arrow-right"></i></a>
+		    <div class="d-flex align-self-center">
+		    	<a class="btn text-white" style="background-color: #0ABAB5;" href="{% url 'detail' pk=diaryID %}">確認 <i class="fa fa-arrow-right"></i></a>
 		    </div>
 		</main>
+		<script>
+			//改變上傳檔案欄位
+			$('.custom-file-input').on('change',function(){
+		    	var fileName = $(this).val();
+		    	$(this).next('.form-control-file').addClass("selected").html(fileName);
+			})
+		</script>
 	</body>
 </html>
