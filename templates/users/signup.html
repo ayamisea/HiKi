@@ -1,15 +1,27 @@
 <form method="POST" action="{% url 'signup' %}" class="d-flex flex-column align-self-center">{% csrf_token %}
 	<div class="formrow flex-column flex-sm-row p-1">
-		<div class="mr-sm-auto" style="padding-right: 1vh">{{ signup_form.email.label_tag }}</div>
-		<div class="ml-sm-auto">{{ signup_form.email }}</div>
+		<div class="mr-sm-auto" style="padding-right: 1vh">
+      <label for='email'>Email：</label>
+    </div>
+		<div class="ml-sm-auto">
+      <input id="email" name="email" maxlength="255" type="email" required>
+    </div>
 	</div>
 	<div class="formrow flex-column flex-sm-row p-1">
-		<div class="mr-sm-auto" style="padding-right: 1vh">{{ signup_form.password1.label_tag }}</div>
-		<div class="ml-sm-auto">{{ signup_form.password1 }}</div>
+		<div class="mr-sm-auto" style="padding-right: 1vh">
+      <label for='password1'>密碼：</label>
+    </div>
+		<div class="ml-sm-auto">
+      <input id="password1" name="password1" type="password" required>
+    </div>
 	</div>
 	<div class="formrow flex-column flex-sm-row p-1">
-		<div class="mr-sm-auto" style="padding-right: 1vh">{{ signup_form.password2.label_tag }}</div>
-		<div class="ml-sm-auto">{{ signup_form.password2 }}</div>
+		<div class="mr-sm-auto" style="padding-right: 1vh">
+      <label for='password2'>密碼確認：</label>
+    </div>
+		<div class="ml-sm-auto">
+      <input id="password2" name="password2" type="password" required>
+    </div>
 	</div>
 	<div class="formrow flex-column flex-sm-row p-1">
 		<input class="btn btn-primary" style="width: 100%" type="submit" name="submit" value="註冊">
