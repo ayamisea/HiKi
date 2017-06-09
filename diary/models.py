@@ -65,10 +65,9 @@ class Media(models.Model):
     def type(self):
         import os
         name,ext = os.path.splitext(self.img.name)
-        if ext =='.jpg' or ext =='.jpeg' or ext == '.png' or ext=='.PNG':
+        ext = ext.lower()
+        if ext =='.jpg' or ext =='.jpeg' or ext == '.png' or ext=='.gif':
             return 'img'
-        elif ext == '.mp3':
-            return 'music'
         return 'video'
     def delete(self, *args, **kwargs):
         storage, path = self.img.storage, self.img.path
