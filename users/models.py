@@ -118,3 +118,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             salt=settings.SECRET_KEY,
         )
         return key
+
+    def send_verification_email(self):
+        verification_key = self.get_verification_key()
+        pass
