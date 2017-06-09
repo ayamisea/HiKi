@@ -46,6 +46,8 @@ class UserManager(BaseUserManager):
         :param str password: user password
         :return custom_user.models.EmailUser user: regular user
         """
+        if settings.DEBUG:
+            return self._create_user(email, password, verified=True, **extra_fields)
         return self._create_user(email, password, **extra_fields)
 
     def create_superuser(self, email, password, **extra_fields):
