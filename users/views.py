@@ -21,15 +21,12 @@ def user_signup(request):
         if form.is_valid():
             user = form.save()
             base_login(request, user)
-            return redirect('/accounts/') # redirect('/accounts/profile/')
+            return redirect('/accounts/')
     else:
         form = PublicUserCreationForm()
 
     return render(request, 'users/signup.html', {'form': form})
 
 def user_login(request):
-    if request.method == 'POST':
-        return base_login(request, authentication_form=AuthenticationForm)
-
     return base_login(request, authentication_form=AuthenticationForm,
                       template_name='users/login.html')
