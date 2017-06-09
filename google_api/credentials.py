@@ -20,6 +20,8 @@ def main():
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
     credential_path = os.path.join(credential_dir, 'gapi.json')
+    # set environment variable
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = str(credential_path)
     # access_type="offline" and approval_prompt='force'.
     store = Storage(credential_path)
     credentials = store.get()
