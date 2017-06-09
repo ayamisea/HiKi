@@ -12,8 +12,12 @@
 
 <body>
 {% for i in imgs %}
-    <h2>{{i.title}}</h2>
-    <p>{{i.description}}</p>
+    {% ifnotequal i.title null %}
+        <h2>{{i.title}}</h2>
+    {% endifnotequal %}
+    {% ifnotequal i.description null %}
+        <p>{{i.description}}</p>
+    {% endifnotequal %}
     {% if i.type == "img" %}
         <img src="{{mediaURL}}{{i.img}}" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
     {% endif %}

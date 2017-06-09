@@ -52,7 +52,7 @@
             }
           </script>
           <script async defer
-          src="https://maps.googleapis.com/maps/api/js?key={{ MapAPI}}&callback=initMap">
+          src="https://maps.googleapis.com/maps/api/js?key={{MapAPI}}&callback=initMap">
           </script>
       {% endifnotequal %}
 
@@ -62,7 +62,13 @@
         有{{diary.media_set.all|length }}個媒體<br>
 
         {% for i in diary.media_set.all %}
-            <li><b>{{i.title}}</b> [ {{i.description}} ]<br></li>
+            {% ifnotequal i.title null %}
+                <li><b>{{i.title}}</b>
+            {% endifnotequal %}
+            {% ifnotequal i.description null %}
+             [ {{i.description}} ]<br></li>
+            {% endifnotequal %}
+
             {% if i.type == "img" %}
                 <img src="{{mediaURL}}{{i.img}}" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
             {% endif %}
