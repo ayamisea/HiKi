@@ -5,12 +5,13 @@ from __future__ import print_function
 import os
 import json
 
+from django.conf import settings
+
 from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
 
 SCOPES = 'https://www.googleapis.com/auth/gmail.send'
-GOOGLE_APPLICATION_CREDENTIALS = '.credentials/gapi.json'
 
 def main():
     print(os.environ.get('CLIENT_ID'))
@@ -19,6 +20,8 @@ def main():
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
     credential_path = os.path.join(credential_dir, 'gapi.json')
+    # set environment variable
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = str(credential_path)
     # access_type="offline" and approval_prompt='force'.
     store = Storage(credential_path)
     credentials = store.get()
@@ -43,7 +46,7 @@ def get_credentials():
     Returns:
         Credentials, the obtained credential.
     """
-    credential_path = GOOGLE_APPLICATION_CREDENTIALS#os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
+    credential_path = settings.GOOGLE_APPLICATION_CREDENTIALS
 
     credentials_json = json.loads(open(credential_path).read())
     credentials = client.OAuth2Credentials(

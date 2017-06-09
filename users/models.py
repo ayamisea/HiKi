@@ -1,9 +1,4 @@
 from __future__ import print_function
-from email.mime.multipart import MIMEMultipart
-from email.header import Header
-from email.utils import formataddr
-import base64
-import httplib2
 
 from django.conf import settings
 from django.contrib.auth.models import (
@@ -14,9 +9,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
-from apiclient import discovery, errors
-
-from credentials import get_credentials
+from google_api.gmail import send_mail
 
 class UserManager(BaseUserManager):
     """Custom manager for User
@@ -89,28 +82,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.name
 
     def email_user(self, subject, message):
-        message_text = MIMEMultipart(message)
-        message_text['to'] = formataddr(
-            (str(Header(self.name, 'utf-8')),
-            self.email))
-        message_text['from'] = formataddr(
-            (str(Header("Hiki Diary", 'utf-8')),
-            settings.EMAIL_ADDRESS))
-        message_text['subject'] = subject
-
-        message = {'raw': base64.urlsafe_b64encode(message_text.as_bytes()).decode()}
-
-        credentials = get_credentials()
-        http = credentials.authorize(httplib2.Http())
-        service = discovery.build('gmail', 'v1', http=http)
-
-        try:
-            message = (service.users().messages().send(userId='me', body=message)
-               .execute())
-            print('Message Id: %s' % message['id'])
-            return message
-        except errors.HttpError as error:
-            print('An error occurred: %s' % error)
+        send_mail(
+            subject, message,
+            settings.EMAIL_ADDRESS, self.email,
+            settings.EMAIL_HOST, self.name
+        )
 
     def get_verification_key(self):
         key = signing.dumps(
