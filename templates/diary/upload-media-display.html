@@ -13,9 +13,13 @@
 
 <body onload="resize()">
 	{% for i in imgs %}
-	<div>
-	    <h2>{{i.title}}</h2>
-	    <p>{{i.description}}</p>
+	<div class="d-flex flex-column">
+		{% ifnotequal i.title null %}
+                <p><b>{{i.title}}</b>
+        {% endifnotequal %}
+        {% ifnotequal i.description null %}
+             [ {{i.description}} ]<br></p>
+        {% endifnotequal %}
 	    {% if i.type == "img" %}
 	        <img src="{{mediaURL}}{{i.img}}" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
 	    {% endif %}
@@ -33,8 +37,4 @@
 	    <hr>
 	</div>
 	{% endfor %}
-</body><<<<<<< .mine
-</html>
-=======
-
->>>>>>> .theirs
+</body>
