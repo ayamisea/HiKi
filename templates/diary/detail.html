@@ -1,98 +1,145 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Detail</title>
+</html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<title>Detail</title>
+		<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+		<link rel="stylesheet" href="{% static 'diary/newdiary.css' %}">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+	</head>
+	
+	<style>
+	#map {
+		height: 40vh;
+	}
 
-    <!--bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	.icon {
+	  width:64px;
+	  height:64px;
+	}
+	</style>
+	
+	<script type="text/javascript">
+	    //禁止回上一頁
+	    history.pushState(null, null, document.URL);
+	    window.addEventListener('popstate', function () {
+	        history.pushState(null, null, document.URL);
+	    });
+	</script>
+	
+	<body>
+		<!-- 標題與導覽列 -->
+		{% include 'users/nav.html' with name=diary.title %}
+		<main class="d-flex flex-column">
+			<!-- 日期 -->
+			<div class="p-1 d-flex flex-row align-items-center">
+				<div class="icon">
+					<img width="42" height="42" src="{%static '/diary/detail-date.png' %}" style="margin:11px;">
+				</div>
+				<h4>{{diary.date}}</h4>
+			</div>
+			<!-- 標籤 -->
+			{% ifnotequal diary.tags.all|length 0 %}
+			<div class="p-1 d-flex flex-row align-items-center">
+				<div class="icon">
+					<img width="42" height="42" src="{%static '/diary/detail-tag.png' %}" style="margin:11px;">
+				</div>
+				<span>
+				{% for t in diary.tags.all %}
+				    <h5>#{{t.tagName}}</h5>
+				{% endfor %}
+				</span>
+			</div>
+			{% endifnotequal %}
+			
+			{% ifnotequal diary.location.location "null" %}
+			<!-- 天氣 -->
+			<div class="p-1 d-flex flex-row align-items-center">
+				{% with '/weather/'|add:diary.weather_cond|add:'.png' as image_static %}
+	  			<img src="{% static image_static %}" onerror="this.style.display='none'" alt="null" height="64" width="64">
+				{% endwith %}
+				<h5>{{diary.weather_meantemp}}℃</h5>
+			</div>
+			<!-- 地圖 -->
+			<div class="p-1 d-flex flex-row align-items-center">
+				<div class="icon">
+					<img width="42" height="42" src="{%static '/diary/detail-placeholder.png' %}" style="margin:11px;">
+				</div>
+				<a target="_blank" href="http://maps.google.com/maps?q={{diary.location.latitude}},{{diary.location.longitude}}">{{diary.location.location}}</a>
+			  
+			</div>
+			<div class="d-flex pb-3 ">
+				<div class="icon"></div>
+				<div id="map"></div>
+			</div>
+			<script>
+			function initMap() {
+			  var uluru = {lat: {{diary.location.latitude}}, lng: {{diary.location.longitude}} };
+			  var map = new google.maps.Map(document.getElementById('map'), {
+			    zoom: 7,
+			    center: uluru
+			  });
+			  var marker = new google.maps.Marker({
+			    position: uluru,
+			    map: map
+			  });
+			}
+			</script>
+			<script async defer
+			src="https://maps.googleapis.com/maps/api/js?key={{MapAPI}}&callback=initMap">
+			</script>
+			{% endifnotequal %}
+			<!-- 內容 -->
+			<div class="p-1 d-flex flex-row align-items-center">
+				<div class="icon">
+					<img width="42" height="42" src="{%static '/diary/detail-content.png' %}" style="margin:11px;">
+				</div>
+				<div class="h5">{{diary.content}}</div>
+			</div>
+			<!-- 影片相片-->
+			{% ifnotequal diary.media_set.all|length 0 %}
+			<div class="p-1 d-flex flex-row align-items-center">
+				<div class="icon">
+					<img width="42" height="42" src="{%static '/diary/detail-picture.png' %}" style="margin:11px;">
+				</div>
+				<h5>有{{diary.media_set.all|length }}個媒體</h5>
+			</div>
+			    {% for i in diary.media_set.all %}
+			        {% ifnotequal i.title null %}
+			            <li><b>{{i.title}}</b>
+			        {% endifnotequal %}
+			        {% ifnotequal i.description null %}
+			         [ {{i.description}} ]<br></li>
+			        {% endifnotequal %}
 
-</head>
-<style>
-   #map {
-    height: 250px;
-    width: 60%;
-   }
-</style>
-<script type="text/javascript">
-    //禁止回上一頁
-    history.pushState(null, null, document.URL);
-    window.addEventListener('popstate', function () {
-        history.pushState(null, null, document.URL);
-    });
-</script>
-<body>
+			        {% if i.type == "img" %}
+			            <img src="{{mediaURL}}{{i.img}}" onerror="this.style.display='none'" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
+			        {% endif %}
+			        {% if i.type == "video" %}
+			            <video height="500" controls>
+			              <source src="{{mediaURL}}{{i.img}}" type="video/mp4">
+			              <source src="{{mediaURL}}{{i.img}}" type="video/ogg">
+			              Your browser does not support HTML5 video.
+			            </video>
+			        {% endif %}
+			        <br>
+			    {% endfor %}
+			  {% endifnotequal %}
 
-      <h3>標題：{{diary.title}}</h3> <br>
-      日期：{{diary.date}}<br>
-      {% ifnotequal diary.tags.all|length 0 %}
-        標籤：
-        {% for t in diary.tags.all %}
-            #{{t.tagName}}
-        {% endfor %}<br>
-      {% endifnotequal %}
-
-      {% ifnotequal diary.location.location "null" %}
-        天氣： 平均溫度：{{diary.weather_meantemp}}℃ <img src="https://icons.wxug.com/i/c/i/{{diary.weather_cond}}.gif" onerror="this.style.display='none'" alt="null" height="42" width="42"><br>
-        地點：<a target="_blank" href="http://maps.google.com/maps?q={{diary.location.latitude}},{{diary.location.longitude}}">{{diary.location.location}}</a><br>
-          <div id="map"></div>
-          <script>
-            function initMap() {
-              var uluru = {lat: {{diary.location.latitude}}, lng: {{diary.location.longitude}} };
-              var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 7,
-                center: uluru
-              });
-              var marker = new google.maps.Marker({
-                position: uluru,
-                map: map
-              });
-            }
-          </script>
-          <script async defer
-          src="https://maps.googleapis.com/maps/api/js?key={{MapAPI}}&callback=initMap">
-          </script>
-      {% endifnotequal %}
-
-      內容：<br>{{diary.content}}<br><br>
-
-      {% ifnotequal diary.media_set.all|length 0 %}
-        有{{diary.media_set.all|length }}個媒體<br>
-
-        {% for i in diary.media_set.all %}
-            {% ifnotequal i.title null %}
-                <li><b>{{i.title}}</b>
-            {% endifnotequal %}
-            {% ifnotequal i.description null %}
-             [ {{i.description}} ]<br></li>
-            {% endifnotequal %}
-
-            {% if i.type == "img" %}
-                <img src="{{mediaURL}}{{i.img}}" onerror="this.style.display='none'" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
-            {% endif %}
-            {% if i.type == "video" %}
-                <video height="500" controls>
-                  <source src="{{mediaURL}}{{i.img}}" type="video/mp4">
-                  <source src="{{mediaURL}}{{i.img}}" type="video/ogg">
-                  Your browser does not support HTML5 video.
-                </video>
-            {% endif %}
-            <br>
-        {% endfor %}
-      {% endifnotequal %}
-
-      <br>
-      <form method="post" >
-          {% csrf_token %}
-          <input class="btn btn-default" type="submit" style="margin-left: 30px;" name="delete" value="刪除"> <br>
-          <a class="btn btn-default" style="margin-left:30px" href="{% url 'edit' pk=diary.pk %}">
-                        編輯 <i class="fa fa-arrow-right"></i>
-          </a>
-      </form>
-    <form action="/diary/" >
-          <button class="btn btn-default" type="submit" style="margin-left: 30px;" >回日記</button>
-    </form>
-</body>
+			  <br>
+			  <form method="post" >
+			      {% csrf_token %}
+			      <input class="btn btn-default" type="submit" style="margin-left: 30px;" name="delete" value="刪除"> <br>
+			      <a class="btn btn-default" style="margin-left:30px" href="{% url 'edit' pk=diary.pk %}">
+			                    編輯 <i class="fa fa-arrow-right"></i>
+			      </a>
+			  </form>
+			<form action="/diary/" >
+			      <button class="btn btn-default" type="submit" style="margin-left: 30px;" >回日記</button>
+			</form>
+		</main>
+	</body>
 </html>
