@@ -16,13 +16,6 @@
     width: 60%;
    }
 </style>
-<script type="text/javascript">
-    //禁止回上一頁
-    history.pushState(null, null, document.URL);
-    window.addEventListener('popstate', function () {
-        history.pushState(null, null, document.URL);
-    });
-</script>
 <body>
 
       <h3>標題：{{diary.title}}</h3> <br>
@@ -84,13 +77,15 @@
       {% endifnotequal %}
 
       <br>
-      <form method="post" >
-          {% csrf_token %}
-          <input class="btn btn-default" type="submit" style="margin-left: 30px;" name="delete" value="刪除"> <br>
-          <a class="btn btn-default" style="margin-left:30px" href="{% url 'edit' pk=diary.pk %}">
-                        編輯 <i class="fa fa-arrow-right"></i>
-          </a>
-      </form>
+        {% if diary.userID.email == userID.email%}
+        <form method="post" >
+            {% csrf_token %}
+            <input class="btn btn-default" type="submit" style="margin-left: 30px;" name="delete" value="刪除"> <br>
+            <a class="btn btn-default" style="margin-left:30px" href="{% url 'edit' pk=diary.pk %}">
+                            編輯 <i class="fa fa-arrow-right"></i>
+            </a>
+        </form>
+        {% endif %}
     <form action="/diary/" >
           <button class="btn btn-default" type="submit" style="margin-left: 30px;" >回日記</button>
     </form>
