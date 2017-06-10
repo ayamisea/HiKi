@@ -57,7 +57,7 @@ window.addEventListener('load', size, false)
 			    <div id="tooltip" class="img-thumbnail align-middle">
 					
 				    {% if i.type == "img" %}
-			        <img src="{{mediaURL}}{{i.img}}" width="200" height=auto>
+			        <img src="{{mediaURL}}{{i.img}}" onerror="this.style.display='none'" width="200" height=auto>
 				    {% endif %}
 				    {% if i.type == "video" %}
 			        <video height="500" controls>

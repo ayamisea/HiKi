@@ -35,7 +35,7 @@
       {% endifnotequal %}
 
       {% ifnotequal diary.location.location "null" %}
-        天氣： 平均溫度：{{diary.weather_meantemp}}℃ <img src="https://icons.wxug.com/i/c/i/{{diary.weather_cond}}.gif" alt="Smiley face" height="42" width="42"><br>
+        天氣： 平均溫度：{{diary.weather_meantemp}}℃ <img src="https://icons.wxug.com/i/c/i/{{diary.weather_cond}}.gif" onerror="this.style.display='none'" alt="null" height="42" width="42"><br>
         地點：<a target="_blank" href="http://maps.google.com/maps?q={{diary.location.latitude}},{{diary.location.longitude}}">{{diary.location.location}}</a><br>
           <div id="map"></div>
           <script>
@@ -70,7 +70,7 @@
             {% endifnotequal %}
 
             {% if i.type == "img" %}
-                <img src="{{mediaURL}}{{i.img}}" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
+                <img src="{{mediaURL}}{{i.img}}" onerror="this.style.display='none'" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
             {% endif %}
             {% if i.type == "video" %}
                 <video height="500" controls>
