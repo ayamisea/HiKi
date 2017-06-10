@@ -113,12 +113,13 @@ $(function(){
             <article class="search-result row">
                 <div class="col-xs-12 col-sm-12 col-md-3">
                     <a href="#" title="{{diary.title}}" class="thumbnail">
-                    {% if diary.media_set.all|length == 0 %}
-                        <img style="max-width:250px;height:140px"src="http://lorempixel.com/250/140/nature" alt="nature" /></a>
-                    
-                    {% else %}
-                        <img style="max-width:250px;height:140px" src="{{mediaURL}}{{diary.media_set.first.img}}" alt="{{diary.title}}" /></a>
-                    {% endif%}
+                    {% ifnotequal diary.media_set.all|length 0 %}
+                        {% if diary.media_set.first.img.type == "img" %}
+                            <img style="max-width:250px;height:140px" src="{{mediaURL}}{{diary.media_set.first.img}}" alt="{{diary.title}}" /></a>
+                        {% else %}
+                            <img style="max-width:250px;height:140px"src="http://lorempixel.com/250/140/nature" alt="nature" /></a>
+                        {% endif%}          
+                    {% endifnotequal %}
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2">
                     <ul class="meta-search">
