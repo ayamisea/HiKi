@@ -19,7 +19,7 @@
         {{media.description}} <br>
     {% endifnotequal %}
           {% if media.type == "img" %}
-              <img src="{{mediaURL}}{{media.img}}" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
+              <img src="{{mediaURL}}{{media.img}}" onerror="this.style.display='none'" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
           {% endif %}
           {% if media.type == "video" %}
               <video height="500" controls>

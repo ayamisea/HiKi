@@ -1,4 +1,4 @@
-{% load static %}
+﻿{% load static %}
 <!DOCTYPE html>
 </html>
 	<head>
@@ -25,7 +25,9 @@
 			        <div class="d-flex m-1">
 			        	<label class="custom-file" style="display: inline-block;width:100%;">
 			        		{{ media_form.img}}
-			        		<span class="custom-file-control form-control-file">添加檔案..</span>
+			        		<div class="custom-file-control form-control-file" style="overflow:hidden;">
+			        			添加檔案...
+			        		</div>
 						</label>
 			        	<input type="hidden" name="diaryID" value={{diaryID}} />
 			        </div>
@@ -52,9 +54,19 @@
 		<script>
 			//改變上傳檔案欄位
 			$('.custom-file-input').on('change',function(){
-		    	var fileName = $(this).val();
-		    	$(this).next('.form-control-file').addClass("selected").html(fileName);
+		    	var fileName = $(this).val().split('/').pop().split('\\').pop();
+		    	$(this).next('.custom-file-control').html(fileName);
 			})
+			//textarea 自動調整
+			var texteraSize = function() {
+				var textarea = document.getElementById('textarea');
+				setTimeout(function(){
+    				textarea.style.height = 'auto';
+    				textarea.style.height = textarea.scrollHeight + 'px';
+  				},0);
+			}
+			window.addEventListener('load', texteraSize , false);
+			window.addEventListener('keydown', texteraSize , false);
 		</script>
 	</body>
 </html>
