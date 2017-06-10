@@ -10,10 +10,9 @@
 		height:100%;
 	}
 
-
 	#tooltip .tooltiptext {
 		visibility: hidden;
-		max-width: 150px;
+		width: 20%;
 		background-color:rgba(10, 186, 181, 0.7);
 		color: #fff;
 		text-align: center;
@@ -24,7 +23,6 @@
 		/* Position the tooltip */
 		position: absolute;
 		z-index: 1;
-	
 	}
 
 	#tooltip:hover .tooltiptext {
@@ -68,9 +66,10 @@ window.addEventListener('load', size, false)
 						Your browser does not support HTML5 video.
 			        </video>
 				    {% endif %}
-
+					
+					<!-- 敘述在這 -->
 					{% ifnotequal i.description null %}
-					<div class="tooltiptext panel panel-default">
+					<div class="tooltiptext">
 						{{i.description}} 
 					</div>
 					{% endifnotequal %}
