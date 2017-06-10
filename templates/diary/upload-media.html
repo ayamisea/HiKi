@@ -26,7 +26,7 @@
 			        	<label class="custom-file" style="display: inline-block;width:100%;">
 			        		{{ media_form.img}}
 			        		<div class="custom-file-control form-control-file" style="overflow:hidden;">
-			        			<span>添加檔案..</span>
+			        			添加檔案...
 			        		</div>
 						</label>
 			        	<input type="hidden" name="diaryID" value={{diaryID}} />
@@ -55,8 +55,18 @@
 			//改變上傳檔案欄位
 			$('.custom-file-input').on('change',function(){
 		    	var fileName = $(this).val().split('/').pop().split('\\').pop();
-		    	$(this).next('.custom-file-control').find('span').html(fileName);
+		    	$(this).next('.custom-file-control').html(fileName);
 			})
+			//textarea 自動調整
+			var texteraSize = function() {
+				var textarea = document.getElementById('textarea');
+				setTimeout(function(){
+    				textarea.style.height = 'auto';
+    				textarea.style.height = textarea.scrollHeight + 'px';
+  				},0);
+			}
+			window.addEventListener('load', texteraSize , false);
+			window.addEventListener('keydown', texteraSize , false);
 		</script>
 	</body>
 </html>

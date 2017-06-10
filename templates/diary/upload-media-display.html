@@ -8,77 +8,79 @@
 <style>
 	html , body {
 		height:100%;
+		width:100%;
+	}
+	
+	#main {
+		width:100%;
+		margin:0;
+		padding:0 0 3em 0;
 	}
 
 	#tooltip .tooltiptext {
 		visibility: hidden;
-		width: 20%;
 		background-color:rgba(10, 186, 181, 0.7);
 		color: #fff;
 		text-align: center;
 		border-radius: 6px;
 		padding: 5px 0;
 		word-break: break-all;
-
 		/* Position the tooltip */
 		position: absolute;
 		z-index: 1;
+		width:200px;
+		overflow: hidden;
 	}
-
 	#tooltip:hover .tooltiptext {
 		visibility: visible;
 	}
 </style>
 
 <script>
-//將子頁面高度傳到父頁面框架
-var size = function(event) { 
-	parent.document.getElementById("frame").height = document.body.scrollHeight;
-};
-window.addEventListener('resize', size, false)
-window.addEventListener('load', size, false)
+	//將子頁面高度傳到父頁面框架
+	var size = function(event) { 
+		parent.document.getElementById("frame").height = document.body.scrollHeight;
+	};
+	window.addEventListener('resize', size, false)
+	window.addEventListener('load', size, false)
 </script>
 
-<body class="d-flex">
-	<main onchange="resize()" class="d-flex align-content-start flex-wrap justify-content-between">
+<body class="d-flex" style="margin: 0 auto;">
+	<div id="main" class="d-flex flex-wrap" onchange="resize()">
 		{% for i in imgs %}
-		<div class="p-1 d-flex flex-column" style="text-align:center;">
-			<div class="p-1" style="height:2rem;">
-				<div>
-					<b>
-					{% ifnotequal i.title null %}
-			        	{{i.title}}
-			        {% endifnotequal %}
-			        </b>
-			    </div>
+		<div class="p-1" class="d-flex flex-column" style="text-align: center;">
+			<div class="p-1" style="height:3em;width:200px;">
+				<b>
+				{% ifnotequal i.title null %}
+		        	{{i.title}}
+		        {% endifnotequal %}
+			    </b>
 	        </div>
-	        <div class="p-1 d-flex" style="height:200px;">
-				
+	        <div class="p-1 d-flex">
 			    <div id="tooltip" class="img-thumbnail align-middle">
-					
-				    {% if i.type == "img" %}
-			        <img src="{{mediaURL}}{{i.img}}" onerror="this.style.display='none'" width="200" height=auto>
-				    {% endif %}
-				    {% if i.type == "video" %}
-			        <video height="500" controls>
-						<source src="{{mediaURL}}{{i.img}}" type="video/mp4">
-						<source src="{{mediaURL}}{{i.img}}" type="video/ogg">
-						Your browser does not support HTML5 video.
-			        </video>
-				    {% endif %}
-					
-					<!-- 敘述在這 -->
+			    	<!-- 敘述在這 -->
 					{% ifnotequal i.description null %}
 					<div class="tooltiptext">
 						{{i.description}} 
 					</div>
 					{% endifnotequal %}
+					<!-- 圖片在這 -->
+				    {% if i.type == "img" %}
+			        <img src="{{mediaURL}}{{i.img}}" onerror="this.style.display='none'" width="200" height="200">
+				    {% endif %}
+				    {% if i.type == "video" %}
+			        <video width="200" height="200" controls>
+						<source src="{{mediaURL}}{{i.img}}" type="video/mp4">
+						<source src="{{mediaURL}}{{i.img}}" type="video/ogg">
+						Your browser does not support HTML5 video.
+			        </video>
+				    {% endif %}
 				</div>
 			</div>
-		    <form class="p-1" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+		    <form class="p-1 d-flex justify-content-center" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
 		        <button class="btn text-white" style="background-color: #0ABAB5;" type="submit" name="dID" value={{i.id}} onclick="alert('成功刪除')">Delete{{i.id}}</button>
 		    </form>
 		</div>
 		{% endfor %}
-	</main>
+	</div>
 </body>
