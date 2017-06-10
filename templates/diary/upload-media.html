@@ -25,7 +25,9 @@
 			        <div class="d-flex m-1">
 			        	<label class="custom-file" style="display: inline-block;width:100%;">
 			        		{{ media_form.img}}
-			        		<span class="custom-file-control form-control-file">添加檔案..</span>
+			        		<div class="custom-file-control form-control-file" style="overflow:hidden;">
+			        			<span>添加檔案..</span>
+			        		</div>
 						</label>
 			        	<input type="hidden" name="diaryID" value={{diaryID}} />
 			        </div>
@@ -53,7 +55,7 @@
 			//改變上傳檔案欄位
 			$('.custom-file-input').on('change',function(){
 		    	var fileName = $(this).val().split('/').pop().split('\\').pop();
-		    	$(this).next('.form-control-file').addClass("selected").html(fileName);
+		    	$(this).next('.custom-file-control').find('span').html(fileName);
 			})
 		</script>
 	</body>
