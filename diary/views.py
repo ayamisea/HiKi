@@ -242,4 +242,5 @@ def search(request):
 def home(request):
     if 'searchList' in request.session:
         del request.session['searchList']
+        
     return render(request,'home.html',locals())
