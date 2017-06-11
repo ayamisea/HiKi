@@ -108,8 +108,7 @@ $(function(){
         </hgroup>
 
         <section class="col-xs-12 col-sm-6 col-md-12">
-            {% for diary in diaryList%}
-
+            {% for diary in contacts %}
             <article class="search-result row">
                 <div class="col-xs-12 col-sm-12 col-md-3">
                     <a href="#" title="{{diary.title}}" class="thumbnail">
@@ -146,10 +145,26 @@ $(function(){
                 <span class="clearfix borda"></span>
             </article>
             <hr>
+            <br><br>
+            {{ diary.full_name|upper }}<br>
             {% endfor%}
         </section>
+        <div class="pagination">
+            <span class="step-links">
+                {% if contacts.has_previous %}
+                    <a href="?page={{ contacts.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ contacts.number }} of {{ contacts.paginator.num_pages }}.
+                </span>
+
+                {% if contacts.has_next %}
+                    <a href="?page={{ contacts.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+
     </div>
-
-
 </body>
 </html>
