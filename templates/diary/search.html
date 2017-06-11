@@ -99,14 +99,13 @@ $(function(){
                                 <button type="submit">
                                     <span class="glyphicon glyphicon-search"></span>
                                 </button>  
+                                <button class="btn-group btn-group-sm" type="submit" name="all" style="background:rgba(10, 186, 181, 0.4);margin-left:5%">探索全部</button>
                             </span>
                         </div>
                     </div>
-                    <button class="btn btn-default" type="submit" name="all" >全部探索</button>
                 </form>
             </div>
         </div>
-        <br>
         <br>
 
         <!--搜尋結果-->
@@ -121,7 +120,6 @@ $(function(){
                         {% endfor%}	
             {% endifnotequal %}
         </hgroup>
-
         <!--日記區塊-->
         <section class="col-xs-12 col-sm-6 col-md-12">
             {% for diary in contacts %}
