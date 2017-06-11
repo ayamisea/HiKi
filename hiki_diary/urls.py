@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('users.urls')),
     url(r'^diary/', include('diary.urls')),
-    url(r'^$',home),
+    url(r'^$',home,name='hiki'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
