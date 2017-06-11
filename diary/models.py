@@ -20,7 +20,12 @@ class Tag(models.Model):
         return self.tagName
 
 class Diary(models.Model):
+    AUTH_CHOICES = (
+        ('Private', '私密'),
+        ('Public', '公開'),
+    )
     userID = models.ForeignKey(User,blank=True,null=True)
+    type = models.CharField(max_length=30, choices=AUTH_CHOICES,default=AUTH_CHOICES[0][0])
     title = models.CharField(max_length=30, blank=False)
     date = models.DateField()
     content = models.CharField(max_length=1000,blank=False)
@@ -52,12 +57,24 @@ class Diary(models.Model):
         except IndexError:
             self.weather_cond = 'null'
         cond_list.clear()
+    def searchFilter(self,slst):
+        slst = [x.lower() for x in slst]
+        if any(e in self.title.lower() for e in slst):
+            return True
+        if any(e in self.content.lower() for e in slst):
+            return True
+        if any(e in self.location.location.lower() for e in slst):
+            return True
+        tmp = [t.tagName for t in self.tags.all() if t.tagName in slst]
+        if not len(tmp) == 0:
+            return True
+        return False
     class Meta:  # 排序用
         ordering = ['date']
 
 class Media(models.Model):
     title = models.CharField(max_length=20,null=True,blank=True)
-    description = models.CharField(max_length=100,null=True,blank=True)
+    description = models.CharField(max_length=80,null=True,blank=True)
     img = models.FileField(upload_to = 'user_media/')
     diary = models.ForeignKey(Diary,on_delete=models.CASCADE,default=0)
     def __str__(self):

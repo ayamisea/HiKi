@@ -18,29 +18,35 @@ def unit_test(request):
 #display all diaries
 @login_required(login_url='/accounts/')
 def display(request):
-    diaryList = Diary.objects.all()
+    userID = User.objects.get(email = request.user.email)
+    diaryList = userID.diary_set.all()
     return render(request, 'diary/display.html',locals())
 
 #display one diariy
 @login_required(login_url='/accounts/')
 def detail(request,pk):
+    
     mediaURL = settings.MEDIA_URL
     MapAPI = settings.GOOGLE_MAPS_API_KEY
+    userID = User.objects.get(email = request.user.email)
     diary = Diary.objects.get(pk=pk)
-    if request.method=='POST':
-        if 'delete' in request.POST:
-            d = Diary.objects.get(id=pk)
-            m = Map.objects.get(location = d.location)
-            for t in d.tags.all(): #delete tags
-                if t.diary_set.count() == 1:
-                    Tag.objects.get(id= t.id).delete()
-            for img in d.media_set.all(): #delete media
-                Media.objects.get(id=img.id).delete()
-            if m.diary_set.count() == 1: #delete maps
-                m.delete()
-            d.delete()
-            return HttpResponseRedirect('/diary/')
-    return render(request, 'diary/detail.html', locals())
+    if diary.userID.email == request.user.email or diary.type=='Public':
+        if request.method=='POST':
+            if 'delete' in request.POST:
+                d = Diary.objects.get(id=pk)
+                m = Map.objects.get(location = d.location)
+                for t in d.tags.all(): #delete tags
+                    if t.diary_set.count() == 1:
+                        Tag.objects.get(id= t.id).delete()
+                for img in d.media_set.all(): #delete media
+                    Media.objects.get(id=img.id).delete()
+                if m.diary_set.count() == 1: #delete maps
+                    m.delete()
+                d.delete()
+                return HttpResponseRedirect('/diary/')
+        return render(request, 'diary/detail.html', locals())
+    else:
+        return render(request, 'diary/display.html', locals())
 
 #create new diary
 @login_required(login_url='/accounts/')
@@ -161,7 +167,9 @@ def edit(request,pk):
             # update diary
             editDiary.title = diary_form.cleaned_data['title']
             editDiary.date = diary_form.cleaned_data['date']
+            editDiary.type = diary_form.cleaned_data['type']
             editDiary.content = diary_form.cleaned_data['content']
+            
             #delete tags
             for tag in editDiary.tags.all():
                 editDiary.tags.remove(Tag.objects.get(id=tag.id))
@@ -198,3 +206,20 @@ def edit(request,pk):
     request.session['diaryID'] = pk
     return render(request, 'diary/edit.html', locals())
 
+def search(request):
+    mediaURL = settings.MEDIA_URL
+    diaryList = Diary.objects.filter(type__exact='Public')
+    if request.method == "POST":
+
+        getSearch = request.POST.get('search')
+        filterList = []
+        if not getSearch == "":
+            searchList = getSearch.split(' ')
+            for diary in diaryList:
+                if diary.searchFilter(searchList):
+                    filterList.append(diary)
+            diaryList = filterList
+    return render(request,'diary/search.html',locals())
+
+def home(request):
+    return render(request,'home.html',locals())

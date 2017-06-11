@@ -1,6 +1,5 @@
 {% load static %}
 <!DOCTYPE html>
-</html>
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -129,17 +128,18 @@
 			    {% endfor %}
 			  {% endifnotequal %}
 
-			  <br>
-			  <form method="post" >
-			      {% csrf_token %}
-			      <input class="btn btn-default" type="submit" style="margin-left: 30px;" name="delete" value="刪除"> <br>
-			      <a class="btn btn-default" style="margin-left:30px" href="{% url 'edit' pk=diary.pk %}">
-			                    編輯 <i class="fa fa-arrow-right"></i>
-			      </a>
-			  </form>
-			<form action="/diary/" >
-			      <button class="btn btn-default" type="submit" style="margin-left: 30px;" >回日記</button>
-			</form>
-		</main>
-	</body>
+      <br>
+        {% if diary.userID.email == userID.email%}
+        <form method="post" >
+            {% csrf_token %}
+            <input class="btn btn-default" type="submit" style="margin-left: 30px;" name="delete" value="刪除"> <br>
+            <a class="btn btn-default" style="margin-left:30px" href="{% url 'edit' pk=diary.pk %}">
+                            編輯 <i class="fa fa-arrow-right"></i>
+            </a>
+        </form>
+        {% endif %}
+    <form action="/diary/" >
+          <button class="btn btn-default" type="submit" style="margin-left: 30px;" >回日記</button>
+    </form>
+</body>
 </html>
