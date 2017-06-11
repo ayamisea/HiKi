@@ -78,3 +78,7 @@ form {
 #tagValue {
 	margin:0;
 }
+
+#textarea {
+	overflow: hidden;
+}

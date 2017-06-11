@@ -22,7 +22,8 @@
 		<main class="d-flex flex-column">
 		    <div class="d-flex p-2">
 			    <form action="" method="post" enctype="multipart/form-data" class="d-flex flex-column" style="width:100%;">{% csrf_token %}
-			        <div class="d-flex m-1">
+			        <div class="d-flex p-1 align-items-center">
+			        	<img class="mr-1 icon" src="{%static '/diary/form-file.png' %}">
 			        	<label class="custom-file" style="display: inline-block;width:100%;">
 			        		{{ media_form.img}}
 			        		<div class="custom-file-control form-control-file" style="overflow:hidden;">
@@ -31,10 +32,12 @@
 						</label>
 			        	<input type="hidden" name="diaryID" value={{diaryID}} />
 			        </div>
-			        <div class="d-flex m-1">
+			        <div class="d-flex p-1">
+		        		<img class="mr-1 icon" src="{%static '/diary/form-picture.png' %}">
 		        		{{ media_form.title }}
 		        	</div>
-		        	<div class="d-flex m-1">
+		        	<div class="d-flex p-1">
+		        		<img class="mr-1 icon" src="{%static '/diary/form-alt.png' %}">
 		        		{{ media_form.description}}
 		        	</div>
 		        	<div class="d-flex m-1 align-self-center">

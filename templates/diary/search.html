@@ -38,7 +38,12 @@ $(function(){
       <li class="active"><a href="{% url 'hiki' %}">回首頁</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
+        {% if userName == 0 %}
       <li><a href="{% url 'account' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      {% else%}
+      <li><a href="{% url 'account' %}"><span class="glyphicon glyphicon-user"></span> {{userName}}</a></li>
+      {% endif%}
+
     </ul>
   </div>
 </nav>

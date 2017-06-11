@@ -237,6 +237,9 @@ def search(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         contacts = paginator.page(paginator.num_pages)
+    userName = 0
+    if  request.user.is_authenticated:
+        userName = request.user.name
     return render(request,'diary/search.html',locals())
 
 def home(request):
