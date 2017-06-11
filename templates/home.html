@@ -1,39 +1,48 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
-<title>HiKi Diary</title>
-<meta charset="UTF-8">
+<html lang="en">
+<head>
+  <title>HiKi Diary</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="{% static 'home.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+</head>
+<body id="hiki" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-<!--bootstrap-->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+        <a class="navbar-brand" href="#hiki">HiKi</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#services">SERVICES</a></li>
+        <li><a href="#developers">DEVELOPERS</a></li>
+        <li><a href="#links">LINKS</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
+<div class="jumbotron text-center">
+<div class="jumbotron-layer">
 
-<style>
-    /* Search Box */
-    #imaginary_container{
-        margin-top:20%; /* Don't copy this */
-    }
-    .stylish-input-group .input-group-addon{
-        background: white !important; 
-    }
-    .stylish-input-group .form-control{
-        border-right:0; 
-        box-shadow:0 0 0; 
-        border-color:#ccc;
-    }
-    .stylish-input-group button{
-        border:0;
-        background:transparent;
-    }
-</style>
-<body>
-
-        <div class="container">
+  <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-6 col-sm-offset-3">
+                <h1>HiKi</h1> 
+                <p>Enjoy your perfect day.</p>
+                <div class="col-sm-4 col-sm-offset-4">
                     <form method="post" action="/diary/search/" >
                     {% csrf_token %}
                     <div id="imaginary_container"> 
@@ -47,21 +56,141 @@
                         </div>
                     </div>
                     </form>
-
                     <br>
-                    <form action="/diary/" >
-                         <button class="btn btn-default" type="submit" style="margin-left: 30px;" >我的日記</button>
-                    </form> 
-
-                    <form action="/diary/search/" >
-                         <button class="btn btn-default" type="submit" style="margin-left: 30px;" >探索</button>
-                    </form> 
-
+          
+                    <div class="btn-group">
+                        <a class="btn btn-default"  href="{% url 'diary_display' %}">我的日記<i class="fa fa-arrow-right"></i></a>
+                        <a class="btn btn-default"  href="{% url 'search' %}">日記探索<i class="fa fa-arrow-right"></i></a>
+                    </div>
+            
 
                 </div>
-            </div>
         </div>
+    </div> 
+</div>
+</div>
 
+<!-- Container (Services Section) -->
+<div id="services" class="container-fluid text-center">
+  <h2>SERVICES</h2>
+  <br>
+  <div class="row slideanim">
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-book logo-small"></span>
+      <h4>DIARY</h4>
+      <p>記錄生活的點點滴滴</p>
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-picture logo-small"></span>
+      <h4>ALBUM</h4>
+      <p>收集上傳的媒體</p>
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-usd logo-small"></span>
+      <h4>ACCOUNT</h4>
+      <p>紀錄生活開銷</p>
+    </div>
+
+  </div>
+  <br><br>
+  <div class="row slideanim">
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-heart logo-small"></span>
+      <h4>SHARE</h4>
+      <p>與他人分享生活點滴</p>
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-search logo-small"></span>
+      <h4>SEARCH</h4>
+      <p>找到喜歡的話題</p>
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-leaf logo-small"></span>
+      <h4>FREE</h4>
+      <p>免費使用</p>
+    </div>
+  </div>
+</div>
+
+<!-- Container (Developers Section) -->
+<div id="developers" class="container-fluid bg-grey">
+  <div class="row slideanim">
+    <h2 class="text-center">Developers</h2>
+    <div class="col-sm-3">
+      <h4>Hane</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut </p>
+    </div>
+    <div class="col-sm-3">
+      <h4>Irene</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut </p>
+    </div>
+    <div class="col-sm-3">
+      <h4>Issa</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut </p>
+    </div>
+    <div class="col-sm-3">
+      <h4>Kevin</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut </p>
+    </div>
+
+  </div>
+</div>
+
+<!-- Container (Link Section) -->
+<div id="links" class="container-fluid text-center ">
+  <h2>Links</h2><br>
+  <div class="row text-center slideanim">
+    <div class="col-sm-4 col-sm-offset-4">
+      <div class="thumbnail">
+        <a href="https://github.com/IreneLai/HiKi">
+            <img src="https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/github-48.png" style="width:48px;height:48px"/>
+        </a>
+        <p> <span class="glyphicon glyphicon-envelope"></span>  hikintnucsie@gmail.com</p> 
+      </div>
+    </div>
+  </div>
+<footer class="container-fluid text-center">
+  <a href="#hiki" title="To Top">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+  </a>
+</footer>
+
+<script>
+$(document).ready(function(){
+  // Add smooth scrolling to all links in navbar + footer link
+  $(".navbar a, footer a[href='#hiki']").on('click', function(event) {
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 900, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+  
+  $(window).scroll(function() {
+    $(".slideanim").each(function(){
+      var pos = $(this).offset().top;
+
+      var winTop = $(window).scrollTop();
+        if (pos < winTop + 600) {
+          $(this).addClass("slide");
+        }
+    });
+  });
+})
+</script>
 
 </body>
 </html>

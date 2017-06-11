@@ -8,7 +8,8 @@ from django.conf import settings
 from decimal import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core import serializers
 # Create your views here.
 @login_required(login_url='/accounts/')
 def unit_test(request):
@@ -210,16 +211,36 @@ def search(request):
     mediaURL = settings.MEDIA_URL
     diaryList = Diary.objects.filter(type__exact='Public')
     if request.method == "POST":
-
-        getSearch = request.POST.get('search')
+        if 'search' in request.POST:
+            getSearch = request.POST.get('search')
+            if not getSearch == "":
+                searchList = getSearch.split(' ')
+                request.session['searchList'] = searchList
+        if 'all' in request.POST:
+            if 'searchList' in request.session:
+                del request.session['searchList']
+    
+    if 'searchList' in request.session:
         filterList = []
-        if not getSearch == "":
-            searchList = getSearch.split(' ')
-            for diary in diaryList:
-                if diary.searchFilter(searchList):
-                    filterList.append(diary)
+        searchList = request.session['searchList']
+        for diary in diaryList:
+            if diary.searchFilter(searchList):
+                filterList.append(diary)
             diaryList = filterList
+    page = request.GET.get('page')
+    paginator = Paginator(diaryList, 10) # Show 25 contacts per page
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        contacts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        contacts = paginator.page(paginator.num_pages)
     return render(request,'diary/search.html',locals())
 
 def home(request):
+    if 'searchList' in request.session:
+        del request.session['searchList']
+        
     return render(request,'home.html',locals())
