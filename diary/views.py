@@ -210,7 +210,6 @@ def search(request):
     mediaURL = settings.MEDIA_URL
     diaryList = Diary.objects.filter(type__exact='Public')
     if request.method == "POST":
-
         getSearch = request.POST.get('search')
         filterList = []
         if not getSearch == "":

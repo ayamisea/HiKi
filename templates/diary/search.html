@@ -118,7 +118,10 @@ $(function(){
                             <img style="max-width:250px;height:140px" src="{{mediaURL}}{{diary.media_set.first.img}}" alt="{{diary.title}}" /></a>
                         {% else %}
                             <img style="max-width:250px;height:140px"src="http://lorempixel.com/250/140/nature" alt="nature" /></a>
-                        {% endif%}          
+                        {% endif%}
+
+                    {% else %}
+                            <img style="max-width:250px;height:140px"src="http://lorempixel.com/250/140/nature" alt="nature" /></a>          
                     {% endifnotequal %}
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-2">
@@ -136,7 +139,7 @@ $(function(){
                     </ul>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
-                    <h3>{{diary.title}}</h3>
+                    <h3><a href="{% url 'detail' pk=diary.pk %}" title="">{{diary.title}}</a></h3>
                     <p class="JQellipsis">{{diary.content}}</p> 
                     <p><a class="" href="{% url 'detail' pk=diary.pk %}" title="進入日記" style="text-decoration: none">... 繼續閱讀</a></p>
                 </div>
@@ -144,10 +147,9 @@ $(function(){
             </article>
             <hr>
             {% endfor%}
-            		
-
         </section>
     </div>
+
 
 </body>
 </html>
