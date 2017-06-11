@@ -72,7 +72,7 @@
 				<div class="icon">
 					<img width="42" height="42" src="{%static '/diary/detail-tag.png' %}" style="margin:11px;">
 				</div>
-				<div class="d-flex flex-column align-items-center align-self-center">
+				<div class="d-flex flex-column align-self-center">
 				{% for t in diary.tags.all %}
 				    <h5 class="m-1">#{{t.tagName}}</h5>
 				{% endfor %}
