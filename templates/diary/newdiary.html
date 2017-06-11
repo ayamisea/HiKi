@@ -167,6 +167,17 @@
 	            document.getElementById("tags").value = tags;
 	        });
 	    });
+
+	    //textarea 自動調整
+		var texteraSize = function() {
+			var textarea = document.getElementById('textarea');
+			setTimeout(function(){
+				textarea.style.height = 'auto';
+				textarea.style.height = textarea.scrollHeight + 'px';
+				},0);
+		}
+		window.addEventListener('load', texteraSize , false);
+		window.addEventListener('keydown', texteraSize , false);
 	    </script>
 
         <!--格式錯誤訊息-->

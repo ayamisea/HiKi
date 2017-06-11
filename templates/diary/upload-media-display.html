@@ -49,22 +49,23 @@
 	<div id="main" class="d-flex flex-wrap" onchange="resize()">
 		{% for i in imgs %}
 		<div class="p-1" class="d-flex flex-column" style="text-align: center;">
-			<div class="p-1" style="height:3em;width:200px;">
-				<b>
-				{% ifnotequal i.title null %}
-		        	{{i.title}}
-		        {% endifnotequal %}
-			    </b>
-	        </div>
-	        <div class="p-1 d-flex">
+	        <div class="p-1 d-flex flex-column">
+			    <div class="m-1 d-flex justify-content-center" style="height:3em;width:200px;">
+			    	<!-- 圖片標題 -->
+					<b class="d-flex align-self-center" style="display: inline;">
+					{% ifnotequal i.title null %}
+			        	{{i.title}}
+			        {% endifnotequal %}
+				    </b>
+		        </div>
 			    <div id="tooltip" class="img-thumbnail align-middle">
-			    	<!-- 敘述在這 -->
+			    	<!-- 圖片敘述 -->
+			    	<div class="tooltiptext">
 					{% ifnotequal i.description null %}
-					<div class="tooltiptext">
 						{{i.description}} 
-					</div>
 					{% endifnotequal %}
-					<!-- 圖片在這 -->
+					</div>
+					<!-- 圖片本體 -->
 				    {% if i.type == "img" %}
 			        <img src="{{mediaURL}}{{i.img}}" onerror="this.style.display='none'" width="200" height="200">
 				    {% endif %}
@@ -78,6 +79,7 @@
 				</div>
 			</div>
 		    <form class="p-1 d-flex justify-content-center" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+		        <!-- 刪除按鈕 -->
 		        <button class="btn text-white" style="background-color: #0ABAB5;" type="submit" name="dID" value={{i.id}} onclick="alert('成功刪除')">Delete{{i.id}}</button>
 		    </form>
 		</div>
