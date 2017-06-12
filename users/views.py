@@ -19,7 +19,7 @@ def home(request):
     else:
         next = '/'
 
-    return render(request, 'users/home.html', locals())
+    return render(request, 'users/account.html', locals())
 
 def user_signup(request):
     if request.method == 'POST':

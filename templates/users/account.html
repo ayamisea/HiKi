@@ -5,10 +5,41 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Hiki Diary</title>
         <!-- Bootstrap -->
-        <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'users/home.css' %}">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+        {% include 'include/bootstrap.html' %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <style>
+        body {
+			background: url({% static 'img/account.jpg' %});
+			background-repeat: no-repeat;
+		    background-attachment: fixed;
+		    background-position: center;
+			background-size：cover;
+			-moz-background-size : cover;
+			-webkit-background-size : cover;
+			-o-background-size : cover;
+			height: 100vh;
+		}
+		main {
+			background-color:rgba(255,255,255,0.7);
+			padding: 5vh;
+			margin-top: 10vh;
+			margin-bottom: 15vh;
+			min-height: 500px;
+		}
+		.title{
+			font-size: 2em;
+		}
+		form {
+			width:270px;
+		}
+		.formrow {
+			display: flex;
+			width:100%;
+		}
+		input {
+			width:100%;
+		}
+        </style>
     </head>
     <body class="container-fluid d-flex justify-content-center">
 		<main class="d-flex">
@@ -17,7 +48,7 @@
 					<div class="title">HIKI Diary</div>
 				</div>
 				<div class="d-flex flex-column p-2">
-					<ul class="nav nav-tabs" role="tablist">
+					<ul class="nav nav-tabs mb-3" role="tablist">
 						<li class="nav-item">
 							<a id="signuptab" class="nav-link" data-toggle="tab" href="#signup">Sign up</a>
 						</li>
