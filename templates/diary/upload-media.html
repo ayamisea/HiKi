@@ -2,46 +2,50 @@
 <!DOCTYPE html>
 </html>
 	<head>
-    	<meta charset="UTF-8">
-    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
     	<title>Media Uploader</title>
-		<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-		<link rel="stylesheet" href="{% static 'diary/upload-media.css' %}">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    	<!-- css -->
+		<link rel="stylesheet" href="{% static 'main.css' %}">
+		{% include 'include/bootstrap.html' %}
+		<style>
+		.custom-file-control:before{
+			content: "瀏覽";
+			background-color: #0ABAB5;
+			color:white;
+		}
+		</style>
+		<!-- js -->
+		<script src="{% static 'js/no-prevpage.js' %}"></script>
+		<script src="{% static 'js/textarea.js' %}"></script>
 	</head>
-	<script type="text/javascript">
-	    //禁止回上一頁
-	    history.pushState(null, null, document.URL);
-	    window.addEventListener('popstate', function () {
-	        history.pushState(null, null, document.URL);
-	    });
-	</script>
 	<body class="d-flex flex-column">
 		{% include 'users/nav.html' with name="Media Uploader" %}
-		<main class="d-flex flex-column">
+		<main class="d-flex flex-column" style="width: 90%;margin: 0vh 5%;">
 		    <div class="d-flex p-2">
-			    <form action="" method="post" enctype="multipart/form-data" class="d-flex flex-column" style="width:100%;">{% csrf_token %}
-			        <div class="d-flex p-1 align-items-center">
-			        	<img class="mr-1 icon" src="{%static '/diary/form-file.png' %}">
-			        	<label class="custom-file" style="display: inline-block;width:100%;">
+			    <form action="" method="post" enctype="multipart/form-data" class="d-flex flex-column w-100">{% csrf_token %}
+			        <!-- 上傳檔案 -->
+			        <div class="d-flex align-items-center p-1">
+			        	<img class="form-icon mr-1" src="{%static '/icon/form/file.png' %}">
+			        	<label class="custom-file w-100" style="display: inline-block;">
 			        		{{ media_form.img}}
-			        		<div class="custom-file-control form-control-file" style="overflow:hidden;">
-			        			添加檔案...
+			        		<div class="custom-file-control form-control-file" style="overflow:hidden;">添加檔案...
 			        		</div>
 						</label>
 			        	<input type="hidden" name="diaryID" value={{diaryID}} />
 			        </div>
+			        <!-- 檔案標題 -->
 			        <div class="d-flex p-1">
-		        		<img class="mr-1 icon" src="{%static '/diary/form-picture.png' %}">
+		        		<img class="form-icon mr-1" src="{%static '/icon/form/picture.png' %}">
 		        		{{ media_form.title }}
 		        	</div>
+		        	<!-- 檔案敘述 -->
 		        	<div class="d-flex p-1">
-		        		<img class="mr-1 icon" src="{%static '/diary/form-alt.png' %}">
+		        		<img class="form-icon mr-1" src="{%static '/icon/form/alt.png' %}">
 		        		{{ media_form.description}}
 		        	</div>
 		        	<div class="d-flex m-1 align-self-center">
-		        		<input class="btn btn-default text-white" style="background-color: #0ABAB5;" type="submit" value="加入媒體" name="option1" />
+		        		<input class="btn custom-button" type="submit" value="加入媒體" name="option1"/>
 		        	</div>
 			    </form>
 		    </div>
@@ -51,7 +55,7 @@
 		    	</iframe>
 		    </div>
 		    <div class="d-flex align-self-center">
-		    	<a class="btn text-white" style="background-color: #0ABAB5;" href="{% url 'detail' pk=diaryID %}">確認 <i class="fa fa-arrow-right"></i></a>
+		    	<a class="btn custom-button" href="{% url 'detail' pk=diaryID %}">確認</a>
 		    </div>
 		</main>
 		<script>
@@ -60,16 +64,6 @@
 		    	var fileName = $(this).val().split('/').pop().split('\\').pop();
 		    	$(this).next('.custom-file-control').html(fileName);
 			})
-			//textarea 自動調整
-			var texteraSize = function() {
-				var textarea = document.getElementById('textarea');
-				setTimeout(function(){
-    				textarea.style.height = 'auto';
-    				textarea.style.height = textarea.scrollHeight + 'px';
-  				},0);
-			}
-			window.addEventListener('load', texteraSize , false);
-			window.addEventListener('keydown', texteraSize , false);
 		</script>
 	</body>
 </html>

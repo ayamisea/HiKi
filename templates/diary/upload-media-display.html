@@ -1,39 +1,25 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-<link rel="stylesheet" href="{% static 'diary/upload-media.css' %}">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-
-
+<link rel="stylesheet" href="{% static 'main.css' %}">
+{% include 'include/bootstrap.html' %}
+		
 <style>
-	html , body {
-		height:100%;
-		width:100%;
-	}
-	
-	#main {
-		width:100%;
-		margin:0;
-		padding:0 0 3em 0;
-	}
-
-	#tooltip .tooltiptext {
-		visibility: hidden;
-		background-color:rgba(10, 186, 181, 0.7);
-		color: #fff;
-		text-align: center;
-		border-radius: 6px;
-		padding: 5px 0;
-		word-break: break-all;
-		/* Position the tooltip */
-		position: absolute;
-		z-index: 1;
-		width:200px;
-		overflow: hidden;
-	}
-	#tooltip:hover .tooltiptext {
-		visibility: visible;
-	}
+#tooltip .tooltiptext {
+	visibility: hidden;
+	background-color:rgba(10, 186, 181, 0.7);
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	word-break: break-all;
+	/* Position the tooltip */
+	position: absolute;
+	z-index: 1;
+	width:200px;
+	overflow: hidden;
+}
+#tooltip:hover .tooltiptext {
+	visibility: visible;
+}
 </style>
 
 <script>
@@ -45,12 +31,12 @@
 	window.addEventListener('load', size, false)
 </script>
 
-<body class="d-flex" style="margin: 0 auto;">
-	<div id="main" class="d-flex flex-wrap" onchange="resize()">
+<body class="d-flex w-100 h-100" style="margin: 0 auto;">
+	<div id="main" class="d-flex flex-wrap w-100 mt-0 ml-0 mr-0 mb-3">
 		{% for i in imgs %}
 		<div class="p-1" class="d-flex flex-column" style="text-align: center;">
-	        <div class="p-1 d-flex flex-column">
-			    <div class="m-1 d-flex justify-content-center" style="height:3em;width:200px;">
+	        <div class="d-flex flex-column p-1">
+			    <div class="d-flex justify-content-center m-1" style="height:3em;width:200px;">
 			    	<!-- 圖片標題 -->
 					<b class="d-flex align-self-center" style="display: inline;">
 					{% ifnotequal i.title null %}
@@ -78,9 +64,9 @@
 				    {% endif %}
 				</div>
 			</div>
-		    <form class="p-1 d-flex justify-content-center" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+		    <form class="d-flex justify-content-center p-1" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
 		        <!-- 刪除按鈕 -->
-		        <button class="btn text-white" style="background-color: #0ABAB5;" type="submit" name="dID" value={{i.id}} onclick="alert('成功刪除')">Delete{{i.id}}</button>
+		        <button class="btn custom-button" type="submit" name="dID" value={{i.id}} onclick="alert('成功刪除')">Delete{{i.id}}</button>
 		    </form>
 		</div>
 		{% endfor %}
