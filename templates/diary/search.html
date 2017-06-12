@@ -35,7 +35,7 @@ $(function(){
       <a class="navbar-brand" >HiKi</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="{% url 'hiki' %}">回首頁</a></li>
+      <li><a href="{% url 'hiki' %}">回首頁</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
         {% if userName == 0 %}
@@ -122,9 +122,9 @@ $(function(){
                     </ul>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
-                    <h3><a href="{% url 'detail' pk=diary.pk %}" title="">{{diary.title}}</a></h3>
+                    <h3><a href="{% url 'diary_detail' pk=diary.pk %}" title="">{{diary.title}}</a></h3>
                     <p class="JQellipsis">{{diary.content}}</p> 
-                    <p><a class="" href="{% url 'detail' pk=diary.pk %}" title="進入日記" style="text-decoration: none">... 繼續閱讀</a></p>
+                    <p><a class="" href="{% url 'diary_detail' pk=diary.pk %}" title="進入日記" style="text-decoration: none">... 繼續閱讀</a></p>
                 </div>
                 <span class="clearfix borda"></span>
             </article>

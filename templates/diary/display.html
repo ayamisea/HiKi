@@ -4,23 +4,247 @@
     <meta charset="UTF-8">
     <title>Display</title>
     <!-- Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'js/bootstrap.min.js' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'diary/search.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
   </head>
-  <body>
-    <h3># All Diary</h3>
-    {% for d in diaryList %}
-        標題：{{d.title}}<br>
-        日期：{{d.date}}<br>
-        內容：<br>
-        {{d.content}}<br>
-        <a class="btn btn-default" style="margin-left:20px" href="{% url 'detail' pk=d.pk %}">Read More <i class="fa fa-arrow-right"></i></a>
-        <br>
-        <hr>
-    {% endfor %}
-    <form action="/diary/unit_test">
-      <button type="submit" class="btn btn-default" style="margin-left:30px;">回首頁</button>
-    </form>
-  </body>
+
+<style>
+  body {
+    padding-top: 5em;
+    padding-bottom: 5%;
+    background-color:#FFF ;
+}
+
+.navbar {
+      margin-bottom: 0;
+      background-color: rgba(10, 186, 181, 0.7);
+      z-index: 9999;
+      border: 0;
+      font-size: 12px !important;
+      line-height: 1.42857143 !important;
+      letter-spacing: 4px;
+      border-radius: 0;
+      font-family: Montserrat, sans-serif;
+  }
+  .navbar li a, .navbar .navbar-brand {
+      color: #fff !important;
+  }
+  .navbar-nav li a:hover, .navbar-nav li.active a {
+      color: #0ABAB5 !important;
+      background-color: rgba(255, 255, 255, 0.9) !important;
+  }
+  .navbar-default .navbar-toggle {
+      border-color: transparent;
+      color: #fff !important;
+  }
+.navbar-right {
+    margin-right: 0.5em;
+}
+
+.navbar-right .dropdown-menu {
+      background-color: rgba(10, 186, 181, 0.7);
+  }
+.navbar-right .dropdown-header {
+    font-size: 14px !important;
+}
+
+.carousel-row {
+    min-height: 27vh;
+    background-color:#FFF;
+    border-radius: 5px;
+     margin-top: 0.5em;
+     border: solid rgba(10, 186, 181,0.6);
+     border-width: 3px 10px 3px 10px;
+}
+.slide-row{
+    padding: 1em 1em 1em 1em;
+}
+
+.slide .carousel-indicators {
+
+    background-color: rgba(105, 105, 105,0.5);
+    margin-bottom:0;
+    bottom: 0;  
+    width:auto;
+    margin-left:0; 
+    left:50%
+}
+.slide .carousel-inner {
+    min-height: 24vh;
+    
+}
+
+
+.article {
+    min-height: 24vh;
+    border-radius: 5px;
+
+}
+.article h2 {
+    color: #0ABAB5;
+    font-family: Montserrat, sans-serif;
+}
+.article p {
+    color: #696969;
+    font-family: Montserrat, sans-serif;
+    font-size: 15px !important;
+}
+.article span {
+    color: #696969;
+
+    font-size: 13px !important;
+}
+.media{
+    margin-bottom: 1em;
+}
+</style>
+
+<script>
+$(function(){
+    var len = 200; 
+    $(".JQellipsis").each(function(i){
+        if($(this).text().length>len){
+            $(this).attr("title",$(this).text());
+            var text=$(this).text().substring(0,len-1)+"...";
+            $(this).text(text);
+        }
+    });
+});
+</script>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+<div class="container-fluid">
+
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <a class="navbar-brand" >HiKi</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <li><a href="{% url 'hiki' %}">回首頁</a></li>
+      <li class="active"><a href="{% url 'diary_display' %}">日記</a></li>
+      <li><a href="{% url 'diary_media' %}">相簿</a></li>
+      <li><a href="{% url 'diary_map' %}">旅遊足跡</a></li>
+      <li><a href="{% url 'diary_tag' %}">標籤</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+            <a class="dropdown-toggle"  data-toggle="dropdown"  href="#">
+                <span class="glyphicon glyphicon-user">
+                    </span> {{userName}} <span class="caret"></span>
+            </a>
+        <ul class="dropdown-menu">
+            <li class="dropdown-header">日記管理 <span class="glyphicon glyphicon-heart"></span></li>
+            <li><a href="{% url 'diary_new' %}">新增日記</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">會員專區 <span class="glyphicon glyphicon-list-alt"></span></li>
+            <li><a href="#">帳號管理</a></li>
+            <li><a href="#">登出</a></li>
+        </ul>   
+     </li>
+
+    </ul>
+    </div>
+
+  </div>
+</nav>
+
+
+<!--diary-->
+<div class="container-fluid">
+ 
+
+
+        <div class="col-xs-12 col-xs-offset-1">
+        <h1>我的日記</h1>
+        </div>
+        <!-- Begin of rows -->
+        {% for diary in diaryList %}
+        <a  href="{% url 'diary_detail' pk=diary.pk %}">
+        <div class="col-xs-10 col-xs-offset-1 row carousel-row">
+            <div class="col-xs-12 col-sm-12  slide-row slide">
+
+            <div id="carousel-item" class="col-xs-12 col-sm-12 col-md-3 media" data-ride="carousel">
+                          <!-- Indicators
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-item" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-item" data-slide-to="1"></li>
+                    <li data-target="#carousel-item" data-slide-to="2"></li>
+                </ol>
+                -->
+
+                <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                      {% if diary.media_set.all|length == 0 %}
+                        <div class="item active">
+                            <img src="http://lorempixel.com/230/150?rand=4" alt="Image">
+                        </div>
+                        <div class="item">
+                            <img src="http://lorempixel.com/230/150?rand=5" alt="Image">
+                        </div>
+                        <div class="item">
+                            <img src="http://lorempixel.com/150/150?rand=6" alt="Image">
+                        </div>
+                        {% else %}
+                            {% for i in diary.media_set.all %}
+                              {% if forloop.counter0 == 0%}
+                                <div class="item active">
+                              {% else %}
+                                <div class="item">
+                              {% endif%}
+
+                              {% if i.type == "img" %}
+                              <img src="{{mediaURL}}{{i.img}}" onerror="this.style.display='none'" width="" height="auto">
+                              {% endif %}
+                              {% if i.type == "video" %}
+                                <video width="" height="auto" controls>
+                              <source src="{{mediaURL}}{{i.img}}" type="video/mp4">
+                              <source src="{{mediaURL}}{{i.img}}" type="video/ogg">
+                              Your browser does not support HTML5 video.
+                                </video>
+                              {% endif %}
+                               </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                </div>
+
+
+                <div class="col-xs-12 col-sm-12 col-md-9 article">
+
+                    <strong><h2>{{diary.title}}</h2></strong>
+                    <span>
+                      <span class="glyphicon glyphicon-calendar">{{diary.date}} </span> 
+                      {% with '/weather/'|add:diary.weather_cond|add:'.png' as image_static %}
+	  			              <img src="{% static image_static %}" onerror="this.style.display='none'" alt="null" height="25" width="25">
+				                <span>{{diary.weather_meantemp}}℃</span> 
+			                {% endwith %}
+                    </span>
+                    <p class = "JQellipsis">
+                        {{diary.content}}
+                    </p>
+            
+                </div>
+            </div>
+        </div>
+        </a>
+        {% endfor %}
+</div>
+
+</body>
 </html>
+

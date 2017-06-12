@@ -179,7 +179,7 @@
 		        <form method="post" class="d-flex">
 		            {% csrf_token %}
 		            <input class="btn m-2 text-white" type="submit" style="background-color: #0ABAB5;" name="delete" value="刪除"> <br>
-		            <a class="btn m-2 text-white" style="background-color: #0ABAB5;" href="{% url 'edit' pk=diary.pk %}">編輯 <i class="fa fa-arrow-right"></i>
+		            <a class="btn m-2 text-white" style="background-color: #0ABAB5;" href="{% url 'diary_edit' pk=diary.pk %}">編輯 <i class="fa fa-arrow-right"></i>
 		            </a>
 		        </form>
 		        {% endif %}

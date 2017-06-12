@@ -20,7 +20,9 @@ def unit_test(request):
 @login_required(login_url='/accounts/')
 def display(request):
     userID = User.objects.get(email = request.user.email)
+    userName = request.user.name
     diaryList = userID.diary_set.all()
+    mediaURL = settings.MEDIA_URL
     return render(request, 'diary/display.html',locals())
 
 #display one diariy
