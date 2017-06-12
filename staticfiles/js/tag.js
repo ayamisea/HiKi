@@ -5,7 +5,7 @@ function addTag(obj,tagValue)
 	newElement.name = tagValue;
 	newElement.innerHTML = "#" + tagValue;
 	newElement.classList.add("mr-2");
-	newElement.classList.add("h4");
+	newElement.classList.add("h5");
 	newElement.style = "display:inline;";
 	newElement.setAttribute("onmouseover", ' this.style = "text-decoration:line-through;display:inline;"');
 	newElement.setAttribute("onmouseout", ' this.style = "text-decoration:none;display:inline;"');
