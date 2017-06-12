@@ -1,6 +1,6 @@
 <form method="POST" action="{% url 'signup' %}" class="d-flex flex-column align-self-center">{% csrf_token %}
 	<div class="formrow flex-column flex-sm-row p-1">
-		<div class="mr-sm-auto" style="padding-right: 1vh">
+		<div class="mr-sm-auto pr-1">
       <label for='email'>Email：</label>
     </div>
 		<div class="ml-sm-auto">
@@ -8,7 +8,7 @@
     </div>
 	</div>
 	<div class="formrow flex-column flex-sm-row p-1">
-		<div class="mr-sm-auto" style="padding-right: 1vh">
+		<div class="mr-sm-auto pr-1">
       <label for='password1'>密碼：</label>
     </div>
 		<div class="ml-sm-auto">
@@ -16,7 +16,7 @@
     </div>
 	</div>
 	<div class="formrow flex-column flex-sm-row p-1">
-		<div class="mr-sm-auto" style="padding-right: 1vh">
+		<div class="mr-sm-auto pr-1">
       <label for='password2'>密碼確認：</label>
     </div>
 		<div class="ml-sm-auto">
@@ -25,7 +25,7 @@
 	</div>
 	<div class="formrow flex-column flex-sm-row p-1">
     <input type="hidden" name="next" value="{{ next }}" />
-		<input class="btn btn-primary" style="width: 100%" type="submit" name="submit" value="註冊">
+		<input class="btn custom-button w-100" type="submit" name="submit" value="註冊">
 	</div>
 </form>
 <div class="d-flex flex-row justify-content-center p-2">
