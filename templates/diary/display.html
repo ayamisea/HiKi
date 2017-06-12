@@ -73,9 +73,9 @@ html body {
 
 }
 .slide .carousel-inner {
-    height: 24vh;
-    padding: 1em 1em 1em 1em ;
-    
+    height: 26vh;
+    width:auto;
+    padding: 1.5em 0em 0em 0em ;
 }
 
 
@@ -187,13 +187,13 @@ $(function(){
                     <div class="carousel-inner">
                       {% if diary.media_set.all|length == 0 %}
                         <div class="item active">
-                            <img class="img-rounded" style="display:block; margin:auto;" src="http://lorempixel.com/150/150/nature/4/" alt="Image">
+                            <img class="img-rounded" style="display:block; margin:auto;" src="http://lorempixel.com/200/200/nature/4/" alt="Image">
                         </div>
                         <div class="item">
-                            <img class="img-rounded" style="display:block; margin:auto;" src="http://lorempixel.com/150/150/nature/5" alt="Image">
+                            <img class="img-rounded" style="display:block; margin:auto;" src="http://lorempixel.com/200/200/nature/5" alt="Image">
                         </div>
                         <div class="item">
-                            <img class="img-rounded" style="display:block; margin:auto;" src="http://lorempixel.com/150/150/nature/6" alt="Image">
+                            <img class="img-rounded" style="display:block; margin:auto;" src="http://lorempixel.com/200/200/nature/6" alt="Image">
                         </div>
                         {% else %}
                             {% for i in diary.media_set.all %}
@@ -207,7 +207,7 @@ $(function(){
                               <img class="img-rounded" src="{{mediaURL}}{{i.img}}" onerror="this.style.display='none'"style="display:block; margin:auto;"  width="150" height="150">
                               {% endif %}
                               {% if i.type == "video" %}
-                                <video style="display:block; margin:auto;" class="img-rounded" width="150" height="150" controls>
+                                <video style="display:block; margin:auto;" class="img-rounded" width="200" height="200" controls>
                               <source src="{{mediaURL}}{{i.img}}" type="video/mp4">
                               <source src="{{mediaURL}}{{i.img}}" type="video/ogg">
                               Your browser does not support HTML5 video.
@@ -227,7 +227,7 @@ $(function(){
                     <strong><h2>{{diary.title}}</h2></strong>
                     <span>
                       <span class="glyphicon glyphicon-calendar">{{diary.date}} </span> 
-                      {% with '/weather/'|add:diary.weather_cond|add:'.png' as image_static %}
+                      {% with '/icon/weather/'|add:diary.weather_cond|add:'.png' as image_static %}
 	  			              <img src="{% static image_static %}" onerror="this.style.display='none'" alt="null" height="25" width="25">
 				                <span>{{diary.weather_meantemp}}℃</span> 
 			                {% endwith %}

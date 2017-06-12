@@ -140,6 +140,7 @@ def media(request):
 @login_required(login_url='/accounts/')
 def tag(request):
     user = User.objects.get(email = request.user.email)
+    userName = request.user.name
     tagList = []
     for diary in user.diary_set.all():
         for tag in diary.tags.all():
@@ -218,9 +219,17 @@ def search(request):
             if not getSearch == "":
                 searchList = getSearch.split(' ')
                 request.session['searchList'] = searchList
+                request.session['Smessage'] = '關鍵字'
         if 'all' in request.POST:
             if 'searchList' in request.session:
                 del request.session['searchList']
+            if 'tag' in request.session:
+                del request.session['tag']
+        if 'tagID' in request.POST:
+            getTag = request.POST.get('tagID')
+            if 'searchList' in request.session:
+                del request.session['searchList']
+            request.session['tag']=getTag
     
     if 'searchList' in request.session:
         filterList = []
@@ -229,6 +238,12 @@ def search(request):
             if diary.searchFilter(searchList):
                 filterList.append(diary)
             diaryList = filterList
+    elif 'tag' in request.session:
+        getTag=request.session['tag']
+        diaryList = Tag.objects.get(id = getTag).diary_set.filter(type__exact='Public') 
+        request.session['Smessage'] = '標籤'
+        searchList = Tag.objects.get(id = getTag).tagName
+
     page = request.GET.get('page')
     paginator = Paginator(diaryList, 10) # Show 25 contacts per page
     try:
@@ -242,10 +257,15 @@ def search(request):
     userName = 0
     if  request.user.is_authenticated:
         userName = request.user.name
+    Smessage = ''
+    if 'Smessage' in request.session:
+        Smessage = request.session['Smessage']
     return render(request,'diary/search.html',locals())
 
 def home(request):
     if 'searchList' in request.session:
         del request.session['searchList']
+    if 'tag' in request.session:
+        del request.session['tag']
         
     return render(request,'home.html',locals())

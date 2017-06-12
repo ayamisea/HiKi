@@ -94,7 +94,7 @@ $(function(){
             <h2 class="lead">找到<strong class="text-danger">{{diaryList|length}}</strong>筆資料
             </h2>
             {% ifnotequal searchList|length 0 %}
-                    符合：
+                    符合{{ Smessage }}：
                         {% for s in searchList %}
                             {{s}}
                         {% endfor%}	
@@ -124,9 +124,14 @@ $(function(){
                         {% ifnotequal diary.tags.all|length 0 %}
                             <li><i class="glyphicon glyphicon-tags"></i> 
                             <span>
+
+                                <form action="" method="post">
+                                {% csrf_token %}
                                 {% for tag in diary.tags.all %}
-                                    <button class="ellipsis btn-xs btn" style="max-width:100%">{{tag}}</button>
+                                    <button class="ellipsis btn-xs btn" style="max-width:100%"  name="tagID" value={{tag.id}}>{{tag}}</button>
                                 {% endfor%}
+                                </form>
+                                
                             </span></li>
                         {% endifnotequal %}
                     </ul>
