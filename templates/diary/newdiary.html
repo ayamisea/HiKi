@@ -4,10 +4,12 @@
 	New Diary
 {% endblock %}
 
-{% block init %}
-	{% include 'include/googlemap.html' %}
+{% block googlemap%}
+	{% include 'include/googlemap.html' with latitude=23.69781 longitude=120.960515 location='台灣' default_zoon=7 %}
 {% endblock %}
 
+{% block inittag %}{% endblock %}
+
 {% block nav %}
-	{% include 'users/nav.html' with name='New Diary' %}
+	{% include 'include/nav.html' with name='New Diary' %}
 {% endblock %}

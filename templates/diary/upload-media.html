@@ -20,7 +20,7 @@
 		<script src="{% static 'js/textarea.js' %}"></script>
 	</head>
 	<body class="d-flex flex-column">
-		{% include 'users/nav.html' with name="Media Uploader" %}
+		{% include 'include/nav.html' with name="Media Uploader" %}
 		<main class="d-flex flex-column" style="width: 90%;margin: 0vh 5%;">
 		    <div class="d-flex p-2">
 			    <form action="" method="post" enctype="multipart/form-data" class="d-flex flex-column w-100">{% csrf_token %}

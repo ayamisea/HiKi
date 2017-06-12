@@ -1,9 +1,7 @@
 //add Tag
-function addTag()
+function addTag(obj,tagValue)
 {
 	var newElement = document.createElement("div");
-	var tag = document.getElementById("tag")
-	var tagValue = document.getElementById("tagValue").value;
 	newElement.name = tagValue;
 	newElement.innerHTML = "#" + tagValue;
 	newElement.classList.add("mr-2");
@@ -13,8 +11,8 @@ function addTag()
 	newElement.setAttribute("onmouseout", ' this.style = "text-decoration:none;display:inline;"');
 	newElement.setAttribute("ondblclick", 'this.parentNode.removeChild(this);');
 	//最後再使用appendChild加到要加的元素裡
-	tag.appendChild(newElement);
-	document.getElementById("tagValue").value = "";
+	obj.appendChild(newElement);
+	document.getElementById("tagValue").value = " ";
 }
 
 //Submit tag

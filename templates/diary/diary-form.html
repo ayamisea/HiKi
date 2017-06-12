@@ -14,7 +14,8 @@
 		<script src="{% static 'js/calendar.js' %}"></script>
 		<script src="{% static 'js/tag.js' %}"></script>
 		<script src="{% static 'js/textarea.js' %}"></script>
-		{% block init %}{% endblock %}
+		{% block inittag %}{% endblock %}
+		{% block googlemap%}{% endblock %}
   	</head>
 	<body class="d-flex flex-column">
 		{% block nav %}{% endblock %}
@@ -44,7 +45,7 @@
 		        <div class="d-flex m-1">
 		        	<img class="form-icon m-1" src="{%static '/icon/form/tag.png' %}">
 			        <input id="tagValue" class="form-control w-50 m-0" type="text" placeholder="請輸入標籤" style="display:inline-block;">
-			        <input id="newtag" class="btn custom-button ml-1" type="button" value="新增" onclick="addTag()" >
+			        <input id="newtag" class="btn custom-button ml-1" type="button" value="新增" onclick="addTag(tag,tagValue.value);" >
 			    </div>
 			    <div class="d-flex">
 			    	<div class="form-icon"></div>
