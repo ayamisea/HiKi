@@ -13,10 +13,11 @@
   </head>
 
 <style>
-  body {
+html body {
     padding-top: 5em;
     padding-bottom: 5%;
     background-color:#FFF ;
+    margin: 0;
 }
 
 .navbar {
@@ -29,6 +30,7 @@
       letter-spacing: 4px;
       border-radius: 0;
       font-family: Montserrat, sans-serif;
+      
   }
   .navbar li a, .navbar .navbar-brand {
       color: #fff !important;
@@ -60,21 +62,19 @@
      border: solid rgba(10, 186, 181,0.6);
      border-width: 3px 10px 3px 10px;
 }
-.slide-row{
-    padding: 1em 1em 1em 1em;
-}
+
 
 .slide .carousel-indicators {
 
     background-color: rgba(105, 105, 105,0.5);
     margin-bottom:0;
     bottom: 0;  
-    width:auto;
-    margin-left:0; 
-    left:50%
+
+
 }
 .slide .carousel-inner {
-    min-height: 24vh;
+    height: 24vh;
+    padding: 1em 1em 1em 1em ;
     
 }
 
@@ -82,7 +82,6 @@
 .article {
     min-height: 24vh;
     border-radius: 5px;
-
 }
 .article h2 {
     color: #0ABAB5;
@@ -94,7 +93,7 @@
     font-size: 15px !important;
 }
 .article span {
-    color: #696969;
+    color: #769072;
 
     font-size: 13px !important;
 }
@@ -162,22 +161,20 @@ $(function(){
   </div>
 </nav>
 
-
 <!--diary-->
 <div class="container-fluid">
- 
 
-
-        <div class="col-xs-12 col-xs-offset-1">
-        <h1>我的日記</h1>
-        </div>
-        <!-- Begin of rows -->
+  <div class="col-xs-10 col-xs-offset-1">
+        <h2>我的日記</h2>
+        <hr>
+  </div>
+  <!-- Begin of rows -->
         {% for diary in diaryList %}
         <a  href="{% url 'diary_detail' pk=diary.pk %}">
-        <div class="col-xs-10 col-xs-offset-1 row carousel-row">
-            <div class="col-xs-12 col-sm-12  slide-row slide">
+          <div class="col-xs-10 col-xs-offset-1 row carousel-row">
+            <div class="col-xs-12  slide-row slide">
 
-            <div id="carousel-item" class="col-xs-12 col-sm-12 col-md-3 media" data-ride="carousel">
+              <div id="carousel-item" class="col-xs-12 col-md-2 media" data-ride="carousel">
                           <!-- Indicators
                 <ol class="carousel-indicators">
                     <li data-target="#carousel-item" data-slide-to="0" class="active"></li>
@@ -190,13 +187,13 @@ $(function(){
                     <div class="carousel-inner">
                       {% if diary.media_set.all|length == 0 %}
                         <div class="item active">
-                            <img src="http://lorempixel.com/230/150?rand=4" alt="Image">
+                            <img class="img-rounded" style="display:block; margin:auto;" src="http://lorempixel.com/150/150/nature/4/" alt="Image">
                         </div>
                         <div class="item">
-                            <img src="http://lorempixel.com/230/150?rand=5" alt="Image">
+                            <img class="img-rounded" style="display:block; margin:auto;" src="http://lorempixel.com/150/150/nature/5" alt="Image">
                         </div>
                         <div class="item">
-                            <img src="http://lorempixel.com/150/150?rand=6" alt="Image">
+                            <img class="img-rounded" style="display:block; margin:auto;" src="http://lorempixel.com/150/150/nature/6" alt="Image">
                         </div>
                         {% else %}
                             {% for i in diary.media_set.all %}
@@ -207,10 +204,10 @@ $(function(){
                               {% endif%}
 
                               {% if i.type == "img" %}
-                              <img src="{{mediaURL}}{{i.img}}" onerror="this.style.display='none'" width="" height="auto">
+                              <img class="img-rounded" src="{{mediaURL}}{{i.img}}" onerror="this.style.display='none'"style="display:block; margin:auto;"  width="150" height="150">
                               {% endif %}
                               {% if i.type == "video" %}
-                                <video width="" height="auto" controls>
+                                <video style="display:block; margin:auto;" class="img-rounded" width="150" height="150" controls>
                               <source src="{{mediaURL}}{{i.img}}" type="video/mp4">
                               <source src="{{mediaURL}}{{i.img}}" type="video/ogg">
                               Your browser does not support HTML5 video.
@@ -218,13 +215,14 @@ $(function(){
                               {% endif %}
                                </div>
                             {% endfor %}
+                            
                         {% endif %}
                     </div>
 
                 </div>
 
 
-                <div class="col-xs-12 col-sm-12 col-md-9 article">
+                <div class="col-xs-12  col-md-10 article">
 
                     <strong><h2>{{diary.title}}</h2></strong>
                     <span>
@@ -243,7 +241,11 @@ $(function(){
         </div>
         </a>
         {% endfor %}
+
+
+
 </div>
+
 
 </body>
 </html>
