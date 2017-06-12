@@ -32,8 +32,17 @@ $(function(){
  <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
+
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
       <a class="navbar-brand" >HiKi</a>
     </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
       <li><a href="{% url 'hiki' %}">回首頁</a></li>
     </ul>
@@ -45,6 +54,7 @@ $(function(){
       {% endif%}
 
     </ul>
+    </div>
   </div>
 </nav>
 
@@ -134,8 +144,9 @@ $(function(){
             {% endfor%}
         </section>
 
+
         <!--頁面切換-->
-        <nav class ="text-center" aria-label="Page navigation">
+        <nav class ="text-center" aria-label="Page navigation" >
             <ul class="pagination pagination-sm ">
                 <li class="page-item">
                     {% if contacts.has_previous %}
