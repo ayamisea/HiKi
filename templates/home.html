@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="{% static 'home.css' %}">
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -163,10 +163,8 @@ $(document).ready(function(){
     if (this.hash !== "") {
       // Prevent default anchor click behavior
       event.preventDefault();
-
       // Store hash
       var hash = this.hash;
-
       // Using jQuery's animate() method to add smooth page scroll
       // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
       $('html, body').animate({
@@ -182,7 +180,6 @@ $(document).ready(function(){
   $(window).scroll(function() {
     $(".slideanim").each(function(){
       var pos = $(this).offset().top;
-
       var winTop = $(window).scrollTop();
         if (pos < winTop + 600) {
           $(this).addClass("slide");

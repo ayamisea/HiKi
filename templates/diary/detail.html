@@ -4,140 +4,107 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
     	<title>Detail</title>
-		<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-		<!-- <link rel="stylesheet" href="{% static 'diary/newdiary.css' %}"> -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+		<!-- css -->
+		{% include 'include/bootstrap.html' %}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/googlemap.css' %}">
+		<style>
+		.word {
+			white-space:normal;
+			word-break:break-all;
+			overflow:hidden;  
+		}
+		hr {
+			margin:0;
+			height:.1px; 
+			background-color:rgba(10,181,186,0.2);
+		}</head>
+		</style>
+		<!-- js -->
+		<script src="{% static 'js/no-prevpage.js' %}"></script>
+		<script>
+		function initMap() {
+			var uluru = {lat: {{diary.location.latitude}}, lng: {{diary.location.longitude}} };
+			var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 7,
+			center: uluru
+			});
+			var marker = new google.maps.Marker({
+			position: uluru,
+			map: map
+			});
+		}
+		</script>
+		<script src="https://maps.googleapis.com/maps/api/js?key={{MapAPI}}&callback=initMap" async defer ></script>
 	</head>
-	
-	<style>
-	html , body {
-		width:100%;
-		height:100%;
-		margin:0;
-	}
-
-	main {
-		margin: 0 3%;
-	}
-
-	#map {
-		width:100%;
-		height: 40vh;
-	}
-
-	.icon {
-	  width:64px;
-	  height:64px;
-	  min-width: 64px;
-	}
-
-	.word {
-		white-space:normal;
-		word-break:break-all;
-		overflow:hidden;  
-	}
-	
-	hr {
-		margin:0;
-		height:.1px; 
-		background-color:rgba(10,181,186,0.2);
-	}
-
-	</style>
-	
-	<script type="text/javascript">
-	    //禁止回上一頁
-	    history.pushState(null, null, document.URL);
-	    window.addEventListener('popstate', function () {
-	        history.pushState(null, null, document.URL);
-	    });
-	</script>
-	
-	<body>
+	<body class="w-100 h-100 m-0">
 		<!-- 日期與導覽列 -->
-		{% include 'users/nav.html' with name=diary.date %}
-		<main class="d-flex flex-column">
+		{% include 'include/nav.html' with name=diary.date %}
+		<main class="d-flex flex-column" style="margin:0 3%;">
 			<!-- 標題 -->
-			<div class="p-1 d-flex flex-row align-items-center">
-				<div class="icon">
-					<img width="42" height="42" src="{%static '/diary/detail-title.png' %}" style="margin:11px;">
+			<div class="d-flex align-items-center p-1">
+				<div class="detail-icon">
+					<img class="detail-icon-img" src="{%static '/icon/detail/title.png' %}">
 				</div>
 				<h4 class="m-0">{{diary.title}}</h4>
 			</div>
 			<hr>
 			<!-- 標籤 -->
-			<div class="p-1 d-flex flex-row">
 			{% ifnotequal diary.tags.all|length 0 %}
-				<div class="icon">
-					<img width="42" height="42" src="{%static '/diary/detail-tag.png' %}" style="margin:11px;">
+			<div class="d-flex p-1">
+				<div class="detail-icon">
+					<img class="detail-icon-img" src="{%static '/icon/detail/tag.png' %}">
 				</div>
 				<div class="d-flex flex-column align-self-center">
 				{% for t in diary.tags.all %}
 				    <h5 class="m-1">#{{t.tagName}}</h5>
 				{% endfor %}
 				</div>
-			{% endifnotequal %}
 			</div>
 			<hr>
+			{% endifnotequal %}
+			<!-- 地點與天氣 -->
 			{% ifnotequal diary.location.location "null" %}
 			<!-- 天氣 -->
-			<div class="p-1 d-flex flex-row align-items-center">
-			{% with '/weather/'|add:diary.weather_cond|add:'.png' as image_static %}
+			{% with '/icon/weather/'|add:diary.weather_cond|add:'.png' as image_static %}
+			<div class="d-flex align-items-center p-1">
 	  			<img src="{% static image_static %}" onerror="this.style.display='none'" alt="null" height="64" width="64">
 				<h5 class="m-0">{{diary.weather_meantemp}}℃</h5>
-			{% endwith %}
 			</div>
 			<hr>
+			{% endwith %}
 			<!-- 地圖 -->
 			<div class="p-1 d-flex flex-row align-items-center">
-				<div class="icon">
-					<img width="42" height="42" src="{%static '/diary/detail-placeholder.png' %}" style="margin:11px;">
+				<div class="detail-icon">
+					<img class="detail-icon" src="{%static '/icon/detail/placeholder.png' %}">
 				</div>
 				<a target="_blank" href="http://maps.google.com/maps?q={{diary.location.latitude}},{{diary.location.longitude}}">{{diary.location.location}}</a>
-			  
 			</div>
 			<div class="d-flex pb-4">
-				<div class="icon"></div>
+				<div class="detail-icon"></div>
 				<div id="map"></div>
 			</div>
-			<script>
-			function initMap() {
-			  var uluru = {lat: {{diary.location.latitude}}, lng: {{diary.location.longitude}} };
-			  var map = new google.maps.Map(document.getElementById('map'), {
-			    zoom: 7,
-			    center: uluru
-			  });
-			  var marker = new google.maps.Marker({
-			    position: uluru,
-			    map: map
-			  });
-			}
-			</script>
-			<script async defer
-			src="https://maps.googleapis.com/maps/api/js?key={{MapAPI}}&callback=initMap">
-			</script>
 			{% endifnotequal %}
 			<hr>
 			<!-- 內容 -->
 			<div class="pl-1 pr-1 pt-3 pb-3 d-flex flex-row">
-				<div class="icon">
-					<img width="42" height="42" src="{%static '/diary/detail-content.png' %}" style="margin:11px;">
+				<div class="detail-icon">
+					<img class="detail-icon-img" src="{%static '/icon/detail/content.png' %}">
 				</div>
 				<div class="h5 mt-2 mb-2">{{diary.content}}</div>
 			</div>
 			<hr>
 			<!-- 多少媒體 -->
 			{% ifnotequal diary.media_set.all|length 0 %}
-			<div class="pt-1 pl-1 pr-1 pb-0 d-flex flex-row align-items-center">
-				<div class="icon">
-					<img width="42" height="42" src="{%static '/diary/detail-picture.png' %}" style="margin:11px;">
+			<div class="d-flex align-items-center pt-1 pl-1 pr-1 pb-0">
+				<div class="detail-icon">
+					<img class="detail-icon-img" src="{%static '/icon/detail/picture.png' %}">
 				</div>
 				<h5 class="ml-1 mt-0 mr-0 mb-0">共{{diary.media_set.all|length }}個媒體</h5>
 			</div>
 			<!-- 圖片欄位 -->
-			<div class="pt-0 pl-1 pr-1 pb-1 d-flex flex-row">
-				<div class="icon"></div><!-- 佔位 -->
+			<div class="d-flex pt-0 pl-1 pr-1 pb-1">
+				<div class="detail-icon"></div><!-- 佔位 -->
 				<!-- 所有圖片 -->
 				<div class="d-flex flex-column">
 			    {% for i in diary.media_set.all %}
@@ -178,13 +145,13 @@
 		        {% if diary.userID.email == userID.email%}
 		        <form method="post" class="d-flex">
 		            {% csrf_token %}
-		            <input class="btn m-2 text-white" type="submit" style="background-color: #0ABAB5;" name="delete" value="刪除"> <br>
-		            <a class="btn m-2 text-white" style="background-color: #0ABAB5;" href="{% url 'diary_edit' pk=diary.pk %}">編輯 <i class="fa fa-arrow-right"></i>
-		            </a>
+		            <input class="btn custom-button m-2" type="submit" name="delete" value="刪除">
+		            <a class="btn custom-button m-2" href="{% url 'diary_edit' pk=diary.pk %}">編輯</a>
+
 		        </form>
 		        {% endif %}
 				<form action="/diary/" class="d-flex">
-					<button class="btn m-2 text-white" type="submit" style="background-color: #0ABAB5;">回日記</button>
+					<button class="btn custom-button m-2" type="submit">回日記</button>
 				</form>
 			</div>
 		</main>

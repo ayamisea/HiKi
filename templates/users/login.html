@@ -1,15 +1,15 @@
-<form method="POST" action="{% url 'login' %}" class="d-flex flex-column align-self-center style="width:100%"">{% csrf_token %}
+<form method="POST" action="{% url 'login' %}" class="d-flex flex-column align-self-center">{% csrf_token %}
 	<div class="formrow flex-column flex-sm-row p-1">
-		<div class="mr-sm-auto" style="padding-right: 1vh;">{{ login_form.username.label_tag }}</div>
+		<div class="mr-sm-auto pr-1">{{ login_form.username.label_tag }}</div>
 		<div class="ml-sm-auto">{{ login_form.username }}</div>
 	</div>
 	<div class="formrow flex-column flex-sm-row p-1">
-		<div class="mr-sm-auto" style="padding-right: 1vh">{{ login_form.password.label_tag }}</div>
+		<div class="mr-sm-auto pr-1">{{ login_form.password.label_tag }}</div>
 		<div class="ml-sm-auto">{{ login_form.password }}</div>
 	</div>
 	<div class="formrow flex-column flex-sm-row p-1">
 		<input type="hidden" name="next" value="{{ next }}" />
-		<input class="btn btn-primary" style="width: 100%" type="submit" name="submit" value="登入">
+		<input class="btn custom-button w-100" type="submit" name="submit" value="登入">
 	</div>
 </form>
 <div class="d-flex flex-row justify-content-center p-2">
