@@ -33,7 +33,7 @@ def detail(request,pk):
     MapAPI = settings.GOOGLE_MAPS_API_KEY
     userID = User.objects.get(email = request.user.email)
     diary = Diary.objects.get(pk=pk)
-    if diary.userID == request.user.email or diary.type=='Public':
+    if diary.userID.email == request.user.email or diary.type=='Public':
         if request.method=='POST':
             if 'delete' in request.POST:
                 d = Diary.objects.get(id=pk)
