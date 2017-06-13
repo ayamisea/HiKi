@@ -58,11 +58,11 @@ $(function(){
   </div>
 </nav>
 
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
-                <form method="post" >
+                <form method="post" action="{% url 'diary_search_result' %}" >
                     {% csrf_token %}
                     <div id="imaginary_container"> 
                         <div class="input-group stylish-input-group">
@@ -125,7 +125,7 @@ $(function(){
                             <li><i class="glyphicon glyphicon-tags"></i> 
                             <span>
 
-                                <form action="" method="post">
+                                <form action="{% url 'diary_search_result' %}" method="post">
                                 {% csrf_token %}
                                 {% for tag in diary.tags.all %}
                                     <button class="ellipsis btn-xs btn" style="max-width:100%"  name="tagID" value={{tag.id}}>{{tag}}</button>
@@ -148,10 +148,9 @@ $(function(){
             {{ diary.full_name|upper }}<br>
             {% endfor%}
         </section>
-
-
-        <!--頁面切換-->
-        <nav class ="text-center" aria-label="Page navigation" >
+        <section class="col-xs-12 col-sm-offset-5 col-sm-7">
+            <!--頁面切換-->
+        <nav class ="page" aria-label="Page navigation" >
             <ul class="pagination pagination-sm ">
                 <li class="page-item">
                     {% if contacts.has_previous %}
@@ -182,7 +181,10 @@ $(function(){
                 </li>
             </ul>
         </nav>
-
+        </section>
     </div>
+
+    
+        
 </body>
 </html>

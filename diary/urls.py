@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^media-upload-show/$', views.media_upload_show), # upload-media-display.html
     url(r'^edit/(?P<pk>\d+)/$', views.edit,name='diary_edit'), # edit.html
     url(r'^search/$', views.search,name='diary_search'), # search.html
+    url(r'^search/results/$',views.search_result,name = 'diary_search_result') # search.html
 ]

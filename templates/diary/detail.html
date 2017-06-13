@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-	<head>
+<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
     	<title>Detail</title>
@@ -8,6 +8,7 @@
 		{% include 'include/bootstrap.html' %}
 		<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css/googlemap.css' %}">
+
 		<style>
 		.word {
 			white-space:normal;
@@ -18,10 +19,11 @@
 			margin:0;
 			height:.1px; 
 			background-color:rgba(10,181,186,0.2);
-		}</head>
+		}
 		</style>
+
 		<!-- js -->
-		<script src="{% static 'js/no-prevpage.js' %}"></script>
+		
 		<script>
 		function initMap() {
 			var uluru = {lat: {{diary.location.latitude}}, lng: {{diary.location.longitude}} };
@@ -36,7 +38,7 @@
 		}
 		</script>
 		<script src="https://maps.googleapis.com/maps/api/js?key={{MapAPI}}&callback=initMap" async defer ></script>
-	</head>
+</head>
 	<body class="w-100 h-100 m-0">
 		<!-- 日期與導覽列 -->
 		{% include 'include/nav.html' with name=diary.date %}

@@ -9,7 +9,7 @@ from decimal import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.core import serializers
+
 # Create your views here.
 @login_required(login_url='/accounts/')
 def unit_test(request):
@@ -214,24 +214,41 @@ def edit(request,pk):
 def search(request):
     mediaURL = settings.MEDIA_URL
     diaryList = Diary.objects.filter(type__exact='Public')
+
+    page = request.GET.get('page')
+    paginator = Paginator(diaryList, 10) # Show 25 contacts per page
+    try:
+        contacts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        contacts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        contacts = paginator.page(paginator.num_pages)
+    userName = 0
+    if  request.user.is_authenticated:
+        userName = request.user.name
+
+    return render(request,'diary/search.html',locals())
+
+def search_result(request):
+    mediaURL = settings.MEDIA_URL
+    diaryList = Diary.objects.filter(type__exact='Public')
+
     if request.method == "POST":
+        if 'all' in request.POST:
+            return HttpResponseRedirect('/diary/search/')
         if 'search' in request.POST:
             getSearch = request.POST.get('search')
             if not getSearch == "":
                 searchList = getSearch.split(' ')
                 request.session['searchList'] = searchList
                 request.session['Smessage'] = '關鍵字'
-        if 'all' in request.POST:
-            if 'searchList' in request.session:
-                del request.session['searchList']
-            if 'tag' in request.session:
-                del request.session['tag']
         if 'tagID' in request.POST:
             getTag = request.POST.get('tagID')
             if 'searchList' in request.session:
                 del request.session['searchList']
             request.session['tag']=getTag
-    
     if 'searchList' in request.session:
         filterList = []
         searchList = request.session['searchList']
@@ -261,12 +278,8 @@ def search(request):
     Smessage = ''
     if 'Smessage' in request.session:
         Smessage = request.session['Smessage']
+
     return render(request,'diary/search.html',locals())
 
 def home(request):
-    if 'searchList' in request.session:
-        del request.session['searchList']
-    if 'tag' in request.session:
-        del request.session['tag']
-        
     return render(request,'home.html',locals())
