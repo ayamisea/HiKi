@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Display</title>
     <!-- Bootstrap -->
+    
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'diary/search.css' %}">
@@ -53,6 +54,8 @@ html body {
 .navbar-right .dropdown-header {
     font-size: 14px !important;
 }
+
+
 
 .carousel-row {
     min-height: 27vh;
@@ -164,17 +167,18 @@ $(function(){
 <!--diary-->
 <div class="container-fluid">
 
-  <div class="col-xs-10 col-xs-offset-1">
-        <h2>我的日記</h2>
-        <hr>
+
+  <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+            <h2>我的日記</h2>
+            <hr>
   </div>
   <!-- Begin of rows -->
         {% for diary in diaryList %}
         <a  href="{% url 'diary_detail' pk=diary.pk %}">
-          <div class="col-xs-10 col-xs-offset-1 row carousel-row">
-            <div class="col-xs-12  slide-row slide">
+          <div class="col-xs-12 col-sm-offset-2 col-sm-8   carousel-row">
+            <div class="slide-row slide">
 
-              <div id="carousel-item" class="col-xs-12 col-md-2 media" data-ride="carousel">
+              <div id="carousel-item" class="col-md-2   media" data-ride="carousel">
                           <!-- Indicators
                 <ol class="carousel-indicators">
                     <li data-target="#carousel-item" data-slide-to="0" class="active"></li>
@@ -222,7 +226,7 @@ $(function(){
                 </div>
 
 
-                <div class="col-xs-12  col-md-10 article">
+                <div class="col-md-10 article">
 
                     <strong><h2>{{diary.title}}</h2></strong>
                     <span>
