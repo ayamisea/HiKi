@@ -1,15 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
-    <title>All Tags</title>
-
-    <!--bootstrap-->
+    <title>Display</title>
+    <!-- Bootstrap -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'diary/search.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-</head>
+  </head>
+
 <style>
 html body {
     padding-top: 5em;
@@ -17,7 +19,6 @@ html body {
     background-color:#FFF ;
     margin: 0;
 }
-
 
 .navbar {
       margin-bottom: 0;
@@ -52,14 +53,176 @@ html body {
 .navbar-right .dropdown-header {
     font-size: 14px !important;
 }
+
+.container{
+    width: 100%;
+
+    margin-bottom: 2em;
+
+}
+.tag {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80%;
+    border-radius: 10px;
+    margin: 0.25em;
+    
+}
+
+
+
+
+/*==========================*/
+@import url("http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,400italic");
+    @import url("//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css");
+    body {
+		padding: 60px 0px;
+		background-color: #FFF;
+	}
+    
+    .event-list {
+		list-style: none;
+		font-family: 'Lato', sans-serif;
+		margin-bottom: 1em;
+		padding: 0px;
+	}
+	.event-list > li {
+		background-color: rgb(255, 255, 255);
+		box-shadow: 0px 0px 3px rgb(10, 186, 181);
+		padding: 0px;
+		margin: 0px 0px 20px;
+	}
+	.event-list > li > time {
+		display: inline-block;
+		width: 100%;
+		color: rgb(255, 255, 255);
+		background-color: rgba(10, 186, 181,1);
+		padding: 5px;
+		text-align: center;
+		text-transform: uppercase;
+	}
+	.event-list > li:nth-child(even) > time {
+		background-color: rgba(10, 186, 181, 0.7);
+	}
+	.event-list > li > time > span {
+		display: none;
+	}
+	.event-list > li > time > .day {
+		display: block;
+		font-size: 56pt;
+		font-weight: 100;
+		line-height: 1;
+	}
+	.event-list > li time > .month {
+		display: block;
+		font-size: 24pt;
+		font-weight: 900;
+		line-height: 1;
+	}
+	.event-list > li > img {
+		width: 100%;
+	}
+	.event-list > li > .info {
+		padding-top: 5px;
+
+	}
+	.event-list > li > .info > .title {
+		font-size: 16pt;
+		font-weight: 700;
+		margin: 0px;
+        font-family: Montserrat, sans-serif;
+	}
+	.event-list > li > .info > .desc {
+		font-size: 12pt;
+		font-weight: 300;
+		margin: 0px;
+        color:#696969;
+        font-family: Montserrat, sans-serif;
+	}
+	.event-list > li > .info > ul,
+	
+    .event-list > li > .info > ul > li > a {
+		display: block;
+		width: 100%;
+		color: rgb(30, 30, 30);
+		text-decoration: none;
+	} 
+    .event-list > li > .info > .link{
+        color: #0ABAB5;
+        text-decoration: none;
+    }
+    .event-list > li > .info > a:hover {
+        color: rgba(10, 186, 181,0.5);
+    }
+
+
+	@media (min-width: 768px) {
+		.event-list > li {
+			position: relative;
+			display: block;
+			width: 100%;
+			height: 120px;
+			padding: 0px;
+		}
+		.event-list > li > time,
+		.event-list > li > img  {
+			display: inline-block;
+		}
+		.event-list > li > time,
+		.event-list > li > img {
+			width: 120px;
+			float: left;
+		}
+		.event-list > li > .info {
+			background-color: #FFF;
+			overflow: hidden;
+		}
+		.event-list > li > time,
+		.event-list > li > img {
+			width: 120px;
+			height: 120px;
+			padding: 0px;
+			margin: 0px;
+		}
+		.event-list > li > .info {
+			position: relative;
+			height: 120px;
+			text-align: left;
+			padding-right: 40px;
+		}	
+		.event-list > li > .info > .title, 
+		.event-list > li > .info > .desc,
+        .event-list > li > .info > .link {
+			padding: 0px 10px;
+		}
+		.event-list > li > .info > ul {
+			position: absolute;
+			left: 0px;
+			bottom: 0px;
+		}
+		
+	}
 </style>
 
-<body>
+<script>
+$(function(){
+    var len = 80; 
+    $(".JQellipsis").each(function(i){
+        if($(this).text().length>len){
+            $(this).attr("title",$(this).text());
+            var text=$(this).text().substring(0,len-1)+"...";
+            $(this).text(text);
+        }
+    });
+});
+</script>
 
+<body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
 <div class="container-fluid">
-  
-<!-- Brand and toggle get grouped for better mobile display -->
+
+    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span>
@@ -101,31 +264,85 @@ html body {
   </div>
 </nav>
 
+<!--tag-->
+<div class="container-fluid">
 
-  <h3>#Display tags</h3>
-  標籤列：
+    <!--選單-->
+    <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+        <div class="dropdown">
+            <h2 data-toggle="collapse" data-target="#tags">我的標籤 <span class="caret"></span></h2>
+                
+                <div class="container">
+                    <div id="tags" class="collapse">
+                        <span >
+                            <form action="" method="post">
+                            {% csrf_token %}
+                            {% for tag in tagList %}
+                                <button type="submit" class="tag btn btn-default btn-sm " style="margin-left:10px;display:inline" name="tag" value={{tag.id}} >
+                                   <span class="badge">{{tag.diary_set.all|length}}</span> {{tag.tagName}} 
+                                </button>
+                            {% endfor %}
+                            </form>
+                        </span>
+                    </div>
+                </div>
+                
+        </div>
+    </div>
 
-  <form action="" method="post">
-    {% csrf_token %}
-    {% for tag in tagList %}
-        <button type="submit" class="btn" style="margin-left:10px;display:inline" name="tag" value={{tag.id}} >{{tag.tagName}}</button>
-    {% endfor %}
-  </form>
-  <br>
-  <form action="/diaries/unit_test" >
-          <button type="submit" style="margin-left: 10px;" >回首頁</button>
-  </form>
-  <hr>
-  {% for diary in tagDiary %}
-    標題：{{diary.title}}<br>
-      日期：{{diary.date}}<br>
-      內容：<br>
-      {{diary.content}}<br>
-      <a class="btn btn-default" style="margin-left:20px" href="{% url 'diary_detail' pk=diary.pk %}">
-                        Read More <i class="fa fa-arrow-right"></i>
-      </a>
-      </br>
-      <hr>
-  {% endfor %}
+    <!--日記-->
+
+    <div class="[ col-xs-12 col-sm-offset-2 col-sm-8 ]">
+
+        {% for diary in tagDiary %}
+        <ul class="event-list">
+            <li>
+                <time datetime="{{diary.title}}">
+                    <span class="day">{{diary.date.day}}</span>
+                    <span class="month">{{diary.date|date:"M"}}</span>
+                    <span class="year">{{diary.date.year}}</span>
+                    <span class="time">ALL DAY</span>
+                </time>
+
+                
+                {% if diary.media_set.all|length == 0 %}
+                    <img alt="Title" src="{%static '/img/home.jpg' %}" />
+                {% else %}
+                        
+                    {% if diary.media_set.first.type == "img" %}
+                    <img class="img-rounded" src="{{mediaURL}}{{diary.media_set.first.img}}" onerror="this.style.display='none'"style="display:block; margin:auto;"  >
+                    {% endif %}
+                    {% if diary.media_set.first.type == "video" %}
+                    <video style="display:block; margin:auto;" class="img-rounded"  controls>
+                    <source src="{{mediaURL}}{{diary.media_set.first.img}}" type="video/mp4">
+                    <source src="{{mediaURL}}{{diary.media_set.first.img}}" type="video/ogg">
+                    Your browser does not support HTML5 video.
+                    </video>
+                    {% endif %}
+                   
+                       
+                {% endif %}
+               
+                <div class="info">
+                    <h2 class="title">{{diary.title}}</h2>
+                    
+                    <p class="desc JQellipsis" >{{diary.content}} </p>
+                    <a class="link" href="{% url 'diary_detail' pk=diary.pk %}">繼續閱讀</a>
+                    
+                   
+                </div>
+                
+                
+               
+            </li> 
+        </ul>
+        {% endfor %}
+
+
+    </div>
+
+</div>
+
 </body>
 </html>
+

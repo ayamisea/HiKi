@@ -33,7 +33,7 @@ def detail(request,pk):
     MapAPI = settings.GOOGLE_MAPS_API_KEY
     userID = User.objects.get(email = request.user.email)
     diary = Diary.objects.get(pk=pk)
-    if diary.userID.email == request.user.email or diary.type=='Public':
+    if diary.userID == request.user.email or diary.type=='Public':
         if request.method=='POST':
             if 'delete' in request.POST:
                 d = Diary.objects.get(id=pk)
@@ -139,6 +139,7 @@ def media(request):
 #display all tags and its diaries
 @login_required(login_url='/accounts/')
 def tag(request):
+    mediaURL =  settings.MEDIA_URL
     user = User.objects.get(email = request.user.email)
     userName = request.user.name
     tagList = []
