@@ -130,13 +130,13 @@ html body {
 	.event-list > li > .info > .title {
 		font-size: 16pt;
 		font-weight: 700;
-		margin: 0px;
+        margin: 0 0 0 0.5em;
         font-family: Montserrat, sans-serif;
 	}
 	.event-list > li > .info > .desc {
 		font-size: 12pt;
 		font-weight: 300;
-		margin: 0px;
+		margin: 0 0 0 0.5em;
         color:#696969;
         font-family: Montserrat, sans-serif;
 	}
@@ -151,6 +151,7 @@ html body {
     .event-list > li > .info > .link{
         color: #0ABAB5;
         text-decoration: none;
+        margin: 0 0 0 0.5em;
     }
     .event-list > li > .info > a:hover {
         color: rgba(10, 186, 181,0.5);
@@ -211,7 +212,7 @@ $(function(){
     $(".JQellipsis").each(function(i){
         if($(this).text().length>len){
             $(this).attr("title",$(this).text());
-            var text=$(this).text().substring(0,len-1)+"...";
+            var text=$(this).text().substring(0,len-1)+"";
             $(this).text(text);
         }
     });
@@ -327,7 +328,7 @@ $(function(){
                     <h2 class="title">{{diary.title}}</h2>
                     
                     <p class="desc JQellipsis" >{{diary.content}} </p>
-                    <a class="link" href="{% url 'diary_detail' pk=diary.pk %}">繼續閱讀</a>
+                    <a class="link" href="{% url 'diary_detail' pk=diary.pk %}">... 繼續閱讀</a>
                     
                    
                 </div>
