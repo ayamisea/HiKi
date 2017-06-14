@@ -1,0 +1,40 @@
+{% load static %}
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>{% block title %}{% endblock %}</title>
+		<!-- css -->
+		<link rel="stylesheet" href="{% static 'css/main.css' %}">
+		{% include 'include/bootstrap.html' %}
+		<style>
+		body {
+			background: #0ABAB5;  /* fallback for old browsers */
+			background: -webkit-linear-gradient(bottom, #02AAB0, #0ABAB5);
+			background: -o-linear-gradient(bottom, #02AAB0, #0ABAB5);
+			background: linear-gradient(to top, #02AAB0, #0ABAB5);  /* Chrome 10-25, Safari 5.1-6 */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+		}
+		@media (min-width: 768px) { 
+			h1 { 
+				font-size:3.5rem;
+			}
+		}
+		@media (min-width: 992px) { 
+			h1 {
+				font-size:4.5rem;
+			}
+		}
+		@media (min-width: 1200px) { 
+			h1 {
+				font-size:5.5rem;
+			}
+		}
+		</style>
+	</head>
+	<body class="d-flex justify-content-center align-items-center w-100 h-100 m-0 p-0">
+		<main class="d-flex flex-column align-items-center">
+			<h1 class="text-white">{% block error %}{% endblock %}</h1>
+			<h1 class="text-white"><small>{% block error_message %}{% endblock %}</small></h1>	
+		</main>
+	</body>
+</html>
