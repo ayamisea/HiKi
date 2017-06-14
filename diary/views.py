@@ -33,23 +33,21 @@ def detail(request,pk):
     MapAPI = settings.GOOGLE_MAPS_API_KEY
     userID = User.objects.get(email = request.user.email)
     diary = Diary.objects.get(pk=pk)
-    if diary.userID.email == request.user.email or diary.type=='Public':
-        if request.method=='POST':
-            if 'delete' in request.POST:
-                d = Diary.objects.get(id=pk)
-                m = Map.objects.get(location = d.location)
-                for t in d.tags.all(): #delete tags
-                    if t.diary_set.count() == 1:
-                        Tag.objects.get(id= t.id).delete()
-                for img in d.media_set.all(): #delete media
-                    Media.objects.get(id=img.id).delete()
-                if m.diary_set.count() == 1: #delete maps
-                    m.delete()
-                d.delete()
-                return HttpResponseRedirect('/diary/')
-        return render(request, 'diary/detail.html', locals())
-    else:
-        return render(request, 'diary/display.html', locals())
+    if request.method=='POST':
+        if 'delete' in request.POST:
+            d = Diary.objects.get(id=pk)
+            m = Map.objects.get(location = d.location)
+            for t in d.tags.all(): #delete tags
+                if t.diary_set.count() == 1:
+                    Tag.objects.get(id= t.id).delete()
+            for img in d.media_set.all(): #delete media
+                Media.objects.get(id=img.id).delete()
+            if m.diary_set.count() == 1: #delete maps
+                m.delete()
+            d.delete()
+            return HttpResponseRedirect('/diary/')
+    return render(request, 'diary/detail.html', locals())
+
 
 #create new diary
 @login_required(login_url='/accounts/')
