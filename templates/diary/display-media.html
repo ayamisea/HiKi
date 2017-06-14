@@ -268,7 +268,7 @@ $(document).on("click", ".videoID", function () {
                         <img src="{{mediaURL}}{{media.img}}" onerror="this.style.display='none'" class="image img-thumbnail" alt="Cinque Terre" width="300" height=auto>
                     {% endif %}
                     {% if media.type == "video" %}
-                        <video error="this.style.display='none'" class = "image img-thumbnail" height="500" controls>
+                        <video class = "image img-thumbnail" height="500" controls>
                         <source src="{{mediaURL}}{{ media.img}}" type="video/mp4">
                         <source src="{{mediaURL}}{{ media.img}}" type="video/ogg">
                         Your browser does not support HTML5 video.

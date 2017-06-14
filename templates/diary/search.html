@@ -107,8 +107,15 @@ $(function(){
             <div class="col-xs-12 col-sm-12 col-md-3">
                 <a href="#" title="{{diary.title}}" class="thumbnail">
                 {% ifnotequal diary.media_set.all|length 0 %}
-                    {% if diary.media_set.first.img.type == "img" %}
+
+                    {% if diary.media_set.first.type == "img" %}
                         <img style="max-width:250px;height:140px" src="{{mediaURL}}{{diary.media_set.first.img}}" alt="{{diary.title}}" /></a>
+                    {% elif diary.media_set.first.type == "video" %}
+                        <video class = "image img-thumbnail" height="140" width="250" controls>
+                        <source src="{{mediaURL}}{{diary.media_set.first.img}}" type="video/mp4">
+                        <source src="{{mediaURL}}{{diary.media_set.first.img}}" type="video/ogg">
+                        Your browser does not support HTML5 video.
+                        </video>
                     {% else %}
                         <img style="max-width:250px;height:140px"src="http://lorempixel.com/250/140/nature" alt="nature" /></a>
                     {% endif%}
