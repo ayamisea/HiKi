@@ -17,204 +17,58 @@ body {
     background: #FFF;
     }
 
-@font-face {
-    font-weight: normal;
-	font-style: normal;
-	font-family: 'feathericons';
-	src:url('../fonts/feathericons/feathericons.eot?-8is7zf');
-	src:url('../fonts/feathericons/feathericons.eot?#iefix-8is7zf') format('embedded-opentype'),
-		url('../fonts/feathericons/feathericons.woff?-8is7zf') format('woff'),
-		url('../fonts/feathericons/feathericons.ttf?-8is7zf') format('truetype'),
-		url('../fonts/feathericons/feathericons.svg?-8is7zf#feathericons') format('svg');
-}
 
-
-/* Common style */
 .row {
-    margin-top:10vh; 
+    margin-top:15vh;
 
 }
-.grid figure { /*圖片*/
-	position: relative;
-	float: left;
-	overflow: hidden;
-	/*margin: 10px 1%;*/
-	min-width: 250px;
-	max-width: 350px;
-	height: 250px;
-	width: 100%;
-	background: #E0E0E0;
-	text-align: center;
-	cursor: pointer;
-    margin: 0.5em 0 0.5em 0; 
-    border-radius:5px;
-    border: 2px solid rgba(10, 186, 181,0.25);;
+
+.container {
+  position: relative;
+  height:40vh;
+
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+   height:40vh;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(4,81, 79, 0.6);
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: .5s ease;
+  border-radius: 10px;
+}
+
+.container:hover .overlay {
+  height: 100%;
   
 }
 
-.grid figure img {
-	position: relative;
-	display: block;
-	min-height: 100%;
-	max-width: 100%;
-	opacity: 0.8;
-    
-}
+.show {
 
-.grid figure figcaption {/*浮出字*/
-    
-	padding: 2em;
-	color: #fff;
-	text-transform: uppercase;
-	font-size: 1em;
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-}
+  font-size: 14px;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 
-
-.grid figure figcaption,
-.grid figure figcaption > a {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
 }
-
-/* Anchor will cover the whole item by default */
-/* For some effects it will show as a button */
-.grid figure figcaption > a {
-	z-index: 1000;
-	text-indent: 200%;
-	white-space: nowrap;
-	font-size: 0;
-	opacity: 0;
-}
-
-.grid figure h2 {
-	word-spacing: -0.15em;
-	font-weight: 300;
-    
-}
-
-.grid figure h2 span {
-	font-weight: 800;
-}
-
-.grid figure h2,
-.grid figure p {
-	margin: 0;
-}
-
-.grid figure p {
-	letter-spacing: 1px;
-	font-size: 68.5%;
-}
-    figure.effect-zoe figcaption {
-	top: auto;
-	bottom: 0;
-	padding: 1em;
-	height: 3.75em;
-	background: #fff;
-	color: #3c4a50;
-	-webkit-transition: -webkit-transform 0.35s;
-	transition: transform 0.35s;
-	-webkit-transform: translate3d(0,100%,0);
-	transform: translate3d(0,100%,0);
-}
-
-figure.effect-zoe h2 {
-	float: left;
-}
-
-figure.effect-zoe p.icon-links a {
-	float: right;
-	color: #3c4a50;
-	font-size: 1.4em;
-}
-
-figure.effect-zoe:hover p.icon-links a:hover,
-figure.effect-zoe:hover p.icon-links a:focus {
-	color: #252d31;
-}
-
-figure.effect-zoe p.description {
-    background-color: rgba(4,81, 79, 0.5);
-	position: absolute;
-    left: 0;
-	bottom: 4.25em;
-    padding: 5.5em;
-	color: #fff;
-	text-transform: none;
-	font-size: 90%;
-	opacity: 0;
-	-webkit-transition: opacity 0.35s;
-	transition: opacity 0.35s;
-	-webkit-backface-visibility: hidden; /* Fix for Chrome 37.0.2062.120 (Mac) */
-}
-
-figure.effect-zoe h2,
-figure.effect-zoe p.icon-links a {
-	-webkit-transition: -webkit-transform 0.35s;
-	transition: transform 0.35s;
-	-webkit-transform: translate3d(0,200%,0);
-	transform: translate3d(0,200%,0);
-}
-
-figure.effect-zoe p.icon-links a span::before {
-	display: inline-block;
-	padding: 8px 10px;
-	font-family: 'feathericons';
-	speak: none;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-.icon-eye::before {
-	content: '\e000';
-}
-
-.icon-paper-clip::before {
-	content: '\e001';
-}
-
-.icon-heart::before {
-	content: '\e024';
-}
-
-figure.effect-zoe h2 {
-	display: inline-block;
-}
-
-figure.effect-zoe:hover p.description {
-	opacity: 1;
-}
-
-figure.effect-zoe:hover figcaption,
-figure.effect-zoe:hover h2,
-figure.effect-zoe:hover p.icon-links a {
-	-webkit-transform: translate3d(0,0,0);
-	transform: translate3d(0,0,0);
-}
-
-figure.effect-zoe:hover h2 {
-	-webkit-transition-delay: 0.05s;
-	transition-delay: 0.05s;
-}
-
-figure.effect-zoe:hover p.icon-links a:nth-child(3) {
-	-webkit-transition-delay: 0.1s;
-	transition-delay: 0.1s;
-}
-
-figure.effect-zoe:hover p.icon-links a:nth-child(2) {
-	-webkit-transition-delay: 0.15s;
-	transition-delay: 0.15s;
-}
-
-figure.effect-zoe:hover p.icon-links a:first-child {
-	-webkit-transition-delay: 0.2s;
-	transition-delay: 0.2s;
+.show p ,h2 {
+    color: #FFF;
+	width:100%;
+	 word-wrap: break-word;
 }
 
 
@@ -251,6 +105,14 @@ figure.effect-zoe:hover p.icon-links a:first-child {
 .navbar-right .dropdown-header {
     font-size: 14px !important;
 }
+.modal-title span {
+    font-size: 20px !important;
+    color: rgba(10, 186, 181, 1);
+}
+.modal-body span {
+
+    font-size: 16px !important;
+}
 </style>
 <script>
 $(function(){
@@ -264,16 +126,33 @@ $(function(){
     });
 });
 
-$(document).on("click", ".mediaID", function () {
+$(document).on("click", ".imgID", function () {
     var title = $(this).data('title');
     var desc = $(this).data('desc');
     var url = $(this).data('url');
+    var type = $(this).data('type');
      if(title=='None'){title='Enjoy Life'}
      if(desc=='None'){desc='The value of life lies not length of days, but in the use of we make of them.'}
 
-     $("#mUrl").attr("src", url);
-     document.getElementById("mTitle").textContent=title;
-     document.getElementById("mDesc").textContent=desc;
+     document.getElementById("iTitle").textContent=title;
+     document.getElementById("iDesc").textContent=desc;
+    document.getElementById("iUrl").src = url;
+});
+$(document).on("click", ".videoID", function () {
+    var title = $(this).data('title');
+    var desc = $(this).data('desc');
+    var url = $(this).data('url');
+    var type = $(this).data('type');
+     if(title=='None'){title='Enjoy Life'}
+     if(desc=='None'){desc='The value of life lies not length of days, but in the use of we make of them.'}
+
+     document.getElementById("vTitle").textContent=title;
+     document.getElementById("vDesc").textContent=desc;
+    var video = document.getElementById('Video');
+    video.src = url;
+    video.play();
+
+
 });
 </script>
 
@@ -325,19 +204,45 @@ $(document).on("click", ".mediaID", function () {
 </nav>
 
 
-<!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" style="margin-top:10vh">
+<!-- Modal img -->
+  <div class="modal fade" id="ModalImg" tabindex="-1" role="dialog" style="margin-top:10vh">
     <div class="modal-dialog">
     
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title"><span id="mTitle"></span></h4>
+          <h4 class="modal-title"><span id="iTitle"></span></h4>
         </div>
         <div class="modal-body">
-          <span id="mDesc"></span>
-          <img id="mUrl" onerror="this.style.display='none'" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
+          <span id="iDesc"></span><br>
+          <img id="iUrl" onerror="this.style.display='none'" class=" img-thumbnail" alt="Cinque Terre" width="300" height=auto>   
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal video -->
+  <div class="modal fade" id="ModalVideo" tabindex="-1" role="dialog" style="margin-top:10vh">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><span id="vTitle"></span></h4>
+        </div>
+        <div class="modal-body">
+          <span id="vDesc"></span><br>
+          <video id='Video' class = "image img-thumbnail" height="500" controls>
+                <source type="video/mp4">
+                <source  type="video/ogg">
+                        Your browser does not support HTML5 video.
+          </video>    
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -349,57 +254,78 @@ $(document).on("click", ".mediaID", function () {
 
 <div class="container-fluid">
     <!-- Top Navigation -->
-	<div class="content">
-		<div class="grid row">
+
+		<div class="row">
             <div class=" col-md-10 col-md-offset-1">
 
             {% for media in mediaList %}
-            <div class="col-md-4  col-sm-6 ">
-                <figure class="effect-zoe">
-                        
+                <div class="container col-md-4  col-sm-6 ">
+                
                     {% if media.type == "img" %}
-                        <img src="{{mediaURL}}{{media.img}}" onerror="this.style.display='none'" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
+                        <img src="{{mediaURL}}{{media.img}}" onerror="this.style.display='none'" class="image img-thumbnail" alt="Cinque Terre" width="300" height=auto>
                     {% endif %}
                     {% if media.type == "video" %}
-                        <video height="500" controls>
+                        <video error="this.style.display='none'" class = "image img-thumbnail" height="500" controls>
                         <source src="{{mediaURL}}{{ media.img}}" type="video/mp4">
                         <source src="{{mediaURL}}{{ media.img}}" type="video/ogg">
                         Your browser does not support HTML5 video.
-                    </video>
+                        </video>
                     {% endif %}
-                    <figcaption>
-                        {% ifnotequal media.title null %}
-                            <h2>{{media.title}}<span>Zoe</span></h2>
-                        {% else %}
+                    <div class="overlay">
+                        <div class="show">
+
+                            {% ifnotequal media.title null %}
+                            <h2>{{media.title}}</h2>
+                            {% else %}
                             <h2>Enjoy <span>Life</span></h2>
-                        {% endifnotequal %}
-                        <span>
+                             {% endifnotequal %}
+
+                            {% ifnotequal media.description null %}
+                            <p class="description">{{media.description}} </p>
+                            {% else %}
+                            <p class="description">The value of life lies not length of days, but in the use of we make of them.</p>
+                            {% endifnotequal %}
+
                             <!-- Trigger the modal with a button -->
+                            {% if media.type == "img" %}
                             <button type="button" 
                             data-url="{{mediaURL}}{{media.img}}"
                             data-title ='{{media.title}}' 
                             data-desc ='{{media.description}}'
-                            class="mediaID btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Show
-                            </button>	
+                            data-type = '{{media.type}}'
+                            class="imgID btn btn-default btn-sm" data-toggle="modal" data-target="#ModalImg">Show
+                            </button>
 
-                        </span>
+                            {% endif %}
+                            {% if media.type == "video" %}
+                            <button type="button" 
+                            data-url="{{mediaURL}}{{media.img}}"
+                            data-title ='{{media.title}}' 
+                            data-desc ='{{media.description}}'
+                            data-type = '{{media.type}}'
+                            class="videoID btn btn-default btn-sm" data-toggle="modal" data-target="#ModalVideo">Show
+                            </button>
+
+                            {% endif %}	
+
+                        </div>
+                    </div>
+
+                        
+                    
+               
+        
+                      
+                            
+
+                       
                           
-                        {% ifnotequal media.description null %}
-                        <p class="description">{{media.description}} </p>
-                        {% else %}
-                        <p class="description">The value of life lies not length of days, but in the use of we make of them.</p>
-                        {% endifnotequal %}
-                    </figcaption>		
-                </figure>
-            </div>
+                        
 
+                </div>
             {% endfor %}
-
-            
-
             </div>
         </div>
-	</div>
 </div>
 
 </body>

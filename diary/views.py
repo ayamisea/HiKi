@@ -131,6 +131,7 @@ def map(request):
 #display all media
 @login_required(login_url='/accounts/')
 def media(request):
+    userName = request.user.name
     user = User.objects.get(email = request.user.email)
     mediaList = [media for media in Media.objects.all() if media.diary.userID == user]
     mediaURL = settings.MEDIA_URL
@@ -207,7 +208,8 @@ def edit(request,pk):
     diary_form = DiaryForm(initial={
         'title': editDiary.title,
         'date':editDiary.date,
-        'content':editDiary.content})
+        'content':editDiary.content,
+        'type':editDiary.type})
     request.session['diaryID'] = pk
     return render(request, 'diary/edit.html', locals())
 
