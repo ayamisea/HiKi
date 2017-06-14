@@ -125,6 +125,7 @@ def media_upload_show(request):
 def map(request):
     MapAPI = settings.GOOGLE_MAPS_API_KEY
     user = User.objects.get(email = request.user.email)
+    userName = request.user.name
     maps = set([diary.location for diary in user.diary_set.all()])
     return render(request, 'diary/display-map.html', locals())
 
