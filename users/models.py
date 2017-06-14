@@ -1,10 +1,15 @@
+from __future__ import print_function
+
+from django.conf import settings
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin,
 )
+from django.core import signing
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
+from google_api.gmail import send_mail
 
 class UserManager(BaseUserManager):
     """Custom manager for User
@@ -41,6 +46,8 @@ class UserManager(BaseUserManager):
         :param str password: user password
         :return custom_user.models.EmailUser user: regular user
         """
+        if settings.DEBUG:
+            return self._create_user(email, password, verified=True, **extra_fields)
         return self._create_user(email, password, **extra_fields)
 
     def create_superuser(self, email, password, **extra_fields):
@@ -75,3 +82,21 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.name
+
+    def email_user(self, subject, message):
+        send_mail(
+            subject, message,
+            settings.EMAIL_ADDRESS, self.email,
+            settings.EMAIL_HOST, self.name
+        )
+
+    def get_verification_key(self):
+        key = signing.dumps(
+            obj=getattr(self, self.USERNAME_FIELD),
+            salt=settings.SECRET_KEY,
+        )
+        return key
+
+    def send_verification_email(self):
+        verification_key = self.get_verification_key()
+        pass

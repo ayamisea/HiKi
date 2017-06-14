@@ -1,62 +1,69 @@
+﻿{% load static %}
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Media Uploader</title>
-
-    <link rel="stylesheet" type="text/css" href="style.css">
-
-    <!--bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-</head>
-<style>
-iframe
-{
-  margin-left: 30px;
-  padding-left:30px;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
-  border-radius: 12px;
-  -moz-box-shadow: 4px 4px 14px #000;
-  -webkit-box-shadow: 4px 4px 14px #000;
-  box-shadow: 4px 4px 14px #000;
-}
-
-</style>
-
-<script type="text/javascript">
-    //禁止回上一頁
-    history.pushState(null, null, document.URL);
-    window.addEventListener('popstate', function () {
-        history.pushState(null, null, document.URL);
-    });
-
-</script>
-
-<body>
-
-    <h3># Media Uploader</h3>
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        標題：{{ media_form.title }}<br>
-        敘述：{{ media_form.description}}<br>
-        上傳影像：{{ media_form.img}}<br>
-
-        <input type="hidden" name="diaryID" value={{diaryID}} />
-        <input  class="btn btn-default" style="margin-left:20px" type="submit" value="加入媒體" name="option1" />
-    </form>
-
-    </br>
-
-    <iframe src="/diary/media-upload-show/" height="300" width=60%></iframe>
-    </br>
-    </br>
-    <a class="btn btn-default" style="margin-left:20px" href="{% url 'detail' pk=diaryID %}">
-                        確認 <i class="fa fa-arrow-right"></i>
-    </a>
-
-</body>
+</html>
+	<head>
+    	<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<title>Media Uploader</title>
+    	<!-- css -->
+		<link rel="stylesheet" href="{% static 'css/main.css' %}">
+		{% include 'include/bootstrap.html' %}
+		<style>
+		.custom-file-control:before{
+			content: "瀏覽";
+			background-color: #0ABAB5;
+			color:white;
+		}
+		</style>
+		<!-- js -->
+		<script src="{% static 'js/no-prevpage.js' %}"></script>
+		<script src="{% static 'js/textarea.js' %}"></script>
+	</head>
+	<body class="d-flex flex-column">
+		{% include 'include/nav.html' with name="Media Uploader" %}
+		<main class="d-flex flex-column" style="width: 90%;margin: 0vh 5%;">
+		    <div class="d-flex p-2">
+			    <form action="" method="post" enctype="multipart/form-data" class="d-flex flex-column w-100">{% csrf_token %}
+			        <!-- 上傳檔案 -->
+			        <div class="d-flex align-items-center p-1">
+			        	<img class="form-icon mr-1" src="{%static '/icon/form/file.png' %}">
+			        	<label class="custom-file w-100" style="display: inline-block;">
+			        		{{ media_form.img}}
+			        		<div class="custom-file-control form-control-file" style="overflow:hidden;">添加檔案...
+			        		</div>
+						</label>
+			        	<input type="hidden" name="diaryID" value={{diaryID}} />
+			        </div>
+			        <!-- 檔案標題 -->
+			        <div class="d-flex p-1">
+		        		<img class="form-icon mr-1" src="{%static '/icon/form/picture.png' %}">
+		        		{{ media_form.title }}
+		        	</div>
+		        	<!-- 檔案敘述 -->
+		        	<div class="d-flex p-1">
+		        		<img class="form-icon mr-1" src="{%static '/icon/form/alt.png' %}">
+		        		{{ media_form.description}}
+		        	</div>
+		        	<div class="d-flex m-1 align-self-center">
+		        		<input class="btn custom-button" type="submit" value="加入媒體" name="option1"/>
+		        	</div>
+			    </form>
+		    </div>
+			<div class="d-flex flex-column p-2">
+		    	<iframe id="frame" class="form-control" src="/diary/media-upload-show/" scrolling="no">
+		    		{% include 'diary/upload-media-display.html' %}
+		    	</iframe>
+		    </div>
+		    <div class="d-flex align-self-center">
+		    	<a class="btn custom-button" href="{% url 'diary_detail' pk=diaryID %}">確認</a>
+		    </div>
+		</main>
+		<script>
+			//改變上傳檔案欄位
+			$('.custom-file-input').on('change',function(){
+		    	var fileName = $(this).val().split('/').pop().split('\\').pop();
+		    	$(this).next('.custom-file-control').html(fileName);
+			})
+		</script>
+	</body>
 </html>

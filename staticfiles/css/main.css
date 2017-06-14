@@ -1,0 +1,27 @@
+html, body {
+	width:100%;
+	margin:0;
+	padding:0;
+}
+
+.custom-button {
+	background-color: #0ABAB5;
+	color:white;
+}
+
+.form-icon {
+	width:32px;
+	height:32px;
+}
+
+.detail-icon {
+	width:64px;
+	height:64px;
+	min-width: 64px;
+}
+
+.detail-icon-img {
+	width:42px;
+	height:42px;
+	margin: 11px; 
+}

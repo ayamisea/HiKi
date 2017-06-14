@@ -1,27 +1,25 @@
-{% extends 'users/base.html' %}
-{% load static %}
-
-{% block link %}
-<link rel="stylesheet" type="text/css" href="{% static 'users/login.css' %}">
-{% endblock %}
-
-{% block content %}
-<div class="d-flex flex-column p-2">
-	<form method="POST" class="d-flex flex-column align-self-center">{% csrf_token %}
-		<div class="formrow flex-column flex-sm-row p-1">
-			<div class="mr-sm-auto" style="padding-right: 1vh;">{{ form.username.label_tag }}</div>
-			<div class="ml-sm-auto">{{ form.username }}</div>
-		</div>
-		<div class="formrow flex-column flex-sm-row p-1">
-			<div class="mr-sm-auto" style="padding-right: 1vh">{{ form.password.label_tag }}</div>
-			<div class="ml-sm-auto">{{ form.password }}</div>
-		</div>
-		<div class="formrow flex-column flex-sm-row p-1">
-    		<input class="btn btn-primary" style="width: 100%" type="submit" name="submit" value="登入">
-    	</div>
-	</form>
-	<div class="d-flex flex-row justify-content-center p-2">
-		<div class="h6">沒有帳號？&nbsp;<a href="/accounts/signup">現在就註冊！</a></div>
+<form method="POST" action="{% url 'login' %}" class="d-flex flex-column align-self-center">{% csrf_token %}
+	<div class="formrow flex-column flex-sm-row p-1">
+		<div class="mr-sm-auto pr-1">{{ login_form.username.label_tag }}</div>
+		<div class="ml-sm-auto">{{ login_form.username }}</div>
 	</div>
+	<div class="formrow flex-column flex-sm-row p-1">
+		<div class="mr-sm-auto pr-1">{{ login_form.password.label_tag }}</div>
+		<div class="ml-sm-auto">{{ login_form.password }}</div>
+	</div>
+	<div class="formrow flex-column flex-sm-row p-1">
+		<input type="hidden" name="next" value="{{ next }}" />
+		<input class="btn custom-button w-100" type="submit" name="submit" value="登入">
+	</div>
+</form>
+<div class="d-flex flex-row justify-content-center p-2">
+	<div class="h6">沒有帳號？&nbsp;<a id="signupjump" href="#">現在就註冊！</a></div>
 </div>
-{% endblock %}
+
+<script>
+$(document).ready(function(){
+	$('#signupjump').click(function() {
+	    $('#signuptab').trigger('click')
+	});
+});
+</script>

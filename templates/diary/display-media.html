@@ -4,29 +4,332 @@
     <meta charset="UTF-8">
     <title>All Media</title>
         <!--bootstrap-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </head>
+
+<style>
+
+body {
+    background: #FFF;
+    }
+
+
+.row {
+    margin-top:15vh;
+
+}
+
+/*圖片顯示*/
+.container {
+  position: relative;
+  height:40vh;
+
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+   height:40vh;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(4,81, 79, 0.6);
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  transition: .5s ease;
+  border-radius: 10px;
+}
+
+.container:hover .overlay {
+  height: 100%;
+  
+}
+
+.show {
+
+  font-size: 14px;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+
+}
+.show p ,h2 {
+    color: #FFF;
+	width:100%;
+	 word-wrap: break-word;
+}
+
+/*navbar*/
+.navbar {
+      margin-bottom: 0;
+      background-color: rgba(10, 186, 181, 0.7);
+      z-index: 9999;
+      border: 0;
+      font-size: 12px !important;
+      line-height: 1.42857143 !important;
+      letter-spacing: 4px;
+      border-radius: 0;
+      font-family: Montserrat, sans-serif;
+      
+  }
+  .navbar li a, .navbar .navbar-brand {
+      color: #fff !important;
+  }
+  .navbar-nav li a:hover, .navbar-nav li.active a {
+      color: #0ABAB5 !important;
+      background-color: rgba(255, 255, 255, 0.9) !important;
+  }
+  .navbar-default .navbar-toggle {
+      border-color: transparent;
+      color: #fff !important;
+  }
+.navbar-right {
+    margin-right: 0.5em;
+}
+
+.navbar-right .dropdown-menu {
+      background-color: rgba(10, 186, 181, 0.7);
+  }
+.navbar-right .dropdown-header {
+    font-size: 14px !important;
+}
+
+/*modal box*/
+.modal-title span {
+    font-size: 20px !important;
+    color: rgba(10, 186, 181, 1);
+}
+.modal-body span {
+
+    font-size: 16px !important;
+}
+</style>
+<script>
+$(function(){
+    var len = 10; 
+    $(".JQellipsis").each(function(i){
+        if($(this).text().length>len){
+            $(this).attr("title",$(this).text());
+            var text=$(this).text().substring(0,len-1)+"...";
+            $(this).text(text);
+        }
+    });
+});
+
+$(document).on("click", ".imgID", function () {
+    var title = $(this).data('title');
+    var desc = $(this).data('desc');
+    var url = $(this).data('url');
+    var type = $(this).data('type');
+     if(title=='None'){title='Enjoy Life'}
+     if(desc=='None'){desc='The value of life lies not length of days, but in the use of we make of them.'}
+
+     document.getElementById("iTitle").textContent=title;
+     document.getElementById("iDesc").textContent=desc;
+    document.getElementById("iUrl").src = url;
+});
+$(document).on("click", ".videoID", function () {
+    var title = $(this).data('title');
+    var desc = $(this).data('desc');
+    var url = $(this).data('url');
+    var type = $(this).data('type');
+     if(title=='None'){title='Enjoy Life'}
+     if(desc=='None'){desc='The value of life lies not length of days, but in the use of we make of them.'}
+
+     document.getElementById("vTitle").textContent=title;
+     document.getElementById("vDesc").textContent=desc;
+    var video = document.getElementById('Video');
+    video.src = url;
+    video.play();
+
+
+});
+</script>
+
 <body>
-<h3># All Media</h3>
-  {% for media in mediaList %}
-    <h4><b>{{media.title}}</b></h4>
-    {{media.description}} <br>
-          {% if media.type == "img" %}
-              <img src="{{mediaURL}}{{media.img}}" class="img-thumbnail" alt="Cinque Terre" width="300" height=auto>
-          {% endif %}
-          {% if media.type == "video" %}
-              <video height="500" controls>
-                <source src="{{mediaURL}}{{ media.img}}" type="video/mp4">
-                <source src="{{mediaURL}}{{ media.img}}" type="video/ogg">
-                Your browser does not support HTML5 video.
-              </video>
-          {% endif %}
-          <br>
-    <hr>
-  {% endfor %}
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+<div class="container-fluid">
+
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+      <a class="navbar-brand" >HiKi</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <li><a href="{% url 'hiki' %}">回首頁</a></li>
+      <li><a href="{% url 'diary_display' %}">日記</a></li>
+      <li class="active" ><a href="{% url 'diary_media' %}">相簿</a></li>
+      <li><a href="{% url 'diary_map' %}">旅遊足跡</a></li>
+      <li><a href="{% url 'diary_tag' %}">標籤</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+            <a class="dropdown-toggle"  data-toggle="dropdown"  href="#">
+                <span class="glyphicon glyphicon-user">
+                    </span> {{userName}} <span class="caret"></span>
+            </a>
+        <ul class="dropdown-menu">
+            <li class="dropdown-header">日記管理 <span class="glyphicon glyphicon-heart"></span></li>
+            <li><a href="{% url 'diary_new' %}">新增日記</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">會員專區 <span class="glyphicon glyphicon-list-alt"></span></li>
+            <li><a href="#">帳號管理</a></li>
+            <li><a href="#">登出</a></li>
+        </ul>   
+     </li>
+
+    </ul>
+    </div>
+
+  </div>
+</nav>
+
+
+<!-- Modal img -->
+  <div class="modal fade" id="ModalImg" tabindex="-1" role="dialog" style="margin-top:10vh">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><span id="iTitle"></span></h4>
+        </div>
+        <div class="modal-body">
+          <span id="iDesc"></span><br>
+          <img id="iUrl" onerror="this.style.display='none'" class=" img-thumbnail" alt="Cinque Terre" width="300" height=auto>   
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Modal video -->
+  <div class="modal fade" id="ModalVideo" tabindex="-1" role="dialog" style="margin-top:10vh">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"><span id="vTitle"></span></h4>
+        </div>
+        <div class="modal-body">
+          <span id="vDesc"></span><br>
+          <video id='Video' class = "image img-thumbnail" height="500" controls>
+                <source type="video/mp4">
+                <source  type="video/ogg">
+                        Your browser does not support HTML5 video.
+          </video>    
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+<div class="container-fluid">
+    <!-- Top Navigation -->
+
+		<div class="row">
+            <div class=" col-md-10 col-md-offset-1">
+
+            {% for media in mediaList %}
+                <div class="container col-md-4  col-sm-6 ">
+                
+                    {% if media.type == "img" %}
+                        <img src="{{mediaURL}}{{media.img}}" onerror="this.style.display='none'" class="image img-thumbnail" alt="Cinque Terre" width="300" height=auto>
+                    {% endif %}
+                    {% if media.type == "video" %}
+                        <video error="this.style.display='none'" class = "image img-thumbnail" height="500" controls>
+                        <source src="{{mediaURL}}{{ media.img}}" type="video/mp4">
+                        <source src="{{mediaURL}}{{ media.img}}" type="video/ogg">
+                        Your browser does not support HTML5 video.
+                        </video>
+                    {% endif %}
+                    <div class="overlay">
+                        <div class="show">
+
+                            {% ifnotequal media.title null %}
+                            <h2>{{media.title}}</h2>
+                            {% else %}
+                            <h2>Enjoy <span>Life</span></h2>
+                             {% endifnotequal %}
+
+                            {% ifnotequal media.description null %}
+                            <p class="description">{{media.description}} </p>
+                            {% else %}
+                            <p class="description">The value of life lies not length of days, but in the use of we make of them.</p>
+                            {% endifnotequal %}
+
+                            <!-- Trigger the modal with a button -->
+                            {% if media.type == "img" %}
+                            <button type="button" 
+                            data-url="{{mediaURL}}{{media.img}}"
+                            data-title ='{{media.title}}' 
+                            data-desc ='{{media.description}}'
+                            data-type = '{{media.type}}'
+                            class="imgID btn btn-default btn-sm" data-toggle="modal" data-target="#ModalImg">Show
+                            </button>
+
+                            {% endif %}
+                            {% if media.type == "video" %}
+                            <button type="button" 
+                            data-url="{{mediaURL}}{{media.img}}"
+                            data-title ='{{media.title}}' 
+                            data-desc ='{{media.description}}'
+                            data-type = '{{media.type}}'
+                            class="videoID btn btn-default btn-sm" data-toggle="modal" data-target="#ModalVideo">Show
+                            </button>
+
+                            {% endif %}	
+
+                        </div>
+                    </div>
+
+                        
+                    
+               
+        
+                      
+                            
+
+                       
+                          
+                        
+
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+</div>
 
 </body>
 </html>

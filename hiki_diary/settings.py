@@ -41,7 +41,8 @@ INSTALLED_APPS = [
 
     'users',
     'diary',
-    'account'
+    'account',
+    'google_api',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -135,5 +136,9 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-GOOGLE_MAPS_API_KEY = 'AIzaSyChBwGKjWqJsZEFJjIlhE6yiFVljE5oUvg'
-WEATHER_API_KEY = 'caa01be39312b446' #https://www.wunderground.com/
+GOOGLE_APPLICATION_CREDENTIALS = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+GOOGLE_MAPS_API_KEY = os.environ.get('GOOGLE_MAPS_API_KEY')
+WEATHER_API_KEY = os.environ.get('WEATHER_API_KEY') #https://www.wunderground.com/
+
+EMAIL_HOST = 'Hiki Diary'
+EMAIL_ADDRESS = 'hikintnucsie@gmail.com'

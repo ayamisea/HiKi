@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+    <head>  
+    	<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Hiki Diary</title>
+        <!-- Bootstrap -->
+        {% include 'include/bootstrap.html' %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <style>
+        body {
+			background: url({% static 'img/account.jpg' %});
+			background-repeat: no-repeat;
+		    background-attachment: fixed;
+		    background-position: center;
+			background-size：cover;
+			-moz-background-size : cover;
+			-webkit-background-size : cover;
+			-o-background-size : cover;
+			height: 100vh;
+		}
+		main {
+			background-color:rgba(255,255,255,0.7);
+			padding: 5vh;
+			margin-top: 10vh;
+			margin-bottom: 15vh;
+			min-height: 500px;
+		}
+		.title{
+			font-size: 2em;
+		}
+		form {
+			width:270px;
+		}
+		.formrow {
+			display: flex;
+			width:100%;
+		}
+		input {
+			width:100%;
+		}
+        </style>
+    </head>
+    <body class="container-fluid d-flex justify-content-center">
+		<main class="d-flex">
+			<div class="d-flex flex-column ">
+				<div class="d-flex flex-row p-2">
+					<div class="title">HIKI Diary</div>
+				</div>
+				<div class="d-flex flex-column p-2">
+					<ul class="nav nav-tabs mb-3" role="tablist">
+						<li class="nav-item">
+							<a id="signuptab" class="nav-link" data-toggle="tab" href="#signup">Sign up</a>
+						</li>
+						<li class="nav-item">
+							<a id="logintab" class="nav-link active" data-toggle="tab" href="#login">Login</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+					  <div id="signup" class="tab-pane" role="tabpanel">
+					    {% include 'users/signup.html' %}
+					  </div>
+					  <div id="login" class="tab-pane active" role="tabpanel">
+					    {% include 'users/login.html' %}
+					  </div>
+					</div>
+				</div>
+			</div>
+		</main>
+    </body>
+</html>
