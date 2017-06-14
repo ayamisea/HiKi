@@ -66,7 +66,7 @@
 			</div>
 		    <form class="d-flex justify-content-center p-1" action="" method="post" enctype="multipart/form-data">{% csrf_token %}
 		        <!-- 刪除按鈕 -->
-		        <button class="btn custom-button" type="submit" name="dID" value={{i.id}} onclick="alert('成功刪除')">Delete{{i.id}}</button>
+		        <button class="btn custom-button" type="submit" name="dID" value={{i.id}} onclick="alert('成功刪除')">刪除</button>
 		    </form>
 		</div>
 		{% endfor %}
