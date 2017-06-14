@@ -29,3 +29,30 @@ def newAccount(request) :
 			new_account = account_form.save(commit=True) 
 			new_account.save()
 	return render(request, 'account/newAccount.html', locals())
+
+def editAccount(request, pk) :
+	if request.method =="POST":
+		accID = request.session['accountID']
+		acc = Account.objects.get(id=accID)
+		account_form = AccountForm(request.POST)
+		if account_form.is_valid() :
+			acc.date = account_form.cleaned_data['date']
+			acc.type = account_form.cleaned_data['type']
+			acc.subtype = account_form.cleaned_data['subtype']
+			acc.price = account_form.cleaned_data['price']
+			acc.notes = account_form.cleaned_data['notes']
+			acc.save()
+	acc = Account.objects.get(id=pk)
+	account_form = AccountForm(initial={
+        'date': acc.date,
+        'type':acc.type,
+        'subtype':acc.subtype,
+        'price':acc.price,
+        'notes':acc.notes})
+	request.session['accountID'] = pk
+	return render(request, 'account/edit.html', locals())
+
+
+
+
+
