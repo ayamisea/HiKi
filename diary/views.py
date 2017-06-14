@@ -11,10 +11,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
-@login_required(login_url='/accounts/')
-def unit_test(request):
-    userID = request.user.email
-    return render(request, 'diary/unit_test.html',locals())
 
 #display all diaries
 @login_required(login_url='/accounts/')

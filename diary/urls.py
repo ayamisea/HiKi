@@ -4,7 +4,6 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^unit_test/$', views.unit_test), # unit_test.html
     url(r'^$', views.display,name='diary_display'), # display.html
     url(r'^detail/(?P<pk>\d+)/$', views.detail, name='diary_detail'), # detail.html
     url(r'^map/$', views.map,name='diary_map'), # display-map.html
