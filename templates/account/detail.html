@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Account Detail</title>
+    <title>Tally Detail</title>
 </head>
 
 <body>
 	<h3># Detail</h3>
-	{{ account.date | date:"Y / m / d" }} <br>
-	{{ account.type }} <br>
-	{{ account.subtype }} <br>
-	{{ account.price }} <br>
-	{{ account.notes }} <br>
+	{{ tally.date | date:"Y / m / d" }} <br>
+	{{ tally.type }} <br>
+	{{ tally.subtype }} <br>
+	{{ tally.price }} <br>
+	{{ tally.notes }} <br>
 
 	<form method="post" >
     	{% csrf_token %}
