@@ -1,5 +1,9 @@
-{% load static %}
+Ôªø{% load static %}
 <style>
+.navbar {
+	margin-top:-24px;
+	width:100%;
+}
 
 .navbar , .dropdown-menu {
 	background-color: #53cecb;
@@ -34,19 +38,22 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="navbar-nav">
 			<li class="nav-item">
-				<a class="nav-link" href="{% url 'hiki' %}">≠∫≠∂</a>
+				<a class="nav-link" href="{% url 'hiki' %}">È¶ñÈ†Å</a>
 			</li>
 			<li class="nav-item active">
-				<a class="nav-link" href="{% url 'diary_display' %}">§È∞O</a>
+				<a class="nav-link" href="{% url 'diary_display' %}">Êó•Ë®ò</a>
 			</li>
 	      	<li class="nav-item">
-	      		<a class="nav-link" href="{% url 'diary_media' %}">¨€√Ø</a>
+	      		<a class="nav-link" href="{% url 'diary_media' %}">Áõ∏Á∞ø</a>
 	      	</li>
 	      	<li class="nav-item">
-	      		<a class="nav-link" href="{% url 'diary_map' %}">Æ»πC®¨∏Ò</a>
+	      		<a class="nav-link" href="{% url 'diary_map' %}">ÊóÖÈÅäË∂≥Ë∑°</a>
 	      	</li>
 	      	<li class="nav-item">
-	      		<a class="nav-link" href="{% url 'diary_tag' %}">º–≈“</a>
+	      		<a class="nav-link" href="{% url 'diary_tag' %}">Ê®ôÁ±§</a>
+	      	</li>
+	      	<li class="nav-item">
+	      		<a class="nav-link" href="{% url 'tally_display' %}">Â∏≥Êú¨</a>
 	      	</li>
 	    </ul>
 	    <ul class="navbar-nav ml-auto">
@@ -58,27 +65,27 @@
 		        <ul class="dropdown-menu dropdown-menu-right pt-0 mt-0" aria-labelledby="navbarDropdownMenuLink">
 		        	<div class="dropdown-divider"></div>
 		            <li class="dropdown-header">
-		            	§È∞O∫ﬁ≤z
+		            	Êó•Ë®òÁÆ°ÁêÜ
 		            	<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 		            </li>
 		            <li>
 		            	<a class="dropdown-item" href="{% url 'diary_new' %}">
-		            		∑sºW§È∞O
+		            		Êñ∞Â¢ûÊó•Ë®ò
 		            	</a>
 		            </li>
 		            <div class="dropdown-divider"></div>
 		            <li class="dropdown-header">
-		            	∑|≠˚±M∞œ
+		            	ÊúÉÂì°Â∞àÂçÄ
 		            	<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
 		            </li>
 		            <li>
 		            	<a class="dropdown-item" href="#">
-		            		±b∏π∫ﬁ≤z
+		            		Â∏≥ËôüÁÆ°ÁêÜ
 		            	</a>
 		            </li>
 		            <li>
 		            	<a class="dropdown-item" href="#">
-		            		µn•X
+		            		ÁôªÂá∫
 		            	</a>
 		            </li>
 		        </ul>   
