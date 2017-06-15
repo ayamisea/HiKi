@@ -1,4 +1,5 @@
 ﻿{% load static %}
+
 <style>
 #stuff {
 	display: block; 
@@ -21,6 +22,10 @@
 	color:rgba(255,255,255,.1);
 }
 
+#navbar-collapse-1{
+	padding-top: 3px;
+}
+
 .navbar-brand , .navbar-nav > li > a , .dropdown-menu > li > a {
     color:white;
 }
@@ -35,11 +40,11 @@
 <!-- Nav -->
 <div id="stuff" class="mb-3"></div>
 <nav class="navbar navbar-toggleable-md navbar-light fixed-top w-100">
-	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation" >
+	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-collapse-1" aria-controls="navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation" >
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	<div class="navbar-brand">HIKI</div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div id="navbar-collapse-1" class="collapse navbar-collapse">
 		<ul class="navbar-nav">
 			<li class="nav-item">
 				<a class="nav-link" href="{% url 'hiki' %}">首頁</a>
