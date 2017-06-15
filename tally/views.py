@@ -5,9 +5,6 @@ from django.http import HttpResponseRedirect
 from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
 
-from bokeh.plotting import figure
-from bokeh.resources import CDN
-from bokeh.embed import components
 
 # Create your views here.
 
@@ -31,6 +28,7 @@ def detail(request, pk) :
 	return render(request, 'tally/detail.html', locals())
 
 #create account
+
 @login_required(login_url='/accounts/')
 def newTally(request) :
 	user = request.user
@@ -39,7 +37,7 @@ def newTally(request) :
 		tally_form = TallyForm(request.POST)
 		if tally_form.is_valid() :
 			new_tally = tally_form.save(commit=True) 
-			new_tally.userID =  request.user;
+			new_tally.userID =  request.user
 			new_tally.save()
 			return HttpResponseRedirect('/tally/')
 	return render(request, 'tally/newTally.html', locals())
