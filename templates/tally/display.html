@@ -8,7 +8,7 @@
 <body>
 	<h3># All Tally</h3>
 	{% for t in tallyList %}
-		{{ t.date | date:"Y / m / d" }} {{ t.type }} {{ t.price }}
+		{{ t.date | date:"Y / m / d" }} {{ t.pay_type }} {{ t.type }} {{ t.price }}
 		<br>
 	{% endfor %}
 </body>

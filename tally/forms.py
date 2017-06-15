@@ -6,10 +6,11 @@ from django.utils import timezone
 class TallyForm(forms.ModelForm) :
 	class Meta :
 		model  = Tally
-		fields = ['date', 'type', 'subtype', 'price', 'notes']
+		fields = ['date', 'pay_type', 'type', 'subtype', 'price', 'notes']
 		widgets = {
             'date': forms.DateInput(attrs={'id':'datepicker' , 'class': 'form-control ' , 'style':'width:200px ; display:inline'}),
-            'type': forms.TextInput(attrs={'class':'form-control' , 'style':'width:200px ; display:inline'}),
+            'pay_type': forms.Select(attrs={'class':'form-control m-1'}),
+            'type': forms.Select(attrs={'class':'form-control m-1'}),
             'subtype': forms.TextInput(attrs={'class':'form-control', 'style':'width:200px ; display:inline'}),
         }
 

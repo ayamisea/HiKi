@@ -24,7 +24,14 @@
 		至 {{ date_form.dateB }} <br>
 	<input type="submit" name="send"  style="margin-left: 30px;" value="統計" />
 	<br>
-	{% for pl in priceList %}
+	總收入 : {{ total_income }} <br>
+	{% for pl in price_income_List %}
+		{{ pl.0 }} {{ pl.1 }}
+		<br>
+	{% endfor %}
+	<br>
+	總支出 : {{ total_expend }} <br>
+	{% for pl in price_expend_List %}
 		{{ pl.0 }} {{ pl.1 }}
 		<br>
 	{% endfor %}

@@ -39,6 +39,7 @@ def editTally(request, pk) :
 		tally_form = TallyForm(request.POST)
 		if tally_form.is_valid() :
 			tally.date = tally_form.cleaned_data['date']
+			tally.pay_type = tally_form.cleaned_data['pay_type']
 			tally.type = tally_form.cleaned_data['type']
 			tally.subtype = tally_form.cleaned_data['subtype']
 			tally.price = tally_form.cleaned_data['price']
@@ -48,6 +49,7 @@ def editTally(request, pk) :
 	tally = Tally.objects.get(id=pk)
 	tally_form = TallyForm(initial={
         'date': tally.date,
+        'pat_type': tally.pay_type,
         'type':tally.type,
         'subtype':tally.subtype,
         'price':tally.price,
@@ -66,19 +68,36 @@ def summary(request) :
 			tallyList = Tally.objects.all()
 	else :
 		tallyList = Tally.objects.all()
-	priceList = []
+	price_income_List = []
+	price_expend_List = []
+	total_income = 0
+	total_expend = 0
 	for tally in tallyList :
 		d = False
-		for pl in priceList :
-			if pl[0] == tally.type :
-				pl[1] = pl[1] + tally.price
-				d = True
-				break
-		if d == False :
-			tmpList = []
-			tmpList.append(tally.type)
-			tmpList.append(tally.price)
-			priceList.append(tmpList)
+		if tally.pay_type == '收入' :
+			total_income = total_income + tally.price
+			for pl in price_income_List :
+				if pl[0] == tally.type : 
+					pl[1] = pl[1] + tally.price
+					d = True
+					break
+			if d == False :
+				tmpList = []
+				tmpList.append(tally.type)
+				tmpList.append(tally.price)
+				price_income_List.append(tmpList)
+		else :
+			total_expend = total_expend + tally.price
+			for pl in price_expend_List :
+				if pl[0] == tally.type : 
+					pl[1] = pl[1] + tally.price
+					d = True
+					break
+			if d == False :
+				tmpList = []
+				tmpList.append(tally.type)
+				tmpList.append(tally.price)
+				price_expend_List.append(tmpList)
 	return render(request, 'tally/summary.html', locals())
 
 

@@ -24,6 +24,7 @@
 	<form id="AccountForm" method="post">
 		{% csrf_token %}
 		日期: {{ tally_form.date }}  <br>
+		收入/支出: {{ tally_form.pay_type }} <br>
 		類別: {{ tally_form.type }}  <br>
 		子類別: {{ tally_form.subtype }}<br>
 		金錢: {{ tally_form.price }} <br>
