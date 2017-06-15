@@ -1,8 +1,10 @@
 ﻿{% load static %}
 <style>
-.navbar {
-	margin-top:-24px;
-	width:100%;
+#stuff {
+	display: block; 
+  	content: " ";  
+  	height: 30px; 
+  	visibility: hidden; 
 }
 
 .navbar , .dropdown-menu {
@@ -29,8 +31,10 @@
 }
 
 </style>
+
 <!-- Nav -->
-<nav class="navbar navbar-toggleable-md navbar-default mb-3 w-100">
+<div id="stuff" class="mb-3"></div>
+<nav class="navbar navbar-toggleable-md navbar-light fixed-top w-100">
 	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation" >
 		<span class="navbar-toggler-icon"></span>
 	</button>
