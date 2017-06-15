@@ -36,7 +36,7 @@ def editTally(request, pk) :
 	if request.method == "POST" :
 		tallyID = request.session['tallyID']
 		tally = Tally.objects.get(id=tallyID)
-		tally_form = AccountForm(request.POST)
+		tally_form = TallyForm(request.POST)
 		if tally_form.is_valid() :
 			tally.date = tally_form.cleaned_data['date']
 			tally.type = tally_form.cleaned_data['type']
@@ -46,7 +46,7 @@ def editTally(request, pk) :
 			tally.save()
 		return HttpResponseRedirect('/tally/')
 	tally = Tally.objects.get(id=pk)
-	tally_form = AccountForm(initial={
+	tally_form = TallyForm(initial={
         'date': tally.date,
         'type':tally.type,
         'subtype':tally.subtype,
