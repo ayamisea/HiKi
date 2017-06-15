@@ -11,7 +11,7 @@ class Tally(models.Model) :
 	TYPE_CHOICES = ( 
 		('食物', '食物'), 
 		('玩樂' , '玩樂'),
-		('交通', '交通'), 
+		('交通', '交通'),
 		('其他', '其他'),
 	)
 	PAY_CHOICES = (
