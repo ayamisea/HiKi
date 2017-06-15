@@ -1,61 +1,23 @@
 {% load static %}
 <!DOCTYPE html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Display</title>
-    <!-- Bootstrap -->
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'diary/search.css' %}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  	<head>
+	    <meta charset="UTF-8">
+	    <title>Display</title>
+	    <!-- Bootstrap -->
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+	    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+	    {% include 'include/bootstrap.html' %}
+	    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+  	</head>
 
-  </head>
-
-<style>
-html body {
-    padding-top: 5em;
-    padding-bottom: 5%;
-    background-color:#FFF ;
-    margin: 0;
-}
-
-.navbar {
-      margin-bottom: 0;
-      background-color: rgba(10, 186, 181, 0.7);
-      z-index: 9999;
-      border: 0;
-      font-size: 12px !important;
-      line-height: 1.42857143 !important;
-      letter-spacing: 4px;
-      border-radius: 0;
-      font-family: Montserrat, sans-serif;
-      
-  }
-  .navbar li a, .navbar .navbar-brand {
-      color: #fff !important;
-  }
-  .navbar-nav li a:hover, .navbar-nav li.active a {
-      color: #0ABAB5 !important;
-      background-color: rgba(255, 255, 255, 0.9) !important;
-  }
-  .navbar-default .navbar-toggle {
-      border-color: transparent;
-      color: #fff !important;
-  }
-.navbar-right {
-    margin-right: 0.5em;
-}
-
-.navbar-right .dropdown-menu {
-      background-color: rgba(10, 186, 181, 0.7);
-  }
-.navbar-right .dropdown-header {
-    font-size: 14px !important;
-}
-
-
+	<style>
+	html body {
+	    background-color:white;
+	    margin:0;
+	}
 
 .carousel-row {
     min-height: 27vh;
@@ -119,64 +81,17 @@ $(function(){
 </script>
 
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-<div class="container-fluid">
-
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-
-      <a class="navbar-brand" >HiKi</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav">
-      <li><a href="{% url 'hiki' %}">回首頁</a></li>
-      <li class="active"><a href="{% url 'diary_display' %}">日記</a></li>
-      <li><a href="{% url 'diary_media' %}">相簿</a></li>
-      <li><a href="{% url 'diary_map' %}">旅遊足跡</a></li>
-      <li><a href="{% url 'diary_tag' %}">標籤</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li>
-            <a class="dropdown-toggle"  data-toggle="dropdown"  href="#">
-                <span class="glyphicon glyphicon-user">
-                    </span> {{userName}} <span class="caret"></span>
-            </a>
-        <ul class="dropdown-menu">
-            <li class="dropdown-header">日記管理 <span class="glyphicon glyphicon-heart"></span></li>
-            <li><a href="{% url 'diary_new' %}">新增日記</a></li>
-            <li class="divider"></li>
-            <li class="dropdown-header">會員專區 <span class="glyphicon glyphicon-list-alt"></span></li>
-            <li><a href="#">帳號管理</a></li>
-            <li><a href="#">登出</a></li>
-        </ul>   
-     </li>
-
-    </ul>
-    </div>
-
-  </div>
-</nav>
-
-<!--diary-->
-<div class="container-fluid">
-
-
-  <div class="col-xs-12 col-sm-offset-2 col-sm-8">
-            <h2>我的日記</h2>
-            <hr>
-  </div>
-  <!-- Begin of rows -->
-        {% for diary in diaryList %}
-        <a  href="{% url 'diary_detail' pk=diary.pk %}">
-          <div class="col-xs-12 col-sm-offset-2 col-sm-8   carousel-row">
-            <div class="slide-row slide">
+    {% include 'include/nav.html' with name=user %}
+	<main class="d-flex flex-column">
+	  <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+	            <h2>我的日記</h2>
+	            <hr>
+	  </div>
+	  <!-- Begin of rows -->
+	        {% for diary in diaryList %}
+	        <a  href="{% url 'diary_detail' pk=diary.pk %}">
+	          <div class="col-xs-12 col-sm-offset-2 col-sm-8   carousel-row">
+	            <div class="slide-row slide">
 
               <div id="carousel-item" class="col-md-2   media" data-ride="carousel">
                           <!-- Indicators
@@ -245,12 +160,7 @@ $(function(){
         </div>
         </a>
         {% endfor %}
-
-
-
-</div>
-
-
-</body>
+		</main>
+	</body>
 </html>
 
