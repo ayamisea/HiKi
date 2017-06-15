@@ -7,8 +7,8 @@
 
 <body>
 	<h3># All Account</h3>
-	{% for a in accountList %}
-		{{ a.date | date:"Y / m / d" }} {{ a.type }} {{ a.price }}
+	{% for t in tallyList %}
+		{{ t.date | date:"Y / m / d" }} {{ t.type }} {{ t.price }}
 		<br>
 	{% endfor %}
 </body>
