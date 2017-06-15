@@ -144,7 +144,7 @@
 			</div>
 			{% endifnotequal %}
 			<div class="d-flex justify-content-center m-2">
-		        {% if diary.userID.email == userID.email%}
+		        {% if diary.userID.email == user.email%}
 		        <form method="post" class="d-flex">
 		            {% csrf_token %}
 		            <input class="btn custom-button m-2" type="submit" name="delete" value="刪除">

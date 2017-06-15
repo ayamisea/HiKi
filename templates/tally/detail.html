@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tally Detail</title>
+</head>
+
+<body>
+	<h3># Detail</h3>
+	{{ tally.date | date:"Y / m / d" }} <br>
+	{{ tally.pay_type }} <br>
+	{{ tally.type }} <br>
+	{{ tally.subtype }} <br>
+	{{ tally.price }} <br>
+	{{ tally.notes }} <br>
+	<br>
+
+	<a  href="{% url 'tally_edit' pk=tally.pk %}">編輯<a>
+
+	<form method="post" >
+    	{% csrf_token %}
+    	<input class="btn btn-default" type="submit" name="delete" value="刪除"> <br>
+    </form>
+	
+</body>
