@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'users',
     'diary',
+    'tally',
     'google_api',
 ]
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .forms import DiaryForm,MediaForm
-from .models import Tag,Diary,Map,Media,User
+from .models import Tag,Diary,Map,Media
 from django.http import HttpResponseRedirect
 from django.http import Http404
 from django.http import HttpResponse
@@ -15,9 +15,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #display all diaries
 @login_required(login_url='/accounts/')
 def display(request):
-    userID = User.objects.get(email = request.user.email)
+    user = request.user
     userName = request.user.name
-    diaryList = userID.diary_set.all()
+    diaryList = request.user.diary_set.all()
     mediaURL = settings.MEDIA_URL
     return render(request, 'diary/display.html',locals())
 
@@ -27,7 +27,7 @@ def detail(request,pk):
     
     mediaURL = settings.MEDIA_URL
     MapAPI = settings.GOOGLE_MAPS_API_KEY
-    userID = User.objects.get(email = request.user.email)
+    user = request.user
     diary = Diary.objects.get(pk=pk)
     if request.method=='POST':
         if 'delete' in request.POST:
@@ -48,6 +48,7 @@ def detail(request,pk):
 #create new diary
 @login_required(login_url='/accounts/')
 def newdiary(request):
+    user = request.user
     MapAPI=settings.GOOGLE_MAPS_API_KEY
     if request.method == 'POST':
         #map
@@ -73,7 +74,7 @@ def newdiary(request):
                 Map.objects.create(location=getloc, latitude=getlat, longitude=getlon)
             new_diary.location=Map.objects.get(location=getloc)
             new_diary.getWeather()
-            new_diary.userID = User.objects.get(email = request.user.email)
+            new_diary.userID = request.user
             new_diary.save()
             request.session['diaryID'] = new_diary.id
             return HttpResponseRedirect('/diary/media-upload/')
@@ -86,6 +87,7 @@ def newdiary(request):
 # upload diary media
 @login_required(login_url='/accounts/')
 def media_upload(request):
+    user = request.user
     diaryID = request.session['diaryID']
     if request.method =='POST':
         media_form = MediaForm(request.POST, request.FILES)
@@ -117,29 +119,26 @@ def media_upload_show(request):
 #display all map
 @login_required(login_url='/accounts/')
 def map(request):
+    user = request.user
     MapAPI = settings.GOOGLE_MAPS_API_KEY
-    user = User.objects.get(email = request.user.email)
-    userName = request.user.name
-    maps = set([diary.location for diary in user.diary_set.all()])
+    maps = set([diary.location for diary in request.user.diary_set.all()])
     return render(request, 'diary/display-map.html', locals())
 
 #display all media
 @login_required(login_url='/accounts/')
 def media(request):
-    userName = request.user.name
-    user = User.objects.get(email = request.user.email)
-    mediaList = [media for media in Media.objects.all() if media.diary.userID == user]
+    user = request.user
+    mediaList = [media for media in Media.objects.all() if media.diary.userID == request.user]
     mediaURL = settings.MEDIA_URL
     return render(request, 'diary/display-media.html', locals())
 
 #display all tags and its diaries
 @login_required(login_url='/accounts/')
 def tag(request):
+    user = request.user
     mediaURL =  settings.MEDIA_URL
-    user = User.objects.get(email = request.user.email)
-    userName = request.user.name
     tagList = []
-    for diary in user.diary_set.all():
+    for diary in request.user.diary_set.all():
         for tag in diary.tags.all():
             if not tag in tagList:
                 tagList.append(tag)
@@ -151,6 +150,7 @@ def tag(request):
 #edit diaries
 @login_required(login_url='/accounts/')
 def edit(request,pk):
+    user = request.user
     if request.method =="POST":
         diaryID = request.session['diaryID']
         editDiary = Diary.objects.get(id=diaryID)
@@ -209,6 +209,7 @@ def edit(request,pk):
     return render(request, 'diary/edit.html', locals())
 
 def search(request):
+    user = request.user
     mediaURL = settings.MEDIA_URL
     diaryList = Diary.objects.filter(type__exact='Public')
 
@@ -231,7 +232,7 @@ def search(request):
 def search_result(request):
     mediaURL = settings.MEDIA_URL
     diaryList = Diary.objects.filter(type__exact='Public')
-
+    user = request.user
     if request.method == "POST":
         if 'all' in request.POST:
             return HttpResponseRedirect('/diary/search/')

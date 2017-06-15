@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Display</title>
+</head>
+
+<body>
+	<h3># All Tally</h3>
+	{% for t in tallyList %}
+		<a  href="{% url 'tally_detail' pk=t.pk %}">
+		{{ t.date | date:"Y / m / d" }} {{ t.pay_type }} {{ t.type }} {{ t.price }}
+		<a>
+		<br>
+	{% endfor %}
+
+</body>
