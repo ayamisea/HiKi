@@ -1,160 +1,80 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>Display Map</title>
-      <!--bootstrap-->
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <!--bootstrap-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include 'include/bootstrap.html' %}
     <style>
-      /* Always set the map height explicitly to define the size of the div
+    /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-      #map {
-        height:100%;
+    
+    #map {
+        height: 100%;
         width: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
+    }
+    /* Optional: Makes the sample page fill the window. */
+    
+    html,body {
         height: 100vh;
-        margin: 0;
+        margin: -10px 0 0 0;
         padding: 0;
-        overflow:hidden; 
-      }
-
-      /*navbar*/
-.navbar {
-      margin-bottom: 0;
-      background-color: rgba(10, 186, 181, 0.7);
-      z-index: 9999;
-      border: 0;
-      font-size: 12px !important;
-      line-height: 1.42857143 !important;
-      letter-spacing: 4px;
-      border-radius: 0;
-      font-family: Montserrat, sans-serif;
-      
-  }
-  .navbar li a, .navbar .navbar-brand {
-      color: #fff !important;
-  }
-  .navbar-nav li a:hover, .navbar-nav li.active a {
-      color: #0ABAB5 !important;
-      background-color: rgba(255, 255, 255, 0.9) !important;
-  }
-  .navbar-default .navbar-toggle {
-      border-color: transparent;
-      color: #fff !important;
-  }
-
-
-.navbar-right .dropdown-menu {
-      background-color: rgba(10, 186, 181, 0.7);
-  }
-.navbar-right .dropdown-header {
-    font-size: 14px !important;
-}
+        overflow: hidden;
+    }
     </style>
+</head>
 
-  </head>
-  <body>
-
-
-  <!--navbar-->
-<nav class="navbar navbar-inverse navbar-fixed">
-<div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-
-      <a class="navbar-brand" >HiKi</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav">
-      <li><a href="{% url 'hiki' %}">回首頁</a></li>
-      <li><a href="{% url 'diary_display' %}">日記</a></li>
-      <li><a href="{% url 'diary_media' %}">相簿</a></li>
-      <li class="active"><a href="{% url 'diary_map' %}">旅遊足跡</a></li>
-      <li><a href="{% url 'diary_tag' %}">標籤</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li>
-            <a class="dropdown-toggle"  data-toggle="dropdown"  href="#">
-                <span class="glyphicon glyphicon-user">
-                    </span> {{user.name}} <span class="caret"></span>
-            </a>
-        <ul class="dropdown-menu">
-            <li class="dropdown-header">日記管理 <span class="glyphicon glyphicon-heart"></span></li>
-            <li><a href="{% url 'diary_new' %}">新增日記</a></li>
-            <li class="divider"></li>
-            <li class="dropdown-header">會員專區 <span class="glyphicon glyphicon-list-alt"></span></li>
-            <li><a href="#">帳號管理</a></li>
-            <li><a href="#">登出</a></li>
-        </ul>   
-     </li>
-
-    </ul>
-    </div>
-  </div>
-
-</nav>
-
+{% include 'include/nav.html' with name=user.name title='map_' %}
+<body>
     <div id="map"></div>
     <script>
+    // The following example creates complex markers to indicate maplist near
+    // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
+    // to the base of the flagpole.
 
-      // The following example creates complex markers to indicate maplist near
-      // Sydney, NSW, Australia. Note that the anchor is set to (0,32) to correspond
-      // to the base of the flagpole.
-
-      function initMap()
-      {
+    function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 8,
-          center: {lat: 24.0, lng: 121.2195},
-          mapTypeControl: true,
-          mapTypeControlOptions: {
-              style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
-              position: google.maps.ControlPosition.LEFT_TOP
-          },
-          zoomControl: true,
-          zoomControlOptions: {
-              position: google.maps.ControlPosition.RIGHT_TOP
-          },
-          scaleControl: true,
-          streetViewControl: true,
-          streetViewControlOptions: {
-              position: google.maps.ControlPosition.RIGHT_TOP
-          },
-          fullscreenControl: true
-
-
+            zoom: 8,
+            center: {
+                lat: 24.0,
+                lng: 121.2195
+            },
+            mapTypeControl: true,
+            mapTypeControlOptions: {
+                style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+                position: google.maps.ControlPosition.LEFT_TOP
+            },
+            zoomControl: true,
+            zoomControlOptions: {
+                position: google.maps.ControlPosition.RIGHT_TOP
+            },
+            scaleControl: true,
+            streetViewControl: true,
+            streetViewControlOptions: {
+                position: google.maps.ControlPosition.RIGHT_TOP
+            },
+            fullscreenControl: true
         });
         setMarkers(map);
-      }
+    }
 
-      // Data for the markers consisting of a name, a LatLng and a zIndex for the
-      // order in which these markers should display on top of each other.
+    // Data for the markers consisting of a name, a LatLng and a zIndex for the
+    // order in which these markers should display on top of each other.
 
-      //加入User地點
-      var maplist = new Array();
-       {% for m in maps %}
-         {% ifnotequal m.location "null" %}
-            var temp = new Array('{{m.location}}',parseFloat('{{m.latitude}}'),parseFloat('{{m.longitude}}'));
-            maplist.push(temp);
-          {% endifnotequal %}
-       {% endfor %}
+    //加入User地點
+    var maplist = new Array();
+    {% for m in maps %} 
+    	{% ifnotequal m.location "null" %}
+    	var temp = new Array('{{m.location}}', parseFloat('{{m.latitude}}'), parseFloat('{{m.longitude}}'));
+    	maplist.push(temp); 
+    	{% endifnotequal %} 
+    {% endfor %}
 
-      function setMarkers(map)
-      {
+    function setMarkers(map) {
         // Adds markers to the map.
 
         // Marker sizes are expressed as a Size of X,Y where the origin of the image
@@ -163,41 +83,40 @@
         // Origins, anchor positions and coordinates of the marker increase in the X
         // direction to the right and in the Y direction down.
         var image = {
-          url: 'https://cdn0.iconfinder.com/data/icons/map-11/100/Map_icons_1-48.png',
-          // This marker is 20 pixels wide by 32 pixels high.
-          size: new google.maps.Size(48, 48),
-          // The origin for this image is (0, 0).
-          origin: new google.maps.Point(0, 0),
-          // The anchor for this image is the base of the flagpole at (0, 32).
-          anchor: new google.maps.Point(0, 32)
+            url: "{% static 'icon/mapflag.png' %}",
+            // This marker is 20 pixels wide by 32 pixels high.
+            size: new google.maps.Size(48, 48),
+            // The origin for this image is (0, 0).
+            origin: new google.maps.Point(0, 0),
+            // The anchor for this image is the base of the flagpole at (0, 32).
+            anchor: new google.maps.Point(0, 32)
         };
 
         // Shapes define the clickable region of the icon. The type defines an HTML
         // <area> element 'poly' which traces out a polygon as a series of X,Y points.
         // The final coordinate closes the poly by connecting to the first coordinate.
-        var shape =
-        {
-          coords: [1, 1, 1, 20, 18, 20, 18, 1],
-          type: 'poly'
+        var shape = {
+            coords: [1, 1, 1, 20, 18, 20, 18, 1],
+            type: 'poly'
         };
 
-        for (var i = 0; i < maplist.length; i++)
-        {
-          var myloc = maplist[i];
-          var marker = new google.maps.Marker({
-            position: {lat: myloc[1], lng: myloc[2]},
-            map: map,
-            icon: image,
-            shape: shape,
-            title: myloc[0],
-          });
+        for (var i = 0; i < maplist.length; i++) {
+            var myloc = maplist[i];
+            var marker = new google.maps.Marker({
+                position: {
+                    lat: myloc[1],
+                    lng: myloc[2]
+                },
+                map: map,
+                icon: image,
+                shape: shape,
+                title: myloc[0],
+            });
         }
-      }
-
+    }
     </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key={{MapAPI}}&libraries=places&language=zh-TW&callback=initMap">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{MapAPI}}&libraries=places&language=zh-TW&callback=initMap">
     </script>
+</body>
 
-  </body>
 </html>
