@@ -16,8 +16,8 @@
 		{% block inittag %}{% endblock %}
 		{% block googlemap%}{% endblock %}
   	</head>
+  	{% block nav %}{% endblock %}
 	<body class="d-flex flex-column">
-		{% block nav %}{% endblock %}
 		<main class="d-flex" style="width:90%;margin:0vh 5%;">
 	    	<form id="DiaryForm" method="post" class="d-flex flex-column w-100">{% csrf_token %}
 	    		<!-- 標題 -->

@@ -1,104 +1,111 @@
 ﻿{% load static %}
 
-<style>
-#stuff {
-	display: block; 
-  	content: " ";  
-  	height: 30px; 
-  	visibility: hidden; 
-}
+	<style>
 
-.navbar , .dropdown-menu {
-	background-color: #53cecb;
-	border:0px;
-	font-family: Montserrat, sans-serif;
-	font-size: 12px !important;
-	line-height: 1.42857143 !important;
-	letter-spacing: 4px;
-}
+	#stuff {
+		display: block; 
+	  	content: " ";  
+	  	height: 30px; 
+	  	visibility: hidden; 
+	}
 
-.navbar-toggler , .navbar-toggler-icon {
-	border-color: rgba(255,255,255,.1);
-	color:rgba(255,255,255,.1);
-}
+	.navbar , .dropdown-menu {
+		background-color: #53cecb !important;
+		border:0px !important;
+		font-family: Montserrat, sans-serif !important;
+		font-size: 12px !important;
+		line-height: 1.42857143 !important;
+		letter-spacing: 4px !important;
+	}
 
-#navbar-collapse-1{
-	padding-top: 3px;
-}
+	#navbar-collapse-1{
+		padding-top: 3px;
+	}
 
-.navbar-brand , .navbar-nav > li > a , .dropdown-menu > li > a {
-    color:white;
-}
+	.navbar-brand , .navbar-nav > li > a , .dropdown-menu > li > a {
+	    color:white !important;
+	}
 
-.navbar-nav > li:hover , .dropdown-menu > li > a:hover , .active > a {
-	color:#0ABAB5;
-	background-color: rgba(255,255,255,.5);
-}
+	.navbar-nav > li:hover , .dropdown-menu > li > a:hover {
+		color:#0ABAB5 !important;
+		background-color: rgba(255,255,255,.5) !important;
+	}
 
-</style>
+	.active > a , .dropdown-item.active, .dropdown-item:active {
+		color:#0ABAB5 !important;
+		background-color: rgba(255,255,255,.5) !important;
+	}
 
-<!-- Nav -->
-<div id="stuff" class="mb-3"></div>
-<nav class="navbar navbar-toggleable-md navbar-light fixed-top w-100">
-	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-collapse-1" aria-controls="navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation" >
-		<span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="navbar-brand">HIKI</div>
-    <div id="navbar-collapse-1" class="collapse navbar-collapse">
-		<ul class="navbar-nav">
-			<li class="nav-item">
-				<a class="nav-link" href="{% url 'hiki' %}">首頁</a>
-			</li>
-			<li class="nav-item active">
-				<a class="nav-link" href="{% url 'diary_display' %}">日記</a>
-			</li>
-	      	<li class="nav-item">
-	      		<a class="nav-link" href="{% url 'diary_media' %}">相簿</a>
-	      	</li>
-	      	<li class="nav-item">
-	      		<a class="nav-link" href="{% url 'diary_map' %}">旅遊足跡</a>
-	      	</li>
-	      	<li class="nav-item">
-	      		<a class="nav-link" href="{% url 'diary_tag' %}">標籤</a>
-	      	</li>
-	      	<li class="nav-item">
-	      		<a class="nav-link" href="{% url 'tally_display' %}">帳本</a>
-	      	</li>
-	    </ul>
-	    <ul class="navbar-nav ml-auto">
-	      	<li class="nav-item dropdown">
-	            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
-	                <span class="glyphicon glyphicon-user">
-	                </span> {{name}} <span class="caret"></span>
-	            </a>
-		        <ul class="dropdown-menu dropdown-menu-right pt-0 mt-0" aria-labelledby="navbarDropdownMenuLink">
-		        	<div class="dropdown-divider"></div>
-		            <li class="dropdown-header">
-		            	日記管理
-		            	<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-		            </li>
-		            <li>
-		            	<a class="dropdown-item" href="{% url 'diary_new' %}">
-		            		新增日記
-		            	</a>
-		            </li>
-		            <div class="dropdown-divider"></div>
-		            <li class="dropdown-header">
-		            	會員專區
-		            	<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-		            </li>
-		            <li>
-		            	<a class="dropdown-item" href="#">
-		            		帳號管理
-		            	</a>
-		            </li>
-		            <li>
-		            	<a class="dropdown-item" href="#">
-		            		登出
-		            	</a>
-		            </li>
-		        </ul>   
-    		</li>
-    	</ul>
-    </div>
-</nav>
+	</style>
+	
+	<!-- Nav -->
+	<div id="stuff" class="mb-3"></div>
+	<nav class="navbar navbar-toggleable-md navbar-light fixed-top w-100">
+		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-collapse-1" aria-controls="navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation" >
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="navbar-brand">HIKI</div>
+	    <div id="navbar-collapse-1" class="collapse navbar-collapse">
+			<ul class="navbar-nav">
+				<li id="home_" class="nav-item">
+					<a class="nav-link" href="{% url 'hiki' %}">首頁</a>
+				</li>
+				<li id="diary_" class="nav-item">
+					<a class="nav-link" href="{% url 'diary_display' %}">日記</a>
+				</li>
+		      	<li id="photo_" class="nav-item">
+		      		<a class="nav-link" href="{% url 'diary_media' %}">相簿</a>
+		      	</li>
+		      	<li id="map_" class="nav-item">
+		      		<a class="nav-link" href="{% url 'diary_map' %}">旅遊足跡</a>
+		      	</li>
+		      	<li id="tag_" class="nav-item">
+		      		<a class="nav-link" href="{% url 'diary_tag' %}">標籤</a>
+		      	</li>
+		      	<li id="tally_" class="nav-item">
+		      		<a class="nav-link" href="{% url 'tally_display' %}">帳本</a>
+		      	</li>
+		    </ul>
+		    <ul class="navbar-nav ml-auto">
+		      	<li class="nav-item dropdown">
+		            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
+		                <span class="glyphicon glyphicon-user">
+		                </span> {{name}} <span class="caret"></span>
+		            </a>
+			        <ul class="dropdown-menu dropdown-menu-right pt-0 mt-0" aria-labelledby="navbarDropdownMenuLink">
+			        	<div class="dropdown-divider"></div>
+			            <li class="dropdown-header">
+			            	日記管理
+			            	<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+			            </li>
+			            <li>
+			            	<a id="new_diary_" class="dropdown-item" href="{% url 'diary_new' %}">
+			            		新增日記
+			            	</a>
+			            </li>
+			            <div class="dropdown-divider"></div>
+			            <li class="dropdown-header">
+			            	會員專區
+			            	<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+			            </li>
+			            <li>
+			            	<a class="dropdown-item" href="#">
+			            		帳號管理
+			            	</a>
+			            </li>
+			            <li>
+			            	<a class="dropdown-item" href="#">
+			            		登出
+			            	</a>
+			            </li>
+			        </ul>   
+	    		</li>
+	    	</ul>
+	    </div>
+	</nav>
+
+	<!-- 確認標籤位置 -->
+	<script>
+		var title = "{{title}}";
+		document.getElementById(title).classList.add("active");
+	</script>
