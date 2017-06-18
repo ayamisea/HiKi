@@ -8,131 +8,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     {% include 'include/bootstrap.html' %}
+	<style>
+	/* main view */
+	body {
+	    background: #FFF;
+	}
+	main {
+		max-width: 960px;
+		margin: 0 auto;
+	}
+
+	#container {
+		margin: 0 auto;
+	}
+
+	@media screen and (max-width: 650px) {
+	    #container {
+	        width:316px;
+	    }
+	}
+
+	@media screen and (min-width: 650px) and (max-width: 960px) {
+	    #container {
+	        width:650px;
+	    }
+	}
+
+	.block {
+	    display:inline-block;
+	    cursor: pointer;
+	    width:300px;
+	    height:300px;
+	}
+
+	video {
+		vertical-align: middle;
+	}
+
+	/*modal box*/
+	.modal-dialog {
+	    max-width: 90% !important;
+	}
+
+	.modal-title span {
+	    font-size: 20px !important;
+	    color: rgba(10, 186, 181, 1);
+	}
+
+	#modal-body span {
+	    font-size: 16px !important;
+	    word-wrap:break-word;
+	}
+	</style>
+	<script>
+	//Trigger the modal with click
+	$(document).on("click", ".block", function() {
+	    $(this).find("button").click();
+	});
+
+	$(document).on("click", ".photoID", function() {
+	    //set value
+	    var title = $(this).data('title');
+	    var desc = $(this).data('desc');
+	    var url = $(this).data('url');
+	    var type = $(this).data('type');
+	    //default value
+	    if (title == 'None') {
+	        title = 'Enjoy Life'
+	    }
+	    if (desc == 'None') {
+	        desc = 'The value of life lies not length of days, but in the use of we make of them.'
+	    }
+	    //bound title and description
+	    document.getElementById("mediaTitle").textContent = title;
+	    document.getElementById("mediaDesc").innerHTML = desc;
+	    //bound media into modal
+	    var area = document.getElementById("modal-body");
+	    var newElement = null;
+	    if (type == 'img') {
+	        newElement = document.createElement('img');
+	        newElement.style.width = '300px';
+	    	newElement.style.height = 'auto';
+	        newElement.setAttribute('onerror', 'this.style.display="none"');
+	    }
+	    if (type == 'video') {
+	        newElement = document.createElement('video');
+	        newElement.style.width = '500px';
+	    	newElement.style.height = 'auto';
+	        sourceElement1 = document.createElement('source');
+	        sourceElement1.setAttribute('type', 'video/mp4');
+	        sourceElement2 = document.createElement('source');
+	        sourceElement2.setAttribute('type', 'video/ogg');
+	        newElement.appendChild(sourceElement1);
+	        newElement.appendChild(sourceElement2);
+	        newElement.controls = true;
+	    }
+	    newElement.setAttribute('src', url);
+	    newElement.classList.add('img-thumbnail');
+	    newElement.classList.add('m-1');
+	    newElement.classList.add('align-self-center');
+	    area.insertBefore(newElement, area.firstChild);
+	});
+
+	$(document).on('hide.bs.modal','#Modal', function () {
+		$(this).find('#modal-body').find(">:first-child").remove();
+	})
+
+	</script>
 </head>
-<style>
-/* main view */
-body {
-    background: #FFF;
-}
-
-#container {
-	margin: 0 auto;
-}
-
-@media screen and (max-width: 650px) {
-    #container {
-        width:300px;
-    }
-    #mediaDesc {
-    	margin-top: 	
-    }
-}
-
-@media screen and (min-width: 650px) and (max-width: 965px) {
-    #container {
-        width:650px;
-    }
-}
-
-@media screen and (min-width: 965px) and (max-width: 1280px) {
-    #container {
-        width:965px;
-    }
-}
-
-@media screen and (min-width: 1280px) and (max-width: 1600px) {
-    #container {
-        width:1280px;
-    }
-}
-
-@media screen and (min-width: 1600px) and (max-width: 1920px) {
-    #container {
-        width:1600px;
-    }
-}
-
-.block {
-    display:inline-block;
-    cursor: pointer;
-    width:300px;
-    height:300px;
-}
-
-video {
-	vertical-align: middle;
-}
-
-/*modal box*/
-.modal-dialog {
-    max-width: 90% !important;
-}
-
-.modal-title span {
-    font-size: 20px !important;
-    color: rgba(10, 186, 181, 1);
-}
-
-#modal-body span {
-    font-size: 16px !important;
-    word-wrap:break-word;
-}
-</style>
-<script>
-//Trigger the modal with click
-$(document).on("click", ".block", function() {
-    $(this).find("button").click();
-});
-
-$(document).on("click", ".photoID", function() {
-    //set value
-    var title = $(this).data('title');
-    var desc = $(this).data('desc');
-    var url = $(this).data('url');
-    var type = $(this).data('type');
-    //default value
-    if (title == 'None') {
-        title = 'Enjoy Life'
-    }
-    if (desc == 'None') {
-        desc = 'The value of life lies not length of days, but in the use of we make of them.'
-    }
-    //bound title and description
-    document.getElementById("mediaTitle").textContent = title;
-    document.getElementById("mediaDesc").innerHTML = desc;
-    //bound media into modal
-    var area = document.getElementById("modal-body");
-    var newElement = null;
-    if (type == 'img') {
-        newElement = document.createElement('img');
-        newElement.style.width = '300px';
-    	newElement.style.height = 'auto';
-        newElement.setAttribute('onerror', 'this.style.display="none"');
-    }
-    if (type == 'video') {
-        newElement = document.createElement('video');
-        newElement.style.width = '500px';
-    	newElement.style.height = 'auto';
-        sourceElement1 = document.createElement('source');
-        sourceElement1.setAttribute('type', 'video/mp4');
-        sourceElement2 = document.createElement('source');
-        sourceElement2.setAttribute('type', 'video/ogg');
-        newElement.appendChild(sourceElement1);
-        newElement.appendChild(sourceElement2);
-        newElement.controls = true;
-    }
-    newElement.setAttribute('src', url);
-    newElement.classList.add('img-thumbnail');
-    newElement.classList.add('m-1');
-    newElement.classList.add('align-self-center');
-    area.insertBefore(newElement, area.firstChild);
-});
-
-$(document).on('hide.bs.modal','#Modal', function () {
-	$(this).find('#modal-body').find(">:first-child").remove();
-})
-
-</script>
 
 {% include 'include/nav.html' with name=user.name title='photo_'%}
 <body>
@@ -154,7 +137,10 @@ $(document).on('hide.bs.modal','#Modal', function () {
         </div>
     </div>
     <!-- media display -->
-    <main class="d-flex justify-content-center">
+    <main class="d-flex flex-column justify-content-center">
+	    <header class="w-100 p-3 h3">
+			相簿<hr>
+	    </header>
     	<div id="container">
 	        {% for media in mediaList %}
 	        <div class="block m-2">

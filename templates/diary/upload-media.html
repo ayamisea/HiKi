@@ -19,8 +19,8 @@
 		<script src="{% static 'js/no-prevpage.js' %}"></script>
 		<script src="{% static 'js/textarea.js' %}"></script>
 	</head>
+	{% include 'include/nav.html' with name=user.name title='diary_' %}
 	<body class="d-flex flex-column">
-		{% include 'include/nav.html' with name="Media Uploader" %}
 		<main class="d-flex flex-column" style="width: 90%;margin: 0vh 5%;">
 		    <div class="d-flex p-2">
 			    <form action="" method="post" enctype="multipart/form-data" class="d-flex flex-column w-100">{% csrf_token %}

@@ -23,5 +23,5 @@ window.addEventListener('load', init, false);
 {% endblock %}
 
 {% block nav %}
-	{% include 'include/nav.html' with name='Edit Diary' %}
+	{% include 'include/nav.html' with name=user.name title='diary_' %}
 {% endblock %}
