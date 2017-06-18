@@ -1,161 +1,160 @@
 {% load static %}
 <!DOCTYPE html>
+
 <head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-    	<title>Detail</title>
-		<!-- css -->
-		{% include 'include/bootstrap.html' %}
-		<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-		<link rel="stylesheet" type="text/css" href="{% static 'css/googlemap.css' %}">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Detail</title>
+	<!-- css -->
+	{% include 'include/bootstrap.html' %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/googlemap.css' %}">
+	<style>
+	.word {
+		white-space:normal;
+		word-break:break-all;
+		overflow:hidden;  
+	}
+	hr {
+		margin:0;
+		height:.1px; 
+		background-color:rgba(10,181,186,0.2);
+	}
+	</style>
 
-		<style>
-		.word {
-			white-space:normal;
-			word-break:break-all;
-			overflow:hidden;  
-		}
-		hr {
-			margin:0;
-			height:.1px; 
-			background-color:rgba(10,181,186,0.2);
-		}
-		</style>
-
-		<!-- js -->
-		
-		<script>
-		function initMap() {
-			var uluru = {lat: {{diary.location.latitude}}, lng: {{diary.location.longitude}} };
-			var map = new google.maps.Map(document.getElementById('map'), {
-			zoom: 7,
-			center: uluru
-			});
-			var marker = new google.maps.Marker({
-			position: uluru,
-			map: map
-			});
-		}
-		</script>
-		<script src="https://maps.googleapis.com/maps/api/js?key={{MapAPI}}&callback=initMap" async defer ></script>
+	<!-- js -->
+	<script>
+	function initMap() {
+		var uluru = {lat: {{diary.location.latitude}}, lng: {{diary.location.longitude}} };
+		var map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 7,
+		center: uluru
+		});
+		var marker = new google.maps.Marker({
+		position: uluru,
+		map: map
+		});
+	}
+	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key={{MapAPI}}&callback=initMap" async defer ></script>
 </head>
-	<body class="w-100 h-100 m-0">
-		<!-- 日期與導覽列 -->
-		{% include 'include/nav.html' with name=diary.date %}
-		<main class="d-flex flex-column" style="margin:0 3%;">
-			<!-- 標題 -->
-			<div class="d-flex align-items-center p-1">
-				<div class="detail-icon">
-					<img class="detail-icon-img" src="{%static '/icon/detail/title.png' %}">
-				</div>
-				<h4 class="m-0">{{diary.title}}</h4>
+<body class="w-100 h-100 m-0">
+	<!-- 日期與導覽列 -->
+	{% include 'include/nav.html' with name=user.name title='diary_' %}
+	<main class="d-flex flex-column" style="margin:0 3%;">
+		<!-- 標題 -->
+		<div class="d-flex align-items-center p-1">
+			<div class="detail-icon">
+				<img class="detail-icon-img" src="{%static '/icon/detail/title.png' %}">
 			</div>
-			<hr>
-			<!-- 標籤 -->
-			{% ifnotequal diary.tags.all|length 0 %}
-			<div class="d-flex p-1">
-				<div class="detail-icon">
-					<img class="detail-icon-img" src="{%static '/icon/detail/tag.png' %}">
-				</div>
-				<div class="d-flex flex-column align-self-center">
-				{% for t in diary.tags.all %}
-				    <h5 class="m-1">#{{t.tagName}}</h5>
-				{% endfor %}
-				</div>
+			<h4 class="m-0">{{diary.title}}</h4>
+		</div>
+		<hr>
+		<!-- 標籤 -->
+		{% ifnotequal diary.tags.all|length 0 %}
+		<div class="d-flex p-1">
+			<div class="detail-icon">
+				<img class="detail-icon-img" src="{%static '/icon/detail/tag.png' %}">
 			</div>
-			<hr>
-			{% endifnotequal %}
-			<!-- 地點與天氣 -->
-			{% ifnotequal diary.location.location "null" %}
-			<!-- 天氣 -->
-			{% with '/icon/weather/'|add:diary.weather_cond|add:'.png' as image_static %}
-			<div class="d-flex align-items-center p-1">
-	  			<img src="{% static image_static %}" onerror="this.style.display='none'" alt="null" height="64" width="64">
-				<h5 class="m-0">{{diary.weather_meantemp}}℃</h5>
+			<div class="d-flex flex-column align-self-center">
+			{% for t in diary.tags.all %}
+			    <h5 class="m-1">#{{t.tagName}}</h5>
+			{% endfor %}
 			</div>
-			<hr>
-			{% endwith %}
-			<!-- 地圖 -->
-			<div class="p-1 d-flex flex-row align-items-center">
-				<div class="detail-icon">
-					<img class="detail-icon" src="{%static '/icon/detail/placeholder.png' %}">
-				</div>
-				<a target="_blank" href="http://maps.google.com/maps?q={{diary.location.latitude}},{{diary.location.longitude}}">{{diary.location.location}}</a>
+		</div>
+		<hr>
+		{% endifnotequal %}
+		<!-- 地點與天氣 -->
+		{% ifnotequal diary.location.location "null" %}
+		<!-- 天氣 -->
+		{% with '/icon/weather/'|add:diary.weather_cond|add:'.png' as image_static %}
+		<div class="d-flex align-items-center p-1">
+  			<img src="{% static image_static %}" onerror="this.style.display='none'" alt="null" height="64" width="64">
+			<h5 class="m-0">{{diary.weather_meantemp}}℃</h5>
+		</div>
+		<hr>
+		{% endwith %}
+		<!-- 地圖 -->
+		<div class="p-1 d-flex flex-row align-items-center">
+			<div class="detail-icon">
+				<img class="detail-icon" src="{%static '/icon/detail/placeholder.png' %}">
 			</div>
-			<div class="d-flex pb-4">
-				<div class="detail-icon"></div>
-				<div id="map"></div>
+			<a target="_blank" href="http://maps.google.com/maps?q={{diary.location.latitude}},{{diary.location.longitude}}">{{diary.location.location}}</a>
+		</div>
+		<div class="d-flex pb-4">
+			<div class="detail-icon"></div>
+			<div id="map"></div>
+		</div>
+		{% endifnotequal %}
+		<hr>
+		<!-- 內容 -->
+		<div class="pl-1 pr-1 pt-3 pb-3 d-flex flex-row">
+			<div class="detail-icon">
+				<img class="detail-icon-img" src="{%static '/icon/detail/content.png' %}">
 			</div>
-			{% endifnotequal %}
-			<hr>
-			<!-- 內容 -->
-			<div class="pl-1 pr-1 pt-3 pb-3 d-flex flex-row">
-				<div class="detail-icon">
-					<img class="detail-icon-img" src="{%static '/icon/detail/content.png' %}">
-				</div>
-				<div class="h5 mt-2 mb-2">{{diary.content}}</div>
+			<div class="h5 mt-2 mb-2">{{diary.content}}</div>
+		</div>
+		<hr>
+		<!-- 多少媒體 -->
+		{% ifnotequal diary.media_set.all|length 0 %}
+		<div class="d-flex align-items-center pt-1 pl-1 pr-1 pb-0">
+			<div class="detail-icon">
+				<img class="detail-icon-img" src="{%static '/icon/detail/picture.png' %}">
 			</div>
-			<hr>
-			<!-- 多少媒體 -->
-			{% ifnotequal diary.media_set.all|length 0 %}
-			<div class="d-flex align-items-center pt-1 pl-1 pr-1 pb-0">
-				<div class="detail-icon">
-					<img class="detail-icon-img" src="{%static '/icon/detail/picture.png' %}">
-				</div>
-				<h5 class="ml-1 mt-0 mr-0 mb-0">共{{diary.media_set.all|length }}個媒體</h5>
-			</div>
-			<!-- 圖片欄位 -->
-			<div class="d-flex pt-0 pl-1 pr-1 pb-1">
-				<div class="detail-icon"></div><!-- 佔位 -->
-				<!-- 所有圖片 -->
-				<div class="d-flex flex-column">
-			    {% for i in diary.media_set.all %}
-			    	<!-- 各個圖片 -->
-			        <div class="d-flex flex-column flex-sm-row m-2">
-						<!-- 圖片本體 -->
-						{% if i.type == "img" %}
-				        <img src="{{mediaURL}}{{i.img}}" onerror="this.style.display='none'" width="200" height="200">
-					    {% endif %}
-					    {% if i.type == "video" %}
-				        <video width="200" height="200" controls>
-							<source src="{{mediaURL}}{{i.img}}" type="video/mp4">
-							<source src="{{mediaURL}}{{i.img}}" type="video/ogg">
-							Your browser does not support HTML5 video.
-				        </video>
-				        {% endif %}
-				        <div class="d-flex flex-column word ml-sm-2 align-self-center">
-				        	<!-- 圖片標題 -->
-				        	<b>
-							{% ifnotequal i.title null %}
-					        	{{i.title}}
-					        {% endifnotequal %}
-						    </b>
-					        <!-- 圖片敘述 -->
-							<div>
-							{% ifnotequal i.description null %}
-								{{i.description}}
-							{% endifnotequal %}
-							</div> 
-						</div>
-			        </div>
-			        <hr>
-			    {% endfor %}
-			    </div>
-			</div>
-			{% endifnotequal %}
-			<div class="d-flex justify-content-center m-2">
-		        {% if diary.userID.email == user.email%}
-		        <form method="post" class="d-flex">
-		            {% csrf_token %}
-		            <input class="btn custom-button m-2" type="submit" name="delete" value="刪除">
-		            <a class="btn custom-button m-2" href="{% url 'diary_edit' pk=diary.pk %}">編輯</a>
+			<h5 class="ml-1 mt-0 mr-0 mb-0">共{{diary.media_set.all|length }}個媒體</h5>
+		</div>
+		<!-- 圖片欄位 -->
+		<div class="d-flex pt-0 pl-1 pr-1 pb-1">
+			<!-- 佔位以對齊 -->
+			<div class="detail-icon"></div>
+			<!-- 所有圖片 -->
+			<div class="d-flex flex-column">
+		    {% for i in diary.media_set.all %}
+		    	<!-- 各個圖片 -->
+		        <div class="d-flex flex-column flex-sm-row m-2">
+					<!-- 圖片本體 -->
+					{% if i.type == "img" %}
+			        <img src="{{mediaURL}}{{i.img}}" onerror="this.style.display='none'" width="200" height="200">
+				    {% endif %}
+				    {% if i.type == "video" %}
+			        <video width="200" height="200" controls>
+						<source src="{{mediaURL}}{{i.img}}" type="video/mp4">
+						<source src="{{mediaURL}}{{i.img}}" type="video/ogg">
+						Your browser does not support HTML5 video.
+			        </video>
+			        {% endif %}
+			        <div class="d-flex flex-column word ml-sm-2 align-self-center">
+			        	<!-- 圖片標題 -->
+			        	<b>
+						{% ifnotequal i.title null %}
+				        	{{i.title}}
+				        {% endifnotequal %}
+					    </b>
+				        <!-- 圖片敘述 -->
+						<div>
+						{% ifnotequal i.description null %}
+							{{i.description}}
+						{% endifnotequal %}
+						</div> 
+					</div>
+		        </div>
+		        <hr>
+		    {% endfor %}
+		    </div>
+		</div>
+		{% endifnotequal %}
+		<div class="d-flex justify-content-center m-2">
+	        {% if diary.userID.email == user.email%}
+	        <form method="post" class="d-flex">{% csrf_token %}
+	            <input class="btn custom-button m-2" type="submit" name="delete" value="刪除">
+	            <a class="btn custom-button m-2" href="{% url 'diary_edit' pk=diary.pk %}">編輯</a>
+	        </form>
+	        {% endif %}
+			<form action="/diary/" class="d-flex">
+				<button class="btn custom-button m-2" type="submit">回日記</button>
+			</form>
+		</div>
+	</main>
+</body>
 
-		        </form>
-		        {% endif %}
-				<form action="/diary/" class="d-flex">
-					<button class="btn custom-button m-2" type="submit">回日記</button>
-				</form>
-			</div>
-		</main>
-	</body>
 </html>

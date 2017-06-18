@@ -7,7 +7,8 @@
     <!-- Bootstrap -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'css/search.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}"> {% include 'include/bootstrap.html' %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% include 'include/bootstrap.html' %}
     <style>
     html body {
         background-color: white;
@@ -19,126 +20,16 @@
         max-width: 960px;
         margin: 0 auto;
     }
-    
-    .carousel-row {
-        width: 90%;
-        min-height: 25%;
-        background-color: #FFF;
-        border-radius: 5px;
-        margin-top: 0.5em;
-        border: solid rgba(10, 186, 181, 0.6);
-        border-width: 3px;
-        padding: 2rem;
-        margin: 1rem;
-    }
-    
-    .carousel-row:hover {
-        cursor: pointer;
-    }
-    
-    .carousel-inner {
-        height: 200px;
-        width: 200px;
-        padding: 0;
-        display: flex;
-        align-content: center;
-        align-items: center;
-        align-self: center;
-        overflow: hidden;
-    }
-    
-    #article h3 {
-        color: #0ABAB5;
-        font-family: Montserrat, sans-serif;
-        font-size: 1.6em;
-    }
-    
-    #article span {
-        color: #769072;
-        font-size: 1.2rem;
-    }
-    
-    #article p {
-        color: #696969;
-        font-family: Montserrat, sans-serif;
-        font-size: 1em;
-    }
-    
-    .media {
-        margin-bottom: 1em;
-    }
     </style>
-    <script>
-    //跳轉日記
-    $(function() {
-        $(".carousel-row").click(function() {
-            window.location = $(this).find("a").attr("href");
-            return false;
-        });
-    });
-
-    //字數控制
-    $(function() {
-        var len = 200;
-        $(".JQellipsis").each(function(i) {
-            if ($(this).text().length > len) {
-                $(this).attr("title", $(this).text());
-                var text = $(this).text().substring(0, len - 1) + "...";
-                $(this).text(text);
-            }
-        });
-    });
-    </script>
 </head>
+
+{% include 'include/nav.html' with name=user.name title='diary_' %}
 <body>
-    {% include 'include/nav.html' with name=user.name title='diary_' %}
     <main class="d-flex flex-column justify-content-center align-items-center">
-        <header class="h3 w-100 p-3">我的日記
+        <header class="h3 w-100 p-3">日記列表
             <hr>
         </header>
-        <!-- Begin of rows -->
-        {% for diary in diaryList %}
-        <div class="carousel-row d-flex flex-column flex-sm-row">
-            <a href="{% url 'diary_detail' pk=diary.pk %}"></a>
-            <div id="carouselExampleControls" class="carousel slide d-flex justify-content-center mr-sm-3" data-ride="carousel" data-interval="4000">
-                <div class="carousel-inner" role="listbox">
-                    {% if diary.media_set.all|length == 0 %}
-                    <!-- 使用預設圖輪播 -->
-                    <div class="carousel-item active">
-                        <img class="d-block img-fluid" src="{% static 'img/default-img-1.jpg' %}">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block img-fluid" src="{% static 'img/default-img-2.jpg' %}">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block img-fluid" src="{% static 'img/default-img-3.jpg' %}">
-                    </div>
-                    {% else %} {% for i in diary.media_set.all %}
-                    <div class='item {{ forloop.first|yesno:"activate," }} '>
-                        {% if i.type == "img" %}
-                        <img class="img-rounded" src="{{mediaURL}}{{i.img}}" onerror="this.style.display='none'" style="display:block; margin:auto;" width="200" height="200"> {% endif %} {% if i.type == "video" %}
-                        <video style="display:block; margin:auto;" class="img-rounded" width="200" height="200" controls>
-                            <source src="{{mediaURL}}{{i.img}}" type="video/mp4">
-                            <source src="{{mediaURL}}{{i.img}}" type="video/ogg"> Your browser does not support HTML5 video.
-                        </video>
-                        {% endif %}
-                    </div>
-                    {% endfor %} {% endif %}
-                </div>
-            </div>
-            <div id="article" class="d-flex flex-column mw-80%">
-                <strong><h3>{{diary.title}}</h2></strong>
-                <span>
-	                  <span class="glyphicon glyphicon-calendar">{{diary.date}} </span> {% with '/icon/weather/'|add:diary.weather_cond|add:'.png' as image_static %}
-                <img src="{% static image_static %}" onerror="this.style.display='none'" alt="null" height="25" width="25">
-                <span>{{diary.weather_meantemp}}℃</span> {% endwith %}
-                </span>
-                <p class="JQellipsis">
-                    {{diary.content}}
-                </p>
-            </div>
-        </div>
-        {% endfor %}
+        {% include 'diary/display-diary.html' with diaryList=diaryList %}
     </main>
 </body>
 

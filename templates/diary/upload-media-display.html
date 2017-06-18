@@ -1,12 +1,70 @@
 {% load static %}
 	<link rel="stylesheet" href="{% static 'css/main.css' %}"> {% include 'include/bootstrap.html' %}
 	<style>
+	#main {
+		margin: 0 auto;
+	}
+
+	@media screen and (max-width: 450px) {
+	    #main {
+	        width:220px;
+	    }
+	}
+
+	@media screen and (min-width: 450px) and (max-width: 670px) {
+	    #main {
+	        width:450px;
+	    }
+	}
+
+	@media screen and (min-width: 670px) and (max-width: 895px) {
+	    #main {
+	        width:670px;
+	    }
+	}
+
+	@media screen and (min-width: 895px) and (max-width: 1120px) {
+	    #main {
+	        width:895px;
+	    }
+	}
+
+	@media screen and (min-width: 1120px) and (max-width: 1345px) {
+	    #main {
+	        width:1120px;
+	    }
+	}
+
+	@media screen and (min-width: 1345px) and (max-width: 1570px) {
+	    #main {
+	        width:1345px;
+	    }
+	}
+
+	@media screen and (min-width: 1570px) and (max-width: 1795px) {
+	    #main {
+	        width:1570px;
+	    }
+	}
+
+	@media screen and (min-width: 1795px) and (max-width: 2020px) {
+	    #main {
+	        width:2020px;
+	    }
+	}
+	
+	.block {
+		display:inline-block;
+	    width:220px;
+	    height:340px;
+	}
+
 	#tooltip .tooltiptext {
 	    visibility: hidden;
 	    background-color: rgba(10, 186, 181, 0.7);
 	    color: #fff;
 	    text-align: center;
-	    border-radius: 6px;
+	    border-radius: 0 0 6 6px;
 	    padding: 5px 0;
 	    word-break: break-all;
 	    /* Position the tooltip */
@@ -29,12 +87,12 @@
 	window.addEventListener('load', size, false)
 	</script>
 
-	<body class="d-flex w-100 h-100" style="margin: 0 auto;">
-	    <div id="main" class="d-flex flex-wrap w-100 mt-0 ml-0 mr-0 mb-3">
+	<body class="d-flex w-100" style="margin: 0 auto;">
+	    <div id="main" style="margin:0 auto;">
 	        {% for i in imgs %}
-	        <div class="p-1" class="d-flex flex-column" style="text-align: center;">
+	        <div class="block" style="text-align: center;">
 	            <div class="d-flex flex-column p-1">
-	                <div class="d-flex justify-content-center m-1" style="height:3em;width:200px;">
+	                <div class="d-flex flex-warp justify-content-center m-1" style="width:200px;">
 	                    <!-- 圖片標題 -->
 	                    <b class="d-flex align-self-center" style="display: inline;">
 						{% ifnotequal i.title null %}
@@ -42,10 +100,12 @@
 				        {% endifnotequal %}
 					    </b>
 	                </div>
-	                <div id="tooltip" class="img-thumbnail align-middle">
+	                <div id="tooltip" class="img-thumbnail">
 	                    <!-- 圖片敘述 -->
-	                    <div class="tooltiptext">
-	                        {% ifnotequal i.description null %} {{i.description}} {% endifnotequal %}
+	                    <div class="tooltiptext" style="margin-left: 1px;">
+	                        {% ifnotequal i.description null %}
+	                        	{{i.description}}
+	                        {% endifnotequal %}
 	                    </div>
 	                    <!-- 圖片本體 -->
 	                    {% if i.type == "img" %}
