@@ -25,3 +25,10 @@ html, body {
 	height:42px;
 	margin: 11px; 
 }
+
+hr {
+	width:100%;
+	margin:0;
+	height:.1px; 
+	background-color:rgba(10,181,186,0.2);
+}
