@@ -8,12 +8,14 @@ class TallyForm(forms.ModelForm) :
 		model  = Tally
 		fields = ['date', 'pay_type', 'type', 'subtype', 'price', 'notes']
 		widgets = {
-            'date': forms.DateInput(attrs={'id':'datepicker' , 'class': 'form-control ' , 'style':'width:200px ; display:inline'}),
-            'pay_type': forms.Select(attrs={'class':'form-control m-1'}),
-            'type': forms.Select(attrs={'class':'form-control m-1'}),
-            'subtype': forms.TextInput(attrs={'class':'form-control', 'style':'width:200px ; display:inline'}),
+            'date': forms.DateInput(attrs={'id':'datepicker' , 'class': 'form-control m-1 w-100' , 'style':'display:inline'}),
+            'pay_type': forms.Select(attrs={'class':'form-control m-1 w-100'}),
+            'type': forms.Select(attrs={'class':'form-control m-1 w-100'}),
+            'subtype': forms.TextInput(attrs={'class':'form-control m-1 w-100', 'style':'display:inline'}),
+        	'price':forms.TextInput(attrs={'class':'form-control m-1 w-100', 'style':'display:inline'}),
+			'notes':forms.Textarea(attrs={'id':'textarea','class':'form-control m-1 w-100', 'style':'display:inline'})
         }
 
 class DateForm(forms.Form) :
-	dateA = forms.DateField(widget=forms.TextInput(attrs={'class':'datepicker'}))
-	dateB = forms.DateField(widget=forms.TextInput(attrs={'class':'datepicker'}))
+	dateA = forms.DateField(widget=forms.TextInput(attrs={'id':'datepicker'}))
+	dateB = forms.DateField(widget=forms.TextInput(attrs={'id':'datepicker'}))

@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- css -->
+    {% include 'include/bootstrap.html' %}
+    {% include 'include/jquery-ui.html' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <!-- js -->
+    <script src="{% static 'js/calendar.js' %}"></script>
+    <style>
+    </style>
+</head>
+
+{% block nav %}{% endblock %}
+<body class="d-flex flex-column">
+	<main class="d-flex" style="width:90%;margin:0vh 5%;">
+	    <form id="AccountForm" method="post" class="d-flex flex-column w-100">{% csrf_token %} 
+		<!-- 日期 -->
+		<div class="d-flex">
+        	<img class="form-icon m-1" src="{%static '/icon/form/date.png' %}">
+        	{{ tally_form.date }}
+        </div>
+        <!-- 收支 -->
+        <div class="d-flex">
+	   		<img class="form-icon m-1" src="{%static '/icon/form/wallet.png' %}">
+	        {{ tally_form.pay_type }}
+	    </div>
+	    <div class="d-flex">
+	   		<img class="form-icon m-1" src="{%static '/icon/form/type.png' %}">
+	   		{{ tally_form.type }}
+	   	</div>
+	   	<div class="d-flex">
+	   		<img class="form-icon m-1" src="{%static '/icon/form/type.png' %}">
+	   		{{ tally_form.subtype }}
+	   	</div>
+	   	<div class="d-flex">
+	   		<img class="form-icon m-1" src="{%static '/icon/form/money.png' %}">
+	        {{ tally_form.price }}
+	    </div>
+	    <div class="d-flex">
+	   		<img class="form-icon m-1" src="{%static '/icon/form/note.png' %}">
+	        {{ tally_form.notes }}
+	    </div>
+	    <div class="d-flex mt-4 justify-content-center">
+	        <input class="btn custom-button" type="submit" name="send" value="完成" />
+	    </div>
+	    </form>
+	</main>
+</body>
+
+</html>

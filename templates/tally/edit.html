@@ -1,1 +1,7 @@
 {% extends 'tally/tally-form.html' %}
+
+{% block title %}Edit Tally{% endblock %}
+
+{% block nav %} 
+	{% include 'include/nav.html' with name=user.name title='tally_'%}
+{% endblock %}
