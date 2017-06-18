@@ -52,9 +52,10 @@
 	    </hr>
     </main>    
     <div class="d-flex justify-content-center m-3">
-    	<a class="btn custom-button mr-1" href="{% url 'tally_edit' pk=tally.pk %}">編輯</a>
+    	<a class="btn custom-button" href="{% url 'tally_edit' pk=tally.pk %}">編輯</a>
 		<form method="post" >{% csrf_token %}
-	    	<input class="btn custom-button ml-1" type="submit" name="delete" value="刪除"> <br>
+	    	<input class="btn custom-button ml-2 mr-2" type="submit" name="delete" value="刪除">
 	    </form>
+	    <a class="btn custom-button" href="{% url 'tally_display' %}">回日記</a>
 	</div>
 </body>
