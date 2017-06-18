@@ -1,24 +1,60 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Tally Detail</title>
+    {% include 'include/bootstrap.html' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <style>
+    html, body {
+		width:100%;
+		margin: 0;
+		font-size: 1.15rem;
+    }
+    main {
+    	width:90%;
+    	margin: 0 auto;
+    }
+    </style>
 </head>
 
+{% include 'include/nav.html' with name=user.name title='tally_'%}
 <body>
-	<h3># Detail</h3>
-	{{ tally.date | date:"Y / m / d" }} <br>
-	{{ tally.pay_type }} <br>
-	{{ tally.type }} <br>
-	{{ tally.subtype }} <br>
-	{{ tally.price }} <br>
-	{{ tally.notes }} <br>
-	<br>
-
-	<a  href="{% url 'tally_edit' pk=tally.pk %}">編輯<a>
-
-	<form method="post" >
-    	{% csrf_token %}
-    	<input class="btn btn-default" type="submit" name="delete" value="刪除"> <br>
-    </form>
+    <main class="d-flex flex-column">
+    	<!-- 日期 -->
+    	<div clss="d-flex align-items-center">
+    		<img class="detail-icon-img" src="{% static 'icon/detail/date.png' %}">{{ tally.date | date:"Y / m / d" }}
+    	</div>
+    	<hr>
+    	<!-- 類別 -->
+    	<div class="d-flex align-items-center">
+    		{% if tally.pay_type == '收入'%}
+    		<img class="detail-icon-img" src="{% static 'icon/detail/income.png' %}">
+	    	{% endif %}
+	    	{% if tally.pay_type == '支出'%}
+	    	<img class="detail-icon-img" src="{% static 'icon/detail/expense.png' %}">
+    		{% endif %}
+    		{{ tally.type }}&nbsp;&nbsp;{{ tally.subtype }}
+	    </div>
+	    <hr>
+	    <!-- 多少錢 -->
+	    <div class="d-flex align-items-center">
+	    	<img class="detail-icon-img" src="{% static 'icon/detail/money.png' %}">
+	    	${{ tally.price }}
+	    </div>
+	    <hr>
+	    <!-- 註記 -->
+	    <div class="d-flex align-items-center">
+	    	<img class="detail-icon-img" src="{% static 'icon/detail/note.png' %}">
+	    	{{ tally.notes }}
+	    </div>	
+	    </hr>
+    </main>    
+    <div class="d-flex justify-content-center m-3">
+    	<a class="btn custom-button mr-1" href="{% url 'tally_edit' pk=tally.pk %}">編輯</a>
+		<form method="post" >{% csrf_token %}
+	    	<input class="btn custom-button ml-1" type="submit" name="delete" value="刪除"> <br>
+	    </form>
+	</div>
 </body>
