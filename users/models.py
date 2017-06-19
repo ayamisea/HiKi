@@ -61,6 +61,18 @@ class UserManager(BaseUserManager):
             is_staff=True, is_superuser=True,
             **extra_fields)
 
+    def get_with_verification_key(self, verification_key):
+        """Get a user from verification key.
+        """
+        try:
+            username = signing.loads(
+                verification_key,
+                salt=settings.SECRET_KEY,
+            )
+        except signing.BadSignature:
+            raise self.model.DoseNotExist
+        return self.get(**{self.model.USERNAME_FIELD: username})
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True, db_index=True)
     name = models.CharField(max_length=100)
