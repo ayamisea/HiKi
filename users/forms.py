@@ -105,6 +105,20 @@ class UserChangeForm(forms.ModelForm):
         """
         return self.initial['password']
 
+class UserProfileUpdateForm(forms.ModelForm):
+    """Form used to update user's profile.
+    This includes only fields containing basic user information.
+    """
+    class Meta:
+        model = User
+        fields = (
+            'name', 'bio', 'photo',
+        )
+
+
+
+
+
 # Unused signup and login form
 """
 class PublicUserCreationForm(UserCreationForm):
