@@ -16,9 +16,6 @@ from django.shortcuts import redirect, render, HttpResponse
 from django.utils.translation import ugettext
 from django.views.decorators.http import require_POST
 
-from diary.models import Diary
-from tally.models import Tally
-
 from .forms import UserProfileUpdateForm
 
 
@@ -119,8 +116,8 @@ def user_dashboard(request):
     if not request.user.is_valid_user:
         return redirect('user_profile_update')
 
-    diary = Diary.objects.all()
-    tally = Tally.objects.all()
+    diary = request.user.diary_set.all()
+    tally = request.user.tally_set.all()
 
     return render(request, 'users/user_dashboard.html', locals())
 
