@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from decimal import Decimal
+from djchoices import DjangoChoices, ChoiceItem
 
 from django.contrib.auth import get_user_model
 User =  get_user_model()
@@ -18,10 +19,25 @@ class Tally(models.Model) :
 		('收入', '收入'),
 		('支出', '支出'),
 	)
+	PAY_CHOICES = (
+		('收入', (
+			('打工', '打工'),
+			('零用錢', '零用錢'),
+			('其他收入', '其他收入'),
+		) ), 
+		('支出', (
+			('食物', '食物'), 
+			('玩樂' , '玩樂'),
+			('交通', '交通'),
+			('其他支出', '其他支出'),
+		) ),
+	)
+
+	class MoneyTypes(DjangoChoices) :
+		income = ChoiceItem()
 	userID = models.ForeignKey(User,blank=True,null=True)
 	date   = models.DateField(default=timezone.now)
-	pay_type = models.CharField(max_length = 20, choices = PAY_CHOICES, default = PAY_CHOICES[0][1])
-	type   = models.CharField(max_length = 20, choices = TYPE_CHOICES, default = TYPE_CHOICES[3][1])
+	type   = models.CharField(max_length = 20, choices=PAY_CHOICES)
 	subtype = models.CharField(max_length = 20)
 	price  = models.DecimalField(max_digits=10,decimal_places=0,default=Decimal('0'))
 	notes  = models.CharField(max_length=200)
