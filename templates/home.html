@@ -43,7 +43,7 @@
                 <h1>HiKi</h1> 
                 <p>Enjoy your perfect day.</p>
                 <div class="col-sm-4 col-sm-offset-4">
-                    <form method="post" action="/diary/search/" >
+                    <form method="post" action="{% url 'diary_search_result' %}" >
                     {% csrf_token %}
                     <div id="imaginary_container"> 
                         <div class="input-group stylish-input-group">
