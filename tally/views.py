@@ -51,7 +51,6 @@ def editTally(request, pk) :
 		tally_form = TallyForm(request.POST)
 		if tally_form.is_valid() :
 			tally.date = tally_form.cleaned_data['date']
-			tally.pay_type = tally_form.cleaned_data['pay_type']
 			tally.type = tally_form.cleaned_data['type']
 			tally.subtype = tally_form.cleaned_data['subtype']
 			tally.price = tally_form.cleaned_data['price']
@@ -61,7 +60,6 @@ def editTally(request, pk) :
 	tally = Tally.objects.get(id=pk)
 	tally_form = TallyForm(initial={
         'date': tally.date,
-        'pay_type': tally.pay_type,
         'type':tally.type,
         'subtype':tally.subtype,
         'price':tally.price,
@@ -88,7 +86,12 @@ def summary(request) :
 	total_expend = 0
 	for tally in tallyList :
 		d = False
-		if tally.pay_type == '收入' :
+		isIncome = False
+		for str in Tally.PAY_CHOICES[0][1] :
+			if str[0] == tally.type :
+				isIncome = True
+				break
+		if isIncome :
 			total_income = total_income + tally.price
 			for pl in price_income_List :
 				if pl[0] == tally.type : 
