@@ -91,7 +91,8 @@ def user_login(request):
             if user:
                 auth_login(request, user)
             else:
-                messages.error(ugettext("The account does not exist or the password is incorrect."))
+                messages.error(request, ugettext("The account does not exist or the password is incorrect."))
                 return redirect(home)
+            messages.success(request, ugettext("Log in successfully."))
             return redirect(request.POST['next'])
     return redirect(home)
