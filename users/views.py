@@ -93,6 +93,6 @@ def user_login(request):
             else:
                 messages.error(request, ugettext("The account does not exist or the password is incorrect."))
                 return redirect(home)
-            messages.success(request, ugettext("Log in successfully."))
+            messages.success(request, ugettext("Login successfully."))
             return redirect(request.POST['next'])
     return redirect(home)

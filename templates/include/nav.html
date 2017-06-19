@@ -116,6 +116,11 @@
 	    	</ul>
 	    </div>
 	</nav>
+  {% if messages %}
+    {% for message in messages %}
+      <div {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</div>
+    {% endfor %}
+  {% endif %}
 
 	<!-- 確認標籤位置 -->
 	<script>

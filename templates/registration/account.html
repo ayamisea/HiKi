@@ -64,6 +64,11 @@
 					    {% include 'registration/login.html' %}
 					  </div>
 					</div>
+          {% if messages %}
+            {% for message in messages %}
+              <div {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</div>
+            {% endfor %}
+          {% endif %}
 				</div>
 			</div>
 		</main>
