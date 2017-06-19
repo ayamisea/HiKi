@@ -4,6 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tally Display</title>
     <!-- css -->
     {% include 'include/bootstrap.html' %}
@@ -65,19 +66,17 @@
 			<!-- 顯示日期 -->
 			<span class="h4 pr-3">{{d|date:"Y/m/d"}}</span>
 			<!-- 顯示當天花費項目 -->
-			<div class="item-row d-flex flex-wrap">
+			<div class="item-row d-flex flex-column flex-wrap">
 			{% for l in tallyList|get_tally:d %}
-				<div class="item d-flex m-2">
+				<div class="item d-flex align-items-center m-2">
 					<a href="{% url 'tally_detail' pk=l.pk %}"></a>
-					{% if l.pay_type == '收入' %}
-					<img width="40" height="40" src="{% static 'icon/detail/income.png' %}" class="m-1">
-					{% endif %}
-					{% if l.pay_type == '支出' %}
-					<img width="40" height="40" src="{% static 'icon/detail/expense.png' %}" class="m-1">
-					{% endif %}
-					<div class="d-flex flex-column flex-sm-row p-1">
-						<span>{{ l.type }}</span>
-						<span>${{ l.price }}</span>
+					{% with l.type|get_type:choices|add:'.png' as img_type %}
+					<img width="40" height="40" src="{% static 'icon/detail/'|add:img_type %}" class="m-1">
+					{% endwith %}
+					<div class="d-flex p-1">
+						<span>{{ l.type }}-></span>
+						<span>{{ l.subtype }}</span>
+						<span class="ml-1">${{ l.price }}</span>
 					</div>
 				</div>
 			{% endfor %}
