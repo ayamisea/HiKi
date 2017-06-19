@@ -12,7 +12,7 @@ from django.http import Http404
 from django.shortcuts import redirect, render, HttpResponse
 from django.utils.translation import ugettext
 
-from .forms import AuthenticationForm, PublicUserCreationForm, UserCreationForm
+from .forms import UserCreationForm
 
 
 User = get_user_model()
