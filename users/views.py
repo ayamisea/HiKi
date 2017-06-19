@@ -53,7 +53,7 @@ def user_signup(request):
                     ugettext("The two password fields didn't match."),
                     code='password_mismatch',
                 )
-
+            user.send_verification_email(request)
             auth_login(request, user)
             return redirect('/diary/')
     return redirect(home)
