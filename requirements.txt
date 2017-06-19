@@ -4,6 +4,8 @@ Django==1.11
 
 # Django Packages
 # https://djangopackages.org/
+# Django Choice http://django-choices.readthedocs.io/en/latest/
+django-choices==1.5.0
 
 # Deploy WSGI server
 # http://gunicorn.org/
