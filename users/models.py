@@ -1,5 +1,7 @@
 from __future__ import print_function
 
+import datetime
+
 from django.conf import settings
 from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin,
@@ -12,6 +14,17 @@ from django.utils import timezone
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from google_api.gmail import send_mail
+
+class UserQuerySet(models.QuerySet):
+    """Custom queryset for User.
+    """
+    def get_valid_user(self):
+        """Filter only valid users from the queryset.
+        :seealso: ``User.is_valid_user``
+        """
+        users = self.filter(verified=True, is_active=True)
+        users = users.exclude(name='')
+        return users
 
 class UserManager(BaseUserManager):
     """Custom manager for User
@@ -75,27 +88,87 @@ class UserManager(BaseUserManager):
             raise self.model.DoseNotExist
         return self.get(**{self.model.USERNAME_FIELD: username})
 
+def photo_upload_to(instance, filename):
+    return 'avatars/{pk}/{date}-{filename}'.format(
+        pk=instance.pk,
+        date=str(datetime.date.today()),
+        filename=filename,
+        )
+
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(max_length=255, unique=True, db_index=True)
-    name = models.CharField(max_length=100)
-    verified = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    date_joined = models.DateTimeField(default=timezone.now)
+    email = models.EmailField(
+        verbose_name=_("Email address"),
+        max_length=255, unique=True, db_index=True,
+    )
+    name = models.CharField(
+        verbose_name=_("User name"),
+        max_length=100, default='',
+    )
+    photo = models.ImageField(
+        verbose_name=_('photo'),
+        blank=True, default='', upload_to=photo_upload_to
+    )
+    bio = models.TextField(
+        verbose_name=_('biography'),
+        max_length=1000, blank=True, default='',
+        help_text=_(
+            "Describe yourself with 500 characters or less. "
+            "There will be no formatting."
+        ),
+    )
+    verified = models.BooleanField(
+        verbose_name=_('verified'),
+        default=False,
+        help_text=_(
+            "Designates whether the user has verified email ownership."
+        ),
+    )
+    is_staff = models.BooleanField(
+        verbose_name=_('staff status'),
+        default=False,
+        help_text=_(
+            "Designates whether the user can log into this admin site."
+        ),
+    )
+    is_active = models.BooleanField(
+        verbose_name=_('active'),
+        default=True,
+        help_text=_(
+            "Designates whether this user should be treated as "
+            "active. Unselect this instead of deleting accounts."
+        ),
+    )
+    date_joined = models.DateTimeField(
+        verbose_name=_('date joined'),
+        default=timezone.now
+    )
 
     objects = UserManager()
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
         swappable = 'AUTH_USER_MODEL'
 
+    def __str__(self):
+        return self.email
+
     def get_full_name(self):
         return self.name
 
     def get_short_name(self):
         return self.name
+
+    @property
+    def is_valid_user(self):
+        """Whether the user is a valid user.
+        :seealso: ``UserQuerySet.get_valid_user``
+        """
+        return (
+            self.verified and self.is_active and self.name
+        )
 
     def email_user(self, subject, message):
         send_mail(
@@ -126,7 +199,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             'verification_url': verification_url,
         }
         message = render_to_string(
-            'users/verification_email.txt', context,
+            'registration/verification_email.txt', context,
         )
 
         self.email_user(

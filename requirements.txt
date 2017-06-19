@@ -7,14 +7,19 @@ Django==1.11
 # Django Choice http://django-choices.readthedocs.io/en/latest/
 django-choices==1.5.0
 
+# Google API
+# https://developers.google.com/api-client-library/python/
+google-api-python-client==1.6.2
+
 # Deploy WSGI server
 # http://gunicorn.org/
 gunicorn==19.7.1
+
+# Pillow
+# https://pillow.readthedocs.io/en/4.1.x/
+pillow==4.1.1
 
 # urllib3
 # https://urllib3.readthedocs.io/en/latest/
 urllib3==1.21.1
 
-# Google API
-# https://developers.google.com/api-client-library/python/
-google-api-python-client==1.6.2
