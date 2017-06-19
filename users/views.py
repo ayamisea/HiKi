@@ -68,6 +68,17 @@ def user_verify(request, verification_key):
     messages.success(request, ugettext('Email verification successful.'))
     return redirect('/')
 
+def request_verification(request):
+    user = request.user
+    user.send_verification_email(request)
+    messages.success(
+        request,
+        ugettext('A verification email has been sent to {email}').format(
+            email=user.email,
+        ),
+    )
+    return redirect('user_dashboard')
+
 def user_login(request):
     if request.method == 'POST':
         return base_login(request, authentication_form=AuthenticationForm)
