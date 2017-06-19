@@ -86,6 +86,14 @@ def newdiary(request):
         diary_form = DiaryForm()
     return render(request, 'diary/newdiary.html', locals())
 
+@login_required
+def delete(request, pk):
+    if request.user.is_valid_user:
+        diary = Diary.objects.get(pk=pk)
+        diary.delete()
+        return redirect('user_dashboard')
+    return redirect(settings.LOGIN_URL)
+
 # upload diary media
 @login_required
 def media_upload(request):

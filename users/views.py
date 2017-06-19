@@ -22,15 +22,15 @@ from .forms import UserProfileUpdateForm
 
 User = get_user_model()
 
-def home(request):
+def accounts(request):
     if request.user.is_authenticated:
         return redirect('/diary/')
     if request.GET.get('next'):
         next = request.GET['next']
     else:
-        next = '/'
+        next = 'dashboard'
 
-    return render(request, 'registration/account.html', locals())
+    return render(request, 'registration/accounts.html', locals())
 
 def user_signup(request):
     if request.method == 'POST':

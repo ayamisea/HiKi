@@ -48,9 +48,9 @@ $(function(){
     </ul>
     <ul class="nav navbar-nav navbar-right">
         {% if userName == 0 %}
-      <li><a href="{% url 'account' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li><a href="{% url 'accounts' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       {% else%}
-      <li><a href="{% url 'account' %}"><span class="glyphicon glyphicon-user"></span> {{userName}}</a></li>
+      <li><a href="{% url 'accounts' %}"><span class="glyphicon glyphicon-user"></span> {{userName}}</a></li>
       {% endif%}
 
     </ul>
@@ -64,24 +64,24 @@ $(function(){
         <div class="col-sm-6 col-sm-offset-3">
             <form method="post" action="{% url 'diary_search_result' %}" >
                 {% csrf_token %}
-                <div id="imaginary_container"> 
+                <div id="imaginary_container">
                     <div class="input-group stylish-input-group">
                         <input type="text" class="form-control" name="search" placeholder="請輸入搜尋文字" >
                         <span class="input-group-addon">
                             <button type="submit">
                                 <span class="glyphicon glyphicon-search"></span>
-                            </button>  
-                            
+                            </button>
+
                         </span>
                         <span class="input-group-addon" >
                             <button type="submit" name="all" style="background:rgba(10, 186, 181, 0.4);" >
                                 <div>探索全部</div>
-                            </button>  
-                            
+                            </button>
+
                         </span>
-                        
+
                     </div>
-                    
+
                 </div>
             </form>
         </div>
@@ -97,7 +97,7 @@ $(function(){
                 符合{{ Smessage }}：
                     {% for s in searchList %}
                         {{s}}
-                    {% endfor%}	
+                    {% endfor%}
         {% endifnotequal %}
     </hgroup>
     <!--日記區塊-->
@@ -120,7 +120,7 @@ $(function(){
                     {% endif%}
 
                 {% else %}
-                        <img style="max-width:250px;height:140px"src="http://lorempixel.com/250/140/nature" alt="nature" />         
+                        <img style="max-width:250px;height:140px"src="http://lorempixel.com/250/140/nature" alt="nature" />
                 {% endifnotequal %}
             </div>
             <div class="col-xs-12 col-sm-12 col-md-2">
@@ -128,7 +128,7 @@ $(function(){
                     <li><i class="glyphicon glyphicon-calendar"></i> <span>{{diary.date}}</span></li>
                     <li><i class="glyphicon glyphicon-user"></i> <span>{{diary.userID.name}}</span></li>
                     {% ifnotequal diary.tags.all|length 0 %}
-                        <li><i class="glyphicon glyphicon-tags"></i> 
+                        <li><i class="glyphicon glyphicon-tags"></i>
                         <span>
 
                             <form action="{% url 'diary_search_result' %}" method="post">
@@ -137,14 +137,14 @@ $(function(){
                                 <button class="ellipsis btn-xs btn" style="max-width:100%"  name="tagID" value={{tag.id}}>{{tag}}</button>
                             {% endfor%}
                             </form>
-                            
+
                         </span></li>
                     {% endifnotequal %}
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
                 <h3><a href="{% url 'diary_detail' pk=diary.pk %}" title="">{{diary.title}}</a></h3>
-                <p class="JQellipsis">{{diary.content}}</p> 
+                <p class="JQellipsis">{{diary.content}}</p>
                 <p><a class="" href="{% url 'diary_detail' pk=diary.pk %}" title="進入日記" style="text-decoration: none">... 繼續閱讀</a></p>
             </div>
             <span class="clearfix borda"></span>
@@ -190,7 +190,7 @@ $(function(){
     </section>
 </div>
 
-    
-        
+
+
 </body>
 </html>
