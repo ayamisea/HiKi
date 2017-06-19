@@ -1,75 +1,126 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Summary</title>
-    <script>
-	  $(function() {
-	    $( ".datepicker" ).datepicker({
-	      changeMonth: true,
-	      changeYear: true,
-	      yearRange: "1900:2012",
-	      // You can put more options here.
+    <!-- css -->
+    {% include 'include/bootstrap.html' %} {% include 'include/jquery-ui.html' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <style>
+    	html,body {
+    		width: 100%;
+    		height:100%;
+			margin: 0;
+			padding: 0 5%;
+    	}
 
-	    });
-	  });
-	</script>
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+    	main , header {
+    		max-width:960px;
+    		margin: 0 auto;
+    	}
+    </style>
+    <!-- js -->
+    <script src="{% static 'js/calendar.js' %}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    google.charts.load('current', {
+        'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart() {
-
-				//收入
-				iarr =[['類別', '元']];
-				{% for pl in price_income_List %}
-					iarr.push(["{{ pl.0 }}",{{ pl.1 }}]);
-				{% endfor %}
-				var idata = google.visualization.arrayToDataTable(iarr);
-				var ioptions = {
-          title: '總收入'
-        };
-				var ichart = new google.visualization.PieChart(document.getElementById('total_income'));
-				ichart.draw(idata, ioptions);
-
-				//支出
-				xarr = [['類別', '元']];
-				{% for pl in price_expend_List %}
-					xarr.push(["{{ pl.0 }}",{{ pl.1 }}]);
-				{% endfor %}
-				var xdata = google.visualization.arrayToDataTable(xarr);
-				var xoptions = {
-          title: '總支出'
-        };
-				var xchart = new google.visualization.PieChart(document.getElementById('total_expend'));
-				xchart.draw(xdata,xoptions);
-      }
+    function drawChart() {
+    	i=0;
+    	var divs = ['total_income','total_expense'];
+    	{% for list in price_lists %}
+	    	var arr = [
+	            ['類別', '元']
+	        ];
+	        {% for pl in list %}
+	        	arr.push(["{{ pl.0 }}", {{pl.1}}]); 
+	        {% endfor %}
+	        var data = google.visualization.arrayToDataTable(arr);
+	        var chart = new google.visualization.PieChart(document.getElementById(divs[i]));
+	        chart.draw(data,{
+			  width: 450,
+			  height: 350
+			});
+	        i++;
+        {% endfor %}
+    }   
     </script>
-
+    <script>
+    	//避免重新傳送的煩人 alert 出現
+	    $("#DateForm").submit(function(e) {
+		    e.preventDefault();
+		});
+    </script>
 </head>
 
+{% include 'include/nav.html' with name=user.name title='tally_summary_' %}
 <body>
-	<h3># All Account</h3>
-	<form id="DateForm" method="post">
-		{% csrf_token %}
-		從 {{ date_form.dateA }} 
-		至 {{ date_form.dateB }} <br>
-	<input type="submit" name="send"  style="margin-left: 30px;" value="統計" />
-	<br>
-	總收入 : {{ total_income }} <br>
-	{% for pl in price_income_List %}
-		{{ pl.0 }} {{ pl.1 }}
-		<br>
-	{% endfor %}
-
-	<div id="total_income" style="width: 900px; height: 500px;"></div>
-
-	<br>
-	總支出 : {{ total_expend }} <br>
-	{% for pl in price_expend_List %}
-		{{ pl.0 }} {{ pl.1 }}
-		<br>
-	{% endfor %}
-	<div id="total_expend" style="width: 900px; height: 500px;"></div>
+	<header class="mb-3">
+		<!-- 日期表單 -->
+	    <form id="DateForm" method="post" class="d-flex flex-column flex-sm-row align-items-sm-center h5">{% csrf_token %} 
+    		<div class="d-flex justify-content-center justify-content-sm-start align-items-center mr-0 mr-sm-1 mb-2 mb-sm-0" style="display: inline-block;">
+    			從&nbsp;{{ date_form.dateA }}&nbsp;至&nbsp;{{ date_form.dateB }}
+    		</div>
+    		<input type="submit" name="send" value="統計" class="btn custom-button" style="width:80px;"/>
+	    </form>
+	</header>
+	<main>
+	    <!-- 收入支出 nav -->
+	    <ul class="nav nav-tabs" role="tablist">
+	        <li class="nav-item">
+    			<a class="nav-link active" data-toggle="tab" href="#imcome" role="tab">收入</a>
+    		</li>
+    		<li class="nav-item">
+    			<a class="nav-link" data-toggle="tab" href="#expense" role="tab">支出</a>
+    		</li>
+	    </ul>
+	    <!-- 收入支出 tab -->
+		<div class="tab-content">
+			<div class="tab-pane active" id="imcome" role="tabpanel">
+				<div class="d-flex flex-column flex-sm-row">
+					<div class="d-flex" style="min-width: 50%;">
+						<table class="table table-hover">
+							<thead>
+								<tr><th>項目</th><th>總金額</th></tr>
+							</thead>
+							<tbody>
+								{% for pl in price_lists|first %} 
+								<tr><th>{{ pl.0 }}</th><th>${{ pl.1 }}</th></tr>
+					        	{% endfor %}
+					        	<tr class="table-info">
+					        		<th>總收入</th><th>{{ total_prices|first }}</th>
+					        	</tr>
+				        	</tbody>
+				        </table>
+				    </div>
+		        	<div id="total_income" class="ml-auto" style="min-width:300px;min-height:300px;"></div>
+		        </div>
+			</div>
+			<div class="tab-pane" id="expense" role="tabpanel">
+				<div class="d-flex flex-column flex-sm-row">
+					<div class="d-flex" style="min-width: 50%;">
+						<table class="table table-hover">
+							<thead>
+								<tr><th>項目</th><th>總金額</th></tr>
+							</thead>
+							<tbody>
+								{% for pl in price_lists|last %} 
+								<tr><th>{{ pl.0 }}</th><th>${{ pl.1 }}</th></tr>
+					        	{% endfor %}
+					        	<tr class="table-info">
+					        		<th>總支出</th><th>{{ total_prices|first }}</th>
+					        	</tr>
+				        	</tbody>
+				        </table>
+				    </div>
+		        	<div id="total_expense" class="ml-auto" style="min-width:300px;min-height:300px;"></div>
+		        </div>
+			</div>
+		</div>
+	</main>
 </body>

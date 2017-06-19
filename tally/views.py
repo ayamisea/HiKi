@@ -70,6 +70,7 @@ def editTally(request, pk) :
 
 @login_required
 def summary(request) :
+	#確認表單
 	user = request.user
 	date_form = DateForm()
 	tallyList = []
@@ -81,42 +82,19 @@ def summary(request) :
 			tallyList = request.user.tally_set.all()
 	else :
 		tallyList = request.user.tally_set.all()
-	price_income_List = []
-	price_expend_List = []
-	total_income = 0
-	total_expend = 0
+
+	#製作圖表清單
+	categories = { k:0 for k,v in dict(Tally.PAY_CHOICES)['收入']}
+	length = len(categories)
+	categories.update( { k:0 for k,v in dict(Tally.PAY_CHOICES)['支出']} )
 	for tally in tallyList :
-		d = False
-		isIncome = False
-		for str in Tally.PAY_CHOICES[0][1] :
-			if str[0] == tally.type :
-				isIncome = True
-				break
-		if isIncome :
-			total_income = total_income + tally.price
-			for pl in price_income_List :
-				if pl[0] == tally.type :
-					pl[1] = pl[1] + tally.price
-					d = True
-					break
-			if d == False :
-				tmpList = []
-				tmpList.append(tally.type)
-				tmpList.append(tally.price)
-				price_income_List.append(tmpList)
-		else :
-			total_expend = total_expend + tally.price
-			for pl in price_expend_List :
-				if pl[0] == tally.type :
-					pl[1] = pl[1] + tally.price
-					d = True
-					break
-			if d == False :
-				tmpList = []
-				tmpList.append(tally.type)
-				tmpList.append(tally.price)
-				price_expend_List.append(tmpList)
-	return render(request, 'tally/summary.html', locals())
+		categories[tally.type] += int(tally.price)
+	income = list(categories.items())[:length]
+	expense = list(categories.items())[length:]
+	price_lists = [income,expense]
+	total_prices = [ sum([ i[1] for i in income ]) , sum([ i[1] for i in expense ]) ]
+
+	return render(request, 'tally/summary.html', {'user':user,'tallyList':tallyList,'price_lists':price_lists,'total_prices':total_prices,'date_form':date_form})
 
 
 
