@@ -115,11 +115,10 @@ class UserProfileUpdateForm(forms.ModelForm):
             'name', 'bio', 'photo',
         )
 
+class PasswordResetForm(forms.Form):
+    email = forms.EmailField(label=_("Email Address"), max_length=254)
 
-
-
-
-# Unused signup and login form
+# Unused form
 """
 class PublicUserCreationForm(UserCreationForm):
     """"""Form used to create new user through public interface.
@@ -173,4 +172,16 @@ class AuthenticationForm(forms.Form):
         password = self.cleaned_data.get('password')
         user = authenticate(email=username, password=password)
         return user
+
+class SetPasswordForm(forms.Form):
+    new_password1 = forms.CharField(
+        label=_("New Password"),
+        required=True,
+        widget=forms.PasswordInput
+    )
+    new_password1 = forms.CharField(
+        label=_("New Password Confirmation"),
+        required=True,
+        widget=forms.PasswordInput
+    )
 """

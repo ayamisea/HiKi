@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Tally
 from .forms import TallyForm, DateForm
 from django.http import HttpResponseRedirect
@@ -96,6 +96,10 @@ def summary(request) :
 
 	return render(request, 'tally/summary.html', {'user':user,'tallyList':tallyList,'price_lists':price_lists,'total_prices':total_prices,'date_form':date_form})
 
-
-
-
+@login_required
+def delete(request, pk):
+    if request.user.is_valid_user:
+        tally = Tally.objects.get(pk=pk)
+        tally.delete()
+        return redirect('user_dashboard')
+    return redirect(settings.LOGIN_URL)

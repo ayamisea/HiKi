@@ -1,0 +1,22 @@
+<a href="{% url 'diary_new' %}">Add diary</a>
+<a href="{% url 'tally_new' %}">Add tally</a>
+
+<h1>Diary</h1>
+<ul>
+  {% for d in diary %}
+  <li>
+    <a href="{% url 'diary_edit' pk=d.pk %}">{{ d }}</a>
+    <a href="{% url 'diary_delete' pk=d.pk %}">Delete</a>
+  </li>
+  {% endfor %}
+</ul>
+
+<h1>Tally</h1>
+<ul>
+  {% for t in tally %}
+  <li>
+    <a href="{% url 'tally_edit' pk=t.pk %}">{{ t }}</a>
+    <a href="{% url 'tally_delete' pk=t.pk %}">Delete</a>
+  </li>
+  {% endfor %}
+</ul>
