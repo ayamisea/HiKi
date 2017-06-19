@@ -14,6 +14,9 @@ from django.shortcuts import redirect, render, HttpResponse
 from django.utils.translation import ugettext
 from django.views.decorators.http import require_POST
 
+from diary.models import Diary
+from tally.models import Tally
+
 from .forms import UserProfileUpdateForm
 
 
@@ -72,7 +75,7 @@ def user_verify(request, verification_key):
     messages.success(request, ugettext('Email verification successful.'))
     return redirect('/')
 
-@login_required(login_url='/accounts/')
+@login_required
 @require_POST
 def request_verification(request):
     user = request.user
@@ -85,7 +88,7 @@ def request_verification(request):
     )
     return redirect('user_dashboard')
 
-@login_required(login_url='/accounts/')
+@login_required
 def user_profile_update(request):
     user = request.user
     if request.method == 'POST':
@@ -105,6 +108,16 @@ def user_profile_update(request):
     return render(request, 'users/user_profile_update.html', {
         'form': form,
     })
+
+@login_required
+def user_dashboard(request):
+    if not request.user.is_valid_user:
+        return redirect('user_profile_update')
+
+    diary = Diary.objects.all()
+    tally = Tally.objects.all()
+
+    return render(request, 'users/user_dashboard.html', locals())
 
 def user_login(request):
     if request.method == 'POST':
