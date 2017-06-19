@@ -1,11 +1,19 @@
 <form method="POST" action="{% url 'login' %}" class="d-flex flex-column align-self-center">{% csrf_token %}
 	<div class="formrow flex-column flex-sm-row p-1">
-		<div class="mr-sm-auto pr-1">{{ login_form.username.label_tag }}</div>
-		<div class="ml-sm-auto">{{ login_form.username }}</div>
+		<div class="mr-sm-auto pr-1">
+      <label for='email'>Email：</label>
+    </div>
+		<div class="ml-sm-auto">
+      <input id="email" name="email" maxlength="255" type="email" required>
+    </div>
 	</div>
 	<div class="formrow flex-column flex-sm-row p-1">
-		<div class="mr-sm-auto pr-1">{{ login_form.password.label_tag }}</div>
-		<div class="ml-sm-auto">{{ login_form.password }}</div>
+		<div class="mr-sm-auto pr-1">
+      <label for='password'>密碼：</label>
+    </div>
+		<div class="ml-sm-auto">
+      <input id="password" name="password" type="password" required>
+    </div>
 	</div>
 	<div class="formrow flex-column flex-sm-row p-1">
 		<input type="hidden" name="next" value="{{ next }}" />

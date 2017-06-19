@@ -1,6 +1,10 @@
 from django import forms
 from django.contrib import messages
-from django.contrib.auth import get_user_model, login as auth_login
+from django.contrib.auth import (
+    authenticate,
+    get_user_model,
+    login as auth_login
+)
 from django.contrib.auth.views import (
     login as base_login
 )
@@ -8,7 +12,7 @@ from django.http import Http404
 from django.shortcuts import redirect, render, HttpResponse
 from django.utils.translation import ugettext
 
-from .forms import AuthenticationForm, PublicUserCreationForm, UserCreationForm
+from .forms import UserCreationForm
 
 
 User = get_user_model()
@@ -16,14 +20,12 @@ User = get_user_model()
 def home(request):
     if request.user.is_authenticated:
         return redirect('/diary/')
-    signup_form = PublicUserCreationForm()
-    login_form = AuthenticationForm()
     if request.GET.get('next'):
         next = request.GET['next']
     else:
         next = '/'
 
-    return render(request, 'users/account.html', locals())
+    return render(request, 'registration/account.html', locals())
 
 def user_signup(request):
     if request.method == 'POST':
@@ -81,5 +83,15 @@ def request_verification(request):
 
 def user_login(request):
     if request.method == 'POST':
-        return base_login(request, authentication_form=AuthenticationForm)
+        if request.POST.get('submit'):
+            email = request.POST['email']
+            password = request.POST['password']
+
+            user = authenticate(email=email, password=password)
+            if user:
+                auth_login(request, user)
+            else:
+                messages.error(ugettext("The account does not exist or the password is incorrect."))
+                return redirect(home)
+            return redirect(request.POST['next'])
     return redirect(home)

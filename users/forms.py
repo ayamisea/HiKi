@@ -105,17 +105,19 @@ class UserChangeForm(forms.ModelForm):
         """
         return self.initial['password']
 
+# Unused signup and login form
+"""
 class PublicUserCreationForm(UserCreationForm):
-    """Form used to create new user through public interface.
+    """"""Form used to create new user through public interface.
     This inherits the basic user-creation form, but adds a form helper for
     layout, and provides option to log the user in automatically when calling
     ``save()``.
-    """
+    """"""
 
     def save(self, commit=True, auth=True):
-        """Save user.
+        """"""Save user.
         If `auth` is True, the user is automatically logged-in after saving.
-        """
+        """"""
         if auth and not commit:
             raise ValueError(
                 'Can not authenticate user without committing first.'
@@ -130,3 +132,31 @@ class PublicUserCreationForm(UserCreationForm):
 
 class AuthenticationForm(BaseAuthenticationForm):
     username = forms.EmailField()
+
+
+class AuthenticationForm(forms.Form):
+    username = forms.EmailField(
+        max_length=255,
+        required=True,
+        label=_('Email')
+    )
+    password = forms.CharField(
+        required=True,
+        label=_('Password'),
+        widget=forms.PasswordInput
+    )
+
+    def clean(self):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+        user = authenticate(email=username, password=password)
+        if not user or not user.is_active:
+            raise forms.ValidationError(_("Sorry, that login was invalid. Please try again."))
+        return self.cleaned_data
+
+    def login(self, request):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+        user = authenticate(email=username, password=password)
+        return user
+"""
