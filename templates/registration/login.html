@@ -17,6 +17,7 @@
 	</div>
 	<div class="formrow flex-column flex-sm-row p-1">
 		<input type="hidden" name="next" value="{{ next }}" />
+    <a href="{% url 'password_reset' %}">忘記密碼？</a>
 		<input class="btn custom-button w-100" type="submit" name="submit" value="登入">
 	</div>
 </form>

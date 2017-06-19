@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^profile/$', views.user_profile_update, name='user_profile_update'),
 
     url(r'^password-change/$', views.password_change, name='password_change'),
+    url(r'^password-reset/$', views.password_reset, name='password_reset'),
 
     url(r'^$', views.accounts, name='accounts'),
 ]

@@ -1,4 +1,8 @@
+import string
+import random
+
 from django import forms
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import (
     authenticate,
@@ -13,10 +17,16 @@ from django.contrib.auth.views import (
 )
 from django.http import Http404
 from django.shortcuts import redirect, render, HttpResponse
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext
 from django.views.decorators.http import require_POST
 
-from .forms import UserProfileUpdateForm
+from google_api.gmail import send_mail
+
+from .forms import (
+    PasswordResetForm,
+    UserProfileUpdateForm
+)
 
 
 User = get_user_model()
@@ -153,3 +163,42 @@ def password_change(request):
     return render(request, 'users/change_password.html', {
         'form': form
     })
+
+def password_reset(request):
+    if request.method == 'POST':
+        form = PasswordResetForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            try:
+                user = User.objects.get(email=email)
+            except:
+                raise forms.ValidationError(ugettext("User does not exist."))
+
+            chars = string.ascii_letters + string.digits
+            password = ''.join(random.choice(chars) for _ in range(8))
+            user.set_password(password)
+            user.save()
+            update_session_auth_hash(request, user)  # Important!
+            context = {
+                'user': email,
+                'host': request.get_host(),
+                'password': password,
+            }
+
+            message = render_to_string(
+                'registration/password_reset_email.txt', context,
+            )
+
+            subject = ugettext('Reset your password on {host}').format(**context)
+
+            send_mail(
+                subject, message.strip(),
+                settings.EMAIL_ADDRESS, email,
+                settings.EMAIL_HOST,
+            )
+
+            messages.success(request, ugettext("Successfully send new password to the given email."))
+            return redirect(accounts)
+
+    form = PasswordResetForm()
+    return render(request, 'registration/password_reset.html', locals())
