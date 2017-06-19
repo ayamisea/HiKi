@@ -3,9 +3,11 @@ from django.contrib import messages
 from django.contrib.auth import (
     authenticate,
     get_user_model,
-    login as auth_login
+    login as auth_login,
+    update_session_auth_hash
 )
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import (
     login as base_login
 )
@@ -13,9 +15,6 @@ from django.http import Http404
 from django.shortcuts import redirect, render, HttpResponse
 from django.utils.translation import ugettext
 from django.views.decorators.http import require_POST
-
-from diary.models import Diary
-from tally.models import Tally
 
 from .forms import UserProfileUpdateForm
 
@@ -28,7 +27,7 @@ def accounts(request):
     if request.GET.get('next'):
         next = request.GET['next']
     else:
-        next = 'dashboard'
+        next = 'user_dashboard'
 
     return render(request, 'registration/accounts.html', locals())
 
@@ -62,8 +61,8 @@ def user_signup(request):
                 )
             user.send_verification_email(request)
             auth_login(request, user)
-            return redirect('/diary/')
-    return redirect(home)
+            return redirect('user_dashboard')
+    return redirect(accounts)
 
 def user_verify(request, verification_key):
     try:
@@ -104,6 +103,9 @@ def user_profile_update(request):
         return redirect('/')
     else:
         form = UserProfileUpdateForm(instance=request.user)
+        """messages.info(request, ugettext(
+            'You need to update profile before post diary.'
+        ))"""
 
     return render(request, 'users/user_profile_update.html', {
         'form': form,
@@ -114,8 +116,8 @@ def user_dashboard(request):
     if not request.user.is_valid_user:
         return redirect('user_profile_update')
 
-    diary = Diary.objects.all()
-    tally = Tally.objects.all()
+    diary = request.user.diary_set.all()
+    tally = request.user.tally_set.all()
 
     return render(request, 'users/user_dashboard.html', locals())
 
@@ -130,7 +132,24 @@ def user_login(request):
                 auth_login(request, user)
             else:
                 messages.error(request, ugettext("The account does not exist or the password is incorrect."))
-                return redirect(home)
+                return redirect(accounts)
             messages.success(request, ugettext("Login successfully."))
             return redirect(request.POST['next'])
-    return redirect(home)
+    return redirect(accounts)
+
+@login_required
+def password_change(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, ugettext('Your password was successfully updated!'))
+            return redirect('user_profile_update')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'users/change_password.html', {
+        'form': form
+    })

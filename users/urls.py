@@ -15,5 +15,7 @@ urlpatterns = [
     url(r'^logout/$', auth.logout, {'next_page': '/accounts/'}, name='logout'),
     url(r'^profile/$', views.user_profile_update, name='user_profile_update'),
 
+    url(r'^password-change/$', views.password_change, name='password_change'),
+
     url(r'^$', views.accounts, name='accounts'),
 ]
