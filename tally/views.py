@@ -9,14 +9,15 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 #display all
-@login_required(login_url='/accounts/')
+@login_required
 def display(request) :
 	user = request.user
 	tallyList = request.user.tally_set.all()
+	choices = Tally.PAY_CHOICES
 	return render(request, 'tally/display.html', locals())
 
 #display detail
-@login_required(login_url='/accounts/')
+@login_required
 def detail(request, pk) :
 	user = request.user
 	tally = Tally.objects.get(pk=pk)
@@ -29,20 +30,20 @@ def detail(request, pk) :
 
 #create account
 
-@login_required(login_url='/accounts/')
+@login_required
 def newTally(request) :
 	user = request.user
 	tally_form = TallyForm()
 	if request.method == 'POST' :
 		tally_form = TallyForm(request.POST)
 		if tally_form.is_valid() :
-			new_tally = tally_form.save(commit=True) 
+			new_tally = tally_form.save(commit=True)
 			new_tally.userID =  request.user
 			new_tally.save()
 			return HttpResponseRedirect('/tally/')
 	return render(request, 'tally/newTally.html', locals())
 
-@login_required(login_url='/accounts/')
+@login_required
 def editTally(request, pk) :
 	user = request.user
 	if request.method == "POST" :
@@ -67,7 +68,7 @@ def editTally(request, pk) :
 	request.session['tallyID'] = pk
 	return render(request, 'tally/edit.html', locals())
 
-@login_required(login_url='/accounts/')
+@login_required
 def summary(request) :
 	user = request.user
 	date_form = DateForm()
@@ -94,7 +95,7 @@ def summary(request) :
 		if isIncome :
 			total_income = total_income + tally.price
 			for pl in price_income_List :
-				if pl[0] == tally.type : 
+				if pl[0] == tally.type :
 					pl[1] = pl[1] + tally.price
 					d = True
 					break
@@ -106,7 +107,7 @@ def summary(request) :
 		else :
 			total_expend = total_expend + tally.price
 			for pl in price_expend_List :
-				if pl[0] == tally.type : 
+				if pl[0] == tally.type :
 					pl[1] = pl[1] + tally.price
 					d = True
 					break

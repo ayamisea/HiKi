@@ -5,14 +5,16 @@ from django.contrib.auth import (
     get_user_model,
     login as auth_login
 )
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import (
     login as base_login
 )
 from django.http import Http404
 from django.shortcuts import redirect, render, HttpResponse
 from django.utils.translation import ugettext
+from django.views.decorators.http import require_POST
 
-from .forms import UserCreationForm
+from .forms import UserProfileUpdateForm
 
 
 User = get_user_model()
@@ -70,6 +72,8 @@ def user_verify(request, verification_key):
     messages.success(request, ugettext('Email verification successful.'))
     return redirect('/')
 
+@login_required(login_url='/accounts/')
+@require_POST
 def request_verification(request):
     user = request.user
     user.send_verification_email(request)
@@ -80,6 +84,27 @@ def request_verification(request):
         ),
     )
     return redirect('user_dashboard')
+
+@login_required(login_url='/accounts/')
+def user_profile_update(request):
+    user = request.user
+    if request.method == 'POST':
+        form = UserProfileUpdateForm(
+            data=request.POST, files=request.FILES,
+            instance=request.user,
+        )
+        if form.is_valid():
+            form.save()
+            messages.success(request, ugettext(
+                'Your profile has been updated successfully.',
+            ))
+        return redirect('/')
+    else:
+        form = UserProfileUpdateForm(instance=request.user)
+
+    return render(request, 'users/user_profile_update.html', {
+        'form': form,
+    })
 
 def user_login(request):
     if request.method == 'POST':
