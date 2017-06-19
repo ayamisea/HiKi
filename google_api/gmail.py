@@ -1,4 +1,4 @@
-from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from email.header import Header
 from email.utils import formataddr
 import base64
@@ -9,8 +9,8 @@ from apiclient import discovery, errors
 from .credentials import get_credentials
 
 
-def send_mail(Subject, Message, From, To, From_name=None, To_name=None, Attachments=None):
-    message_text = MIMEMultipart(Message)
+def send_mail(Subject, Message, From, To, From_name=None, To_name=None):
+    message_text = MIMEText(Message)
     if To_name:
         message_text['to'] = formataddr(
             (str(Header(To_name, 'utf-8')),
@@ -25,7 +25,6 @@ def send_mail(Subject, Message, From, To, From_name=None, To_name=None, Attachme
     else:
         message_text['from'] = From
     message_text['subject'] = Subject
-
     message = {'raw': base64.urlsafe_b64encode(message_text.as_bytes()).decode()}
 
     credentials = get_credentials()

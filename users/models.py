@@ -5,9 +5,11 @@ from django.contrib.auth.models import (
     AbstractBaseUser, BaseUserManager, PermissionsMixin,
 )
 from django.core import signing
+from django.core.urlresolvers import reverse
 from django.db import models
+from django.template.loader import render_to_string
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 from google_api.gmail import send_mail
 
@@ -61,6 +63,18 @@ class UserManager(BaseUserManager):
             is_staff=True, is_superuser=True,
             **extra_fields)
 
+    def get_with_verification_key(self, verification_key):
+        """Get a user from verification key.
+        """
+        try:
+            username = signing.loads(
+                verification_key,
+                salt=settings.SECRET_KEY,
+            )
+        except signing.BadSignature:
+            raise self.model.DoseNotExist
+        return self.get(**{self.model.USERNAME_FIELD: username})
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True, db_index=True)
     name = models.CharField(max_length=100)
@@ -97,6 +111,25 @@ class User(AbstractBaseUser, PermissionsMixin):
         )
         return key
 
-    def send_verification_email(self):
+    def send_verification_email(self, request):
         verification_key = self.get_verification_key()
-        pass
+        verification_url =request.build_absolute_uri(
+            reverse('user_verify', kwargs={
+                'verification_key': verification_key,
+            }),
+        )
+
+        context = {
+            'user': self.email,
+            'host': request.get_host(),
+            'verification_key': verification_key,
+            'verification_url': verification_url,
+        }
+        message = render_to_string(
+            'users/verification_email.txt', context,
+        )
+
+        self.email_user(
+            subject=ugettext('Verify your email address on {host}').format(**context),
+            message=message.strip(),
+        )

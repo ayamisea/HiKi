@@ -1,13 +1,17 @@
 from django import forms
+from django.contrib import messages
 from django.contrib.auth import get_user_model, login as auth_login
 from django.contrib.auth.views import (
     login as base_login
 )
+from django.http import Http404
 from django.shortcuts import redirect, render, HttpResponse
 from django.utils.translation import ugettext
 
 from .forms import AuthenticationForm, PublicUserCreationForm, UserCreationForm
 
+
+User = get_user_model()
 
 def home(request):
     if request.user.is_authenticated:
@@ -23,8 +27,6 @@ def home(request):
 
 def user_signup(request):
     if request.method == 'POST':
-        User = get_user_model()
-
         if request.POST.get('submit'):
             password1 = request.POST['password1']
             password2 = request.POST['password2']
@@ -51,10 +53,20 @@ def user_signup(request):
                     ugettext("The two password fields didn't match."),
                     code='password_mismatch',
                 )
-
+            user.send_verification_email(request)
             auth_login(request, user)
             return redirect('/diary/')
     return redirect(home)
+
+def user_verify(request, verification_key):
+    try:
+        user = User.objects.get_with_verification_key(verification_key)
+    except User.DoesNotExist:
+        raise Http404
+    user.verified = True
+    user.save()
+    messages.success(request, ugettext('Email verification successful.'))
+    return redirect('/')
 
 def user_login(request):
     if request.method == 'POST':

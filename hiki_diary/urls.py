@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^accounts/', include('users.urls')),
     url(r'^diary/', include('diary.urls')),
     url(r'^tally/', include('tally.urls')),
-    url(r'^$',home,name='hiki'),
+    url(r'^$',home, name='hiki'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
