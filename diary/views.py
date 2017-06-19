@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import DiaryForm,MediaForm
 from .models import Tag,Diary,Map,Media
 from django.http import HttpResponseRedirect
@@ -13,18 +13,20 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 
 #display all diaries
-@login_required(login_url='/accounts/')
+@login_required
 def display(request):
-    user = request.user
-    userName = request.user.name
-    diaryList = request.user.diary_set.all()
-    mediaURL = settings.MEDIA_URL
-    return render(request, 'diary/display.html',locals())
+    if request.user.is_valid_user:
+        user = request.user
+        userName = request.user.name
+        diaryList = request.user.diary_set.all()
+        mediaURL = settings.MEDIA_URL
+        return render(request, 'diary/display.html',locals())
+    return redirect('/')
 
 #display one diariy
-@login_required(login_url='/accounts/')
+@login_required
 def detail(request,pk):
-    
+
     mediaURL = settings.MEDIA_URL
     MapAPI = settings.GOOGLE_MAPS_API_KEY
     user = request.user
@@ -46,7 +48,7 @@ def detail(request,pk):
 
 
 #create new diary
-@login_required(login_url='/accounts/')
+@login_required
 def newdiary(request):
     user = request.user
     MapAPI=settings.GOOGLE_MAPS_API_KEY
@@ -85,7 +87,7 @@ def newdiary(request):
     return render(request, 'diary/newdiary.html', locals())
 
 # upload diary media
-@login_required(login_url='/accounts/')
+@login_required
 def media_upload(request):
     user = request.user
     diaryID = request.session['diaryID']
@@ -103,7 +105,7 @@ def media_upload(request):
     return render(request, 'diary/upload-media.html',locals())
 
 # upload diary media display
-@login_required(login_url='/accounts/')
+@login_required
 def media_upload_show(request):
     mediaURL = settings.MEDIA_URL
     if request.method == 'POST':
@@ -117,7 +119,7 @@ def media_upload_show(request):
     return render(request,'diary/upload-media-display.html',locals())
 
 #display all map
-@login_required(login_url='/accounts/')
+@login_required
 def map(request):
     user = request.user
     MapAPI = settings.GOOGLE_MAPS_API_KEY
@@ -125,7 +127,7 @@ def map(request):
     return render(request, 'diary/display-map.html', locals())
 
 #display all media
-@login_required(login_url='/accounts/')
+@login_required
 def media(request):
     user = request.user
     mediaList = [media for media in Media.objects.all() if media.diary.userID == request.user]
@@ -133,7 +135,7 @@ def media(request):
     return render(request, 'diary/display-media.html', locals())
 
 #display all tags and its diaries
-@login_required(login_url='/accounts/')
+@login_required
 def tag(request):
     user = request.user
     mediaURL =  settings.MEDIA_URL
@@ -148,7 +150,7 @@ def tag(request):
     return render(request, 'diary/display-tag.html', locals())
 
 #edit diaries
-@login_required(login_url='/accounts/')
+@login_required
 def edit(request,pk):
     user = request.user
     if request.method =="POST":
@@ -170,7 +172,7 @@ def edit(request,pk):
             editDiary.date = diary_form.cleaned_data['date']
             editDiary.type = diary_form.cleaned_data['type']
             editDiary.content = diary_form.cleaned_data['content']
-            
+
             #delete tags
             for tag in editDiary.tags.all():
                 editDiary.tags.remove(Tag.objects.get(id=tag.id))
@@ -256,7 +258,7 @@ def search_result(request):
             diaryList = filterList
     elif 'tag' in request.session:
         getTag=request.session['tag']
-        diaryList = Tag.objects.get(id = getTag).diary_set.filter(type__exact='Public') 
+        diaryList = Tag.objects.get(id = getTag).diary_set.filter(type__exact='Public')
         request.session['Smessage'] = '標籤'
         searchList = Tag.objects.get(id = getTag).tagName
 
