@@ -16,5 +16,5 @@ class TallyForm(forms.ModelForm) :
         }
 
 class DateForm(forms.Form) :
-	dateA = forms.DateField(widget=forms.TextInput(attrs={'id':'datepicker'}))
-	dateB = forms.DateField(widget=forms.TextInput(attrs={'id':'datepicker'}))
+	dateA = forms.DateField(widget=forms.TextInput(attrs={'class':'datepicker form-control' , 'style':'width:45%;min-width:120px;'}))
+	dateB = forms.DateField(widget=forms.TextInput(attrs={'class':'datepicker form-control' , 'style':'width:45%;min-width:120px;'}))
