@@ -23,7 +23,7 @@ def display(request):
 def detail(request, pk):
     """Display record details.
     """
-    tally = Tally.objects.get(pk=pk)
+    tally = get_object_or_404(Tally, pk=pk)
 
     return render(request, 'tally/detail.html', locals())
 
@@ -39,36 +39,26 @@ def new(request):
             new_tally.user = request.user
             new_tally.save()
 
-            return redirect('tally')
+        return redirect('tally')
     else:
         tally_form = TallyForm()
 
     return render(request, 'tally/new.html', locals())
 
 @login_required
-def editTally(request, pk) :
-	user = request.user
-	if request.method == "POST" :
-		tallyID = request.session['tallyID']
-		tally = Tally.objects.get(id=tallyID)
-		tally_form = TallyForm(request.POST)
-		if tally_form.is_valid() :
-			tally.date = tally_form.cleaned_data['date']
-			tally.type = tally_form.cleaned_data['type']
-			tally.subtype = tally_form.cleaned_data['subtype']
-			tally.price = tally_form.cleaned_data['price']
-			tally.notes = tally_form.cleaned_data['notes']
-			tally.save()
-		return HttpResponseRedirect('/tally/')
-	tally = Tally.objects.get(id=pk)
-	tally_form = TallyForm(initial={
-        'date': tally.date,
-        'type':tally.type,
-        'subtype':tally.subtype,
-        'price':tally.price,
-        'notes':tally.notes})
-	request.session['tallyID'] = pk
-	return render(request, 'tally/edit.html', locals())
+@user_valid
+def edit(request, pk):
+    tally = get_object_or_404(Tally, pk=pk)
+    if request.method == "POST":
+        tally_form = TallyForm(request.POST, instance=tally)
+        if tally_form.is_valid():
+            tally_form.save()
+
+        return redirect('tally')
+    else:
+        tally_form = TallyForm(instance=tally)
+
+    return render(request, 'tally/edit.html', locals())
 
 @login_required
 def summary(request) :
