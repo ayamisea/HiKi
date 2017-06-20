@@ -144,14 +144,9 @@
     	<div id="container">
 	        {% for media in media_list %}
 	        <div class="block m-2">
-
-	            <img src="{% if media.diaryimage %} {{ media.diaryimage.img.url }}
-                        {% elif media.image %} {{ media.image.img.url }} {% endif %}"
+	            <img src="{{ media.img.url }}"
                    onerror="this.style.display='none'"
                    class="img-thumbnail" width="300" height="300">
-
-	            <!--img src="" onerror="this.style.display='none'" class="img-thumbnail" width="300" height="300"-->
-
               {% if media.type == "video" %}
 	            <!--video class="img-thumbnail" width="300" height="300">
 	                <source src="{{mediaURL}}{{media.img}}" type="video/mp4">
@@ -159,7 +154,7 @@
 	            </video-->
 	            {% endif %}
 	            <div>
-	                <button type="button" data-url="{{mediaURL}}{{media.img}}" data-title='{{media.title}}' data-desc='{{media.description}}' data-type='{{media.type}}' class="photoID" data-toggle="modal" data-target="#Modal" style="display:none;"></button>
+	                <button type="button" data-url="{{media.img.url}}" data-title='{{media.title}}' data-desc='{{media.description}}' data-type='{{media.type}}' class="photoID" data-toggle="modal" data-target="#Modal" style="display:none;"></button>
 	            </div>
 	        </div>
 	        {% endfor %}

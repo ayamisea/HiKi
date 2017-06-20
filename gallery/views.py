@@ -15,7 +15,7 @@ def display(request):
     """
     media_list = list(request.user.image_set.all())
     for diary in request.user.diary_set.all():
-        media_list += list(request.user.image_set.all())
+        media_list += list(diary.diaryimage_set.all())
 
     return render(request, 'gallery/display.html', locals())
 
