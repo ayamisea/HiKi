@@ -48,6 +48,8 @@ def new(request):
 @login_required
 @user_valid
 def edit(request, pk):
+    """Edit record.
+    """
     tally = get_object_or_404(Tally, pk=pk)
     if request.method == "POST":
         tally_form = TallyForm(request.POST, instance=tally)
@@ -61,6 +63,7 @@ def edit(request, pk):
     return render(request, 'tally/edit.html', locals())
 
 @login_required
+@user_valid
 def summary(request) :
 	#確認表單
 	user = request.user
