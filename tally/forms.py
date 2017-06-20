@@ -7,8 +7,7 @@ class TallyForm(forms.ModelForm):
     class Meta:
         model = Tally
         pay_type = forms.ChoiceField(
-            choices=Tally.PAY_CHOICES,
-            widget=forms.Select(attrs={'class':'hidden'}),
+            choices=Tally.PAY_CHOICES
         )
         fields = ['date', 'pay_type', 'subtype', 'cash', 'notes']
         widgets = {
@@ -19,6 +18,11 @@ class TallyForm(forms.ModelForm):
                     'style':'display:inline',
                 }
             ),
+            'pay_type': forms.Select(
+            	attrs={
+	            	'class': 'form-control m-1 w-100',
+	                'style':'display:inline',
+            }),
             'subtype': forms.TextInput(
                 attrs={
                     'class':'form-control m-1 w-100',
