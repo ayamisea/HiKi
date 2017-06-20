@@ -36,13 +36,13 @@
 	    	{% if tally.pay_type == '支出'%}
 	    	<img class="detail-icon-img" src="{% static 'icon/detail/expense.png' %}">
     		{% endif %}
-    		{{ tally.type }}&nbsp;&nbsp;{{ tally.subtype }}
+    		{{ tally.pay_type }}&nbsp;&nbsp;{{ tally.subtype }}
 	    </div>
 	    <hr>
 	    <!-- 多少錢 -->
 	    <div class="d-flex align-items-center">
 	    	<img class="detail-icon-img" src="{% static 'icon/detail/money.png' %}">
-	    	${{ tally.price }}
+	    	${{ tally.cash }}
 	    </div>
 	    <hr>
 	    <!-- 註記 -->
@@ -54,7 +54,7 @@
     </main>
     <div class="d-flex justify-content-center m-3">
     	<a class="btn custom-button" href="{% url 'tally_edit' pk=tally.pk %}?from={{ request.path|urlencode }}">編輯</a>
-      <a class="btn custom-button ml-2 mr-2" href="{% url 'tally_delete' pk=tally.pk %}?from={% url 'tally_display' %}">刪除</a>
-	    <a class="btn custom-button" href="{% url 'tally_display' %}">回日記</a>
+      <a class="btn custom-button ml-2 mr-2" href="{% url 'tally_delete' pk=tally.pk %}?from={% url 'tally' %}">刪除</a>
+	    <a class="btn custom-button" href="{% url 'tally' %}">回日記</a>
 	</div>
 </body>
