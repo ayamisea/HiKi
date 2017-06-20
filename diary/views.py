@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect
 from django.http import Http404
 
@@ -22,27 +22,14 @@ def display(request):
 
     return render(request, 'diary/display.html', locals())
 
-#display one diariy
 @login_required
-def detail(request,pk):
-
-    mediaURL = settings.MEDIA_URL
+@user_valid
+def detail(request, pk):
+    """Display diary details.
+    """
     MapAPI = settings.GOOGLE_MAPS_API_KEY
-    user = request.user
-    diary = Diary.objects.get(pk=pk)
-    if request.method=='POST':
-        if 'delete' in request.POST:
-            d = Diary.objects.get(id=pk)
-            m = Map.objects.get(location = d.location)
-            for t in d.tags.all(): #delete tags
-                if t.diary_set.count() == 1:
-                    Tag.objects.get(id= t.id).delete()
-            for img in d.media_set.all(): #delete media
-                Media.objects.get(id=img.id).delete()
-            if m.diary_set.count() == 1: #delete maps
-                m.delete()
-            d.delete()
-            return HttpResponseRedirect('/diary/')
+    diary = get_object_or_404(request.user.diary_set, pk=pk)
+
     return render(request, 'diary/detail.html', locals())
 
 
