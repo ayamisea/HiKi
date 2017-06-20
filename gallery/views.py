@@ -65,24 +65,6 @@ def delete(request, pk):
     image.delete()
     return redirect('user_dashboard')
 
-# upload diary media
-@login_required
-def media_upload(request):
-    user = request.user
-    diaryID = request.session['diaryID']
-    if request.method =='POST':
-        media_form = DiaryImageForm(request.POST, request.FILES)
-        if media_form.is_valid():
-            newMedia = media_form.save()
-            newMedia.diary = Diary.objects.get(pk=diaryID)
-            newMedia.save()
-            return redirect('/diary/media-upload/')
-        else:
-            raise Http404
-    else:
-        media_form = MediaForm()
-    return render(request, 'diary/upload-media.html',locals())
-
 # upload diary media display
 @login_required
 def media_upload_show(request):
