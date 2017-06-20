@@ -27,20 +27,23 @@ def detail(request, pk):
 
     return render(request, 'tally/detail.html', locals())
 
-#create account
-
 @login_required
-def newTally(request) :
-	user = request.user
-	tally_form = TallyForm()
-	if request.method == 'POST' :
-		tally_form = TallyForm(request.POST)
-		if tally_form.is_valid() :
-			new_tally = tally_form.save(commit=True)
-			new_tally.userID =  request.user
-			new_tally.save()
-			return HttpResponseRedirect('/tally/')
-	return render(request, 'tally/newTally.html', locals())
+@user_valid
+def new(request):
+    """Create new record.
+    """
+    if request.method == 'POST':
+        tally_form = TallyForm(request.POST)
+        if tally_form.is_valid():
+            new_tally = tally_form.save(commit=True)
+            new_tally.user = request.user
+            new_tally.save()
+
+            return redirect('tally')
+    else:
+        tally_form = TallyForm()
+
+    return render(request, 'tally/new.html', locals())
 
 @login_required
 def editTally(request, pk) :
