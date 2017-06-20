@@ -41,6 +41,20 @@ def new(request):
         form = ImageForm()
     return render(request, 'gallery/new.html', locals())
 
+@login_required
+@user_valid
+def edit(request, pk):
+    """Edit image information
+    """
+    image = get_object_or_404(request.user.image_set, pk=pk)
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES, instance=image)
+        if form.is_valid():
+            form.save()
+        return redirect('gallery')
+    else:
+        form = ImageForm(instance=image)
+    return render(request, 'gallery/edit.html', locals())
 # upload diary media
 @login_required
 def media_upload(request):
