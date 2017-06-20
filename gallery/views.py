@@ -1,13 +1,9 @@
-from itertools import chain
-from operator import attrgetter
-
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import ImageForm
-from .models import Image
-from diary.models import Diary
 from users.decorators import user_valid
+
+from .forms import ImageForm
 
 @login_required
 @user_valid
@@ -69,11 +65,12 @@ def delete(request, pk):
     return redirect('user_dashboard')
 
 @login_required
-def media_upload_show(request):
+@user_valid
+def diary_image_show(request):
     """Display images in diary.
     """
     if request.GET.get('d'):
         d = request.GET['d']
         diary = get_object_or_404(request.user.diary_set, pk=d)
-        imgs= diary.image_set.all().order_by('-id')
-    return render(request, 'gallery/upload-media-display.html', locals())
+        imgs = diary.image_set.all().order_by('-id')
+    return render(request, 'gallery/diary-image-show.html', locals())
