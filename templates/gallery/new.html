@@ -28,35 +28,34 @@
 			        <div class="d-flex align-items-center p-1">
 			        	<img class="form-icon mr-1" src="{%static '/icon/form/file.png' %}">
 			        	<label class="custom-file w-100" style="display: inline-block;">
-			        		{{ media_form.img}}
+			        		{{ form.img}}
 			        		<div class="custom-file-control form-control-file" style="overflow:hidden;">添加檔案...
 			        		</div>
-						</label>
-			        	<input type="hidden" name="diaryID" value={{diaryID}} />
+						    </label>
 			        </div>
 			        <!-- 檔案標題 -->
 			        <div class="d-flex p-1">
 		        		<img class="form-icon mr-1" src="{%static '/icon/form/picture.png' %}">
-		        		{{ media_form.title }}
+		        		{{ form.title }}
 		        	</div>
 		        	<!-- 檔案敘述 -->
 		        	<div class="d-flex p-1">
 		        		<img class="form-icon mr-1" src="{%static '/icon/form/alt.png' %}">
-		        		{{ media_form.description}}
+		        		{{ form.description}}
 		        	</div>
 		        	<div class="d-flex m-1 align-self-center">
-		        		<input class="btn custom-button" type="submit" value="加入媒體" name="option1"/>
+		        		<input class="btn custom-button" type="submit" value="新增圖片" name="option1"/>
 		        	</div>
 			    </form>
 		    </div>
-			<div class="d-flex flex-column p-2">
-		    	<iframe id="frame" class="form-control" src="/diary/media-upload-show/" scrolling="no">
-		    		{% include 'diary/upload-media-display.html' %}
+			<!--div class="d-flex flex-column p-2">
+		    	<iframe id="frame" class="form-control" src="/gallery/media-upload-show/" scrolling="no">
+		    		{% include 'gallery/upload-media-display.html' %}
 		    	</iframe>
 		    </div>
 		    <div class="d-flex align-self-center">
-		    	<a class="btn custom-button" href="{% url 'diary_detail' pk=diaryID %}">確認</a>
-		    </div>
+		    	<a class="btn custom-button" href="{% url 'diary_detail' pk=user.pk %}">確認</a>
+		    </div-->
 		</main>
 		<script>
 			//改變上傳檔案欄位
