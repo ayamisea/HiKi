@@ -21,6 +21,7 @@ def display(request) :
 def detail(request, pk) :
 	user = request.user
 	tally = Tally.objects.get(pk=pk)
+	choices = Tally.PAY_CHOICES
 	if request.method == 'POST' :
 		if 'delete' in request.POST :
 			t = Tally.objects.get(pk=pk)

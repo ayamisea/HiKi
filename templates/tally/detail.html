@@ -1,4 +1,5 @@
 {% load static %}
+{% load sort %}
 <!DOCTYPE html>
 
 <head>
@@ -30,13 +31,9 @@
     	<hr>
     	<!-- 類別 -->
     	<div class="d-flex align-items-center">
-    		{% if tally.pay_type == '收入'%}
-    		<img class="detail-icon-img" src="{% static 'icon/detail/income.png' %}">
-	    	{% endif %}
-	    	{% if tally.pay_type == '支出'%}
-	    	<img class="detail-icon-img" src="{% static 'icon/detail/expense.png' %}">
-    		{% endif %}
-    		{{ tally.type }}&nbsp;&nbsp;{{ tally.subtype }}
+    		{% with tally.type|get_type:choices|add:'.png' as img_type %}
+    		<img class="detail-icon-img" src="{% static 'icon/detail/'|add:img_type %}">{{ tally.type }}&nbsp;&nbsp;{{ tally.subtype }}
+    		{% endwith %}
 	    </div>
 	    <hr>
 	    <!-- 多少錢 -->
