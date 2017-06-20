@@ -63,18 +63,17 @@ def delete(request, pk):
     """
     image = get_object_or_404(request.user.image_set, pk=pk)
     image.delete()
+    pre_url = request.GET.get('from', None)
+    if pre_url:
+        return redirect(pre_url)
     return redirect('user_dashboard')
 
-# upload diary media display
 @login_required
 def media_upload_show(request):
-    mediaURL = settings.MEDIA_URL
-    if request.method == 'POST':
-        deleteID=request.POST.get('dID')
-        Media.objects.get(id=deleteID).delete()
-        return HttpResponseRedirect('/diary/media-upload-show/')
-    if 'diaryID' in request.session:
-        diaryID = request.session['diaryID']
-        nowDiary = Diary.objects.get(pk = diaryID)
-        imgs= nowDiary.media_set.all().order_by('-id')
-    return render(request,'diary/upload-media-display.html',locals())
+    """Display images in diary.
+    """
+    if request.GET.get('d'):
+        d = request.GET['d']
+        diary = get_object_or_404(request.user.diary_set, pk=d)
+        imgs= diary.image_set.all().order_by('-id')
+    return render(request, 'gallery/upload-media-display.html', locals())
