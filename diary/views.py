@@ -13,16 +13,14 @@ from users.decorators import user_valid
 from .forms import DiaryForm
 from .models import Diary, Tag, Map
 
-#display all diaries
 @login_required
+@user_valid
 def display(request):
-    if request.user.is_valid_user:
-        user = request.user
-        userName = request.user.name
-        diaryList = request.user.diary_set.all()
-        mediaURL = settings.MEDIA_URL
-        return render(request, 'diary/display.html',locals())
-    return redirect('/')
+    """Display all diaries.
+    """
+    diary_list = request.user.diary_set.all()
+
+    return render(request, 'diary/display.html', locals())
 
 #display one diariy
 @login_required

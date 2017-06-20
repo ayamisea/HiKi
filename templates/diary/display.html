@@ -15,7 +15,7 @@
         width: 100%;
         margin: 0;
     }
-    
+
     main {
         max-width: 960px;
         margin: 0 auto;
@@ -29,7 +29,7 @@
         <header class="h3 w-100 p-3">日記列表
             <hr>
         </header>
-        {% include 'diary/display-diary.html' with diaryList=diaryList %}
+        {% include 'diary/diary-list.html' with diary_list=diary_list %}
     </main>
 </body>
 
