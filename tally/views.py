@@ -25,7 +25,8 @@ def detail(request, pk):
     """Display record details.
     """
     tally = get_object_or_404(Tally, pk=pk)
-
+    choices = Tally.PAY_CHOICES
+    
     return render(request, 'tally/detail.html', locals())
 
 @login_required

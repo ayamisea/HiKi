@@ -8,35 +8,9 @@
     <!-- Bootstrap -->
     {% include 'include/bootstrap.html' %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-    <style>
-    body {
-        background: url({% static 'img/account.jpg' %});
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center;
-        background-size：cover;
-        -moz-background-size: cover;
-        -webkit-background-size: cover;
-        -o-background-size: cover;
-        height: 100vh;
-    }
-    
-	#wrap {
-        background-color: rgba(255, 255, 255, 0.7);
-        width:350px;
-		height:80%;	
-        margin:0 auto;
-        padding-left: 35px;
-		padding-right: 35px;
-		padding-top: 30px;
-        display: flex;
-        align-self: center;
-    }
-
-    </style>
 </head>
 
-<body class="d-flex justify-content-center">
+<body id="background" class="d-flex justify-content-center">
     <div id="wrap" class="flex-column">
         <header class="h2 mb-3">HIKI Diary</header>
         <main class="d-flex flex-column w-100">
@@ -57,6 +31,7 @@
                 </div>
             </div>
         </main>
+        {% include 'include/message.html' %}
     </div>
 </body>
 

@@ -1,4 +1,5 @@
 {% load static %}
+{% load sort %}
 <!DOCTYPE html>
 
 <head>
@@ -30,31 +31,29 @@
     	<hr>
     	<!-- 類別 -->
     	<div class="d-flex align-items-center">
-    		{% if tally.pay_type == '收入'%}
-    		<img class="detail-icon-img" src="{% static 'icon/detail/income.png' %}">
-	    	{% endif %}
-	    	{% if tally.pay_type == '支出'%}
-	    	<img class="detail-icon-img" src="{% static 'icon/detail/expense.png' %}">
-    		{% endif %}
-    		{{ tally.pay_type }}&nbsp;&nbsp;{{ tally.subtype }}
+    		{% with tally.pay_type|get_type:choices|add:'.png' as img_type %}
+    		<img class="detail-icon-img" src="{% static 'icon/detail/'|add:img_type %}">{{ tally.pay_type }}&nbsp;&nbsp;{{ tally.subtype }}
+    		{% endwith %}
 	    </div>
 	    <hr>
 	    <!-- 多少錢 -->
 	    <div class="d-flex align-items-center">
 	    	<img class="detail-icon-img" src="{% static 'icon/detail/money.png' %}">
-	    	${{ tally.cash }}
+	    	${{ tally.price }}
 	    </div>
 	    <hr>
 	    <!-- 註記 -->
 	    <div class="d-flex align-items-center">
 	    	<img class="detail-icon-img" src="{% static 'icon/detail/note.png' %}">
 	    	{{ tally.notes }}
-	    </div>
+	    </div>	
 	    </hr>
-    </main>
+    </main>    
     <div class="d-flex justify-content-center m-3">
-    	<a class="btn custom-button" href="{% url 'tally_edit' pk=tally.pk %}?from={{ request.path|urlencode }}">編輯</a>
-      <a class="btn custom-button ml-2 mr-2" href="{% url 'tally_delete' pk=tally.pk %}?from={% url 'tally' %}">刪除</a>
+    	<a class="btn custom-button" href="{% url 'tally_edit' pk=tally.pk %}">編輯</a>
+		<form method="post" >{% csrf_token %}
+	    	<input class="btn custom-button ml-2 mr-2" type="submit" name="delete" value="刪除">
+	    </form>
 	    <a class="btn custom-button" href="{% url 'tally' %}">回日記</a>
 	</div>
 </body>
