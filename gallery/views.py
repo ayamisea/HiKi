@@ -4,20 +4,35 @@ from operator import attrgetter
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
-from .forms import MediaForm
-from .models import Image, DiaryImage
+from .forms import ImageForm
+from .models import Image
 from users.decorators import user_valid
 
 @login_required
 @user_valid
 def display(request):
-    """Display all image
+    """Display all image.
     """
-    media_list = list(request.user.image_set.all())
-    for diary in request.user.diary_set.all():
-        media_list += list(diary.diaryimage_set.all())
+    image_list = list(request.user.image_set.all())
 
     return render(request, 'gallery/display.html', locals())
+
+@login_required
+@user_valid
+def new(request):
+    """Upload new image.
+    """
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save()
+            image.user = request.user
+            image.save()
+        return redirect('user_dashboard')
+    else:
+        form = ImageForm()
+        image_list = Image.objects.all()
+    return render(request, 'gallery/new.html',locals())
 
 # upload diary media
 @login_required
@@ -25,7 +40,7 @@ def media_upload(request):
     user = request.user
     diaryID = request.session['diaryID']
     if request.method =='POST':
-        media_form = MediaForm(request.POST, request.FILES)
+        media_form = DiaryImageForm(request.POST, request.FILES)
         if media_form.is_valid():
             newMedia = media_form.save()
             newMedia.diary = Diary.objects.get(pk=diaryID)
