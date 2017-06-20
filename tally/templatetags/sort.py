@@ -5,9 +5,9 @@ register = template.Library()
 
 @register.filter(name='get_type')
 def get_type(value,choices):
-	if value in [ k for k,v in dict(choices)[_('Income')]]:
+	if value in [ k for k,v in dict(choices)['Income']]:
 		return 'income'
-	if value in [ k for k,v in dict(choices)[_('Expense')]]:
+	if value in [ k for k,v in dict(choices)['Expense']]:
 		return 'expense'
 
 @register.filter(name='datelist')
