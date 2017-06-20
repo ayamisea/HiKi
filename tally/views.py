@@ -1,19 +1,18 @@
-from django.shortcuts import render, redirect
-from .models import Tally
-from .forms import TallyForm, DateForm
-from django.http import HttpResponseRedirect
-from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
 
-
-# Create your views here.
+from .forms import DateForm, TallyForm
+from .models import Tally
 
 #display all
 @login_required
 def display(request) :
 	user = request.user
-	tallyList = request.user.tally_set.all()
+	tally_list = request.user.tally_set.all()
 	choices = Tally.PAY_CHOICES
+
 	return render(request, 'tally/display.html', locals())
 
 #display detail
