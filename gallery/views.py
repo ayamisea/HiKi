@@ -2,10 +2,11 @@ from itertools import chain
 from operator import attrgetter
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import ImageForm
 from .models import Image
+from diary.models import Diary
 from users.decorators import user_valid
 
 @login_required
@@ -22,13 +23,20 @@ def display(request):
 def new(request):
     """Upload new image.
     """
+    if request.GET.get('d'):
+        d = request.GET['d']
+        diary = get_object_or_404(request.user.diary_set, pk=d)
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
         if form.is_valid():
             image = form.save()
             image.user = request.user
+            try:
+                image.diary = diary
+            except:
+                pass
             image.save()
-        return redirect('gallery')
+        return redirect(request.get_full_path()) if request.GET.get('d') else redirect('gallery')
     else:
         form = ImageForm()
     return render(request, 'gallery/new.html', locals())
