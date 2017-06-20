@@ -35,7 +35,7 @@ class Diary(models.Model):
     post_type = models.CharField(
         max_length=30,
         choices=AUTH_CHOICES,
-        default=AUTH_CHOICES[0][0]
+        default=AUTH_CHOICES[0][0],
     )
     title = models.CharField(max_length=30,)
     date = models.DateField(default=timezone.now,)
@@ -45,13 +45,13 @@ class Diary(models.Model):
         on_delete=models.CASCADE,
         blank=True, null=True,
     )
-    tags = models.ManyToManyField(Tag, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True,)
     weather_meantemp = models.CharField(
         max_length=50, editable=False,
         blank=True, null=True,)
     weather_cond = models.CharField(
         max_length=50, editable=False,
-        blank=True, null=True)
+        blank=True, null=True,)
 
     def __str__(self):
         return self.title
