@@ -6,16 +6,18 @@ import json
 from collections import Counter
 from django.conf import settings
 
-# Create your models here.
+
 class Map(models.Model):
     location = models.CharField(max_length=50,null=True)
     latitude = models.DecimalField(max_digits=13,decimal_places=10,null=True)
     longitude = models.DecimalField(max_digits=13,decimal_places=10,null=True)
+
     def __str__(self):
         return self.location
 
 class Tag(models.Model):
     tagName = models.CharField(max_length=20,unique=True,blank=False,null=False)
+
     def __str__(self):
         return self.tagName
 
@@ -33,8 +35,10 @@ class Diary(models.Model):
     tags = models.ManyToManyField(Tag)
     weather_meantemp = models.CharField(max_length=50, null=True)
     weather_cond = models.CharField(max_length=50, null=True)
+
     def __str__(self):
         return self.title
+
     def getWeather(self):
         weaherAPI= settings.WEATHER_API_KEY
         http = urllib3.PoolManager()
@@ -57,6 +61,7 @@ class Diary(models.Model):
         except IndexError:
             self.weather_cond = 'null'
         cond_list.clear()
+
     def searchFilter(self,slst):
         slst = [x.lower() for x in slst]
         if any(e in self.title.lower() for e in slst):
@@ -69,26 +74,6 @@ class Diary(models.Model):
         if not len(tmp) == 0:
             return True
         return False
+
     class Meta:  # 排序用
         ordering = ['date']
-
-class Media(models.Model):
-    title = models.CharField(max_length=20,null=True,blank=True)
-    description = models.CharField(max_length=80,null=True,blank=True)
-    img = models.FileField(upload_to = 'user_media/')
-    diary = models.ForeignKey(Diary,on_delete=models.CASCADE,default=0)
-    def __str__(self):
-        return str(self.id)
-    def type(self):
-        import os
-        name,ext = os.path.splitext(self.img.name)
-        ext = ext.lower()
-        if ext =='.jpg' or ext =='.jpeg' or ext == '.png' or ext=='.gif':
-            return 'img'
-        return 'video'
-    def delete(self, *args, **kwargs):
-        storage, path = self.img.storage, self.img.path
-        super(Media, self).delete(*args, **kwargs)
-        storage.delete(path)
-
-
