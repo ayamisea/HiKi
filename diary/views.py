@@ -1,14 +1,17 @@
-from django.shortcuts import render, redirect
-from .forms import DiaryForm
-from .models import Tag,Diary,Map
-from django.http import HttpResponseRedirect
-from django.http import Http404
-from django.http import HttpResponse
-from django.conf import settings
 from decimal import *
+
+from django.conf import settings
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
+from django.http import Http404
+
+from users.decorators import user_valid
+
+from .forms import DiaryForm
+from .models import Diary, Tag, Map
 
 #display all diaries
 @login_required
