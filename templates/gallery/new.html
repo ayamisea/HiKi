@@ -22,10 +22,10 @@
 	{% include 'include/nav.html' with name=user.name title='gallery_' %}
 	<body class="d-flex flex-column">
 		<main class="d-flex flex-column" style="width: 90%;margin: 0vh 5%;">
-        {% include 'gallery/image_form.html' %}
+        {% include 'gallery/image_form.html' with d=d %}
         {% if d %}
 			  <div class="d-flex flex-column p-2">
-		    	<iframe id="frame" class="form-control" src="/gallery/media-upload-show/" scrolling="no">
+		    	<iframe id="frame" class="form-control" src="/gallery/media-upload-show/?d={{ d }}" scrolling="yes">
 		    		{% include 'gallery/upload-media-display.html' %}
 		    	</iframe>
 		    </div>
