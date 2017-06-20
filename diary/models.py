@@ -5,6 +5,7 @@ import urllib3
 import json
 from collections import Counter
 from django.conf import settings
+from django.utils import timezone
 
 
 class Map(models.Model):
@@ -26,27 +27,47 @@ class Diary(models.Model):
         ('Private', '私密'),
         ('Public', '公開'),
     )
-    userID = models.ForeignKey(User,blank=True,null=True)
-    type = models.CharField(max_length=30, choices=AUTH_CHOICES,default=AUTH_CHOICES[0][0])
-    title = models.CharField(max_length=30, blank=False)
-    date = models.DateField()
-    content = models.CharField(max_length=1000,blank=False)
-    location = models.ForeignKey(Map,blank=True,null=True)
-    tags = models.ManyToManyField(Tag)
-    weather_meantemp = models.CharField(max_length=50, null=True)
-    weather_cond = models.CharField(max_length=50, null=True)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        default=0,
+    )
+    post_type = models.CharField(
+        max_length=30,
+        choices=AUTH_CHOICES,
+        default=AUTH_CHOICES[0][0]
+    )
+    title = models.CharField(max_length=30,)
+    date = models.DateField(default=timezone.now,)
+    content = models.TextField(max_length=1000,)
+    location = models.ForeignKey(
+        Map,
+        on_delete=models.CASCADE,
+        blank=True, null=True,
+    )
+    tags = models.ManyToManyField(Tag, blank=True, null=True)
+    weather_meantemp = models.CharField(
+        max_length=50, editable=False,
+        blank=True, null=True,)
+    weather_cond = models.CharField(
+        max_length=50, editable=False,
+        blank=True, null=True)
 
     def __str__(self):
         return self.title
 
     def getWeather(self):
-        weaherAPI= settings.WEATHER_API_KEY
+        weatherAPI = settings.WEATHER_API_KEY
+        try:
+            urlGeo = 'http://api.wunderground.com/api/' + weatherAPI + '/geolookup/q/' \
+            + str(self.location.latitude) + ',' + str(self.location.longitude) + '.json'
+        except:
+            return None
         http = urllib3.PoolManager()
-        urlGeo = 'http://api.wunderground.com/api/'+weaherAPI+'/geolookup/q/' + str(self.location.latitude) + ',' + str(self.location.longitude) + '.json'
         g = http.request('GET', urlGeo)
         zmw = json.loads(g.data.decode('utf-8'))['location']['l']
         ymd = str(self.date.year) + str(self.date.month).zfill(2) + str(self.date.day).zfill(2)
-        urlW = 'http://api.wunderground.com/api/'+ weaherAPI+'/history_' + ymd + zmw + '.json'
+        urlW = 'http://api.wunderground.com/api/'+ weatherAPI+'/history_' + ymd + zmw + '.json'
         w = http.request('GET', urlW)
         weather = json.loads(w.data.decode('utf-8'))['history']
         cond_list = []
@@ -61,6 +82,10 @@ class Diary(models.Model):
         except IndexError:
             self.weather_cond = 'null'
         cond_list.clear()
+
+    def save(self, *args, **kwargs):
+        self.getWeather()
+        super(Diary, self).save(*args, **kwargs)
 
     def searchFilter(self,slst):
         slst = [x.lower() for x in slst]
