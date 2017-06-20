@@ -21,6 +21,10 @@
         background-color: #53cecb !important;
         letter-spacing: 2px !important;
     }
+
+    .navbar-nav li a {
+    	color:white !important;
+    }
     
     .new {
         display: flex;
@@ -89,6 +93,7 @@
     </script>
 </head>
 
+{% include 'include/message.html' %}
 <body>
     <!-- 新增功能的導覽列 -->
     <nav class="navbar navbar-toggleable-sm navbar-inverse custom-button mb-5">
@@ -97,24 +102,27 @@
         </button>
         <div class="navbar-brand" href="#">DashBoard</div>
         <div class="collapse navbar-collapse" id="navbarNewContent">
-            <!-- 新增日記 -->
-            <div class="new mr-sm-3 mb-3 mb-sm-0">
-                <a href="{% url 'diary_new' %}"></a>
-                <img class="form-icon mr-1" src="{% static 'icon/new_diary.png' %}">
-                <span class="text-center h6">New Diary</span>
-            </div>
-            <!-- 新增相片 -->
-            <div class="new mr-sm-3 mb-3 mb-sm-0">
-                <a href="#"></a>
-                <img class="form-icon mr-1" src="{% static 'icon/new_photo.png' %}">
-                <span class="text-center h6">New Image</span>
-            </div>
-            <!-- 新增帳目 -->
-            <div class="new mr-sm-3 mb-3 mb-sm-0">
-                <a href="{% url 'diary_new' %}"></a>
-                <img class="form-icon mr-1" src="{% static 'icon/new_tally.png' %}">
-                <span class="text-center h6">New Tally</span>
-            </div>
+            <ul class="navbar-nav">
+	            <!-- 回首頁 -->
+            	<li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
+                	<a class="nav-link" href="{% url 'hiki' %}">回首頁</a>
+                </li>
+	            <!-- 新增日記 -->
+	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
+	                <img class="form-icon mr-1" src="{% static 'icon/new_diary.png' %}">
+	                <a class="nav-link" href="{% url 'diary_new' %}">New Diary</a>
+	            </li>
+	            <!-- 新增相片 -->
+	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
+	                <img class="form-icon mr-1" src="{% static 'icon/new_photo.png' %}">
+	                <a class="nav-link" href="#">New Image</a>
+	            </li>
+	            <!-- 新增帳目 -->
+	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
+	                <img class="form-icon mr-1" src="{% static 'icon/new_tally.png' %}">
+	                <a class="nav-link" href="{% url 'tally_new' %}">New Tally</a>
+	            </li>
+	        </ul>
         </div>
     </nav>
     <!-- 清單列 -->
