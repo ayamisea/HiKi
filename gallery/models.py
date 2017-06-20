@@ -1,14 +1,14 @@
+from django.contrib.auth import get_user_model
+from django.db import models
 from django.utils import timezone
 
-from django.db import models
-
 from diary.models import Diary
-from users.models import User
+
+User = get_user_model()
 
 
 def image_upload_to(instance, filename):
-    return 'image/{pk}/{date}-{filename}'.format(
-        pk=instance.user.pk,
+    return 'image/{date}-{filename}'.format(
         date=str(instance.pub_date.date()),
         filename=filename,
         )
