@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 from .models import Tally
 
@@ -24,13 +25,13 @@ class TallyForm(forms.ModelForm):
                     'style':'display:inline',
                 }
             ),
-            'cash':forms.TextInput(
+            'cash': forms.TextInput(
                 attrs={
                     'class':'form-control m-1 w-100',
                     'style':'display:inline',
                 }
             ),
-            'notes':forms.Textarea(
+            'notes': forms.Textarea(
                 attrs={
                     'id':'textarea',
                     'class':'form-control m-1 w-100',
@@ -38,6 +39,17 @@ class TallyForm(forms.ModelForm):
                 }
             ),
         }
+        error_messages = {
+            'cash': {
+                'zero_negative': _('The cash field cannot be zero or negative')
+            }
+        }
+
+    def clean(self):
+        cleaned_data = super(TallyForm, self).clean()
+        cash = cleaned_data.get('cash')
+        if cash <= 0:
+            self.add_error('cash', self.Meta.error_messages['cash']['zero_negative'])
 
 class DateForm(forms.Form):
     dateA = forms.DateField(
