@@ -1,12 +1,14 @@
-from django.db import models
-from django.contrib.auth import get_user_model
-User =  get_user_model()
-import urllib3
-import json
 from collections import Counter
+import json
+
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.db import models
 from django.utils import timezone
 
+import urllib3
+
+User =  get_user_model()
 
 class Map(models.Model):
     location = models.CharField(max_length=50, null=True,)
