@@ -3,6 +3,7 @@ from django.conf import settings
 from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import ugettext_lazy as _
 
 from .forms import DateForm, TallyForm
 from .models import Tally
@@ -64,39 +65,39 @@ def edit(request, pk):
 
 @login_required
 @user_valid
-def summary(request) :
-	#確認表單
-	user = request.user
-	date_form = DateForm()
-	tallyList = []
-	if request.method == 'POST' :
-		date_form = DateForm(request.POST)
-		if date_form.is_valid() :
-			tallyList = Tally.objects.filter(userID = request.user,date__range=[date_form.cleaned_data['dateA'], date_form.cleaned_data['dateB']])
-		else :
-			tallyList = request.user.tally_set.all()
-	else :
-		tallyList = request.user.tally_set.all()
-
-	#製作圖表清單
-	categories = { k:0 for k,v in dict(Tally.PAY_CHOICES)['收入']}
-	length = len(categories)
-	categories.update( { k:0 for k,v in dict(Tally.PAY_CHOICES)['支出']} )
-	for tally in tallyList :
-		categories[tally.type] += int(tally.price)
-	income = list(categories.items())[:length]
-	expense = list(categories.items())[length:]
-	price_lists = [income,expense]
-	total_prices = [ sum([ i[1] for i in income ]) , sum([ i[1] for i in expense ]) ]
-
-	return render(request, 'tally/summary.html', {'user':user,'tallyList':tallyList,'price_lists':price_lists,'total_prices':total_prices,'date_form':date_form})
-
-@login_required
-@user_valid
 def delete(request, pk):
     tally = Tally.objects.get(pk=pk)
     tally.delete()
-    pre_url= request.GET.get('from', None)
+    pre_url = request.GET.get('from', None)
     if pre_url:
         return redirect(pre_url)
     return redirect(settings.DASHBOARD_URL)
+
+@login_required
+@user_valid
+def summary(request):
+    #確認表單
+    date_form = DateForm()
+    if request.method == 'POST':
+        date_form = DateForm(request.POST)
+        if date_form.is_valid():
+            date = date_form.save()
+            print(date)
+            tally_list = Tally.objects.filter(
+                user=request.user,
+                date__range=[date_form.cleaned_data['dateA'], date_form.cleaned_data['dateB']])
+
+    tally_list = request.user.tally_set.all()
+
+    #製作圖表清單
+    categories = { k:0 for k,v in dict(Tally.PAY_CHOICES)[_('Income')]}
+    length = len(categories)
+    categories.update( { k:0 for k,v in dict(Tally.PAY_CHOICES)[_('Expense')]} )
+    for tally in tally_list :
+        categories[tally.pay_type] += int(tally.cash)
+    income = list(categories.items())[:length]
+    expense = list(categories.items())[length:]
+    price_lists = [income,expense]
+    total_prices = [ sum([ i[1] for i in income ]) , sum([ i[1] for i in expense ]) ]
+
+    return render(request, 'tally/summary.html', {'tallyList':tally_list,'price_lists':price_lists,'total_prices':total_prices,'date_form':date_form})
