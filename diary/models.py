@@ -9,18 +9,18 @@ from django.utils import timezone
 
 
 class Map(models.Model):
-    location = models.CharField(max_length=50,null=True)
-    latitude = models.DecimalField(max_digits=13,decimal_places=10,null=True)
-    longitude = models.DecimalField(max_digits=13,decimal_places=10,null=True)
+    location = models.CharField(max_length=50, null=True,)
+    latitude = models.DecimalField(max_digits=13, decimal_places=10, null=True,)
+    longitude = models.DecimalField(max_digits=13, decimal_places=10, null=True,)
 
     def __str__(self):
         return self.location
 
 class Tag(models.Model):
-    tagName = models.CharField(max_length=20,unique=True,blank=False,null=False)
+    name = models.CharField(max_length=20, unique=True,)
 
     def __str__(self):
-        return self.tagName
+        return self.name
 
 class Diary(models.Model):
     AUTH_CHOICES = (
@@ -45,7 +45,7 @@ class Diary(models.Model):
         on_delete=models.CASCADE,
         blank=True, null=True,
     )
-    tags = models.ManyToManyField(Tag, blank=True, null=True)
+    tags = models.ManyToManyField(Tag, blank=True)
     weather_meantemp = models.CharField(
         max_length=50, editable=False,
         blank=True, null=True,)
@@ -95,7 +95,7 @@ class Diary(models.Model):
             return True
         if any(e in self.location.location.lower() for e in slst):
             return True
-        tmp = [t.tagName for t in self.tags.all() if t.tagName in slst]
+        tmp = [t.name for t in self.tags.all() if t.name in slst]
         if not len(tmp) == 0:
             return True
         return False

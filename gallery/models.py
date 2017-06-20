@@ -28,7 +28,7 @@ class Image(models.Model):
         null=True, blank=True,
     )
     img = models.ImageField(
-        upload_to=image_upload_to
+        upload_to=image_upload_to,
     )
     title = models.CharField(
         max_length=20, null=True, blank=True,
