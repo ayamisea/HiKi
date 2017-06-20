@@ -1,15 +1,23 @@
+from itertools import chain
+from operator import attrgetter
+
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from .forms import MediaForm
-from .models import Media
+from .models import Image, DiaryImage
+from users.decorators import user_valid
 
-#display all media
 @login_required
-def media(request):
-    user = request.user
-    mediaList = [media for media in Media.objects.all() if media.diary.userID == request.user]
-    mediaURL = settings.MEDIA_URL
-    return render(request, 'diary/display-media.html', locals())
+@user_valid
+def display(request):
+    """Display all image
+    """
+    media_list = list(request.user.image_set.all())
+    for diary in request.user.diary_set.all():
+        media_list += list(request.user.image_set.all())
+
+    return render(request, 'gallery/display.html', locals())
 
 # upload diary media
 @login_required
