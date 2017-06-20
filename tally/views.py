@@ -1,47 +1,49 @@
-from django.shortcuts import render, redirect
-from .models import Tally
-from .forms import TallyForm, DateForm
-from django.http import HttpResponseRedirect
-from django.db.models import Sum
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.db.models import Sum
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect, render
 
-
-# Create your views here.
-
-#display all
-@login_required
-def display(request) :
-	user = request.user
-	tallyList = request.user.tally_set.all()
-	choices = Tally.PAY_CHOICES
-	return render(request, 'tally/display.html', locals())
-
-#display detail
-@login_required
-def detail(request, pk) :
-	user = request.user
-	tally = Tally.objects.get(pk=pk)
-	if request.method == 'POST' :
-		if 'delete' in request.POST :
-			t = Tally.objects.get(pk=pk)
-			t.delete()
-			return HttpResponseRedirect('/tally/')
-	return render(request, 'tally/detail.html', locals())
-
-#create account
+from .forms import DateForm, TallyForm
+from .models import Tally
+from users.decorators import user_valid
 
 @login_required
-def newTally(request) :
-	user = request.user
-	tally_form = TallyForm()
-	if request.method == 'POST' :
-		tally_form = TallyForm(request.POST)
-		if tally_form.is_valid() :
-			new_tally = tally_form.save(commit=True)
-			new_tally.userID =  request.user
-			new_tally.save()
-			return HttpResponseRedirect('/tally/')
-	return render(request, 'tally/newTally.html', locals())
+@user_valid
+def display(request):
+    """Display all records.
+    """
+    tally_list = request.user.tally_set.all()
+    choices = Tally.PAY_CHOICES
+
+    return render(request, 'tally/display.html', locals())
+
+@login_required
+@user_valid
+def detail(request, pk):
+    """Display record details.
+    """
+    tally = Tally.objects.get(pk=pk)
+
+    return render(request, 'tally/detail.html', locals())
+
+@login_required
+@user_valid
+def new(request):
+    """Create new record.
+    """
+    if request.method == 'POST':
+        tally_form = TallyForm(request.POST)
+        if tally_form.is_valid():
+            new_tally = tally_form.save(commit=True)
+            new_tally.user = request.user
+            new_tally.save()
+
+            return redirect('tally')
+    else:
+        tally_form = TallyForm()
+
+    return render(request, 'tally/new.html', locals())
 
 @login_required
 def editTally(request, pk) :
@@ -97,9 +99,11 @@ def summary(request) :
 	return render(request, 'tally/summary.html', {'user':user,'tallyList':tallyList,'price_lists':price_lists,'total_prices':total_prices,'date_form':date_form})
 
 @login_required
+@user_valid
 def delete(request, pk):
-    if request.user.is_valid_user:
-        tally = Tally.objects.get(pk=pk)
-        tally.delete()
-        return redirect('user_dashboard')
-    return redirect(settings.LOGIN_URL)
+    tally = Tally.objects.get(pk=pk)
+    tally.delete()
+    pre_url= request.GET.get('from', None)
+    if pre_url:
+        return redirect(pre_url)
+    return redirect(settings.DASHBOARD_URL)
