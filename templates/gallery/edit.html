@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+</html>
+  <head>
+      <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Edit Image</title>
+      <!-- css -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% include 'include/bootstrap.html' %}
+    <style>
+    .custom-file-control:before{
+      content: "瀏覽";
+      background-color: #0ABAB5;
+      color:white;
+    }
+    </style>
+    <!-- js -->
+    <script src="{% static 'js/no-prevpage.js' %}"></script>
+    <script src="{% static 'js/textarea.js' %}"></script>
+  </head>
+  {% include 'include/nav.html' with name=user.name title='gallery_' %}
+  <body class="d-flex flex-column">
+    <main class="d-flex flex-column" style="width: 90%;margin: 0vh 5%;">
+        {% include 'gallery/image_form.html' %}
+        <div style="text-align: center">
+          <img src="{{ image.img.url }}" style="height: 90%;">
+        </div>
+    </main>
+    <script>
+      //改變上傳檔案欄位
+      $('.custom-file-input').on('change',function(){
+          var fileName = $(this).val().split('/').pop().split('\\').pop();
+          $(this).next('.custom-file-control').html(fileName);
+      })
+    </script>
+  </body>
+</html>
