@@ -2,34 +2,30 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.db.models import Sum
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import DateForm, TallyForm
 from .models import Tally
+from users.decorators import user_valid
 
 @login_required
+@user_valid
 def display(request):
     """Display all records.
     """
-    if request.user.is_valid_user:
-        user = request.user
-        tally_list = request.user.tally_set.all()
-        choices = Tally.PAY_CHOICES
+    tally_list = request.user.tally_set.all()
+    choices = Tally.PAY_CHOICES
 
-        return render(request, 'tally/display.html', locals())
-    return redirect(settings.DASHBOARD_URL)
+    return render(request, 'tally/display.html', locals())
 
-#display detail
 @login_required
-def detail(request, pk) :
-	user = request.user
-	tally = Tally.objects.get(pk=pk)
-	if request.method == 'POST' :
-		if 'delete' in request.POST :
-			t = Tally.objects.get(pk=pk)
-			t.delete()
-			return HttpResponseRedirect('/tally/')
-	return render(request, 'tally/detail.html', locals())
+@user_valid
+def detail(request, pk):
+    """Display record details.
+    """
+    tally = Tally.objects.get(pk=pk)
+
+    return render(request, 'tally/detail.html', locals())
 
 #create account
 
@@ -100,9 +96,11 @@ def summary(request) :
 	return render(request, 'tally/summary.html', {'user':user,'tallyList':tallyList,'price_lists':price_lists,'total_prices':total_prices,'date_form':date_form})
 
 @login_required
+@user_valid
 def delete(request, pk):
-    if request.user.is_valid_user:
-        tally = Tally.objects.get(pk=pk)
-        tally.delete()
-        return redirect('user_dashboard')
-    return redirect(settings.LOGIN_URL)
+    tally = Tally.objects.get(pk=pk)
+    tally.delete()
+    pre_url= request.GET.get('from', None)
+    if pre_url:
+        return redirect(pre_url)
+    return redirect(settings.DASHBOARD_URL)
