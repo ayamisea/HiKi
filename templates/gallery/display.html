@@ -142,14 +142,21 @@
 			相簿<hr>
 	    </header>
     	<div id="container">
-	        {% for media in mediaList %}
+	        {% for media in media_list %}
 	        <div class="block m-2">
-	            {% if media.type == "img" %}
-	            <img src="{{mediaURL}}{{media.img}}" onerror="this.style.display='none'" class="img-thumbnail" width="300" height="300"> {% endif %} {% if media.type == "video" %}
-	            <video class="img-thumbnail" width="300" height="300">
+
+	            <img src="{% if media.diaryimage %} {{ media.diaryimage.img.url }}
+                        {% elif media.image %} {{ media.image.img.url }} {% endif %}"
+                   onerror="this.style.display='none'"
+                   class="img-thumbnail" width="300" height="300">
+
+	            <!--img src="" onerror="this.style.display='none'" class="img-thumbnail" width="300" height="300"-->
+
+              {% if media.type == "video" %}
+	            <!--video class="img-thumbnail" width="300" height="300">
 	                <source src="{{mediaURL}}{{media.img}}" type="video/mp4">
 	                <source src="{{mediaURL}}{{media.img}}" type="video/ogg"> Your browser does not support HTML5 video.
-	            </video>
+	            </video-->
 	            {% endif %}
 	            <div>
 	                <button type="button" data-url="{{mediaURL}}{{media.img}}" data-title='{{media.title}}' data-desc='{{media.description}}' data-type='{{media.type}}' class="photoID" data-toggle="modal" data-target="#Modal" style="display:none;"></button>
