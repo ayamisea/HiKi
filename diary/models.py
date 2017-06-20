@@ -49,10 +49,10 @@ class Diary(models.Model):
     )
     tags = models.ManyToManyField(Tag, blank=True,)
     weather_meantemp = models.CharField(
-        max_length=50, editable=False,
+        max_length=50, default='null', editable=False,
         blank=True, null=True,)
     weather_cond = models.CharField(
-        max_length=50, editable=False,
+        max_length=50, default='null', editable=False,
         blank=True, null=True,)
 
     def __str__(self):
@@ -64,7 +64,7 @@ class Diary(models.Model):
             urlGeo = 'http://api.wunderground.com/api/' + weatherAPI + '/geolookup/q/' \
             + str(self.location.latitude) + ',' + str(self.location.longitude) + '.json'
         except:
-            return None
+            return
         http = urllib3.PoolManager()
         g = http.request('GET', urlGeo)
         zmw = json.loads(g.data.decode('utf-8'))['location']['l']
