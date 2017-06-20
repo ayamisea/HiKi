@@ -28,11 +28,10 @@ def new(request):
             image = form.save()
             image.user = request.user
             image.save()
-        return redirect('user_dashboard')
+        return redirect('gallery')
     else:
         form = ImageForm()
-        image_list = Image.objects.all()
-    return render(request, 'gallery/new.html',locals())
+    return render(request, 'gallery/new.html', locals())
 
 # upload diary media
 @login_required
