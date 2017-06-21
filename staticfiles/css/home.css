@@ -1,5 +1,5 @@
 html,body {
-	width:100vw;
+	width:100%;
 	height:100vh;
 }
 .tilted {
@@ -28,55 +28,9 @@ html,body {
     background-repeat: no-repeat;
 }
 
-.vert {
-	width:100%;
-	height:100vh;
-	display: flex;
-	flex-direction: column;
-}
-
-.vert > .carousel-inner {
-	width:100vw;
-	height:100%;
-}
-
-.vert .carousel-item-next.carousel-item-left,
-.vert .carousel-item-prev.carousel-item-right {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-}
-
-.vert .carousel-item-next,
-.vert .active.carousel-item-right {
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100% 0);
-}
-
-.vert .carousel-item-prev,
-.vert .active.carousel-item-left {
--webkit-transform: translate3d(0,-100%, 0);
-    transform: translate3d(0,-100%, 0);
-}
-
-.vert > .up,.vert > .down{
-	width:100%;
-	height:3%;
-	z-index:100;
-}
-
-.vert > .up {
-	position: fixed;
-	top:0;
-}
-
-.vert > .down {
-	position: fixed;
-	bottom:0;
-}
-
 #index, #services, #developers {
 	width:100%;
-	height:100%;
+	height:100vh;
 }
 
 #search {
