@@ -29,7 +29,7 @@ LOCALE_PATHS = (
 SECRET_KEY = '592(4z8f7z34z%u0*w-c!(#z00^77iggjtryffr1m6k%c-3sh1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 ALLOWED_HOSTS = ['127.0.0.1', 'hiki-diary.herokuapp.com']
