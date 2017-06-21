@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hiki Diary\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-21 14:21+0800\n"
+"POT-Creation-Date: 2017-06-21 21:22+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Hane <hane0131@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,61 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: diary/views.py:77
+#: diary/forms.py:14
+msgid "標題（必填）"
+msgstr "標題（必填）"
+
+#: diary/forms.py:21
+msgid "2017-06-01（必填）"
+msgstr "2017-06-01（必填）"
+
+#: diary/models.py:30
+msgid "Private"
+msgstr "私人"
+
+#: diary/models.py:31
+msgid "Public"
+msgstr "公開"
+
+#: diary/views.py:74
+#, fuzzy
+#| msgid "Login successfully."
+msgid "Post a diary successfully!"
+msgstr "成功登入。"
+
+#: diary/views.py:75
+msgid "Let's upload some images for this diary."
+msgstr "為日記上傳一些圖片。"
+
+#: diary/views.py:79
 msgid "Input format error"
 msgstr "輸入格式錯誤"
 
-#: hiki_diary/settings.py:129
+#: diary/views.py:131
+msgid "Complete editing this diary!"
+msgstr "已完成日記編輯！"
+
+#: diary/views.py:132
+msgid "Do you want to add/delete images for this diary?"
+msgstr "您想要為日記新增/刪除圖片嗎？"
+
+#: diary/views.py:149 gallery/views.py:75 tally/views.py:82
+msgid "Successfully delete "
+msgstr "成功刪除 "
+
+#: gallery/views.py:38
+msgid "Upload a image successfully!"
+msgstr "成功上傳一張影像。"
+
+#: gallery/views.py:59
+msgid "Complete editing this image!"
+msgstr "已完成影像編輯！"
+
+#: hiki_diary/settings.py:130
 msgid "English(US)"
 msgstr "English(US)"
 
-#: hiki_diary/settings.py:130
+#: hiki_diary/settings.py:131
 msgid "Traditional Chinese"
 msgstr "繁體中文"
 
@@ -33,7 +79,7 @@ msgstr "繁體中文"
 msgid "The cash field cannot be zero or negative"
 msgstr "價錢欄位不能為零或負數"
 
-#: tally/models.py:14 tally/templatetags/sort.py:8 tally/views.py:94
+#: tally/models.py:14 tally/templatetags/sort.py:8 tally/views.py:109
 msgid "Income"
 msgstr "收入"
 
@@ -49,7 +95,7 @@ msgstr "零用錢"
 msgid "Other incomes"
 msgstr "其他收入"
 
-#: tally/models.py:19 tally/templatetags/sort.py:10 tally/views.py:96
+#: tally/models.py:19 tally/templatetags/sort.py:10 tally/views.py:111
 msgid "Expense"
 msgstr "支出"
 
@@ -68,6 +114,14 @@ msgstr "交通"
 #: tally/models.py:23
 msgid "Other expenses"
 msgstr "其他支出"
+
+#: tally/views.py:47
+msgid "Add a record successfully!"
+msgstr "成功新增一筆紀錄。"
+
+#: tally/views.py:68
+msgid "Complete editing this record!"
+msgstr "已完成紀錄編輯！"
 
 #: users/admin.py:17
 msgid "Personal info"
@@ -102,7 +156,9 @@ msgid ""
 "Raw passwords are not stored, so there is no way to see this user's "
 "password, but you can change the password using <a href=\"password/\">this "
 "form</a>."
-msgstr "原始的密碼並沒有儲存在資料庫中，因此沒有任何方法能看到本使用者的密碼，但你可以透過<a href=\"password/\">本表單</a>更改密碼。"
+msgstr ""
+"原始的密碼並沒有儲存在資料庫中，因此沒有任何方法能看到本使用者的密碼，但你可"
+"以透過<a href=\"password/\">本表單</a>更改密碼。"
 
 #: users/forms.py:122 users/models.py:100
 msgid "Email Address"
@@ -159,7 +215,7 @@ msgstr "註冊日期"
 msgid "users"
 msgstr "使用者"
 
-#: users/models.py:206
+#: users/models.py:204
 #, python-brace-format
 msgid "Verify your email address on {host}"
 msgstr "於 {host} 認證你的信箱地址"

@@ -16,9 +16,8 @@ def index(request):
 def search(request):
     diary_list = Diary.objects.filter(post_type__exact='Public')
 
-    if 'q' in request.GET:
-        q = request.GET['q']
-
+    if request.method == 'GET':
+        q = request.GET.get('q', '')
         if q:
             tokenizer = RegexpTokenizer(r'\w+')
             query_list = [query for query in tokenizer.tokenize(q.lower())]
@@ -35,6 +34,6 @@ def search(request):
                 # If page is out of range (e.g. 9999), deliver last page of results.
                 contacts = paginator.page(paginator.num_pages)
 
-        return render(request, 'search.html', locals())
-    else:
-        return render(request,'search.html', {'contacts': diary_list[:10]})
+            return render(request, 'search.html', locals())
+
+    return render(request,'search.html', {'contacts': diary_list[:10]})
