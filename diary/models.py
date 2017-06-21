@@ -49,10 +49,10 @@ class Diary(models.Model):
     )
     tags = models.ManyToManyField(Tag, blank=True,)
     weather_meantemp = models.CharField(
-        max_length=50, default='null', editable=False,
+        max_length=50, default='', editable=False,
         blank=True, null=True,)
     weather_cond = models.CharField(
-        max_length=50, default='null', editable=False,
+        max_length=50, default='', editable=False,
         blank=True, null=True,)
 
     def __str__(self):
