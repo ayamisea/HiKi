@@ -15,7 +15,7 @@
 function init() {
   var obj = document.getElementById("tag");
   {% for tag in editTag %}
-    addTag(obj,'{{tag.tagName}}')
+    addTag(obj,'{{ tag.name }}')
   {% endfor %}
 };
 window.addEventListener('load', init, false);
