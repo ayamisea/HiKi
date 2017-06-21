@@ -135,14 +135,13 @@
                     <tbody>
                         {% for d in diary %}
                         <tr>
-                            <td class="edit">
+                            <td class="edit" style="width:90%;">
                                 <a href="{% url 'diary_edit' pk=d.pk %}"></a>
                                 {{ d }}
                             </td>
-                            <td>
-                                <a class="delete" href="{% url 'diary_delete' pk=d.pk %}">
-                                	<img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
-                                </a>
+                            <td class="delete" style="width:10%;">
+                                <a href="{% url 'diary_delete' pk=d.pk %}"></a>
+                            	<img class="detail-icon-img ml-auto" src="{% static 'icon/delete.png' %}">
                             </td>
                         </tr>
                         {% endfor %}
@@ -159,11 +158,11 @@
                     <tbody>
                         {% for t in tally %}
                         <tr>
-                            <td class="edit">
+                            <td class="edit" style="width:90%;">
                                 <a href="{% url 'tally_edit' pk=t.pk %}"></a>
                                 {{ t }}
                             </td>
-                            <td>
+                            <td class="delete" style="width:10%;">
                                 <a href="{% url 'tally_delete' pk=t.pk %}"></a>
                                 <img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
                             </td>
