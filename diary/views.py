@@ -145,11 +145,13 @@ def edit(request, pk):
 
 @login_required
 def delete(request, pk):
-    if request.user.is_valid_user:
-        diary = Diary.objects.get(pk=pk)
-        diary.delete()
-        return redirect('user_dashboard')
-    return redirect(settings.LOGIN_URL)
+    diary = get_object_or_404(request.user.diary_set, pk=pk)
+    diary.delete()
+
+    pre_url = request.GET.get('from', None)
+    if pre_url:
+        return redirect(pre_url)
+    return redirect(settings.DASHBOARD_URL)
 
 #display all map
 @login_required
