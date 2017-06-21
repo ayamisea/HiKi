@@ -95,7 +95,7 @@ def summary(request):
         date_form = DateForm(request.POST)
 
         if date_form.is_valid():
-            date = date_form.save()
+            date = date_form
 
             tally_list = request.user.tally_set.filter(
                 user=request.user,
@@ -109,13 +109,13 @@ def summary(request):
     categories.update({k: 0 for k, v in dict(Tally.PAY_CHOICES)[_('Expense')]})
 
     for tally in tally_list:
-        categories[tally.pay_type] += int(tally.cash)
+        categories[_(tally.pay_type)] += int(tally.cash)
 
     income = list(categories.items())[:length]
     expense = list(categories.items())[length:]
     price_lists = [income, expense]
     total_prices = [sum([i[1] for i in income]), sum([i[1] for i in expense])]
-
+    print(total_prices)
     return render(request, 'tally/summary.html', {
         'tallyList': tally_list,
         'price_lists': price_lists,

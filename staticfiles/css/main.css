@@ -58,5 +58,5 @@ hr {
 }
 
 a:hover {
-  	color: white !important;
+  	color: inherit !important;
 }

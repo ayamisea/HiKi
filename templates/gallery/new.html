@@ -23,7 +23,7 @@
 	<body class="d-flex flex-column">
 		<main class="d-flex flex-column" style="width: 90%;margin: 0vh 5%;">
         {% include 'gallery/image-form.html' with d=d %}
-        {% if d %}
+
 			  <div class="d-flex flex-column p-2">
 		    	<iframe id="frame" class="form-control" src="{% url 'diary_image_show' %}?d={{ d }}" scrolling="no">
 		    		{% include 'gallery/diary-image-show.html' %}
@@ -32,7 +32,7 @@
 		    <div class="d-flex align-self-center">
 		    	<a class="btn custom-button" href="{% url 'user_dashboard' %}">{% trans "確認" %}</a>
 		    </div>
-        {% endif %}
+
 		</main>
 		<script>
 			//改變上傳檔案欄位

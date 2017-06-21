@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% trans 'Summary' %}</title>
     <!-- css -->
-    {% include 'include/bootstrap.html' %} {% include 'include/jquery-ui.html' %}
+    {% include 'include/bootstrap.html' %}
+    {% include 'include/jquery-ui.html' %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <style>
     	html,body {
@@ -64,7 +65,7 @@
 		<!-- 日期表單 -->
 	    <form id="DateForm" method="post" class="d-flex flex-column flex-sm-row align-items-sm-center h5">{% csrf_token %}
     		<div class="d-flex justify-content-center justify-content-sm-start align-items-center mr-0 mr-sm-1 mb-2 mb-sm-0" style="display: inline-block;">
-    			{% blocktrans %}從&nbsp;{{ date_form.dateA }}&nbsp;至&nbsp;{{ date_form.dateB }}{% endblocktrans %}
+    			{% blocktrans %}從{% endblocktrans %}&nbsp;{{ date_form.dateA }}&nbsp;{% blocktrans %}至{% endblocktrans %}&nbsp;{{ date_form.dateB }}
     		</div>
     		<input type="submit" name="send" value="統計" class="btn custom-button" style="width:80px;"/>
 	    </form>
@@ -113,7 +114,7 @@
 								<tr><th>{{ pl.0 }}</th><th>${{ pl.1 }}</th></tr>
 					        	{% endfor %}
 					        	<tr class="table-info">
-					        		<th>{% trans '總支出' %}</th><th>{{ total_prices|first }}</th>
+					        		<th>{% trans '總支出' %}</th><th>{{ total_prices|last }}</th>
 					        	</tr>
 				        	</tbody>
 				        </table>

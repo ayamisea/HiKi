@@ -49,21 +49,21 @@
                 <a class="nav-link" href="{% url 'user_dashboard' %}">{% trans "DashBoard" %}</a>
             </li>
             <li id="diary_" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/">{% trans "日記" %}</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-labelledby="diary_" href="/">{% trans "日記" %}</a>
                 <ul class="dropdown-menu">
 					<li><a class="dropdown-item" href="{% url 'diary' %}">{% trans "日記" %}</a></li>
 					<li><a class="dropdown-item" href="{% url 'map' %}">{% trans "旅遊足跡" %}</a></li>
 					<li><a class="dropdown-item" href="{% url 'tag' %}">{% trans "標籤" %}</a></li>
 				</ul>
             </li>
-            <li id="photo_" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{% url 'gallery' %}">{% trans "相簿" %}</a>
+            <li id="gallery_" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-labelledby="gallery_" href="{% url 'gallery' %}">{% trans "相簿" %}</a>
                 <ul class="dropdown-menu">
 					<li><a class="dropdown-item" href="{% url 'gallery' %}">{% trans "相簿" %}</a></li>
 				</ul>
             </li>
             <li id="tally_" class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{% url 'tally' %}">{% trans "帳本" %}</a>
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-labelledby="tally_" href="{% url 'tally' %}">{% trans "帳本" %}</a>
                 <ul class="dropdown-menu">
 					<li><a class="dropdown-item" href="{% url 'tally' %}">{% trans "帳本" %}</a></li>
 					<li><a class="dropdown-item" href="{% url 'tally_summary' %}">{% trans "統計" %}</a></li>
@@ -77,6 +77,12 @@
 		                </span> {{ name }} <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right pt-0 mt-0" aria-labelledby="navbarDropdownMenuLink">
+                	<li>
+                        <a class="dropdown-item" href="{% url 'user_profile_update' %}">{% trans "變更個人檔案" %}</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'password_change' %}">{% trans "變更密碼" %}</a>
+                    </li>
                     <li>
                         <a class="dropdown-item" href="{% url 'logout' %}">{% trans "登出" %}</a>
                     </li>

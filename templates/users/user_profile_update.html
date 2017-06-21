@@ -1,11 +1,18 @@
 {% load i18n %}
-{% if messages %}
-  {% for message in messages %}
-    <div {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</div>
-  {% endfor %}
-{% endif %}
-<form method="post">
-  {% csrf_token %}
-  {{ form }}
-  <button type="submit">{% "Save changes" %}</button>
-</form>
+{% load static %}
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% trans "User Profile" %}</title>
+    {% include 'include/bootstrap.html' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+</head>
+
+{% include 'include/message.html' %}
+<body class="d-flex justify-content-center align-items-center custom-button" style="height:100vh;">
+	<h1>施工中</h1>
+</body>
+
+</html>
