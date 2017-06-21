@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
 
 <head>
@@ -8,13 +8,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
     <script>
-    //鍵盤控制
     $(function() {
         $(document).bind('keyup', function(e) {
             if (e.keyCode == 39 || e.keyCode == 40) {
-                $('#vc').carousel('next');
+                $('.carousel').carousel('next');
             } else if (e.keyCode == 37 || e.keyCode == 38) {
-                $('#vc').carousel('prev');
+                $('.carousel').carousel('prev');
             }
         });
     });
@@ -27,55 +26,55 @@
             <!-- 搜尋列與登入/註冊 -->
             <div id="index" class="carousel-item active tilted">
                 <div class="d-flex flex-column w-100">
-                    <div id="search" class="p-2 mt-3">
-                        <form method="post" action="{% url 'search' %}">{% csrf_token %}
+                    <div id="search" class="p-2">
+                        <form method="get" action="{% url 'search' %}">{% csrf_token %}
                             <div class="input-group">
                                 <input name="q" type="text" class="form-control" placeholder="Search for..." style="width:25%;min-width: 200px;">
                                 <span class="input-group-btn">
-								<button class="btn custom-button" type="submit">Search!</button>
+								<button class="btn custom-button" type="submit">{% trans "Search!" %}</button>
 							</span>
                             </div>
                         </form>
                     </div>
                     <div id="intro" class="p-2">
                         <h1 class="shadow"><strong>Hiki</strong></h1>
-                        <h3 class="shadow">Enjoy your perfect day.</h3>
-                        <a href="{% url 'accounts' %}" class="btn custom-button nohover">Start Now</a>
+                        <h3 class="shadow">{% trans "Enjoy your perfect day." %}</h3>
+                        <a href="{% url 'accounts' %}" class="btn custom-button nohover">{% trans "Start Now" %}</a>
                     </div>
                 </div>
             </div>
             <!-- Services Section -->
             <div id="services" class="carousel-item text-center">
                 <div class="d-flex flex-column w-100 p-1 align-self-center">
-                    <h1 class="shadow">SERVICES</h1>
+                    <h1 class="shadow">{% trans "SERVICES" %}</h1>
                     <div class="d-flex flex-wrap justify-content-center mt-5">
                         <div class="p-2 m-1 m-sm-5">
-                            <a href="{% url 'diary' %}" class="shadow">
-                                <span class="fa fa-book fa-3x mb-2" aria-hidden="true"></span>
-                                <h4>DIARY</h4>
-                                <p>記錄生活點滴</p>
+                        	<a href="{% url 'diary' %}" class="shadow">
+	                            <span class="fa fa-book fa-3x mb-2" aria-hidden="true"></span>
+	                            <h4>{% trans "DIARY" %}</h4>
+	                            <p>{% trans "記錄生活點滴" %}</p>
                             </a>
                         </div>
                         <div class="p-2 m-1 m-sm-5">
-                            <a href="{% url 'gallery' %}" class="shadow">
-                                <span class="fa fa-image fa-3x mb-2" aria-hidden="true" style="color:white;"></span>
-                                <h4>ALBUM</h4>
-                                <p>上傳生活照片</p>
-                            </a>
+                        	<a href="{% url 'gallery' %}" class="shadow">
+	                            <span class="fa fa-image fa-3x mb-2" aria-hidden="true" style="color:white;"></span>
+	                            <h4>{% trans "ALBUM" %}</h4>
+	                            <p>{% trans "上傳生活照片" %}</p>
+	                        </a>
                         </div>
                         <div class="p-2 m-1 m-sm-5">
                             <a href="{% url 'tally' %}" class="shadow">
-                                <span class="fa fa-dollar fa-3x mb-2" aria-hidden="true" style="color:white;"></span>
-                                <h4>ACCOUNT</h4>
-                                <p>紀錄生活開銷</p>
-                            </a>
+	                            <span class="fa fa-dollar fa-3x mb-2" aria-hidden="true" style="color:white;"></span>
+	                            <h4>{% trans "ACCOUNT" %}</h4>
+	                            <p>{% trans "紀錄生活開銷" %}</p>
+	                        </a>
                         </div>
                         <div class="p-2 m-1 m-sm-5">
-                            <a href="{% url 'search' %}" class="shadow">
-                                <span class="fa fa-search fa-3x mb-2" aria-hidden="true" style="color:white;"></span>
-                                <h4>SEARCH</h4>
-                                <p>找到話題</p>
-                            </a>
+                        	<a href="{% url 'search' %}" class="shadow">
+	                            <span class="fa fa-search fa-3x mb-2" aria-hidden="true" style="color:white;"></span>
+	                            <h4>{% trans "SEARCH" %}</h4>
+	                            <p>{% trans "找到話題" %}</p>
+	                        </a>
                         </div>
                     </div>
                 </div>
@@ -83,12 +82,12 @@
             <!-- Developers Section -->
             <div id="developers" class="carousel-item dev-tilted">
                 <div class="d-flex flex-column w-100 p-2 align-self-center shadow">
-                    <h1 class="text-center">Developers</h1>
+                    <h1 class="text-center">{% trans "Developers" %}</h1>
                     <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center mt-5">
-                        <div class="h3 mr-0 mr-sm-5">Hane</div>
-                        <div class="h3 mr-0 mr-sm-5">Irene</div>
-                        <div class="h3 mr-0 mr-sm-5">Issa</div>
-                        <div class="h3 mr-0">Kevin</div>
+                        <div class="h3 mr-0 mr-sm-5">{% trans "Hane" %}</div>
+                        <div class="h3 mr-0 mr-sm-5">{% trans "Irene" %}</div>
+                        <div class="h3 mr-0 mr-sm-5">{% trans "Issa" %}</div>
+                        <div class="h3 mr-0">{% trans "Kevin" %}</div>
                     </div>
                     <div class="d-flex flex-column  justify-content-center align-items-center mt-5 thumbnail">
                         <a href="https://github.com/IreneLai/HiKi">
@@ -99,12 +98,6 @@
                 </div>
             </div>
         </div>
-        <a class="up" href="#vc" role="button" data-slide="prev">
-            <span class="sr-only">↑</span>
-        </a>
-        <a class="down" href="#vc" role="button" data-slide="next">
-            <span class="sr-only">↓</span>
-        </a>
     </div>
 </body>
 

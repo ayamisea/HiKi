@@ -1,9 +1,9 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
 
 <head>
     <meta charset="UTF-8">
-    <title>Display</title>
+    <title>{% trans "Diary" %}</title>
     <!-- Bootstrap -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% include 'include/bootstrap.html' %}
@@ -25,7 +25,7 @@
 {% include 'include/nav.html' with name=user.name title='diary_' %}
 <body>
     <main class="d-flex flex-column justify-content-center align-items-center">
-        <header class="h3 w-100 p-3">日記列表
+        <header class="h3 w-100 p-3">{% trans "所有日記" %}
             <hr>
         </header>
         {% include 'diary/diary-list.html' with diary_list=diary_list %}

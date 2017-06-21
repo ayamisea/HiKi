@@ -1,10 +1,10 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DashBoard</title>
+    <title>{% trans "DashBoard" %}</title>
     <!-- css -->
     {% include 'include/bootstrap.html' %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
@@ -18,14 +18,18 @@
         padding-right: 5%;
     }
     
-    li > a:link , li > a:hover , li > a:visited {
-	  	color: #0ABAB5 !important;
-	}
+    .navbar {
+        background-color: #53cecb !important;
+        letter-spacing: 2px !important;
+    }
+    
+    .navbar-nav li a {
+        color: white !important;
+    }
     
     .new {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        flex-direction: row;
         align-items: center;
     }
     
@@ -33,7 +37,9 @@
         padding-top: 2px;
     }
     
-    .edit:hover,.delete:hover,.new:hover {
+    .edit:hover,
+    .delete:hover,
+    .new:hover {
         cursor: pointer;
     }
     
@@ -82,50 +88,49 @@
 
     $(function() {
         $('.delete').click(function() {
-            if (confirm('是否刪除？')) {
+            if (confirm('{% trans "是否刪除？" %}')) {
                 window.location.href = $(this).find('a').attr('href');
             }
         });
     });
     </script>
 </head>
-{% include 'include/message.html' %} {% include 'include/nav.html' with name=user.name title='dashboard_'%}
+{% include 'include/message.html' %} {% include 'include/nav.html' with name=user.name title="user_dashboard_" %}
 
 <body>
     <!-- 新增功能的導覽列 -->
-    <header class="d-flex flex-column p-3">
-        <div class="d-flex justify-content-around">
+    <header class="d-flex flex-column">
+        <div class="d-flex justify-content-around p-3">
 	        <!-- 新增日記 -->
-	        <li class="nav-item new">
+	        <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
 	            <img class="form-icon mr-1" src="{% static 'icon/new_diary.png' %}">
-	            <a class="nav-link" href="{% url 'diary_new' %}">新增日記</a>
+	            <a class="nav-link" href="{% url 'diary_new' %}">{% trans "New Diary" %}</a>
 	        </li>
 	        <!-- 新增相片 -->
-	        <li class="nav-item new">
+	        <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
 	            <img class="form-icon mr-1" src="{% static 'icon/new_photo.png' %}">
-	            <a class="nav-link" href="{% url 'gallery_new' %}">新增相片</a>
+	            <a class="nav-link" href="#">{% trans "New Image" %}</a>
 	        </li>
 	        <!-- 新增帳目 -->
-	        <li class="nav-item new">
+	        <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
 	            <img class="form-icon mr-1" src="{% static 'icon/new_tally.png' %}">
-	            <a class="nav-link" href="{% url 'tally_new' %}">新增帳目</a>
+	            <a class="nav-link" href="{% url 'tally_new' %}">{% trans "New Tally" %}</a>
 	        </li>
-        </div>
-        <hr>
+	    </div>
+	    <hr>
     </header>
-    
     <!-- 清單列 -->
-    <main class="mt-3">
+    <main class="mt-4">
         <!-- 各功能分頁 -->
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#Diary" role="tab">Diary</a>
+                <a class="nav-link active" data-toggle="tab" href="#Diary" role="tab">{% trans "Diary" %}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#Gallery" role="tab">Gallery</a>
+                <a class="nav-link" data-toggle="tab" href="#Gallery" role="tab">{% trans "Gallery" %}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#Tally" role="tab">Tally</a>
+                <a class="nav-link" data-toggle="tab" href="#Tally" role="tab">{% trans "Tally" %}</a>
             </li>
         </ul>
         <!-- 各功能欄位 -->
@@ -135,13 +140,13 @@
                     <tbody>
                         {% for d in diary %}
                         <tr>
-                            <td class="edit" style="width:90%;">
+                            <td class="edit">
                                 <a href="{% url 'diary_edit' pk=d.pk %}"></a>
                                 {{ d }}
                             </td>
-                            <td class="delete" style="width:10%;">
+                            <td>
                                 <a href="{% url 'diary_delete' pk=d.pk %}"></a>
-                            	<img class="detail-icon-img ml-auto" src="{% static 'icon/delete.png' %}">
+                                <img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
                             </td>
                         </tr>
                         {% endfor %}
@@ -149,7 +154,7 @@
                 </table>
             </div>
             <div class="tab-pane" id="Gallery" role="tabpanel">
-                <h1>Gallery</h1>
+                <h1>{% trans "Gallery" %}</h1>
                 <ul>
                 </ul>
             </div>
@@ -158,11 +163,11 @@
                     <tbody>
                         {% for t in tally %}
                         <tr>
-                            <td class="edit" style="width:90%;">
+                            <td class="edit">
                                 <a href="{% url 'tally_edit' pk=t.pk %}"></a>
                                 {{ t }}
                             </td>
-                            <td class="delete" style="width:10%;">
+                            <td>
                                 <a href="{% url 'tally_delete' pk=t.pk %}"></a>
                                 <img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
                             </td>

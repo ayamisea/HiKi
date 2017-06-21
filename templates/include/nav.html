@@ -1,89 +1,93 @@
-﻿{% load static %}
+﻿{% load static i18n %}
+<style>
+#stuff {
+    display: block;
+    content: " ";
+    height: 30px;
+    visibility: hidden;
+}
 
-	<style>
+.navbar,
+.dropdown-menu {
+    background-color: #53cecb !important;
+    letter-spacing: 2px !important;
+}
 
-	#stuff {
-		display: block;
-	  	content: " ";
-	  	height: 30px;
-	  	visibility: hidden;
-	}
+#navbar-collapse-1 {
+    padding-top: 3px;
+}
 
-	.navbar , .dropdown-menu {
-		background-color: #53cecb !important;
-		letter-spacing: 2px !important;
-	}
+.navbar-brand,
+.navbar-nav > li > a,
+.dropdown-menu > li > a {
+    color: white !important;
+}
 
-	#navbar-collapse-1{
-		padding-top: 3px !important;;
-	}
+.navbar-nav > li:hover,
+.dropdown-menu > li > a:hover {
+    color: #0ABAB5 !important;
+    background-color: rgba(255, 255, 255, .5) !important;
+}
 
-	.navbar-brand , .navbar-nav > li > a , .dropdown-menu > li > a {
-	    color:white !important;
-	}
-
-	.navbar-nav > li:hover , .dropdown-menu > li > a:hover {
-		color:#0ABAB5 !important;
-		background-color: rgba(255,255,255,.5) !important;
-	}
-
-	.active > a , .dropdown-item.active, .dropdown-item:active {
-		color:#0ABAB5 !important;
-		background-color: rgba(255,255,255,.5) !important;
-	}
-
-	</style>
-
-	<!-- Nav -->
-	<div id="stuff" class="mb-3"></div>
-	<nav class="navbar navbar-toggleable-sm navbar-light fixed-top w-100">
-		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-collapse-1" aria-controls="navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation" >
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<a class="navbar-brand" href="{% url 'index' %}">HIKI</a>
-	    <div id="navbar-collapse-1" class="collapse navbar-collapse">
-			<ul class="navbar-nav">
-				<li id="dashboard_" class="nav-item">
-					<a class="nav-link" href="{% url 'user_dashboard' %}">控制台</a>
-				</li>
-				<li id="diary_" class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false">日記</a>
-					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="{% url 'diary' %}">日記本</a></li>
-						<li><a class="dropdown-item" href="{% url 'map' %}">旅遊足跡</a></li>
-						<li><a class="dropdown-item" href="tag">標籤</a></li>
-					</ul>
-				</li>
-		      	<li id="gallery_" class="nav-item dropdown">
-		      		<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false">相片</a>
-					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="{% url 'gallery' %}">相本</a></li>
-					</ul>
-		      	</li>
-		      	<li id="tally_" class="nav-item dropdown">
-		      		<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false">帳務</a>
-					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="{% url 'tally' %}">帳本</a></li>
-						<li><a class="dropdown-item" href="{% url 'tally_summary' %}">帳目統計</a></li>
-					</ul>
-		      	</li>
-		    </ul>
-		    <ul class="navbar-nav ml-auto">
-		      	<li class="nav-item dropdown">
-		            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
-		                <span class="glyphicon glyphicon-user">
-		                </span> {{name}} <span class="caret"></span>
-		            </a>
-			        <ul class="dropdown-menu dropdown-menu-right pt-0 mt-0" aria-labelledby="navbarDropdownMenuLink">
-			            <li><a class="dropdown-item" href="{% url 'logout' %}">登出</a></li>
-			        </ul>
-	    		</li>
-	    	</ul>
-	    </div>
-	</nav>
-	<!-- 確認標籤位置 -->
-	<script>
-		var title = "{{title}}";
-		document.getElementById(title).classList.add("active");
-	</script>
-	{% include 'include/message.html' %}
+.active > a,
+.dropdown-item.active,
+.dropdown-item:active {
+    color: #0ABAB5 !important;
+    background-color: rgba(255, 255, 255, .5) !important;
+}
+</style>
+<!-- Nav -->
+<div id="stuff" class="mb-3"></div>
+<nav class="navbar navbar-toggleable-md navbar-light fixed-top w-100">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-collapse-1" aria-controls="navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a href="/" class="navbar-brand">HIKI</a>
+    <div id="navbar-collapse-1" class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+            <li id="user_dashboard_" class="nav-item">
+                <a class="nav-link" href="{% url 'user_dashboard' %}">{% trans "DashBoard" %}</a>
+            </li>
+            <li id="diary_" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/">{% trans "日記" %}</a>
+                <ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="{% url 'diary' %}">{% trans "日記" %}</a></li>
+					<li><a class="dropdown-item" href="{% url 'map' %}">{% trans "旅遊足跡" %}</a></li>
+					<li><a class="dropdown-item" href="{% url 'tag' %}">{% trans "標籤" %}</a></li>
+				</ul>
+            </li>
+            <li id="photo_" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{% url 'gallery' %}">{% trans "相簿" %}</a>
+                <ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="{% url 'gallery' %}">{% trans "相簿" %}</a></li>
+				</ul>
+            </li>
+            <li id="tally_" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="{% url 'tally' %}">{% trans "帳本" %}</a>
+                <ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="{% url 'tally' %}">{% trans "帳本" %}</a></li>
+					<li><a class="dropdown-item" href="{% url 'tally_summary' %}">{% trans "統計" %}</a></li>
+				</ul>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLink" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon-user">
+		                </span> {{ name }} <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right pt-0 mt-0" aria-labelledby="navbarDropdownMenuLink">
+                    <li>
+                        <a class="dropdown-item" href="{% url 'logout' %}">{% trans "登出" %}</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- 確認標籤位置 -->
+<script>
+var title = "{{title}}";
+document.getElementById(title).classList.add("active");
+</script>
+{% include 'include/message.html' %}
