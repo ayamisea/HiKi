@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect
 from django.http import Http404
+from django.utils.translation import ugettext
 
 from users.decorators import user_valid
 
@@ -32,17 +33,18 @@ def detail(request, pk):
 
     return render(request, 'diary/detail.html', locals())
 
-
-#create new diary
 @login_required
-def newdiary(request):
+def new(request):
+    """Create new diary.
+    """
     user = request.user
     MapAPI=settings.GOOGLE_MAPS_API_KEY
+
     if request.method == 'POST':
         #map
-        getlat = Decimal(request.POST.get('lat'))
-        getlon = Decimal(request.POST.get('lon'))
-        getloc = request.POST.get('loc')
+        lat = Decimal(request.POST.get('lat'))
+        lon = Decimal(request.POST.get('lon'))
+        loc = request.POST.get('loc')
         #tags
         tags = request.POST.getlist('tags')
         #diary
@@ -50,27 +52,33 @@ def newdiary(request):
         if diary_form.is_valid():
             #diary
             new_diary = diary_form.save(commit=True)
+
             #tags
             taglist = tags[0].split(',')
             for tag in taglist:
-                if not tag == '':
-                    if not Tag.objects.filter(tagName=tag).exists():
-                        Tag.objects.create(tagName=tag)
-                    new_diary.tags.add(Tag.objects.get(tagName=tag))
+                if tag:
+                    if not Tag.objects.filter(name=tag).exists():
+                        t = Tag.objects.create(name=tag)
+                    else:
+                        t = Tag.objects.get(name=tag)
+                    new_diary.tags.add(t)
+
             #map
-            if not Map.objects.filter(location=getloc).exists():
-                Map.objects.create(location=getloc, latitude=getlat, longitude=getlon)
-            new_diary.location=Map.objects.get(location=getloc)
-            new_diary.getWeather()
-            new_diary.userID = request.user
+            if not Map.objects.filter(location=loc).exists():
+                m = Map.objects.create(location=loc, latitude=lat, longitude=lon)
+            else:
+                m = Map.objects.get(location=loc)
+            new_diary.location = m
+            new_diary.user = request.user
             new_diary.save()
-            request.session['diaryID'] = new_diary.id
-            return HttpResponseRedirect('/diary/media-upload/')
+
+            return redirect('/gallery/new/?d=' + new_diary.pk)
         else:
-            messages.warning(request, '格式輸入錯誤')
+            messages.warning(request, ugettext('Input format error')) # '格式輸入錯誤'
     else:
         diary_form = DiaryForm()
-    return render(request, 'diary/newdiary.html', locals())
+
+    return render(request, 'diary/new.html', locals())
 
 @login_required
 def delete(request, pk):
