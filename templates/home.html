@@ -8,12 +8,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
     <script>
+    //鍵盤控制
     $(function() {
         $(document).bind('keyup', function(e) {
             if (e.keyCode == 39 || e.keyCode == 40) {
-                $('.carousel').carousel('next');
+                $('#vc').carousel('next');
             } else if (e.keyCode == 37 || e.keyCode == 38) {
-                $('.carousel').carousel('prev');
+                $('#vc').carousel('prev');
             }
         });
     });
@@ -26,7 +27,7 @@
             <!-- 搜尋列與登入/註冊 -->
             <div id="index" class="carousel-item active tilted">
                 <div class="d-flex flex-column w-100">
-                    <div id="search" class="p-2">
+                    <div id="search" class="p-2 mt-3">
                         <form method="post" action="{% url 'search' %}">{% csrf_token %}
                             <div class="input-group">
                                 <input name="q" type="text" class="form-control" placeholder="Search for..." style="width:25%;min-width: 200px;">
@@ -49,32 +50,32 @@
                     <h1 class="shadow">SERVICES</h1>
                     <div class="d-flex flex-wrap justify-content-center mt-5">
                         <div class="p-2 m-1 m-sm-5">
-                        	<a href="{% url 'diary' %}" class="shadow">
-	                            <span class="fa fa-book fa-3x mb-2" aria-hidden="true"></span>
-	                            <h4>DIARY</h4>
-	                            <p>記錄生活點滴</p>
+                            <a href="{% url 'diary' %}" class="shadow">
+                                <span class="fa fa-book fa-3x mb-2" aria-hidden="true"></span>
+                                <h4>DIARY</h4>
+                                <p>記錄生活點滴</p>
                             </a>
                         </div>
                         <div class="p-2 m-1 m-sm-5">
-                        	<a href="{% url 'gallery' %}" class="shadow">
-	                            <span class="fa fa-image fa-3x mb-2" aria-hidden="true" style="color:white;"></span>
-	                            <h4>ALBUM</h4>
-	                            <p>上傳生活照片</p>
-	                        </a>
+                            <a href="{% url 'gallery' %}" class="shadow">
+                                <span class="fa fa-image fa-3x mb-2" aria-hidden="true" style="color:white;"></span>
+                                <h4>ALBUM</h4>
+                                <p>上傳生活照片</p>
+                            </a>
                         </div>
                         <div class="p-2 m-1 m-sm-5">
                             <a href="{% url 'tally' %}" class="shadow">
-	                            <span class="fa fa-dollar fa-3x mb-2" aria-hidden="true" style="color:white;"></span>
-	                            <h4>ACCOUNT</h4>
-	                            <p>紀錄生活開銷</p>
-	                        </a>
+                                <span class="fa fa-dollar fa-3x mb-2" aria-hidden="true" style="color:white;"></span>
+                                <h4>ACCOUNT</h4>
+                                <p>紀錄生活開銷</p>
+                            </a>
                         </div>
                         <div class="p-2 m-1 m-sm-5">
-                        	<a href="{% url 'search' %}" class="shadow">
-	                            <span class="fa fa-search fa-3x mb-2" aria-hidden="true" style="color:white;"></span>
-	                            <h4>SEARCH</h4>
-	                            <p>找到話題</p>
-	                        </a>
+                            <a href="{% url 'search' %}" class="shadow">
+                                <span class="fa fa-search fa-3x mb-2" aria-hidden="true" style="color:white;"></span>
+                                <h4>SEARCH</h4>
+                                <p>找到話題</p>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -98,6 +99,12 @@
                 </div>
             </div>
         </div>
+        <a class="up" href="#vc" role="button" data-slide="prev">
+            <span class="sr-only">↑</span>
+        </a>
+        <a class="down" href="#vc" role="button" data-slide="next">
+            <span class="sr-only">↓</span>
+        </a>
     </div>
 </body>
 

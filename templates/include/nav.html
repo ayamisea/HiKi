@@ -15,7 +15,7 @@
 	}
 
 	#navbar-collapse-1{
-		padding-top: 3px;
+		padding-top: 3px !important;;
 	}
 
 	.navbar-brand , .navbar-nav > li > a , .dropdown-menu > li > a {
@@ -36,33 +36,36 @@
 
 	<!-- Nav -->
 	<div id="stuff" class="mb-3"></div>
-	<nav class="navbar navbar-toggleable-md navbar-light fixed-top w-100">
+	<nav class="navbar navbar-toggleable-sm navbar-light fixed-top w-100">
 		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-collapse-1" aria-controls="navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation" >
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="navbar-brand">HIKI</div>
+		<a class="navbar-brand" href="{% url 'index' %}">HIKI</a>
 	    <div id="navbar-collapse-1" class="collapse navbar-collapse">
 			<ul class="navbar-nav">
-				<li id="home_" class="nav-item">
-					<a class="nav-link" href="{% url 'index' %}">首頁</a>
+				<li id="dashboard_" class="nav-item">
+					<a class="nav-link" href="{% url 'user_dashboard' %}">控制台</a>
 				</li>
-				<li id="diary_" class="nav-item">
-					<a class="nav-link" href="{% url 'diary' %}">日記</a>
+				<li id="diary_" class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false">日記</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="{% url 'diary' %}">日記本</a></li>
+						<li><a class="dropdown-item" href="{% url 'map' %}">旅遊足跡</a></li>
+						<li><a class="dropdown-item" href="tag">標籤</a></li>
+					</ul>
 				</li>
-		      	<li id="photo_" class="nav-item">
-		      		<a class="nav-link" href="{% url 'gallery' %}">相簿</a>
+		      	<li id="gallery_" class="nav-item dropdown">
+		      		<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false">相片</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="{% url 'gallery' %}">相本</a></li>
+					</ul>
 		      	</li>
-		      	<li id="map_" class="nav-item">
-		      		<a class="nav-link" href="{% url 'map' %}">旅遊足跡</a>
-		      	</li>
-		      	<li id="tag_" class="nav-item">
-		      		<a class="nav-link" href="{% url 'tag' %}">標籤</a>
-		      	</li>
-		      	<li id="tally_" class="nav-item">
-		      		<a class="nav-link" href="{% url 'tally' %}">帳本</a>
-		      	</li>
-		      	<li id="tally_summary_" class="nav-item">
-		      		<a class="nav-link" href="{% url 'tally' %}">統計</a>
+		      	<li id="tally_" class="nav-item dropdown">
+		      		<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="/" role="button" aria-haspopup="true" aria-expanded="false">帳務</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="{% url 'tally' %}">帳本</a></li>
+						<li><a class="dropdown-item" href="{% url 'tally_summary' %}">帳目統計</a></li>
+					</ul>
 		      	</li>
 		    </ul>
 		    <ul class="navbar-nav ml-auto">
@@ -72,16 +75,7 @@
 		                </span> {{name}} <span class="caret"></span>
 		            </a>
 			        <ul class="dropdown-menu dropdown-menu-right pt-0 mt-0" aria-labelledby="navbarDropdownMenuLink">
-			            <li>
-			            	<a id="user_dashboard_" class="dropdown-item" href="{% url 'user_dashboard' %}">
-			            		Dash Board
-			            	</a>
-			            </li>
-			            <li>
-			            	<a class="dropdown-item" href="{% url 'logout' %}">
-			            		登出
-			            	</a>
-			            </li>
+			            <li><a class="dropdown-item" href="{% url 'logout' %}">登出</a></li>
 			        </ul>
 	    		</li>
 	    	</ul>

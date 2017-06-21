@@ -9,37 +9,34 @@
     {% include 'include/bootstrap.html' %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <style>
-    main, header {
+    main,
+    header {
         min-width: 320px;
         max-width: 960px;
         margin: 0 auto;
         padding-left: 5%;
         padding-right: 5%;
     }
-
-    .navbar {
-        background-color: #53cecb !important;
-        letter-spacing: 2px !important;
-    }
-
-    .navbar-nav li a {
-    	color:white !important;
-    }
-
+    
+    li > a:link , li > a:hover , li > a:visited {
+	  	color: #0ABAB5 !important;
+	}
+    
     .new {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        justify-content: center;
         align-items: center;
     }
-
+    
     .edit {
         padding-top: 2px;
     }
-
-    .edit:hover, .delete:hover, .new:hover {
+    
+    .edit:hover,.delete:hover,.new:hover {
         cursor: pointer;
     }
-
+    
     .new:hover > .form-icon {
         -webkit-transform: rotate(-15deg);
         -moz-transform: rotate(-15deg);
@@ -52,20 +49,20 @@
         -o-transition-duration: .5s;
         transition-duration: .5s;
     }
-
+    
     .table {
         border: 0px !important;
         margin-top: 20px;
     }
-
+    
     .table > tbody > tr > td {
         vertical-align: middle;
     }
-
+    
     .table-striped>tbody>tr:nth-child(odd)>td {
         background-color: rgba(10, 186, 181, 0.1);
     }
-
+    
     .table-striped .table-hover > tbody > tr:hover > td {
         background-color: rgba(10, 186, 181, 0.1);
     }
@@ -92,43 +89,35 @@
     });
     </script>
 </head>
+{% include 'include/message.html' %} {% include 'include/nav.html' with name=user.name title='dashboard_'%}
 
-{% include 'include/message.html' %}
 <body>
     <!-- 新增功能的導覽列 -->
-    <nav class="navbar navbar-toggleable-sm navbar-inverse custom-button mb-5">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNewContent" aria-controls="navbarNewContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-brand" href="#">DashBoard</div>
-        <div class="collapse navbar-collapse" id="navbarNewContent">
-            <ul class="navbar-nav">
-	            <!-- 回首頁 -->
-            	<li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
-                	<a class="nav-link" href="{% url 'index' %}">回首頁</a>
-                </li>
-	            <!-- 新增日記 -->
-	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
-	                <img class="form-icon mr-1" src="{% static 'icon/new_diary.png' %}">
-	                <a class="nav-link" href="{% url 'diary_new' %}">New Diary</a>
-	            </li>
-	            <!-- 新增相片 -->
-	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
-	                <img class="form-icon mr-1" src="{% static 'icon/new_photo.png' %}">
-	                <a class="nav-link" href="#">New Image</a>
-	            </li>
-	            <!-- 新增帳目 -->
-	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
-	                <img class="form-icon mr-1" src="{% static 'icon/new_tally.png' %}">
-	                <a class="nav-link" href="{% url 'tally_new' %}">New Tally</a>
-	            </li>
-	        </ul>
+    <header class="d-flex flex-column p-3">
+        <div class="d-flex justify-content-around">
+	        <!-- 新增日記 -->
+	        <li class="nav-item new">
+	            <img class="form-icon mr-1" src="{% static 'icon/new_diary.png' %}">
+	            <a class="nav-link" href="{% url 'diary_new' %}">新增日記</a>
+	        </li>
+	        <!-- 新增相片 -->
+	        <li class="nav-item new">
+	            <img class="form-icon mr-1" src="{% static 'icon/new_photo.png' %}">
+	            <a class="nav-link" href="{% url 'gallery_new' %}">新增相片</a>
+	        </li>
+	        <!-- 新增帳目 -->
+	        <li class="nav-item new">
+	            <img class="form-icon mr-1" src="{% static 'icon/new_tally.png' %}">
+	            <a class="nav-link" href="{% url 'tally_new' %}">新增帳目</a>
+	        </li>
         </div>
-    </nav>
+        <hr>
+    </header>
+    
     <!-- 清單列 -->
-    <main>
+    <main class="mt-3">
         <!-- 各功能分頁 -->
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#Diary" role="tab">Diary</a>
             </li>
@@ -144,18 +133,19 @@
             <div class="tab-pane active" id="Diary" role="tabpanel">
                 <table class="table table-hover table-striped">
                     <tbody>
-                    {% for d in diary %}
-	                    <tr>
-	                        <td class="edit">
-	                            <a href="{% url 'diary_edit' pk=d.pk %}"></a>
-	                            {{ d }}
-	                        </td>
-	                        <td>
-	                            <a href="{% url 'diary_delete' pk=d.pk %}"></a>
-	                            <img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
-	                        </td>
-	                    </tr>
-                    {% endfor %}
+                        {% for d in diary %}
+                        <tr>
+                            <td class="edit">
+                                <a href="{% url 'diary_edit' pk=d.pk %}"></a>
+                                {{ d }}
+                            </td>
+                            <td>
+                                <a class="delete" href="{% url 'diary_delete' pk=d.pk %}">
+                                	<img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -167,18 +157,18 @@
             <div class="tab-pane" id="Tally" role="tabpanel">
                 <table class="table table-hover table-striped">
                     <tbody>
-                    {% for t in tally %}
-	                    <tr>
-	                        <td class="edit">
-	                            <a href="{% url 'tally_edit' pk=t.pk %}"></a>
-	                            {{ t }}
-	                        </td>
-	                        <td>
-	                            <a href="{% url 'tally_delete' pk=t.pk %}"></a>
-	                            <img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
-	                        </td>
-	                    </tr>
-                    {% endfor %}
+                        {% for t in tally %}
+                        <tr>
+                            <td class="edit">
+                                <a href="{% url 'tally_edit' pk=t.pk %}"></a>
+                                {{ t }}
+                            </td>
+                            <td>
+                                <a href="{% url 'tally_delete' pk=t.pk %}"></a>
+                                <img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
+                            </td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

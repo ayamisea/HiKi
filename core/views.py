@@ -24,8 +24,10 @@ def search(request):
             query_list = [query for query in tokenizer.tokenize(q.lower())]
             result = [d for d in diary_list if d.searchFilter(query_list)]
 
-            page = request.GET.get('p', None)
+        if request.GET.get('p'):
+            page = request.GET['p']
             paginator = Paginator(result, 10)
+
             try:
                 contacts = paginator.page(page)
             except PageNotAnInteger:
