@@ -24,7 +24,7 @@ def search(request):
             result = [d for d in diary_list if d.searchFilter(query_list)]
 
             page = request.GET.get('p', None)
-            paginator = Paginator(result, 10)
+            paginator = Paginator(result, 1)
             try:
                 contacts = paginator.page(page)
             except PageNotAnInteger:

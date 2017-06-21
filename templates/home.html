@@ -27,9 +27,10 @@
             <div id="index" class="carousel-item active tilted">
                 <div class="d-flex flex-column w-100">
                     <div id="search" class="p-2">
-                        <form method="post" action="{% url 'search' %}">{% csrf_token %}
+                        <form method="get" action="{% url 'search' %}">{% csrf_token %}
                             <div class="input-group">
-                                <input name="q" type="text" class="form-control" placeholder="Search for..." style="width:25%;min-width: 200px;">
+                                <input type="text" class="form-control" name="q" placeholder="請輸入搜尋文字"
+                                {% if q %} value="{{ q }}" {% endif %}>
                                 <span class="input-group-btn">
 								<button class="btn custom-button" type="submit">Search!</button>
 							</span>
