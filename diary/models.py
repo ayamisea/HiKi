@@ -40,7 +40,7 @@ class Diary(models.Model):
         default=AUTH_CHOICES[0][0],
     )
     title = models.CharField(max_length=30,)
-    date = models.DateField(default=timezone.now,)
+    date = models.DateField()
     content = models.TextField(max_length=1000,)
     location = models.ForeignKey(
         Map,
