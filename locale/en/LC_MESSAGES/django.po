@@ -1,31 +1,77 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+# Hane <hane0131@gmail.com>, 2017.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Hiki Diary\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-21 14:21+0800\n"
+"POT-Creation-Date: 2017-06-21 21:23+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Hane <hane0131@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: en-US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: diary/views.py:77
+#: diary/forms.py:14
+msgid "標題（必填）"
+msgstr "Title (required)"
+
+#: diary/forms.py:21
+msgid "2017-06-01（必填）"
+msgstr "2017-06-01 (required)"
+
+#: diary/models.py:30
+msgid "Private"
+msgstr "Private"
+
+#: diary/models.py:31
+msgid "Public"
+msgstr "Public"
+
+#: diary/views.py:74
+msgid "Post a diary successfully!"
+msgstr "Post a diary successfully!"
+
+#: diary/views.py:75
+msgid "Let's upload some images for this diary."
+msgstr "Let's upload some images for this diary."
+
+#: diary/views.py:79
 msgid "Input format error"
 msgstr "Input format error"
 
-#: hiki_diary/settings.py:129
+#: diary/views.py:131
+msgid "Complete editing this diary!"
+msgstr "Complete editing this diary!"
+
+#: diary/views.py:132
+msgid "Do you want to add/delete images for this diary?"
+msgstr "Do you want to add/delete images for this diary?"
+
+#: diary/views.py:149 gallery/views.py:75 tally/views.py:82
+msgid "Successfully delete "
+msgstr "Successfully delete "
+
+#: gallery/views.py:38
+#, fuzzy
+#| msgid "Login successfully."
+msgid "Upload a image successfully!"
+msgstr "Upload a image successfully!"
+
+#: gallery/views.py:59
+msgid "Complete editing this image!"
+msgstr "Complete editing this image!"
+
+#: hiki_diary/settings.py:130
 msgid "English(US)"
 msgstr "English(US)"
 
-#: hiki_diary/settings.py:130
+#: hiki_diary/settings.py:131
 msgid "Traditional Chinese"
 msgstr "Traditional Chinese"
 
@@ -33,7 +79,7 @@ msgstr "Traditional Chinese"
 msgid "The cash field cannot be zero or negative"
 msgstr "The cash field cannot be zero or negative"
 
-#: tally/models.py:14 tally/templatetags/sort.py:8 tally/views.py:94
+#: tally/models.py:14 tally/templatetags/sort.py:8 tally/views.py:109
 msgid "Income"
 msgstr "Income"
 
@@ -49,7 +95,7 @@ msgstr "Pocket Money"
 msgid "Other incomes"
 msgstr "Other incomes"
 
-#: tally/models.py:19 tally/templatetags/sort.py:10 tally/views.py:96
+#: tally/models.py:19 tally/templatetags/sort.py:10 tally/views.py:111
 msgid "Expense"
 msgstr "Expense"
 
@@ -68,6 +114,14 @@ msgstr "Traffic"
 #: tally/models.py:23
 msgid "Other expenses"
 msgstr "Other expenses"
+
+#: tally/views.py:47
+msgid "Add a record successfully!"
+msgstr "Add a record successfully!"
+
+#: tally/views.py:68
+msgid "Complete editing this record!"
+msgstr "Complete editing this record!"
 
 #: users/admin.py:17
 msgid "Personal info"
@@ -102,7 +156,10 @@ msgid ""
 "Raw passwords are not stored, so there is no way to see this user's "
 "password, but you can change the password using <a href=\"password/\">this "
 "form</a>."
-msgstr "Raw passwords are not stored, so there is no way to see this user's password, but you can change the password using <a href=\"password/\">this form</a>."
+msgstr ""
+"Raw passwords are not stored, so there is no way to see this user's "
+"password, but you can change the password using <a href=\"password/\">this "
+"form</a>."
 
 #: users/forms.py:122 users/models.py:100
 msgid "Email Address"
@@ -123,7 +180,8 @@ msgstr "Biography"
 #: users/models.py:115
 msgid ""
 "Describe yourself with 500 characters or less. There will be no formatting."
-msgstr "Describe yourself with 500 characters or less. There will be no formatting."
+msgstr ""
+"Describe yourself with 500 characters or less. There will be no formatting."
 
 #: users/models.py:120
 msgid "verified"
@@ -149,7 +207,9 @@ msgstr "active"
 msgid ""
 "Designates whether this user should be treated as active. Unselect this "
 "instead of deleting accounts."
-msgstr "Designates whether this user should be treated as active. Unselect this instead of deleting accounts."
+msgstr ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
 
 #: users/models.py:142
 msgid "date joined"
@@ -159,7 +219,7 @@ msgstr "date joined"
 msgid "users"
 msgstr "users"
 
-#: users/models.py:206
+#: users/models.py:204
 #, python-brace-format
 msgid "Verify your email address on {host}"
 msgstr "Verify your email address on {host}"
@@ -177,7 +237,9 @@ msgstr "A verification email has been sent to {email}"
 msgid ""
 "You need to confirm your email.             Check your mailbox for "
 "verification link."
-msgstr "You need to confirm your email.             Check your mailbox for verification link."
+msgstr ""
+"You need to confirm your email.             Check your mailbox for "
+"verification link."
 
 #: users/views.py:117
 msgid "Your profile has been updated successfully."
