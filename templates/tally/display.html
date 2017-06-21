@@ -1,11 +1,11 @@
-{% load static %}
+{% load static i18n %}
 {% load sort %}
 <!DOCTYPE html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tally Display</title>
+    <title>{% trans "Tally" %}</title>
     <!-- css -->
     {% include 'include/bootstrap.html' %}
     <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
@@ -57,7 +57,7 @@
 </head>
 {% include 'include/nav.html' with name=user.name title='tally_' %}
 <body>
-    <header class="h3 p-3">帳本列表<hr></header>
+    <header class="h3 p-3">{% trans "帳本" %}<hr></header>
     <main class="d-flex flex-column" >
         <!-- 以日期為分類將同一天的帳目列在一起 -->
         {% with tally_list|datelist as dates %}

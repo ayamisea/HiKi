@@ -34,10 +34,8 @@ msgid "Public"
 msgstr "公開"
 
 #: diary/views.py:74
-#, fuzzy
-#| msgid "Login successfully."
 msgid "Post a diary successfully!"
-msgstr "成功登入。"
+msgstr "成功發佈一篇日記！"
 
 #: diary/views.py:75
 msgid "Let's upload some images for this diary."
