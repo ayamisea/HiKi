@@ -1,7 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 
-<head>
+  <head>
     <meta charset="UTF-8">
     <title>Display Tag</title>
     <!-- Bootstrap -->
@@ -9,32 +9,32 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     {% include 'include/bootstrap.html' %}
 
-	<style>
-	html body {
-	    background-color: #FFF;
-	    margin: 0;
-	    width:100%;
-	}
+  <style>
+  html body {
+      background-color: #FFF;
+      margin: 0;
+      width:100%;
+  }
 
-	main {
-	    max-width: 960px;
-	    margin: 0 auto;
-	}
+  main {
+      max-width: 960px;
+      margin: 0 auto;
+  }
 
-	.tag {
-	    white-space: nowrap;
-	    overflow: hidden;
-	    text-overflow: ellipsis;
-	    max-width: 80%;
-	    border-radius: 10px;
-	    margin: 0.25em;
-	}
+  .tag {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 80%;
+      border-radius: 10px;
+      margin: 0.25em;
+  }
 
-	</style>
-</head>
+  </style>
+  </head>
 
-{% include 'include/nav.html' with name=user.name title='tag_' %}
-<body>
+  {% include 'include/nav.html' with name=user.name title='tag_' %}
+  <body>
     <main class="d-flex flex-column justify-content-center align-items-center">
         <!-- tag 選單 -->
         <div class="dropdown w-100 p-3">
@@ -42,21 +42,20 @@
             <div class="container">
                 <div id="tags" class="show">
                     <span>
-                        <form action="" method="post">{% csrf_token %}
-                        {% for tag in tagList %}
-                            <button type="submit" class="tag btn ml-1 custom-button" style="display:inline;" name="tag" value={{tag.id}} >
-                               <span class="badge">{{tag.diary_set.all|length}}</span> {{tag.name}}
-                    		</button>
-                        {% endfor %}
-                        </form>
+                      {% for tag in tagList %}
+                          <button type="submit" class="tag btn ml-1 custom-button" style="display:inline;" name="tag" value={{ tag.id }} >
+                              <span class="badge">{{ tag.diary_set.all|length }}</span> {{ tag.name }}
+                          </button>
+                      {% endfor %}
                     </span>
                 </div>
             </div>
             <hr>
         </div>
         <!--日記-->
-        {% include 'diary/display.html' with diaryList=tagDiary %}
+        {{ tagList.1 }}
+        {% include 'diary/display.html' with diary_list=tagList.1.diary_set.all %}
     </main>
-</body>
+  </body>
 
 </html>

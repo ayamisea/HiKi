@@ -6,7 +6,6 @@ from diary.models import Diary
 
 User = get_user_model()
 
-
 def image_upload_to(instance, filename):
     return 'image/{date}-{filename}'.format(
         date=str(instance.pub_date.date()),

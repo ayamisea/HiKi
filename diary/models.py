@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 
 import urllib3
 
@@ -26,8 +27,8 @@ class Tag(models.Model):
 
 class Diary(models.Model):
     AUTH_CHOICES = (
-        ('Private', '私密'),
-        ('Public', '公開'),
+        ('Private', _('Private')),
+        ('Public', _('Public')),
     )
     user = models.ForeignKey(
         User,
@@ -49,10 +50,10 @@ class Diary(models.Model):
     )
     tags = models.ManyToManyField(Tag, blank=True,)
     weather_meantemp = models.CharField(
-        max_length=50, default='null', editable=False,
+        max_length=50, default='', editable=False,
         blank=True, null=True,)
     weather_cond = models.CharField(
-        max_length=50, default='null', editable=False,
+        max_length=50, default='', editable=False,
         blank=True, null=True,)
 
     def __str__(self):
@@ -89,7 +90,7 @@ class Diary(models.Model):
         self.getWeather()
         super(Diary, self).save(*args, **kwargs)
 
-    def searchFilter(self,slst):
+    def searchFilter(self, slst):
         slst = [x.lower() for x in slst]
         if any(e in self.title.lower() for e in slst):
             return True
