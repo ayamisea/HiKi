@@ -1,8 +1,6 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import Sum
-from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import ugettext, ugettext_lazy as _
 
@@ -26,7 +24,7 @@ def display(request):
 def detail(request, pk):
     """Display record details.
     """
-    tally = get_object_or_404(Tally, pk=pk)
+    tally = get_object_or_404(request.user.tally_set, pk=pk)
     choices = Tally.PAY_CHOICES
 
     return render(request, 'tally/detail.html', locals())
@@ -57,7 +55,7 @@ def new(request):
 def edit(request, pk):
     """Edit record.
     """
-    tally = get_object_or_404(Tally, pk=pk)
+    tally = get_object_or_404(request.user.tally_set, pk=pk)
 
     if request.method == "POST":
         tally_form = TallyForm(request.POST, instance=tally)
@@ -76,7 +74,7 @@ def edit(request, pk):
 @login_required
 @user_valid
 def delete(request, pk):
-    tally = Tally.objects.get(pk=pk)
+    tally = get_object_or_404(request.user.tally_set, pk=pk)
     tally.delete()
 
     messages.success(request, ugettext("Successfully delete " + str(tally)))
@@ -99,7 +97,7 @@ def summary(request):
         if date_form.is_valid():
             date = date_form.save()
 
-            tally_list = Tally.objects.filter(
+            tally_list = request.user.tally_set.filter(
                 user=request.user,
                 date__range=[date_form.cleaned_data['dateA'], date_form.cleaned_data['dateB']])
 

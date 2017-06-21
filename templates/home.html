@@ -29,7 +29,7 @@
                     <div id="search" class="p-2">
                         <form method="get" action="{% url 'search' %}">{% csrf_token %}
                             <div class="input-group">
-                                <input name="q" type="text" class="form-control" placeholder="Search for..." style="width:25%;min-width: 200px;">
+                                <input name="q" type="text" class="form-control" placeholder="{% trans 'Search for...' %}" style="width:25%;min-width: 200px;">
                                 <span class="input-group-btn">
 								<button class="btn custom-button" type="submit">{% trans "Search!" %}</button>
 							</span>
