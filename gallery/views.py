@@ -22,6 +22,7 @@ def display(request):
 def new(request):
     """Upload new image.
     """
+    d = request.GET.get('d', None)
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
 
@@ -29,8 +30,7 @@ def new(request):
             image = form.save()
             image.user = request.user
 
-            if request.GET.get('d'):
-                d = request.GET['d']
+            if d:
                 diary = get_object_or_404(request.user.diary_set, pk=d)
                 image.diary = diary
 
@@ -38,7 +38,7 @@ def new(request):
 
             messages.success(request, ugettext("Upload a image successfully!"))
 
-        return redirect(request.get_full_path()) if request.GET.get('d') else redirect('gallery')
+        return redirect(request.get_full_path()) if d else redirect('gallery')
     else:
         form = ImageForm()
 
