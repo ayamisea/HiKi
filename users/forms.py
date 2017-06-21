@@ -114,6 +114,9 @@ class UserProfileUpdateForm(forms.ModelForm):
         fields = (
             'name', 'bio', 'photo',
         )
+        widget = {
+            'photo': forms.FileInput(),
+        }
 
 class PasswordResetForm(forms.Form):
     email = forms.EmailField(label=_("Email Address"), max_length=254)
