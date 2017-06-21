@@ -1,0 +1,215 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Hane <hane0131@gmail.com>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Hiki Diary\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-21 14:21+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Hane <hane0131@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: zh-Hant\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: diary/views.py:77
+msgid "Input format error"
+msgstr "輸入格式錯誤"
+
+#: hiki_diary/settings.py:129
+msgid "English(US)"
+msgstr "English(US)"
+
+#: hiki_diary/settings.py:130
+msgid "Traditional Chinese"
+msgstr "繁體中文"
+
+#: tally/forms.py:48
+msgid "The cash field cannot be zero or negative"
+msgstr "價錢欄位不能為零或負數"
+
+#: tally/models.py:14 tally/templatetags/sort.py:8 tally/views.py:94
+msgid "Income"
+msgstr "收入"
+
+#: tally/models.py:15
+msgid "Part-time Job"
+msgstr "打工"
+
+#: tally/models.py:16
+msgid "Pocket Money"
+msgstr "零用錢"
+
+#: tally/models.py:17
+msgid "Other incomes"
+msgstr "其他收入"
+
+#: tally/models.py:19 tally/templatetags/sort.py:10 tally/views.py:96
+msgid "Expense"
+msgstr "支出"
+
+#: tally/models.py:20
+msgid "Food"
+msgstr "食物"
+
+#: tally/models.py:21
+msgid "Entertainment"
+msgstr "娛樂"
+
+#: tally/models.py:22
+msgid "Traffic"
+msgstr "交通"
+
+#: tally/models.py:23
+msgid "Other expenses"
+msgstr "其他支出"
+
+#: users/admin.py:17
+msgid "Personal info"
+msgstr "個人資訊"
+
+#: users/admin.py:25
+msgid "Permissions"
+msgstr "權限"
+
+#: users/admin.py:34
+msgid "Important dates"
+msgstr "重要日期"
+
+#: users/forms.py:20 users/views.py:53
+msgid "A user with that email already exists."
+msgstr "此電子郵件信箱已被使用"
+
+#: users/forms.py:21 users/views.py:69
+msgid "The two password fields didn't match."
+msgstr "密碼欄位內容不一致"
+
+#: users/forms.py:24 users/forms.py:84
+msgid "Password"
+msgstr "密碼"
+
+#: users/forms.py:28
+msgid "Password confirmation"
+msgstr "確認密碼"
+
+#: users/forms.py:85
+msgid ""
+"Raw passwords are not stored, so there is no way to see this user's "
+"password, but you can change the password using <a href=\"password/\">this "
+"form</a>."
+msgstr "原始的密碼並沒有儲存在資料庫中，因此沒有任何方法能看到本使用者的密碼，但你可以透過<a href=\"password/\">本表單</a>更改密碼。"
+
+#: users/forms.py:122 users/models.py:100
+msgid "Email Address"
+msgstr "電子郵件信箱"
+
+#: users/models.py:104
+msgid "User Name"
+msgstr "使用者名稱"
+
+#: users/models.py:108
+msgid "Photo"
+msgstr "照片"
+
+#: users/models.py:112
+msgid "Biography"
+msgstr "自我介紹"
+
+#: users/models.py:115
+msgid ""
+"Describe yourself with 500 characters or less. There will be no formatting."
+msgstr "請在500字以內介紹自己，沒有格式限制。"
+
+#: users/models.py:120
+msgid "verified"
+msgstr "已認證"
+
+#: users/models.py:123
+msgid "Designates whether the user has verified email ownership."
+msgstr "指定本使用者是否已完成 email 認證。"
+
+#: users/models.py:127
+msgid "staff status"
+msgstr "管理員權限"
+
+#: users/models.py:130
+msgid "Designates whether the user can log into this admin site."
+msgstr "指定本使用者是否可以登入本管理站台。"
+
+#: users/models.py:134
+msgid "active"
+msgstr "有效"
+
+#: users/models.py:137
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr "指定本使用者是否被視為 active。取消勾選此選項而非刪除帳號。"
+
+#: users/models.py:142
+msgid "date joined"
+msgstr "註冊日期"
+
+#: users/models.py:151 users/models.py:152
+msgid "users"
+msgstr "使用者"
+
+#: users/models.py:206
+#, python-brace-format
+msgid "Verify your email address on {host}"
+msgstr "於 {host} 認證你的信箱地址"
+
+#: users/views.py:84
+msgid "Email verification successful."
+msgstr "信箱認證成功。"
+
+#: users/views.py:94
+#, python-brace-format
+msgid "A verification email has been sent to {email}"
+msgstr "一封認證信件已寄至 {email}"
+
+#: users/views.py:105
+msgid ""
+"You need to confirm your email.             Check your mailbox for "
+"verification link."
+msgstr "您必須認證您的電子郵件             請至信箱查看認證連結。"
+
+#: users/views.py:117
+msgid "Your profile has been updated successfully."
+msgstr "您的資料已成功更新。"
+
+#: users/views.py:150
+msgid "The account does not exist or the password is incorrect."
+msgstr "帳號不存在或密碼錯誤。"
+
+#: users/views.py:152
+msgid "Login successfully."
+msgstr "成功登入。"
+
+#: users/views.py:163
+msgid "Your password was successfully updated!"
+msgstr "您的密碼已成功更新！"
+
+#: users/views.py:181
+msgid "User does not exist."
+msgstr "使用者不存在。"
+
+#: users/views.py:198
+#, python-brace-format
+msgid "Reset your password on {host}"
+msgstr "於 {host} 重設您的密碼"
+
+#: users/views.py:206
+msgid "Successfully send new password to the given email."
+msgstr "成功寄出新的密碼。"
+
+#~ msgid "Email address"
+#~ msgstr "電子郵件地址"
+
+#~ msgid "user"
+#~ msgstr "使用者"

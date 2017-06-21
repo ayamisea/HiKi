@@ -12,9 +12,15 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
+from django.conf import locale
+from django.utils.translation import ugettext_lazy as _
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -39,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'core',
     'users',
     'diary',
     'gallery',
@@ -49,6 +56,7 @@ INSTALLED_APPS = [
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -117,6 +125,23 @@ DASHBOARD_URL = 'user_dashboard'
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
 LANGUAGE_CODE = 'zh-hant'
+LANGUAGES = (
+    ('en-us', _('English(US)')),
+    ('zh-hant', _('Traditional Chinese')),
+)
+
+FALLBACK_LANGUAGE_PREFIXES = {
+    'zh': 'zh-hant',
+    'en': 'en-us',
+}
+
+if 'en-us' not in locale.LANG_INFO:
+    locale.LANG_INFO['en-us'] = {
+        'bidi': False,
+        'code': 'en-us',
+        'name': 'English (US)',
+        'name_local': 'English (US)',
+    }
 
 TIME_ZONE = 'Asia/Taipei'
 
