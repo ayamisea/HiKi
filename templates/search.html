@@ -1,7 +1,7 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
 <html>
-<title>Search</title>
+<title>{% trans "Search" %}</title>
 <meta charset="UTF-8">
 
 <!--bootstrap-->
@@ -44,13 +44,13 @@ $(function(){
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="{% url 'index' %}">回首頁</a></li>
+        <li><a href="{% url 'index' %}">{% trans "回首頁" %}</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}
         <li><a href="{% url 'accounts' %}"><span class="glyphicon glyphicon-log-in"></span>{{ user.name }}</a></li>
         {% else %}
-        <li><a href="{% url 'accounts' %}"><span class="glyphicon glyphicon-user"></span>Login</a></li>
+        <li><a href="{% url 'accounts' %}"><span class="glyphicon glyphicon-user"></span>{% trans "Login" %}</a></li>
         {% endif %}
       </ul>
     </div>
@@ -63,7 +63,7 @@ $(function(){
             <form method="get" action="{% url 'search' %}" >
                 <div id="imaginary_container">
                     <div class="input-group stylish-input-group">
-                        <input type="text" class="form-control" name="q" placeholder="請輸入搜尋文字"
+                        <input type="text" class="form-control" name="q" placeholder="{% trans '請輸入搜尋文字' %}"
                         {% if q %} value="{{ q }}" {% endif %}>
                         <span class="input-group-addon">
                             <button type="submit">
@@ -78,16 +78,16 @@ $(function(){
     <br>
     <!--搜尋結果-->
     <hgroup class="mb20">
-        <h1>搜尋結果</h1>
-        <h2 class="lead">找到<strong class="text-danger">{{ result|length }}</strong>筆資料
+        <h1>{% trans "搜尋結果" %}</h1>
+        <h2 class="lead">{% trans "找到<strong class="text-danger">{{ result|length }}</strong>筆資料" %}
         </h2>
         {% ifnotequal result|length 0 %}
-            符合關鍵字：
+            {% trans "符合關鍵字：" %}
                 {% for q in query_list %}
                     {{ q }}
                 {% endfor %}
         {% else %}
-            所有公開日記：
+            {% trans "所有公開日記：" %}
         {% endifnotequal %}
     </hgroup>
     <!--日記區塊-->
@@ -121,7 +121,7 @@ $(function(){
             <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
                 <h3><a href="{% url 'diary_detail' pk=diary.pk %}" title="">{{ diary.title }}</a></h3>
                 <p class="JQellipsis">{{ diary.content }}</p>
-                <p><a class="" href="{% url 'diary_detail' pk=diary.pk %}" title="進入日記" style="text-decoration: none">... 繼續閱讀</a></p>
+                <p><a class="" href="{% url 'diary_detail' pk=diary.pk %}" title="{% trans '進入日記' %}" style="text-decoration: none">{% trans "... 繼續閱讀" %}</a></p>
             </div>
             <span class="clearfix borda"></span>
         </article>
@@ -136,9 +136,9 @@ $(function(){
         <ul class="pagination pagination-sm ">
             <li class="page-item">
                 {% if contacts.has_previous %}
-                    <a class="page-link" href="?page={{ contacts.previous_page_number }}" aria-label="Previous">
+                    <a class="page-link" href="?page={{ contacts.previous_page_number }}" aria-label="{% trans 'Previous' %}">
                     <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
+                    <span class="sr-only">{% trans "Previous" %}</span>
                     </a>
                 {% endif %}
             </li>
@@ -155,9 +155,9 @@ $(function(){
 
             <li class="page-item">
                 {% if contacts.has_next %}
-                    <a class="page-link" href="?page={{ contacts.next_page_number }}" aria-label="Next">
+                    <a class="page-link" href="?page={{ contacts.next_page_number }}" aria-label="{% trans 'Next' %}">
                     <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
+                    <span class="sr-only">{% trans "Next" %}</span>
                     </a>
                 {% endif %}
             </li>
