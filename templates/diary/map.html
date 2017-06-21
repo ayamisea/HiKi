@@ -12,13 +12,13 @@
     <style>
     /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-    
+
     #map {
         height: 100%;
         width: 100%;
     }
     /* Optional: Makes the sample page fill the window. */
-    
+
     html,body {
         height: 110vh;
         margin: -10px 0 0 0;
@@ -67,11 +67,11 @@
 
     //加入User地點
     var maplist = new Array();
-    {% for m in maps %} 
+    {% for m in maps %}
     	{% ifnotequal m.location "null" %}
-    	var temp = new Array('{{m.location}}', parseFloat('{{m.latitude}}'), parseFloat('{{m.longitude}}'));
-    	maplist.push(temp); 
-    	{% endifnotequal %} 
+    	var temp = new Array('{{ m.location }}', parseFloat('{{ m.latitude }}'), parseFloat('{{ m.longitude }}'));
+    	maplist.push(temp);
+    	{% endifnotequal %}
     {% endfor %}
 
     function setMarkers(map) {
@@ -115,7 +115,7 @@
         }
     }
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{MapAPI}}&libraries=places&language=zh-TW&callback=initMap">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ MapAPI }}&libraries=places&language=zh-TW&callback=initMap">
     </script>
 </body>
 

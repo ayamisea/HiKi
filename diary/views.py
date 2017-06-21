@@ -153,13 +153,15 @@ def delete(request, pk):
         return redirect(pre_url)
     return redirect(settings.DASHBOARD_URL)
 
-#display all map
 @login_required
+@user_valid
 def map(request):
-    user = request.user
+    """Display check-in places on google map
+    """
     MapAPI = settings.GOOGLE_MAPS_API_KEY
     maps = set([diary.location for diary in request.user.diary_set.all()])
-    return render(request, 'diary/display-map.html', locals())
+
+    return render(request, 'diary/map.html', locals())
 
 #display all tags and its diaries
 @login_required
