@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hiki Diary\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-22 01:06+0800\n"
+"POT-Creation-Date: 2017-06-22 01:22+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Hane <hane0131@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -173,11 +173,11 @@ msgstr "Tags"
 msgid "所有標籤"
 msgstr "All tags"
 
-#: templates/diary/display.html:6 templates/users/user_dashboard.html:133
+#: templates/diary/display.html:6 templates/users/user_dashboard.html:136
 msgid "Diary"
 msgstr "Diary"
 
-#: templates/diary/display.html:29
+#: templates/diary/display.html:28
 msgid "所有日記"
 msgstr "All diaries"
 
@@ -189,12 +189,16 @@ msgstr "Edit Diary"
 msgid "Map"
 msgstr "Footprints"
 
+#: templates/diary/new.html:5 templates/users/user_dashboard.html:116
+msgid "New Diary"
+msgstr "New Diary"
+
 #: templates/gallery/diary-image-show.html:116
 msgid "成功刪除"
 msgstr "Successfully delete"
 
-#: templates/gallery/display.html:6 templates/users/user_dashboard.html:136
-#: templates/users/user_dashboard.html:163
+#: templates/gallery/display.html:6 templates/users/user_dashboard.html:139
+#: templates/users/user_dashboard.html:166
 msgid "Gallery"
 msgstr "Gallery"
 
@@ -202,7 +206,8 @@ msgstr "Gallery"
 msgid "Close"
 msgstr "Close"
 
-#: templates/gallery/display.html:142 templates/include/nav.html:53
+#: templates/gallery/display.html:142 templates/include/nav.html:60
+#: templates/include/nav.html:62
 msgid "相簿"
 msgstr "Gallery"
 
@@ -222,7 +227,7 @@ msgstr "Add file..."
 msgid "新增圖片"
 msgstr "Create Image"
 
-#: templates/gallery/new.html:7 templates/users/user_dashboard.html:118
+#: templates/gallery/new.html:7 templates/users/user_dashboard.html:121
 msgid "New Image"
 msgstr "New Image"
 
@@ -302,36 +307,32 @@ msgstr "Issa"
 msgid "Kevin"
 msgstr "Kevin"
 
-#: templates/include/nav.html:47
-msgid "首頁"
-msgstr "Home"
-
-#: templates/include/nav.html:50
-msgid "日記"
-msgstr "Diary"
-
-#: templates/include/nav.html:56
-msgid "旅遊足跡"
-msgstr "Footprints"
-
-#: templates/include/nav.html:59
-msgid "標籤"
-msgstr "Tags"
-
-#: templates/include/nav.html:62
-msgid "帳本"
-msgstr "Tally"
-
-#: templates/include/nav.html:65
-msgid "統計"
-msgstr "Summary"
-
-#: templates/include/nav.html:77 templates/users/user_dashboard.html:7
-#: templates/users/user_dashboard.html:103
+#: templates/include/nav.html:49 templates/users/user_dashboard.html:7
+#: templates/users/user_dashboard.html:106
 msgid "DashBoard"
 msgstr "DashBoard"
 
-#: templates/include/nav.html:82
+#: templates/include/nav.html:52 templates/include/nav.html:54
+msgid "日記"
+msgstr "Diary"
+
+#: templates/include/nav.html:55
+msgid "旅遊足跡"
+msgstr "Footprints"
+
+#: templates/include/nav.html:56
+msgid "標籤"
+msgstr "Tags"
+
+#: templates/include/nav.html:66 templates/include/nav.html:68
+msgid "帳本"
+msgstr "Tally"
+
+#: templates/include/nav.html:69
+msgid "統計"
+msgstr "Summary"
+
+#: templates/include/nav.html:81
 msgid "登出"
 msgstr "Logout"
 
@@ -435,7 +436,7 @@ msgstr ""
 msgid "Search"
 msgstr "Search"
 
-#: templates/search.html:47 templates/users/user_dashboard.html:108
+#: templates/search.html:47 templates/users/user_dashboard.html:111
 msgid "回首頁"
 msgstr "Back"
 
@@ -487,7 +488,7 @@ msgstr "Tally Detail"
 msgid "回帳本"
 msgstr "Back"
 
-#: templates/tally/display.html:8 templates/users/user_dashboard.html:139
+#: templates/tally/display.html:8 templates/users/user_dashboard.html:142
 msgid "Tally"
 msgstr "Tally"
 
@@ -507,15 +508,11 @@ msgstr "Complete"
 msgid "Save changes"
 msgstr "Save changes"
 
-#: templates/users/user_dashboard.html:88
+#: templates/users/user_dashboard.html:91
 msgid "是否刪除？"
 msgstr "Delete?"
 
-#: templates/users/user_dashboard.html:113
-msgid "New Diary"
-msgstr "New Diary"
-
-#: templates/users/user_dashboard.html:123
+#: templates/users/user_dashboard.html:126
 msgid "New Tally"
 msgstr "New Tally"
 
@@ -621,7 +618,7 @@ msgstr "date joined"
 msgid "users"
 msgstr "users"
 
-#: users/models.py:204
+#: users/models.py:206
 #, python-brace-format
 msgid "Verify your email address on {host}"
 msgstr "Verify your email address on {host}"
@@ -671,3 +668,6 @@ msgstr "Reset your password on {host}"
 #: users/views.py:207
 msgid "Successfully send new password to the given email."
 msgstr "Successfully send new password to the given email."
+
+#~ msgid "首頁"
+#~ msgstr "Home"
