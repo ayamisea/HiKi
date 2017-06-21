@@ -92,15 +92,16 @@ class Diary(models.Model):
 
     def searchFilter(self, slst):
         slst = [x.lower() for x in slst]
-        if any(e in self.title.lower() for e in slst):
+        if self.title and any(e in self.title.lower() for e in slst):
             return True
-        if any(e in self.content.lower() for e in slst):
+        elif self.content and any(e in self.content.lower() for e in slst):
             return True
-        if any(e in self.location.location.lower() for e in slst):
+        elif self.location and any(e in self.location.location.lower() for e in slst):
             return True
-        tmp = [t.name for t in self.tags.all() if t.name in slst]
-        if not len(tmp) == 0:
-            return True
+        elif self.tags:
+            tmp = [t.name for t in self.tags.all() if t.name in slst]
+            if tmp:
+                return True
         return False
 
     class Meta:  # 排序用
