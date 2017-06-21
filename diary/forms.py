@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 from .models import Diary
 
@@ -10,14 +11,14 @@ class DiaryForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(
                 attrs={
-                    'placeholder': '標題（必填）',
+                    'placeholder': _('標題（必填）'),
                     'class': 'form-control m-1',
                 }
             ),
             'date': forms.DateInput(
                 attrs={
                     'id': 'datepicker',
-                    'placeholder': '2017-06-01（必填）',
+                    'placeholder': _('2017-06-01（必填）'),
                     'class': 'form-control m-1',
                 }
             ),
