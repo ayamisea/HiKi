@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hiki Diary\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-22 00:02+0800\n"
+"POT-Creation-Date: 2017-06-22 01:06+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Hane <hane0131@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,7 +53,7 @@ msgstr "已完成日記編輯！"
 msgid "Do you want to add/delete images for this diary?"
 msgstr "您想要為日記新增/刪除圖片嗎？"
 
-#: diary/views.py:149 gallery/views.py:76 tally/views.py:82
+#: diary/views.py:156 gallery/views.py:76 tally/views.py:80
 msgid "Successfully delete "
 msgstr "成功刪除 "
 
@@ -77,7 +77,7 @@ msgstr "繁體中文"
 msgid "The cash field cannot be zero or negative"
 msgstr "價錢欄位不能為零或負數"
 
-#: tally/models.py:14 tally/templatetags/sort.py:8 tally/views.py:109
+#: tally/models.py:14 tally/templatetags/sort.py:8 tally/views.py:107
 msgid "Income"
 msgstr "收入"
 
@@ -93,7 +93,7 @@ msgstr "零用錢"
 msgid "Other incomes"
 msgstr "其他收入"
 
-#: tally/models.py:19 tally/templatetags/sort.py:10 tally/views.py:111
+#: tally/models.py:19 tally/templatetags/sort.py:10 tally/views.py:109
 msgid "Expense"
 msgstr "支出"
 
@@ -113,11 +113,11 @@ msgstr "交通"
 msgid "Other expenses"
 msgstr "其他支出"
 
-#: tally/views.py:47
+#: tally/views.py:45
 msgid "Add a record successfully!"
 msgstr "成功新增一筆紀錄。"
 
-#: tally/views.py:68
+#: tally/views.py:66
 msgid "Complete editing this record!"
 msgstr "已完成紀錄編輯！"
 
@@ -227,6 +227,10 @@ msgstr "新增影像"
 #: templates/gallery/new.html:33
 msgid "確認"
 msgstr "確認"
+
+#: templates/home.html:32
+msgid "Search for..."
+msgstr "搜尋"
 
 #: templates/home.html:34
 msgid "Search!"
@@ -633,28 +637,28 @@ msgstr "您必須認證您的電子郵件             請至信箱查看認證�
 msgid "Your profile has been updated successfully."
 msgstr "您的資料已成功更新。"
 
-#: users/views.py:150
+#: users/views.py:151
 msgid "The account does not exist or the password is incorrect."
 msgstr "帳號不存在或密碼錯誤。"
 
-#: users/views.py:152
+#: users/views.py:153
 msgid "Login successfully."
 msgstr "成功登入。"
 
-#: users/views.py:163
+#: users/views.py:164
 msgid "Your password was successfully updated!"
 msgstr "您的密碼已成功更新！"
 
-#: users/views.py:181
+#: users/views.py:182
 msgid "User does not exist."
 msgstr "使用者不存在。"
 
-#: users/views.py:198
+#: users/views.py:199
 #, python-brace-format
 msgid "Reset your password on {host}"
 msgstr "於 {host} 重設您的密碼"
 
-#: users/views.py:206
+#: users/views.py:207
 msgid "Successfully send new password to the given email."
 msgstr "成功寄出新的密碼。"
 
