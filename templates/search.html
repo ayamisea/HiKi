@@ -79,7 +79,7 @@ $(function(){
     <!--搜尋結果-->
     <hgroup class="mb20">
         <h1>{% trans "搜尋結果" %}</h1>
-        <h2 class="lead">{% trans "找到<strong class="text-danger">{{ result|length }}</strong>筆資料" %}
+        <h2 class="lead">{% trans "找到" %}<strong class="text-danger">{{ result|length }}</strong>{% trans "筆資料" %}
         </h2>
         {% ifnotequal result|length 0 %}
             {% trans "符合關鍵字：" %}

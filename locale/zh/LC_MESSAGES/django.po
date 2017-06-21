@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hiki Diary\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-21 21:22+0800\n"
+"POT-Creation-Date: 2017-06-21 22:28+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Hane <hane0131@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,6 +122,130 @@ msgstr "成功新增一筆紀錄。"
 #: tally/views.py:68
 msgid "Complete editing this record!"
 msgstr "已完成紀錄編輯！"
+
+#: templates/404.html:13
+msgid "This Page is not exist."
+msgstr "這頁不存在喔。"
+
+#: templates/home.html:34
+msgid "Search!"
+msgstr "搜尋！"
+
+#: templates/home.html:41
+msgid "Enjoy your perfect day."
+msgstr "享受美好的一天。"
+
+#: templates/home.html:42
+msgid "Start Now"
+msgstr "開始使用"
+
+#: templates/home.html:49
+msgid "SERVICES"
+msgstr "服務"
+
+#: templates/home.html:54
+msgid "DIARY"
+msgstr "日記"
+
+#: templates/home.html:55
+msgid "記錄生活點滴"
+msgstr "記錄生活點滴"
+
+#: templates/home.html:61
+msgid "ALBUM"
+msgstr "相簿"
+
+#: templates/home.html:62
+msgid "上傳生活照片"
+msgstr "上傳生活照片"
+
+#: templates/home.html:68
+msgid "ACCOUNT"
+msgstr "帳本"
+
+#: templates/home.html:69
+msgid "紀錄生活開銷"
+msgstr "紀錄生活開銷"
+
+#: templates/home.html:75
+msgid "SEARCH"
+msgstr "搜尋"
+
+#: templates/home.html:76
+msgid "找到話題"
+msgstr "找到話題"
+
+#: templates/home.html:85
+msgid "Developers"
+msgstr "開發人員"
+
+#: templates/home.html:87
+msgid "Hane"
+msgstr "慈恩"
+
+#: templates/home.html:88
+msgid "Irene"
+msgstr "品儒"
+
+#: templates/home.html:89
+msgid "Issa"
+msgstr "李方"
+
+#: templates/home.html:90
+msgid "Kevin"
+msgstr "建堯"
+
+#: templates/search.html:4
+msgid "Search"
+msgstr "搜尋"
+
+#: templates/search.html:47
+msgid "回首頁"
+msgstr "回首頁"
+
+#: templates/search.html:53
+msgid "Login"
+msgstr "登入"
+
+#: templates/search.html:66
+msgid "請輸入搜尋文字"
+msgstr "請輸入搜尋文字"
+
+#: templates/search.html:81
+msgid "搜尋結果"
+msgstr "搜尋結果"
+
+#: templates/search.html:82
+msgid "找到"
+msgstr "找到"
+
+#: templates/search.html:82
+msgid "筆資料"
+msgstr "筆資料"
+
+#: templates/search.html:85
+msgid "符合關鍵字："
+msgstr "符合關鍵字："
+
+#: templates/search.html:90
+msgid "所有公開日記："
+msgstr "所有公開日記："
+
+#: templates/search.html:124
+msgid "進入日記"
+msgstr "進入日記"
+
+#: templates/search.html:124
+msgid "... 繼續閱讀"
+msgstr "... 繼續閱讀"
+
+#: templates/search.html:139 templates/search.html:141
+msgid "Previous"
+msgstr "上一頁"
+
+#: templates/search.html:158 templates/search.html:160
+msgid "Next"
+msgstr "下一頁"
 
 #: users/admin.py:17
 msgid "Personal info"
@@ -263,6 +387,12 @@ msgstr "於 {host} 重設您的密碼"
 #: users/views.py:206
 msgid "Successfully send new password to the given email."
 msgstr "成功寄出新的密碼。"
+
+#~ msgid "找到<strong class='text-danger'>result|length</strong>筆資料"
+#~ msgstr "找到<strong class='text-danger'>result|length</strong>筆資料"
+
+#~ msgid "找到<strong class="
+#~ msgstr "找到<strong class="
 
 #~ msgid "Email address"
 #~ msgstr "電子郵件地址"

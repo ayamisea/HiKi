@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hiki Diary\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-21 21:23+0800\n"
+"POT-Creation-Date: 2017-06-21 22:28+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Hane <hane0131@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,6 +122,132 @@ msgstr "Add a record successfully!"
 #: tally/views.py:68
 msgid "Complete editing this record!"
 msgstr "Complete editing this record!"
+
+#: templates/404.html:13
+#, fuzzy
+#| msgid "User does not exist."
+msgid "This Page is not exist."
+msgstr "User does not exist."
+
+#: templates/home.html:34
+msgid "Search!"
+msgstr ""
+
+#: templates/home.html:41
+msgid "Enjoy your perfect day."
+msgstr ""
+
+#: templates/home.html:42
+msgid "Start Now"
+msgstr ""
+
+#: templates/home.html:49
+msgid "SERVICES"
+msgstr ""
+
+#: templates/home.html:54
+msgid "DIARY"
+msgstr ""
+
+#: templates/home.html:55
+msgid "記錄生活點滴"
+msgstr ""
+
+#: templates/home.html:61
+msgid "ALBUM"
+msgstr ""
+
+#: templates/home.html:62
+msgid "上傳生活照片"
+msgstr ""
+
+#: templates/home.html:68
+msgid "ACCOUNT"
+msgstr ""
+
+#: templates/home.html:69
+msgid "紀錄生活開銷"
+msgstr ""
+
+#: templates/home.html:75
+msgid "SEARCH"
+msgstr ""
+
+#: templates/home.html:76
+msgid "找到話題"
+msgstr ""
+
+#: templates/home.html:85
+msgid "Developers"
+msgstr ""
+
+#: templates/home.html:87
+msgid "Hane"
+msgstr ""
+
+#: templates/home.html:88
+msgid "Irene"
+msgstr ""
+
+#: templates/home.html:89
+msgid "Issa"
+msgstr ""
+
+#: templates/home.html:90
+msgid "Kevin"
+msgstr ""
+
+#: templates/search.html:4
+msgid "Search"
+msgstr ""
+
+#: templates/search.html:47
+msgid "回首頁"
+msgstr ""
+
+#: templates/search.html:53
+msgid "Login"
+msgstr ""
+
+#: templates/search.html:66
+msgid "請輸入搜尋文字"
+msgstr ""
+
+#: templates/search.html:81
+msgid "搜尋結果"
+msgstr ""
+
+#: templates/search.html:82
+msgid "找到"
+msgstr ""
+
+#: templates/search.html:82
+msgid "筆資料"
+msgstr ""
+
+#: templates/search.html:85
+msgid "符合關鍵字："
+msgstr ""
+
+#: templates/search.html:90
+msgid "所有公開日記："
+msgstr ""
+
+#: templates/search.html:124
+msgid "進入日記"
+msgstr ""
+
+#: templates/search.html:124
+msgid "... 繼續閱讀"
+msgstr ""
+
+#: templates/search.html:139 templates/search.html:141
+msgid "Previous"
+msgstr ""
+
+#: templates/search.html:158 templates/search.html:160
+msgid "Next"
+msgstr ""
 
 #: users/admin.py:17
 msgid "Personal info"

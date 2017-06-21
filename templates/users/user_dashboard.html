@@ -1,10 +1,10 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DashBoard</title>
+    <title>{% trans "DashBoard" %}</title>
     <!-- css -->
     {% include 'include/bootstrap.html' %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
@@ -85,7 +85,7 @@
 
     $(function() {
         $('.delete').click(function() {
-            if (confirm('是否刪除？')) {
+            if (confirm('{% trans "是否刪除？" %}')) {
                 window.location.href = $(this).find('a').attr('href');
             }
         });
@@ -100,27 +100,27 @@
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNewContent" aria-controls="navbarNewContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-brand" href="#">DashBoard</div>
+        <div class="navbar-brand" href="#">{% trans "DashBoard" %}</div>
         <div class="collapse navbar-collapse" id="navbarNewContent">
             <ul class="navbar-nav">
 	            <!-- 回首頁 -->
             	<li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
-                	<a class="nav-link" href="{% url 'index' %}">回首頁</a>
+                	<a class="nav-link" href="{% url 'index' %}">{% trans "回首頁" %}</a>
                 </li>
 	            <!-- 新增日記 -->
 	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
 	                <img class="form-icon mr-1" src="{% static 'icon/new_diary.png' %}">
-	                <a class="nav-link" href="{% url 'diary_new' %}">New Diary</a>
+	                <a class="nav-link" href="{% url 'diary_new' %}">{% trans "New Diary" %}</a>
 	            </li>
 	            <!-- 新增相片 -->
 	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
 	                <img class="form-icon mr-1" src="{% static 'icon/new_photo.png' %}">
-	                <a class="nav-link" href="#">New Image</a>
+	                <a class="nav-link" href="#">{% trans "New Image" %}</a>
 	            </li>
 	            <!-- 新增帳目 -->
 	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
 	                <img class="form-icon mr-1" src="{% static 'icon/new_tally.png' %}">
-	                <a class="nav-link" href="{% url 'tally_new' %}">New Tally</a>
+	                <a class="nav-link" href="{% url 'tally_new' %}">{% trans "New Tally" %}</a>
 	            </li>
 	        </ul>
         </div>
@@ -130,13 +130,13 @@
         <!-- 各功能分頁 -->
         <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#Diary" role="tab">Diary</a>
+                <a class="nav-link active" data-toggle="tab" href="#Diary" role="tab">{% trans "Diary" %}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#Gallery" role="tab">Gallery</a>
+                <a class="nav-link" data-toggle="tab" href="#Gallery" role="tab">{% trans "Gallery" %}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#Tally" role="tab">Tally</a>
+                <a class="nav-link" data-toggle="tab" href="#Tally" role="tab">{% trans "Tally" %}</a>
             </li>
         </ul>
         <!-- 各功能欄位 -->
@@ -160,7 +160,7 @@
                 </table>
             </div>
             <div class="tab-pane" id="Gallery" role="tabpanel">
-                <h1>Gallery</h1>
+                <h1>{% trans "Gallery" %}</h1>
                 <ul>
                 </ul>
             </div>
