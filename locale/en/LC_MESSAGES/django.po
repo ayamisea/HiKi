@@ -1,0 +1,209 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-21 14:21+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: diary/views.py:77
+msgid "Input format error"
+msgstr "Input format error"
+
+#: hiki_diary/settings.py:129
+msgid "English(US)"
+msgstr "English(US)"
+
+#: hiki_diary/settings.py:130
+msgid "Traditional Chinese"
+msgstr "Traditional Chinese"
+
+#: tally/forms.py:48
+msgid "The cash field cannot be zero or negative"
+msgstr "The cash field cannot be zero or negative"
+
+#: tally/models.py:14 tally/templatetags/sort.py:8 tally/views.py:94
+msgid "Income"
+msgstr "Income"
+
+#: tally/models.py:15
+msgid "Part-time Job"
+msgstr "Part-time Job"
+
+#: tally/models.py:16
+msgid "Pocket Money"
+msgstr "Pocket Money"
+
+#: tally/models.py:17
+msgid "Other incomes"
+msgstr "Other incomes"
+
+#: tally/models.py:19 tally/templatetags/sort.py:10 tally/views.py:96
+msgid "Expense"
+msgstr "Expense"
+
+#: tally/models.py:20
+msgid "Food"
+msgstr "Food"
+
+#: tally/models.py:21
+msgid "Entertainment"
+msgstr "Entertainment"
+
+#: tally/models.py:22
+msgid "Traffic"
+msgstr "Traffic"
+
+#: tally/models.py:23
+msgid "Other expenses"
+msgstr "Other expenses"
+
+#: users/admin.py:17
+msgid "Personal info"
+msgstr "Personal info"
+
+#: users/admin.py:25
+msgid "Permissions"
+msgstr "Permissions"
+
+#: users/admin.py:34
+msgid "Important dates"
+msgstr "Important dates"
+
+#: users/forms.py:20 users/views.py:53
+msgid "A user with that email already exists."
+msgstr "A user with that email already exists."
+
+#: users/forms.py:21 users/views.py:69
+msgid "The two password fields didn't match."
+msgstr "The two password fields didn't match."
+
+#: users/forms.py:24 users/forms.py:84
+msgid "Password"
+msgstr "Password"
+
+#: users/forms.py:28
+msgid "Password confirmation"
+msgstr "Password confirmation"
+
+#: users/forms.py:85
+msgid ""
+"Raw passwords are not stored, so there is no way to see this user's "
+"password, but you can change the password using <a href=\"password/\">this "
+"form</a>."
+msgstr "Raw passwords are not stored, so there is no way to see this user's password, but you can change the password using <a href=\"password/\">this form</a>."
+
+#: users/forms.py:122 users/models.py:100
+msgid "Email Address"
+msgstr "Email Address"
+
+#: users/models.py:104
+msgid "User Name"
+msgstr "User Name"
+
+#: users/models.py:108
+msgid "Photo"
+msgstr "Photo"
+
+#: users/models.py:112
+msgid "Biography"
+msgstr "Biography"
+
+#: users/models.py:115
+msgid ""
+"Describe yourself with 500 characters or less. There will be no formatting."
+msgstr "Describe yourself with 500 characters or less. There will be no formatting."
+
+#: users/models.py:120
+msgid "verified"
+msgstr "verified"
+
+#: users/models.py:123
+msgid "Designates whether the user has verified email ownership."
+msgstr "Designates whether the user has verified email ownership."
+
+#: users/models.py:127
+msgid "staff status"
+msgstr "staff status"
+
+#: users/models.py:130
+msgid "Designates whether the user can log into this admin site."
+msgstr "Designates whether the user can log into this admin site."
+
+#: users/models.py:134
+msgid "active"
+msgstr "active"
+
+#: users/models.py:137
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr "Designates whether this user should be treated as active. Unselect this instead of deleting accounts."
+
+#: users/models.py:142
+msgid "date joined"
+msgstr "date joined"
+
+#: users/models.py:151 users/models.py:152
+msgid "users"
+msgstr "users"
+
+#: users/models.py:206
+#, python-brace-format
+msgid "Verify your email address on {host}"
+msgstr "Verify your email address on {host}"
+
+#: users/views.py:84
+msgid "Email verification successful."
+msgstr "Email verification successful."
+
+#: users/views.py:94
+#, python-brace-format
+msgid "A verification email has been sent to {email}"
+msgstr "A verification email has been sent to {email}"
+
+#: users/views.py:105
+msgid ""
+"You need to confirm your email.             Check your mailbox for "
+"verification link."
+msgstr "You need to confirm your email.             Check your mailbox for verification link."
+
+#: users/views.py:117
+msgid "Your profile has been updated successfully."
+msgstr "Your profile has been updated successfully."
+
+#: users/views.py:150
+msgid "The account does not exist or the password is incorrect."
+msgstr "The account does not exist or the password is incorrect."
+
+#: users/views.py:152
+msgid "Login successfully."
+msgstr "Login successfully."
+
+#: users/views.py:163
+msgid "Your password was successfully updated!"
+msgstr "Your password was successfully updated!"
+
+#: users/views.py:181
+msgid "User does not exist."
+msgstr "User does not exist."
+
+#: users/views.py:198
+#, python-brace-format
+msgid "Reset your password on {host}"
+msgstr "Reset your password on {host}"
+
+#: users/views.py:206
+msgid "Successfully send new password to the given email."
+msgstr "Successfully send new password to the given email."

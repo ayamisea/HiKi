@@ -12,7 +12,4 @@ urlpatterns = [
 
     url(r'^map/$', views.map, name='map'), # display-map.html
     url(r'^tag/$', views.tag, name='tag'), # display-tag.html
-
-    url(r'^search/$', views.search, name='diary_search'), # search.html
-    url(r'^search/results/$', views.search_result, name='diary_search_result'), # search.html
 ]

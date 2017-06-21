@@ -147,14 +147,8 @@
 	            <img src="{{ image.img.url }}"
                    onerror="this.style.display='none'"
                    class="img-thumbnail" width="300" height="300">
-              {% if image.type == "video" %}
-	            <!--video class="img-thumbnail" width="300" height="300">
-	                <source src="{{mediaURL}}{{image.img}}" type="video/mp4">
-	                <source src="{{mediaURL}}{{image.img}}" type="video/ogg"> Your browser does not support HTML5 video.
-	            </video-->
-	            {% endif %}
 	            <div>
-	                <button type="button" data-url="{{image.img.url}}" data-title='{{image.title}}' data-desc='{{image.description}}' data-type='{{image.type}}' class="photoID" data-toggle="modal" data-target="#Modal" style="display:none;"></button>
+	                <button type="button" data-url="{{ image.img.url }}" data-title='{{ image.title }}' data-desc='{{ image.description }}' data-type='{{ image.type }}' class="photoID" data-toggle="modal" data-target="#Modal" style="display:none;"></button>
 	            </div>
 	        </div>
 	        {% endfor %}

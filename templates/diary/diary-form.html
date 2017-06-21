@@ -22,22 +22,22 @@
         <form id="DiaryForm" method="post" class="d-flex flex-column w-100">{% csrf_token %}
           <!-- 標題 -->
             <div class="d-flex">
-              <img class="form-icon m-1" src="{%static '/icon/form/title.png' %}">
+              <img class="form-icon m-1" src="{% static '/icon/form/title.png' %}">
               {{ diary_form.title }}
             </div>
             <!-- 日期 -->
             <div class="d-flex">
-              <img class="form-icon m-1" src="{%static '/icon/form/date.png' %}">
+              <img class="form-icon m-1" src="{% static '/icon/form/date.png' %}">
               {{ diary_form.date }}
             </div>
             <!-- 型態 -->
         <div class="d-flex">
-              <img class="form-icon m-1" src="{%static '/icon/form/type.png' %}">
+              <img class="form-icon m-1" src="{% static '/icon/form/type.png' %}">
               {{ diary_form.post_type }}
             </div>
             <!-- 內容 -->
             <div class="d-flex">
-              <img class="form-icon m-1" src="{%static '/icon/form/content.png' %}">
+              <img class="form-icon m-1" src="{% static '/icon/form/content.png' %}">
               {{ diary_form.content }}
             </div>
             <!-- 標籤 -->
