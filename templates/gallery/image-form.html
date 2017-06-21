@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
         <div class="d-flex p-2">
           <form action="" method="post" enctype="multipart/form-data" class="d-flex flex-column w-100">{% csrf_token %}
               <!-- 上傳檔案 -->
@@ -6,7 +6,7 @@
                 <img class="form-icon mr-1" src="{%static '/icon/form/file.png' %}">
                 <label class="custom-file w-100" style="display: inline-block;">
                   {{ form.img }}
-                  <div class="custom-file-control form-control-file" style="overflow:hidden;">添加檔案...
+                  <div class="custom-file-control form-control-file" style="overflow:hidden;">{% trans "添加檔案..." %}
                   </div>
                 </label>
               </div>
@@ -21,7 +21,7 @@
                 {{ form.description}}
               </div>
               <div class="d-flex m-1 align-self-center">
-                <input class="btn custom-button" type="submit" value="新增圖片" name="option1"/>
+                <input class="btn custom-button" type="submit" value="{% trans '新增圖片' %}" name="option1"/>
               </div>
           </form>
         </div>

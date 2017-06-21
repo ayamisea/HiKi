@@ -1,11 +1,11 @@
-{% load static %}
+{% load static i18n %}
 {% load sort %}
 <!DOCTYPE html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tally Detail</title>
+    <title>{% trans "Tally Detail" %}</title>
     {% include 'include/bootstrap.html' %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <style>
@@ -46,14 +46,14 @@
 	    <div class="d-flex align-items-center">
 	    	<img class="detail-icon-img" src="{% static 'icon/detail/note.png' %}">
 	    	{{ tally.notes }}
-	    </div>	
+	    </div>
 	    </hr>
-    </main>    
+    </main>
     <div class="d-flex justify-content-center m-3">
-    	<a class="btn custom-button" href="{% url 'tally_edit' pk=tally.pk %}">編輯</a>
+    	<a class="btn custom-button" href="{% url 'tally_edit' pk=tally.pk %}">{% trans "編輯" %}</a>
 		<form method="post" >{% csrf_token %}
-	    	<input class="btn custom-button ml-2 mr-2" type="submit" name="delete" value="刪除">
+	    	<input class="btn custom-button ml-2 mr-2" type="submit" name="delete" value="{% trans '刪除' %}">
 	    </form>
-	    <a class="btn custom-button" href="{% url 'tally' %}">回日記</a>
+	    <a class="btn custom-button" href="{% url 'tally' %}">{% trans "回帳本" %}</a>
 	</div>
 </body>

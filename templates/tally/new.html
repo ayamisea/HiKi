@@ -1,7 +1,8 @@
+{% load i18n %}
 {% extends 'tally/tally-form.html' %}
 
-{% block title %}New Tally{% endblock %}
+{% block title %}{% "New Tally" %}{% endblock %}
 
-{% block nav %} 
+{% block nav %}
 	{% include 'include/nav.html' with name=user.name title='tally_new'%}
 {% endblock %}

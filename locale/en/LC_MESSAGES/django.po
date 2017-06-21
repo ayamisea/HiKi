@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hiki Diary\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-21 21:23+0800\n"
+"POT-Creation-Date: 2017-06-22 00:02+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Hane <hane0131@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,17 +53,17 @@ msgstr "Complete editing this diary!"
 msgid "Do you want to add/delete images for this diary?"
 msgstr "Do you want to add/delete images for this diary?"
 
-#: diary/views.py:149 gallery/views.py:75 tally/views.py:82
+#: diary/views.py:149 gallery/views.py:76 tally/views.py:82
 msgid "Successfully delete "
 msgstr "Successfully delete "
 
-#: gallery/views.py:38
+#: gallery/views.py:39
 #, fuzzy
 #| msgid "Login successfully."
 msgid "Upload a image successfully!"
 msgstr "Upload a image successfully!"
 
-#: gallery/views.py:59
+#: gallery/views.py:60
 msgid "Complete editing this image!"
 msgstr "Complete editing this image!"
 
@@ -123,6 +123,398 @@ msgstr "Add a record successfully!"
 msgid "Complete editing this record!"
 msgstr "Complete editing this record!"
 
+#: templates/404.html:13
+msgid "This Page is not exist."
+msgstr "This Page is not exist."
+
+#: templates/diary/detail.html:7
+msgid "Diary Detail"
+msgstr "Diary Detail"
+
+#: templates/diary/detail.html:99
+#, python-format
+msgid "共%(diary.image_set.all|length)s個媒體"
+msgstr "There are %(diary.image_set.all|length)s images"
+
+#: templates/diary/detail.html:134 templates/gallery/diary-image-show.html:116
+#: templates/tally/detail.html:55
+msgid "刪除"
+msgstr "Delete"
+
+#: templates/diary/detail.html:135 templates/tally/detail.html:53
+msgid "編輯"
+msgstr "Edit"
+
+#: templates/diary/detail.html:138
+msgid "回日記"
+msgstr "Back"
+
+#: templates/diary/diary-form.html:46
+msgid "請輸入標籤"
+msgstr "Please input tags"
+
+#: templates/diary/diary-form.html:47
+msgid "新增"
+msgstr "Create"
+
+#: templates/diary/diary-form.html:58
+msgid "輸入位置"
+msgstr "Input location"
+
+#: templates/diary/diary-form.html:67
+msgid "下一步"
+msgstr "Next"
+
+#: templates/diary/display-tag.html:6
+msgid "Tags"
+msgstr "Tags"
+
+#: templates/diary/display-tag.html:41
+msgid "所有標籤"
+msgstr "All tags"
+
+#: templates/diary/display.html:6 templates/users/user_dashboard.html:133
+msgid "Diary"
+msgstr "Diary"
+
+#: templates/diary/display.html:29
+msgid "所有日記"
+msgstr "All diaries"
+
+#: templates/diary/edit.html:5
+msgid "Edit Diary"
+msgstr "Edit Diary"
+
+#: templates/diary/map.html:8
+msgid "Map"
+msgstr "Footprints"
+
+#: templates/gallery/diary-image-show.html:116
+msgid "成功刪除"
+msgstr "Successfully delete"
+
+#: templates/gallery/display.html:6 templates/users/user_dashboard.html:136
+#: templates/users/user_dashboard.html:163
+msgid "Gallery"
+msgstr "Gallery"
+
+#: templates/gallery/display.html:134
+msgid "Close"
+msgstr "Close"
+
+#: templates/gallery/display.html:142 templates/include/nav.html:53
+msgid "相簿"
+msgstr "Gallery"
+
+#: templates/gallery/edit.html:7
+msgid "Edit Image"
+msgstr "Edit Image"
+
+#: templates/gallery/edit.html:13 templates/gallery/new.html:13
+msgid "瀏覽"
+msgstr "Browse"
+
+#: templates/gallery/image-form.html:9
+msgid "添加檔案..."
+msgstr "Add file..."
+
+#: templates/gallery/image-form.html:24
+msgid "新增圖片"
+msgstr "Create Image"
+
+#: templates/gallery/new.html:7 templates/users/user_dashboard.html:118
+msgid "New Image"
+msgstr "New Image"
+
+#: templates/gallery/new.html:33
+msgid "確認"
+msgstr "Confirm"
+
+#: templates/home.html:34
+msgid "Search!"
+msgstr "Search!"
+
+#: templates/home.html:41
+msgid "Enjoy your perfect day."
+msgstr "Enjoy your perfect day."
+
+#: templates/home.html:42
+msgid "Start Now"
+msgstr "Start Now"
+
+#: templates/home.html:49
+msgid "SERVICES"
+msgstr "SERVICES"
+
+#: templates/home.html:54
+msgid "DIARY"
+msgstr "DIARY"
+
+#: templates/home.html:55
+msgid "記錄生活點滴"
+msgstr "Record Your Life"
+
+#: templates/home.html:61
+msgid "ALBUM"
+msgstr "ALBUM"
+
+#: templates/home.html:62
+msgid "上傳生活照片"
+msgstr "Upload Life Photos"
+
+#: templates/home.html:68
+msgid "ACCOUNT"
+msgstr "ACCOUNT"
+
+#: templates/home.html:69
+msgid "紀錄生活開銷"
+msgstr "Record Living Expenses"
+
+#: templates/home.html:75
+msgid "SEARCH"
+msgstr "SEARCH"
+
+#: templates/home.html:76
+msgid "找到話題"
+msgstr "Find Topics"
+
+#: templates/home.html:85
+msgid "Developers"
+msgstr "Developers"
+
+#: templates/home.html:87
+msgid "Hane"
+msgstr "Hane"
+
+#: templates/home.html:88
+msgid "Irene"
+msgstr "Irene"
+
+#: templates/home.html:89
+msgid "Issa"
+msgstr "Issa"
+
+#: templates/home.html:90
+msgid "Kevin"
+msgstr "Kevin"
+
+#: templates/include/nav.html:47
+msgid "首頁"
+msgstr "Home"
+
+#: templates/include/nav.html:50
+msgid "日記"
+msgstr "Diary"
+
+#: templates/include/nav.html:56
+msgid "旅遊足跡"
+msgstr "Footprints"
+
+#: templates/include/nav.html:59
+msgid "標籤"
+msgstr "Tags"
+
+#: templates/include/nav.html:62
+msgid "帳本"
+msgstr "Tally"
+
+#: templates/include/nav.html:65
+msgid "統計"
+msgstr "Summary"
+
+#: templates/include/nav.html:77 templates/users/user_dashboard.html:7
+#: templates/users/user_dashboard.html:103
+msgid "DashBoard"
+msgstr "DashBoard"
+
+#: templates/include/nav.html:82
+msgid "登出"
+msgstr "Logout"
+
+#: templates/registration/accounts.html:19
+msgid "Sign up"
+msgstr "Sign up"
+
+#: templates/registration/accounts.html:22 templates/search.html:53
+msgid "Login"
+msgstr "Login"
+
+#: templates/registration/login.html:4
+#: templates/registration/password_reset.html:16
+#: templates/registration/signup.html:4
+msgid "Email："
+msgstr "Email: "
+
+#: templates/registration/login.html:8 templates/registration/signup.html:8
+msgid "密碼："
+msgstr "Password: "
+
+#: templates/registration/login.html:13
+msgid "登入"
+msgstr "Login"
+
+#: templates/registration/login.html:17
+msgid "忘記密碼？"
+msgstr "Forget password?"
+
+#: templates/registration/login.html:18
+msgid "沒有帳號？"
+msgstr "No account?"
+
+#: templates/registration/login.html:18
+msgid "現在就註冊！"
+msgstr "Sign up now!"
+
+#: templates/registration/password_reset.html:18
+msgid "Send Email"
+msgstr "Send Email"
+
+#: templates/registration/password_reset.html:20
+msgid "稍後將寄驗證信到您的信箱"
+msgstr "We'll send verification email to you later."
+
+#: templates/registration/password_reset_email.txt:2
+#, python-format
+msgid ""
+"\n"
+"您收到此信的原因為某人申請重設您在 %(host)s 的使用者帳號 %(user)s。\n"
+"\n"
+"請使用以下密碼登入並修改密碼。\n"
+"%(password)s\n"
+"\n"
+"若您沒有在本站註冊過，則可以忽略此訊息。\n"
+msgstr ""
+"\n"
+"Someone requests to reset your account %(user)s on %(host)s.\n"
+"\n"
+"Please use the following password to login and change your password.\n"
+"%(password)s\n"
+"\n"
+"If you didn't sign up in our website, you can ignore this.\n"
+
+#: templates/registration/signup.html:12
+msgid "密碼確認："
+msgstr "Confirm Password:"
+
+#: templates/registration/signup.html:17
+msgid "註冊"
+msgstr "Sign Up"
+
+#: templates/registration/signup.html:21
+msgid "已有帳號？"
+msgstr "Have account?"
+
+#: templates/registration/signup.html:21
+msgid "按此登入。"
+msgstr "Login"
+
+#: templates/registration/verification_email.txt:2
+#, python-format
+msgid ""
+"\n"
+"%(user)s 已於 %(host)s 創立帳號。\n"
+"\n"
+"欲啟用此帳號並確認使用此信箱地址，請至\n"
+"%(verification_url)s\n"
+"\n"
+"若您沒有在本站註冊過，則可以忽略此訊息。\n"
+msgstr ""
+"\n"
+"%(user)s have signed up an account on %(host)s.\n"
+"\n"
+"If you want to enable this account, please visit the following link.\n"
+"%(verification_url)s\n"
+"\n"
+"If you didn't sign up in our website, you can ignore this.\n"
+
+#: templates/search.html:4
+msgid "Search"
+msgstr "Search"
+
+#: templates/search.html:47 templates/users/user_dashboard.html:108
+msgid "回首頁"
+msgstr "Back"
+
+#: templates/search.html:66
+msgid "請輸入搜尋文字"
+msgstr "Please input search query"
+
+#: templates/search.html:81
+msgid "搜尋結果"
+msgstr "Search Result"
+
+#: templates/search.html:82
+msgid "找到"
+msgstr "Find "
+
+#: templates/search.html:82
+msgid "筆資料"
+msgstr " datas"
+
+#: templates/search.html:85
+msgid "符合關鍵字："
+msgstr "Meet query: "
+
+#: templates/search.html:90
+msgid "所有公開日記："
+msgstr "All public diaries: "
+
+#: templates/search.html:124
+msgid "進入日記"
+msgstr "Enter diary"
+
+#: templates/search.html:124
+msgid "... 繼續閱讀"
+msgstr "... Keep Reading"
+
+#: templates/search.html:139 templates/search.html:141
+msgid "Previous"
+msgstr "Previous"
+
+#: templates/search.html:158 templates/search.html:160
+msgid "Next"
+msgstr "Next"
+
+#: templates/tally/detail.html:8
+msgid "Tally Detail"
+msgstr "Tally Detail"
+
+#: templates/tally/detail.html:57
+msgid "回帳本"
+msgstr "Back"
+
+#: templates/tally/display.html:8 templates/users/user_dashboard.html:139
+msgid "Tally"
+msgstr "Tally"
+
+#: templates/tally/display.html:60
+msgid "所有紀錄"
+msgstr "All records"
+
+#: templates/tally/edit.html:4
+msgid "Edit Tally"
+msgstr "Edit Tally"
+
+#: templates/tally/tally-form.html:48
+msgid "完成"
+msgstr "Complete"
+
+#: templates/users/change_password.html:10
+msgid "Save changes"
+msgstr "Save changes"
+
+#: templates/users/user_dashboard.html:88
+msgid "是否刪除？"
+msgstr "Delete?"
+
+#: templates/users/user_dashboard.html:113
+msgid "New Diary"
+msgstr "New Diary"
+
+#: templates/users/user_dashboard.html:123
+msgid "New Tally"
+msgstr "New Tally"
+
 #: users/admin.py:17
 msgid "Personal info"
 msgstr "Personal info"
@@ -161,21 +553,27 @@ msgstr ""
 "password, but you can change the password using <a href=\"password/\">this "
 "form</a>."
 
-#: users/forms.py:122 users/models.py:100
+#: users/forms.py:121
+#, fuzzy
+#| msgid "User Name"
+msgid "Name"
+msgstr "User Name"
+
+#: users/forms.py:122 users/models.py:112
+msgid "Biography"
+msgstr "Biography"
+
+#: users/forms.py:123 users/models.py:108
+msgid "Photo"
+msgstr "Photo"
+
+#: users/forms.py:127 users/models.py:100
 msgid "Email Address"
 msgstr "Email Address"
 
 #: users/models.py:104
 msgid "User Name"
 msgstr "User Name"
-
-#: users/models.py:108
-msgid "Photo"
-msgstr "Photo"
-
-#: users/models.py:112
-msgid "Biography"
-msgstr "Biography"
 
 #: users/models.py:115
 msgid ""

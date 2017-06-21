@@ -1,13 +1,13 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
 
 <head>
     <meta charset="UTF-8">
-    <title>All Media</title>
+    <title>{% trans "Gallery" %}</title>
     <!--bootstrap-->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
     {% include 'include/bootstrap.html' %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 	<style>
 	/* main view */
 	body {
@@ -131,7 +131,7 @@
                     <span id="mediaDesc" class="m-1 pt-3 pt-lg-0 pl-lg-3"></span>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn custom-button" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn custom-button" data-dismiss="modal">{% trans "Close" %}</button>
                 </div>
             </div>
         </div>
@@ -139,7 +139,7 @@
     <!-- media display -->
     <main class="d-flex flex-column justify-content-center">
 	    <header class="w-100 p-3 h3">
-			相簿<hr>
+			{% trans "相簿" %}<hr>
 	    </header>
     	<div id="container">
 	        {% for image in image_list %}
