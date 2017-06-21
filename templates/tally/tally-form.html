@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
 
 <head>
@@ -21,31 +21,31 @@
 	    <form id="AccountForm" method="post" class="d-flex flex-column w-100">{% csrf_token %}
 		<!-- 日期 -->
 		<div class="d-flex">
-        	<img class="form-icon m-1" src="{%static '/icon/form/date.png' %}">
+        	<img class="form-icon m-1" src="{% static '/icon/form/date.png' %}">
         	{{ tally_form.date }}
         </div>
         <!-- 收支 -->
 	    <div class="d-flex">
-	   		<img class="form-icon m-1" src="{%static '/icon/form/type.png' %}">
+	   		<img class="form-icon m-1" src="{% static '/icon/form/type.png' %}">
 	   		{{ tally_form.pay_type }}
 	   	</div>
 	   	<div class="d-flex">
-	   		<img class="form-icon m-1" src="{%static '/icon/form/type.png' %}">
+	   		<img class="form-icon m-1" src="{% static '/icon/form/type.png' %}">
 	   		{{ tally_form.subtype }}
 	   	</div>
 	   	<div class="d-flex">
-	   		<img class="form-icon m-1" src="{%static '/icon/form/money.png' %}">
+	   		<img class="form-icon m-1" src="{% static '/icon/form/money.png' %}">
 	        {{ tally_form.cash }}
           {% for e in tally_form.cash.errors %}
             {{ e|escape }}
           {% endfor %}
 	    </div>
 	    <div class="d-flex">
-	   		<img class="form-icon m-1" src="{%static '/icon/form/note.png' %}">
+	   		<img class="form-icon m-1" src="{% static '/icon/form/note.png' %}">
 	        {{ tally_form.notes }}
 	    </div>
 	    <div class="d-flex mt-4 justify-content-center">
-	        <input class="btn custom-button" type="submit" name="send" value="完成" />
+	        <input class="btn custom-button" type="submit" name="send" value="{% trans '完成' %}" />
 	    </div>
 	    </form>
 	</main>

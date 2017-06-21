@@ -1,13 +1,14 @@
+{% load i18n %}
 {% extends 'error.html' %}
 
 {% block title %}
 	404
 {% endblock %}
 
-{% block error %}	
+{% block error %}
 	Error 404
 {% endblock %}
 
 {% block error_message %}
-	This Page is not exist.
+	{% trans "This Page is not exist." %}
 {% endblock %}

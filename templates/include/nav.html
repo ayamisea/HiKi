@@ -1,4 +1,4 @@
-﻿{% load static %}
+﻿{% load static i18n %}
 
 	<style>
 
@@ -44,42 +44,42 @@
 	    <div id="navbar-collapse-1" class="collapse navbar-collapse">
 			<ul class="navbar-nav">
 				<li id="home_" class="nav-item">
-					<a class="nav-link" href="{% url 'index' %}">首頁</a>
+					<a class="nav-link" href="{% url 'index' %}">{% trans "首頁" %}</a>
 				</li>
 				<li id="diary_" class="nav-item">
-					<a class="nav-link" href="{% url 'diary' %}">日記</a>
+					<a class="nav-link" href="{% url 'diary' %}">{% trans "日記" %}</a>
 				</li>
 		      	<li id="photo_" class="nav-item">
-		      		<a class="nav-link" href="{% url 'gallery' %}">相簿</a>
+		      		<a class="nav-link" href="{% url 'gallery' %}">{% trans "相簿" %}</a>
 		      	</li>
 		      	<li id="map_" class="nav-item">
-		      		<a class="nav-link" href="{% url 'map' %}">旅遊足跡</a>
+		      		<a class="nav-link" href="{% url 'map' %}">{% trans "旅遊足跡" %}</a>
 		      	</li>
 		      	<li id="tag_" class="nav-item">
-		      		<a class="nav-link" href="{% url 'tag' %}">標籤</a>
+		      		<a class="nav-link" href="{% url 'tag' %}">{% trans "標籤" %}</a>
 		      	</li>
 		      	<li id="tally_" class="nav-item">
-		      		<a class="nav-link" href="{% url 'tally' %}">帳本</a>
+		      		<a class="nav-link" href="{% url 'tally' %}">{% trans "帳本" %}</a>
 		      	</li>
 		      	<li id="tally_summary_" class="nav-item">
-		      		<a class="nav-link" href="{% url 'tally' %}">統計</a>
+		      		<a class="nav-link" href="{% url 'tally' %}">{% trans "統計" %}</a>
 		      	</li>
 		    </ul>
 		    <ul class="navbar-nav ml-auto">
 		      	<li class="nav-item dropdown">
 		            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="navbarDropdownMenuLink"  aria-haspopup="true" aria-expanded="false">
 		                <span class="glyphicon glyphicon-user">
-		                </span> {{name}} <span class="caret"></span>
+		                </span> {{ name }} <span class="caret"></span>
 		            </a>
 			        <ul class="dropdown-menu dropdown-menu-right pt-0 mt-0" aria-labelledby="navbarDropdownMenuLink">
 			            <li>
 			            	<a id="user_dashboard_" class="dropdown-item" href="{% url 'user_dashboard' %}">
-			            		Dash Board
+			            		{% trans "DashBoard" %}
 			            	</a>
 			            </li>
 			            <li>
 			            	<a class="dropdown-item" href="{% url 'logout' %}">
-			            		登出
+			            		{% trans "登出" %}
 			            	</a>
 			            </li>
 			        </ul>

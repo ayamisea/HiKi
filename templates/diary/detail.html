@@ -1,10 +1,10 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Detail</title>
+  <title>{% trans "Diary Detail" %}</title>
   <!-- css -->
   {% include 'include/bootstrap.html' %}
   <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
@@ -72,7 +72,7 @@
     <!-- 地圖 -->
     <div class="p-1 d-flex flex-row align-items-center">
       <div class="detail-icon">
-        <img class="detail-icon" src="{%static '/icon/detail/placeholder.png' %}">
+        <img class="detail-icon" src="{% static '/icon/detail/placeholder.png' %}">
       </div>
       <a target="_blank" href="http://maps.google.com/maps?q={{ diary.location.latitude }},{{ diary.location.longitude }}">{{ diary.location.location }}</a>
     </div>
@@ -96,7 +96,7 @@
       <div class="detail-icon">
         <img class="detail-icon-img" src="{%static '/icon/detail/picture.png' %}">
       </div>
-      <h5 class="ml-1 mt-0 mr-0 mb-0">共{{ diary.image_set.all|length }}個媒體</h5>
+      <h5 class="ml-1 mt-0 mr-0 mb-0">{% blocktrans %}共{{ diary.image_set.all|length }}個媒體{% endblocktrans %}</h5>
     </div>
     <!-- 圖片欄位 -->
     <div class="d-flex pt-0 pl-1 pr-1 pb-1">
@@ -131,11 +131,11 @@
     {% endifnotequal %}
     <div class="d-flex justify-content-center m-2">
           <div class="d-flex">
-              <a class="btn custom-button m-2" href="{% url 'diary_delete' pk=diary.pk %}?from={% url 'diary' %}">刪除</a>
-              <a class="btn custom-button m-2" href="{% url 'diary_edit' pk=diary.pk %}">編輯</a>
+              <a class="btn custom-button m-2" href="{% url 'diary_delete' pk=diary.pk %}?from={% url 'diary' %}">{% trans "刪除" %}</a>
+              <a class="btn custom-button m-2" href="{% url 'diary_edit' pk=diary.pk %}">{% trans "編輯" %}</a>
           </div>
       <div class="d-flex">
-        <a class="btn custom-button m-2" href="{% url 'diary' %}">回日記</a>
+        <a class="btn custom-button m-2" href="{% url 'diary' %}">{% trans "回日記" %}</a>
       </div>
     </div>
   </main>

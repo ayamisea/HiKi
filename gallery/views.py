@@ -22,17 +22,18 @@ def display(request):
 def new(request):
     """Upload new image.
     """
-    if request.GET.get('d'):
-        d = request.GET['d']
-        diary = get_object_or_404(request.user.diary_set, pk=d)
-
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
 
         if form.is_valid():
             image = form.save()
             image.user = request.user
-            image.diary = diary
+
+            if request.GET.get('d'):
+                d = request.GET['d']
+                diary = get_object_or_404(request.user.diary_set, pk=d)
+                image.diary = diary
+
             image.save()
 
             messages.success(request, ugettext("Upload a image successfully!"))
