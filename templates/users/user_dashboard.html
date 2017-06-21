@@ -18,13 +18,8 @@
         padding-right: 5%;
     }
     
-    .navbar {
-        background-color: #53cecb !important;
-        letter-spacing: 2px !important;
-    }
-    
-    .navbar-nav li a {
-        color: white !important;
+    li a , li a:hover , li a:link , li a:visited{
+        color: #0ABAB5 !important;
     }
     
     .new {
@@ -140,11 +135,11 @@
                     <tbody>
                         {% for d in diary %}
                         <tr>
-                            <td class="edit">
+                            <td class="edit" style="width:90%;">
                                 <a href="{% url 'diary_edit' pk=d.pk %}"></a>
                                 {{ d }}
                             </td>
-                            <td>
+                            <td class="delete" style="width:10%;">
                                 <a href="{% url 'diary_delete' pk=d.pk %}"></a>
                                 <img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
                             </td>
@@ -163,11 +158,11 @@
                     <tbody>
                         {% for t in tally %}
                         <tr>
-                            <td class="edit">
+                            <td class="edit" style="width:90%;">
                                 <a href="{% url 'tally_edit' pk=t.pk %}"></a>
                                 {{ t }}
                             </td>
-                            <td>
+                            <td class="delete" style="width:10%;">
                                 <a href="{% url 'tally_delete' pk=t.pk %}"></a>
                                 <img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
                             </td>
