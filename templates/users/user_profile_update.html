@@ -1,5 +1,4 @@
-{% load i18n %}
-{% load static %}
+{% load i18n %} {% load static %}
 <!DOCTYPE html>
 
 <head>
@@ -8,11 +7,38 @@
     <title>{% trans "User Profile" %}</title>
     {% include 'include/bootstrap.html' %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <style>
+    
+    form > span > ul {
+        list-style-type: none;
+        padding: 0;
+        color: #cc2222;
+    }
+    </style>
 </head>
-
 {% include 'include/message.html' %}
-<body class="d-flex justify-content-center align-items-center custom-button" style="height:100vh;">
-	<h1>施工中</h1>
+<body id="background" class="d-flex justify-content-center">
+    <div id="wrap" class="flex-column">
+	    <header class="h2 mb-3">Hiki Diary</header>
+	    <main>
+		    <form method="post" class="d-flex flex-column w-100 p-2 ">{% csrf_token %}
+		    	{{form}}
+		        <div class="d-flex w-100 p-1 mt-2 justify-content-center">
+		            <input class="btn custom-button w-25" style="min-width: 120px;" type="submit" name="submit" value="{% trans 'Save changes' %} ">
+		        </div>
+		    </form>
+	    </main>
+	</div>
+	<script>
+    var labels = document.getElementsByTagName('label');
+    for (var i = 0; i < labels.length; i++) {
+        if (labels[i].htmlFor == 'id_photo') {
+            labels[i].style.display = 'none';
+        }
+    }
+    document.getElementById('id_photo').setAttribute("type", "hidden");
+    document.getElementById('id_bio').setAttribute("rows", "6");
+    </script>
 </body>
 
 </html>
