@@ -1,0 +1,117 @@
+html,body {
+	width:100vw;
+	height:100vh;
+}
+.tilted {
+    color: #fff;
+    width:100%;
+    height: 100vh;
+    background:linear-gradient(
+      rgba(4, 81, 86, 0.45), 
+      rgba(4, 81, 86, 0.45)
+    ),url('../img/home.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.dev-tilted {
+	color: #fff;
+    width:100%;
+    height: 100vh;
+    background:linear-gradient(
+      rgba(4, 81, 86, 0.45), 
+      rgba(4, 81, 86, 0.45)
+    ),url('../img/account.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.vert {
+	width:100%;
+	height:100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.vert > .carousel-inner {
+	width:100vw;
+	height:100%;
+}
+
+.vert .carousel-item-next.carousel-item-left,
+.vert .carousel-item-prev.carousel-item-right {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.vert .carousel-item-next,
+.vert .active.carousel-item-right {
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100% 0);
+}
+
+.vert .carousel-item-prev,
+.vert .active.carousel-item-left {
+-webkit-transform: translate3d(0,-100%, 0);
+    transform: translate3d(0,-100%, 0);
+}
+
+.vert > .up,.vert > .down{
+	width:100%;
+	height:3%;
+	z-index:100;
+}
+
+.vert > .up {
+	position: fixed;
+	top:0;
+}
+
+.vert > .down {
+	position: fixed;
+	bottom:0;
+}
+
+#index, #services, #developers {
+	width:100%;
+	height:100%;
+}
+
+#search {
+	width:30%;
+	height:10%;
+}
+
+#intro {
+	height:90%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items:center;
+	align-self: center;
+}
+
+#intro > a {
+	margin-top: 5vh;
+	font-size: 1.6rem;
+}
+
+a:hover > h4 , a:hover > p {
+	color:white;
+}
+
+a:link {
+	text-decoration: none;
+}
+
+.shadow {
+	color:white;
+	text-shadow:3px 3px 5px #555555;
+}
+
+#services {
+	background-color: rgb(4,81,86);
+	color:white;
+}

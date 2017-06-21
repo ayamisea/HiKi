@@ -1,0 +1,62 @@
+html, body {
+	width:100%;
+	margin:0;
+	padding:0;
+}
+
+#background {
+    background: url('../img/account.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size：cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    height: 100vh;
+}
+
+#wrap {
+    background-color: rgba(255, 255, 255, 0.7);
+    width:350px;
+	height:80%;	
+    margin:0 auto;
+    padding-left: 35px;
+	padding-right: 35px;
+	padding-top: 30px;
+    display: flex;
+    align-self: center;
+}
+
+.custom-button {
+	background-color: #0ABAB5;
+	color:white;
+}
+
+.form-icon {
+	width:32px;
+	height:32px;
+}
+
+.detail-icon {
+	width:64px;
+	height:64px;
+	min-width: 64px;
+}
+
+.detail-icon-img {
+	width:42px;
+	height:42px;
+	margin: 11px; 
+}
+
+hr {
+	width:100%;
+	margin:0;
+	height:.1px; 
+	background-color:rgba(10,181,186,0.2);
+}
+
+a:hover {
+  	color: inherit !important;
+}
