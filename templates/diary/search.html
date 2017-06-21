@@ -105,14 +105,14 @@ $(function(){
         {% for diary in contacts %}
         <article class="search-result row">
             <div class="col-xs-12 col-sm-12 col-md-3">
-                {% ifnotequal diary.media_set.all|length 0 %}
+                {% ifnotequal diary.image_set.all|length 0 %}
 
-                    {% if diary.media_set.first.type == "img" %}
-                        <img style="max-width:250px;height:140px" src="{{mediaURL}}{{diary.media_set.first.img}}" alt="{{diary.title}}" />
+                    {% if diary.image_set.first.type == "img" %}
+                        <img style="max-width:250px;height:140px" src="{{diary.image_set.first.img.url}}" alt="{{diary.title}}" />
                     {% elif diary.media_set.first.type == "video" %}
                         <video class = "image img-thumbnail" height="140" width="250" controls>
-                        <source src="{{mediaURL}}{{diary.media_set.first.img}}" type="video/mp4">
-                        <source src="{{mediaURL}}{{diary.media_set.first.img}}" type="video/ogg">
+                        <source src="{{diary.image_set.first.img.url}}" type="video/mp4">
+                        <source src="{{diary.media_set.first.img.url}}" type="video/ogg">
                         Your browser does not support HTML5 video.
                         </video>
                     {% else %}
@@ -126,7 +126,7 @@ $(function(){
             <div class="col-xs-12 col-sm-12 col-md-2">
                 <ul class="meta-search">
                     <li><i class="glyphicon glyphicon-calendar"></i> <span>{{diary.date}}</span></li>
-                    <li><i class="glyphicon glyphicon-user"></i> <span>{{diary.userID.name}}</span></li>
+                    <li><i class="glyphicon glyphicon-user"></i> <span>{{diary.user.name}}</span></li>
                     {% ifnotequal diary.tags.all|length 0 %}
                         <li><i class="glyphicon glyphicon-tags"></i>
                         <span>
