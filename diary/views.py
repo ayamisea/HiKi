@@ -109,7 +109,7 @@ def edit(request, pk):
             for tag in diary.tags.all():
                 diary.tags.remove(Tag.objects.get(id=tag.id))
                 if not tag.diary_set.count():
-                    tag.objects.get(id=tag.id).delete()
+                    Tag.objects.get(id=tag.id).delete()
             #add tags
             taglist = tags[0].split(',')
             for tag in taglist:
