@@ -57,7 +57,7 @@
 </head>
 {% include 'include/nav.html' with name=user.name title='tally_' %}
 <body>
-    <header class="h3 p-3">{% trans "帳本" %}<hr></header>
+    <header class="h3 p-3">{% trans "所有紀錄" %}<hr></header>
     <main class="d-flex flex-column" >
         <!-- 以日期為分類將同一天的帳目列在一起 -->
         {% with tally_list|datelist as dates %}

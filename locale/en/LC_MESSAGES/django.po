@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hiki Diary\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-21 23:46+0800\n"
+"POT-Creation-Date: 2017-06-22 00:02+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Hane <hane0131@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,17 +53,17 @@ msgstr "Complete editing this diary!"
 msgid "Do you want to add/delete images for this diary?"
 msgstr "Do you want to add/delete images for this diary?"
 
-#: diary/views.py:149 gallery/views.py:75 tally/views.py:82
+#: diary/views.py:149 gallery/views.py:76 tally/views.py:82
 msgid "Successfully delete "
 msgstr "Successfully delete "
 
-#: gallery/views.py:38
+#: gallery/views.py:39
 #, fuzzy
 #| msgid "Login successfully."
 msgid "Upload a image successfully!"
 msgstr "Upload a image successfully!"
 
-#: gallery/views.py:59
+#: gallery/views.py:60
 msgid "Complete editing this image!"
 msgstr "Complete editing this image!"
 
@@ -129,12 +129,70 @@ msgstr "Complete editing this record!"
 msgid "This Page is not exist."
 msgstr "User does not exist."
 
-#: templates/gallery/diary-image-show.html:116
-msgid "成功刪除"
+#: templates/diary/detail.html:7
+msgid "Diary Detail"
 msgstr ""
 
-#: templates/gallery/diary-image-show.html:116 templates/tally/detail.html:55
+#: templates/diary/detail.html:99
+#, python-format
+msgid "共%(diary.image_set.all|length)s個媒體"
+msgstr ""
+
+#: templates/diary/detail.html:134 templates/gallery/diary-image-show.html:116
+#: templates/tally/detail.html:55
 msgid "刪除"
+msgstr ""
+
+#: templates/diary/detail.html:135 templates/tally/detail.html:53
+msgid "編輯"
+msgstr ""
+
+#: templates/diary/detail.html:138
+msgid "回日記"
+msgstr ""
+
+#: templates/diary/diary-form.html:46
+msgid "請輸入標籤"
+msgstr ""
+
+#: templates/diary/diary-form.html:47
+msgid "新增"
+msgstr ""
+
+#: templates/diary/diary-form.html:58
+msgid "輸入位置"
+msgstr ""
+
+#: templates/diary/diary-form.html:67
+msgid "下一步"
+msgstr ""
+
+#: templates/diary/display-tag.html:6
+msgid "Tags"
+msgstr ""
+
+#: templates/diary/display-tag.html:41
+msgid "所有標籤"
+msgstr ""
+
+#: templates/diary/display.html:6 templates/users/user_dashboard.html:133
+msgid "Diary"
+msgstr ""
+
+#: templates/diary/display.html:29
+msgid "所有日記"
+msgstr ""
+
+#: templates/diary/edit.html:5
+msgid "Edit Diary"
+msgstr ""
+
+#: templates/diary/map.html:8
+msgid "Map"
+msgstr ""
+
+#: templates/gallery/diary-image-show.html:116
+msgid "成功刪除"
 msgstr ""
 
 #: templates/gallery/display.html:6 templates/users/user_dashboard.html:136
@@ -258,7 +316,7 @@ msgstr ""
 msgid "標籤"
 msgstr ""
 
-#: templates/include/nav.html:62 templates/tally/display.html:60
+#: templates/include/nav.html:62
 msgid "帳本"
 msgstr ""
 
@@ -409,16 +467,16 @@ msgstr ""
 msgid "Tally Detail"
 msgstr ""
 
-#: templates/tally/detail.html:53
-msgid "編輯"
-msgstr ""
-
 #: templates/tally/detail.html:57
 msgid "回帳本"
 msgstr ""
 
 #: templates/tally/display.html:8 templates/users/user_dashboard.html:139
 msgid "Tally"
+msgstr ""
+
+#: templates/tally/display.html:60
+msgid "所有紀錄"
 msgstr ""
 
 #: templates/tally/edit.html:4
@@ -443,10 +501,6 @@ msgstr ""
 
 #: templates/users/user_dashboard.html:123
 msgid "New Tally"
-msgstr ""
-
-#: templates/users/user_dashboard.html:133
-msgid "Diary"
 msgstr ""
 
 #: users/admin.py:17
