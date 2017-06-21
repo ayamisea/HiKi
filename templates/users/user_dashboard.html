@@ -100,7 +100,7 @@
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNewContent" aria-controls="navbarNewContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-brand" href="#">{% trans "DashBoard" %}</div>
+        <div class="navbar-brand" href="/">{% trans "DashBoard" %}</div>
         <div class="collapse navbar-collapse" id="navbarNewContent">
             <ul class="navbar-nav">
 	            <!-- 回首頁 -->
@@ -115,7 +115,7 @@
 	            <!-- 新增相片 -->
 	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
 	                <img class="form-icon mr-1" src="{% static 'icon/new_photo.png' %}">
-	                <a class="nav-link" href="#">{% trans "New Image" %}</a>
+	                <a class="nav-link" href="{% url 'gallery_new' %}">{% trans "New Image" %}</a>
 	            </li>
 	            <!-- 新增帳目 -->
 	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
@@ -162,6 +162,9 @@
             <div class="tab-pane" id="Gallery" role="tabpanel">
                 <h1>{% trans "Gallery" %}</h1>
                 <ul>
+                  {% for i in image %}
+                    <li>{{ i }}</li>
+                  {% endfor %}
                 </ul>
             </div>
             <div class="tab-pane" id="Tally" role="tabpanel">

@@ -134,6 +134,7 @@ def user_dashboard(request):
 
     diary = request.user.diary_set.all()
     tally = request.user.tally_set.all()
+    image = request.user.image_set.all()
 
     return render(request, 'users/user_dashboard.html', locals())
 
