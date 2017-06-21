@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.conf.urls.i18n import i18n_patterns
 from django.views.i18n import set_language
 
-from core.views import index, search
+from core.views import index, search , search_results
 from diary import views as diary
 from gallery import views as gallery
 from users.views import user_dashboard
@@ -28,6 +28,7 @@ from users.views import user_dashboard
 urlpatterns = i18n_patterns(
     url(r'^$', index, name='index'),
     url(r'^search/$', search, name='search'),
+    url(r'^search/(?P<q>\w+)/$', search_results, name='search_results'),
 
     url(r'^accounts/', include('users.urls')),
     url(r'^diary/', include('diary.urls')),
