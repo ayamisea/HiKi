@@ -20,14 +20,13 @@ from django.contrib import admin
 from django.conf.urls.i18n import i18n_patterns
 from django.views.i18n import set_language
 
-from core.views import home, search, search_result
+from core.views import index, search
 from users.views import user_dashboard
 
 urlpatterns = i18n_patterns(
-    url(r'^$', home, name='hiki'),
+    url(r'^$', index, name='index'),
     url(r'^dashboard/$', user_dashboard, name='user_dashboard'),
-    url(r'^search/$', search, name='diary_search'),
-    url(r'^search/results/$', search_result, name='diary_search_result'),
+    url(r'^search/$', search, name='search'),
 
     url(r'^accounts/', include('users.urls')),
     url(r'^diary/', include('diary.urls')),

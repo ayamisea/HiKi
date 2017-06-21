@@ -43,61 +43,51 @@ $(function(){
       <a class="navbar-brand" >HiKi</a>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav">
-      <li><a href="{% url 'hiki' %}">回首頁</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-        {% if userName == 0 %}
-      <li><a href="{% url 'accounts' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      {% else%}
-      <li><a href="{% url 'accounts' %}"><span class="glyphicon glyphicon-user"></span> {{userName}}</a></li>
-      {% endif%}
-
-    </ul>
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'index' %}">回首頁</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'accounts' %}"><span class="glyphicon glyphicon-log-in"></span>{{ user.name }}</a></li>
+        {% else %}
+        <li><a href="{% url 'accounts' %}"><span class="glyphicon glyphicon-user"></span>Login</a></li>
+        {% endif %}
+      </ul>
     </div>
   </div>
 </nav>
 
 <div class="container-fluid">
-
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
-            <form method="post" action="{% url 'diary_search_result' %}" >
-                {% csrf_token %}
+            <form method="get" action="{% url 'search' %}" >
                 <div id="imaginary_container">
                     <div class="input-group stylish-input-group">
-                        <input type="text" class="form-control" name="search" placeholder="請輸入搜尋文字" >
+                        <input type="text" class="form-control" name="q" placeholder="請輸入搜尋文字"
+                        {% if q %} value="{{ q }}" {% endif %}>
                         <span class="input-group-addon">
                             <button type="submit">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
-
                         </span>
-                        <span class="input-group-addon" >
-                            <button type="submit" name="all" style="background:rgba(10, 186, 181, 0.4);" >
-                                <div>探索全部</div>
-                            </button>
-
-                        </span>
-
                     </div>
-
                 </div>
             </form>
         </div>
     </div>
     <br>
-
     <!--搜尋結果-->
     <hgroup class="mb20">
         <h1>搜尋結果</h1>
-        <h2 class="lead">找到<strong class="text-danger">{{diaryList|length}}</strong>筆資料
+        <h2 class="lead">找到<strong class="text-danger">{{ result|length }}</strong>筆資料
         </h2>
-        {% ifnotequal searchList|length 0 %}
-                符合{{ Smessage }}：
-                    {% for s in searchList %}
-                        {{s}}
-                    {% endfor%}
+        {% ifnotequal result|length 0 %}
+            符合關鍵字：
+                {% for q in query_list %}
+                    {{ q }}
+                {% endfor %}
+        {% else %}
+            所有公開日記：
         {% endifnotequal %}
     </hgroup>
     <!--日記區塊-->
@@ -106,45 +96,31 @@ $(function(){
         <article class="search-result row">
             <div class="col-xs-12 col-sm-12 col-md-3">
                 {% ifnotequal diary.image_set.all|length 0 %}
-
-                    {% if diary.image_set.first.type == "img" %}
-                        <img style="max-width:250px;height:140px" src="{{diary.image_set.first.img.url}}" alt="{{diary.title}}" />
-                    {% elif diary.media_set.first.type == "video" %}
-                        <video class = "image img-thumbnail" height="140" width="250" controls>
-                        <source src="{{diary.image_set.first.img.url}}" type="video/mp4">
-                        <source src="{{diary.media_set.first.img.url}}" type="video/ogg">
-                        Your browser does not support HTML5 video.
-                        </video>
-                    {% else %}
-                        <img style="max-width:250px;height:140px"src="http://lorempixel.com/250/140/nature" alt="nature" />
-                    {% endif%}
-
+                    <img style="max-width:250px;height:140px" src="{{ diary.image_set.first.img.url }}" alt="{{ diary.title }}" />
                 {% else %}
-                        <img style="max-width:250px;height:140px"src="http://lorempixel.com/250/140/nature" alt="nature" />
+                    <img style="max-width:250px;height:140px"src="http://lorempixel.com/250/140/nature" alt="nature" />
                 {% endifnotequal %}
             </div>
             <div class="col-xs-12 col-sm-12 col-md-2">
                 <ul class="meta-search">
-                    <li><i class="glyphicon glyphicon-calendar"></i> <span>{{diary.date}}</span></li>
-                    <li><i class="glyphicon glyphicon-user"></i> <span>{{diary.user.name}}</span></li>
+                    <li><i class="glyphicon glyphicon-calendar"></i> <span>{{ diary.date }}</span></li>
+                    <li><i class="glyphicon glyphicon-user"></i> <span>{{ diary.user.name }}</span></li>
                     {% ifnotequal diary.tags.all|length 0 %}
                         <li><i class="glyphicon glyphicon-tags"></i>
                         <span>
-
-                            <form action="{% url 'diary_search_result' %}" method="post">
-                            {% csrf_token %}
+                          <!--Use tag as query search-->
+                            <form action="{% url 'search' %}" method="get">
                             {% for tag in diary.tags.all %}
-                                <button class="ellipsis btn-xs btn" style="max-width:100%"  name="tagID" value={{tag.id}}>{{tag}}</button>
-                            {% endfor%}
+                                <button class="ellipsis btn-xs btn" style="max-width:100%"  name="q" value={{ tag.name }}>{{ tag }}</button>
+                            {% endfor %}
                             </form>
-
                         </span></li>
                     {% endifnotequal %}
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
-                <h3><a href="{% url 'diary_detail' pk=diary.pk %}" title="">{{diary.title}}</a></h3>
-                <p class="JQellipsis">{{diary.content}}</p>
+                <h3><a href="{% url 'diary_detail' pk=diary.pk %}" title="">{{ diary.title }}</a></h3>
+                <p class="JQellipsis">{{ diary.content }}</p>
                 <p><a class="" href="{% url 'diary_detail' pk=diary.pk %}" title="進入日記" style="text-decoration: none">... 繼續閱讀</a></p>
             </div>
             <span class="clearfix borda"></span>
@@ -152,11 +128,11 @@ $(function(){
         <hr>
         <br><br>
         {{ diary.full_name|upper }}<br>
-        {% endfor%}
+        {% endfor %}
     </section>
     <section class="col-xs-12 col-sm-offset-5 col-sm-7 page">
         <!--頁面切換-->
-    <nav  aria-label="Page navigation" >
+    <nav aria-label="Page navigation" >
         <ul class="pagination pagination-sm ">
             <li class="page-item">
                 {% if contacts.has_previous %}
@@ -168,7 +144,7 @@ $(function(){
             </li>
 
             {% for i in contacts.paginator.page_range %}
-                {% if forloop.counter <= contacts.number|add:2 and forloop.counter >= contacts.number|add:-2%}
+                {% if forloop.counter <= contacts.number|add:2 and forloop.counter >= contacts.number|add:-2 %}
                     {% if forloop.counter == contacts.number %}
                         <li class="page-item active" ><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
                     {% else %}
@@ -189,8 +165,5 @@ $(function(){
     </nav>
     </section>
 </div>
-
-
-
 </body>
 </html>
