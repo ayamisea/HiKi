@@ -76,7 +76,7 @@
     <a href="{% url 'diary_detail' pk=diary.pk %}"></a>
     <div id="carouselExampleControls" class="carousel slide d-flex justify-content-center mr-sm-3 mb-3 mb-sm-0" data-ride="carousel" data-interval="4000">
         <div class="carousel-inner" role="listbox">
-            {% if diary.media_set.all|length == 0 %}
+            {% if diary.image_set.all|length == 0 %}
             <!-- 使用預設圖輪播 -->
             <div class="carousel-item active">
                 <img class="d-block img-fluid" src="{% static 'img/default-img-1.jpg' %}">
@@ -88,7 +88,7 @@
                 <img class="d-block img-fluid" src="{% static 'img/default-img-3.jpg' %}">
             </div>
             {% else %}
-            {% for i in diary.media_set.all %}
+            {% for i in diary.image_set.all %}
             <div class='carousel-item {{ forloop.first|yesno:"active," }}'>
                 <img class="img-rounded" src="{{ i.img.url }}" onerror="this.style.display='none'" style="display:block; margin:auto;" width="200" height="200">
             </div>
