@@ -191,6 +191,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                 'verification_key': verification_key,
             }),
         )
+
         context = {
             'user': self.email,
             'host': request.get_host(),
@@ -200,6 +201,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         message = render_to_string(
             'registration/verification_email.txt', context,
         )
+
         self.email_user(
             subject=ugettext('Verify your email address on {host}').format(**context),
             message=message.strip(),

@@ -9,7 +9,8 @@
     {% include 'include/bootstrap.html' %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <style>
-    main, header {
+    main,
+    header {
         min-width: 320px;
         max-width: 960px;
         margin: 0 auto;
@@ -23,7 +24,7 @@
     }
 
     .navbar-nav li a {
-    	color:white !important;
+        color: white !important;
     }
 
     .new {
@@ -36,7 +37,9 @@
         padding-top: 2px;
     }
 
-    .edit:hover, .delete:hover, .new:hover {
+    .edit:hover,
+    .delete:hover,
+    .new:hover {
         cursor: pointer;
     }
 
@@ -92,8 +95,8 @@
     });
     </script>
 </head>
+{% include 'include/message.html' %} {% include 'include/nav.html' with name=user.name title="user_dashboard_" %}
 
-{% include 'include/message.html' %}
 <body>
     <!-- 新增功能的導覽列 -->
     <nav class="navbar navbar-toggleable-sm navbar-inverse custom-button mb-5">
@@ -126,7 +129,7 @@
         </div>
     </nav>
     <!-- 清單列 -->
-    <main>
+    <main class="mt-4">
         <!-- 各功能分頁 -->
         <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
@@ -144,18 +147,18 @@
             <div class="tab-pane active" id="Diary" role="tabpanel">
                 <table class="table table-hover table-striped">
                     <tbody>
-                    {% for d in diary %}
-	                    <tr>
-	                        <td class="edit">
-	                            <a href="{% url 'diary_edit' pk=d.pk %}"></a>
-	                            {{ d }}
-	                        </td>
-	                        <td>
-	                            <a href="{% url 'diary_delete' pk=d.pk %}"></a>
-	                            <img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
-	                        </td>
-	                    </tr>
-                    {% endfor %}
+                        {% for d in diary %}
+                        <tr>
+                            <td class="edit">
+                                <a href="{% url 'diary_edit' pk=d.pk %}"></a>
+                                {{ d }}
+                            </td>
+                            <td>
+                                <a href="{% url 'diary_delete' pk=d.pk %}"></a>
+                                <img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
+                            </td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -170,18 +173,18 @@
             <div class="tab-pane" id="Tally" role="tabpanel">
                 <table class="table table-hover table-striped">
                     <tbody>
-                    {% for t in tally %}
-	                    <tr>
-	                        <td class="edit">
-	                            <a href="{% url 'tally_edit' pk=t.pk %}"></a>
-	                            {{ t }}
-	                        </td>
-	                        <td>
-	                            <a href="{% url 'tally_delete' pk=t.pk %}"></a>
-	                            <img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
-	                        </td>
-	                    </tr>
-                    {% endfor %}
+                        {% for t in tally %}
+                        <tr>
+                            <td class="edit">
+                                <a href="{% url 'tally_edit' pk=t.pk %}"></a>
+                                {{ t }}
+                            </td>
+                            <td>
+                                <a href="{% url 'tally_delete' pk=t.pk %}"></a>
+                                <img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
+                            </td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
