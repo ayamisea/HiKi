@@ -46,6 +46,7 @@ def new(request):
         loc = request.POST.get('loc')
         #tags
         tags = request.POST.getlist('tags')
+        print(type(tags))
         #diary
         diary_form = DiaryForm(request.POST)
         if diary_form.is_valid():
@@ -96,14 +97,15 @@ def edit(request, pk):
         loc = request.POST.get('loc')
         # tags
         tags = request.POST.getlist('tags')
+        print(type(tags))
         # diary
         diary_form = DiaryForm(request.POST, instance=diary)
         if diary_form.is_valid():
             # update diary
-            """editDiary.title = diary_form.cleaned_data['title']
-            editDiary.date = diary_form.cleaned_data['date']
-            editDiary.type = diary_form.cleaned_data['type']
-            editDiary.content = diary_form.cleaned_data['content']"""
+            """diary.title = diary_form.cleaned_data['title']
+            diary.date = diary_form.cleaned_data['date']
+            diary.type = diary_form.cleaned_data['type']
+            diary.content = diary_form.cleaned_data['content']"""
             diary_form.save()
             #delete tags
             for tag in diary.tags.all():
@@ -127,14 +129,14 @@ def edit(request, pk):
                 Map.objects.create(location=loc, latitude=lat, longitude=lon)
             diary.location = Map.objects.get(location=loc)
             diary.save()
-            return redirect('/gallery/new/?d=' + diary.pk)
+            return redirect('/gallery/new/?d=' + str(diary.pk))
         else:
             raise Http404
     else:
-        """editDiary = Diary.objects.get(id=pk)
-        editMap = editDiary.location
-        editTag = editDiary.tags.all()
-        diary_form = DiaryForm(initial={
+        editDiary = Diary.objects.get(id=pk)
+        editMap = diary.location
+        editTag = diary.tags.all()
+        """diary_form = DiaryForm(initial={
             'title': editDiary.title,
             'date':editDiary.date,
             'content':editDiary.content,
@@ -163,9 +165,11 @@ def map(request):
 
     return render(request, 'diary/map.html', locals())
 
-#display all tags and its diaries
 @login_required
+@user_valid
 def tag(request):
+    """Display all tags and its diaries
+    """
     user = request.user
     mediaURL =  settings.MEDIA_URL
     tagList = []
@@ -181,7 +185,7 @@ def tag(request):
 def search(request):
     user = request.user
     mediaURL = settings.MEDIA_URL
-    diaryList = Diary.objects.filter(type__exact='Public')
+    diaryList = Diary.objects.filter(post_type__exact='Public')
 
     page = request.GET.get('page')
     paginator = Paginator(diaryList, 10) # Show 25 contacts per page
@@ -201,7 +205,7 @@ def search(request):
 
 def search_result(request):
     mediaURL = settings.MEDIA_URL
-    diaryList = Diary.objects.filter(type__exact='Public')
+    diaryList = Diary.objects.filter(post_type__exact='Public')
     user = request.user
     if request.method == "POST":
         if 'all' in request.POST:
