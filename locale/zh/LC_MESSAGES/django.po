@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hiki Diary\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-22 01:22+0800\n"
+"POT-Creation-Date: 2017-06-22 01:33+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Hane <hane0131@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -497,6 +497,39 @@ msgstr "所有帳目"
 #: templates/tally/edit.html:4
 msgid "Edit Tally"
 msgstr "編輯帳目"
+
+#: templates/tally/summary.html:7
+msgid "Summary"
+msgstr "統計"
+
+#: templates/tally/summary.html:67
+#, python-format
+msgid "從&nbsp;%(date_form.dateA)s&nbsp;至&nbsp;%(date_form.dateB)s"
+msgstr "從&nbsp;%(date_form.dateA)s&nbsp;至&nbsp;%(date_form.dateB)s"
+
+#: templates/tally/summary.html:76
+msgid "收入"
+msgstr "收入"
+
+#: templates/tally/summary.html:79
+msgid "支出"
+msgstr "支出"
+
+#: templates/tally/summary.html:89 templates/tally/summary.html:109
+msgid "項目"
+msgstr "項目"
+
+#: templates/tally/summary.html:89 templates/tally/summary.html:109
+msgid "總金額"
+msgstr "總金額"
+
+#: templates/tally/summary.html:96
+msgid "總收入"
+msgstr "總收入"
+
+#: templates/tally/summary.html:116
+msgid "總支出"
+msgstr "總支出"
 
 #: templates/tally/tally-form.html:48
 msgid "完成"
