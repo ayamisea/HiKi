@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hiki Diary\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-22 01:33+0800\n"
+"POT-Creation-Date: 2017-06-22 02:31+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Hane <hane0131@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -173,7 +173,7 @@ msgstr "Tags"
 msgid "所有標籤"
 msgstr "All tags"
 
-#: templates/diary/display.html:6 templates/users/user_dashboard.html:136
+#: templates/diary/display.html:6 templates/users/user_dashboard.html:122
 msgid "Diary"
 msgstr "Diary"
 
@@ -189,7 +189,7 @@ msgstr "Edit Diary"
 msgid "Map"
 msgstr "Footprints"
 
-#: templates/diary/new.html:5 templates/users/user_dashboard.html:116
+#: templates/diary/new.html:5 templates/users/user_dashboard.html:102
 msgid "New Diary"
 msgstr "New Diary"
 
@@ -197,8 +197,8 @@ msgstr "New Diary"
 msgid "成功刪除"
 msgstr "Successfully delete"
 
-#: templates/gallery/display.html:6 templates/users/user_dashboard.html:139
-#: templates/users/user_dashboard.html:166
+#: templates/gallery/display.html:6 templates/users/user_dashboard.html:125
+#: templates/users/user_dashboard.html:152
 msgid "Gallery"
 msgstr "Gallery"
 
@@ -227,7 +227,7 @@ msgstr "Add file..."
 msgid "新增圖片"
 msgstr "Create Image"
 
-#: templates/gallery/new.html:7 templates/users/user_dashboard.html:121
+#: templates/gallery/new.html:7 templates/users/user_dashboard.html:107
 msgid "New Image"
 msgstr "New Image"
 
@@ -308,7 +308,6 @@ msgid "Kevin"
 msgstr "Kevin"
 
 #: templates/include/nav.html:49 templates/users/user_dashboard.html:7
-#: templates/users/user_dashboard.html:106
 msgid "DashBoard"
 msgstr "DashBoard"
 
@@ -436,7 +435,7 @@ msgstr ""
 msgid "Search"
 msgstr "Search"
 
-#: templates/search.html:47 templates/users/user_dashboard.html:111
+#: templates/search.html:47
 msgid "回首頁"
 msgstr "Back"
 
@@ -488,7 +487,7 @@ msgstr "Tally Detail"
 msgid "回帳本"
 msgstr "Back"
 
-#: templates/tally/display.html:8 templates/users/user_dashboard.html:142
+#: templates/tally/display.html:8 templates/users/user_dashboard.html:128
 msgid "Tally"
 msgstr "Tally"
 
@@ -499,6 +498,10 @@ msgstr "All records"
 #: templates/tally/edit.html:4
 msgid "Edit Tally"
 msgstr "Edit Tally"
+
+#: templates/tally/new.html:4 templates/users/user_dashboard.html:112
+msgid "New Tally"
+msgstr "New Tally"
 
 #: templates/tally/summary.html:7
 msgid "Summary"
@@ -541,13 +544,9 @@ msgstr "Complete"
 msgid "Save changes"
 msgstr "Save changes"
 
-#: templates/users/user_dashboard.html:91
+#: templates/users/user_dashboard.html:86
 msgid "是否刪除？"
 msgstr "Delete?"
-
-#: templates/users/user_dashboard.html:126
-msgid "New Tally"
-msgstr "New Tally"
 
 #: users/admin.py:17
 msgid "Personal info"
