@@ -58,8 +58,8 @@ def user_signup(request):
 
             user = User.objects.create_user(
                 request.POST['email'],
-                is_staff = False,
-                is_superuser = False,)
+                is_staff=False,
+                is_superuser=False,)
 
             if password1 == password2:
                 user.set_password(password2)

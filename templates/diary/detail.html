@@ -91,12 +91,12 @@
     </div>
     <hr>
     <!-- 多少媒體 -->
-    {% ifnotequal diary.media_set.all|length 0 %}
+    {% ifnotequal diary.image_set.all|length 0 %}
     <div class="d-flex align-items-center pt-1 pl-1 pr-1 pb-0">
       <div class="detail-icon">
         <img class="detail-icon-img" src="{%static '/icon/detail/picture.png' %}">
       </div>
-      <h5 class="ml-1 mt-0 mr-0 mb-0">共{{ diary.media_set.all|length }}個媒體</h5>
+      <h5 class="ml-1 mt-0 mr-0 mb-0">共{{ diary.image_set.all|length }}個媒體</h5>
     </div>
     <!-- 圖片欄位 -->
     <div class="d-flex pt-0 pl-1 pr-1 pb-1">
@@ -104,7 +104,7 @@
       <div class="detail-icon"></div>
       <!-- 所有圖片 -->
       <div class="d-flex flex-column">
-        {% for i in diary.media_set.all %}
+        {% for i in diary.image_set.all %}
           <!-- 各個圖片 -->
             <div class="d-flex flex-column flex-sm-row m-2">
           <!-- 圖片本體 -->

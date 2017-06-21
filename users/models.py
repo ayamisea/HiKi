@@ -97,19 +97,19 @@ def photo_upload_to(instance, filename):
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
-        verbose_name=_("Email address"),
+        verbose_name=_("Email Address"),
         max_length=255, unique=True, db_index=True,
     )
     name = models.CharField(
-        verbose_name=_("User name"),
+        verbose_name=_("User Name"),
         max_length=100, default='',
     )
     photo = models.ImageField(
-        verbose_name=_('photo'),
-        blank=True, default='', upload_to=photo_upload_to
+        verbose_name=_('Photo'),
+        blank=True, default='', upload_to='avatars/'
     )
     bio = models.TextField(
-        verbose_name=_('biography'),
+        verbose_name=_('Biography'),
         max_length=1000, blank=True, default='',
         help_text=_(
             "Describe yourself with 500 characters or less. "
@@ -148,7 +148,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     class Meta:
-        verbose_name = _('user')
+        verbose_name = _('users')
         verbose_name_plural = _('users')
         swappable = 'AUTH_USER_MODEL'
 
