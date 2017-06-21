@@ -1,193 +1,106 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+
 <head>
-  <title>HiKi Diary</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="{% static 'css/home.css' %}">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <title>HiKi Diary</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> {% include 'include/bootstrap.html' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <script>
+    $(function() {
+        $(document).bind('keyup', function(e) {
+            if (e.keyCode == 39 || e.keyCode == 40) {
+                $('.carousel').carousel('next');
+            } else if (e.keyCode == 37 || e.keyCode == 38) {
+                $('.carousel').carousel('prev');
+            }
+        });
+    });
+    </script>
 </head>
-<body id="hiki" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-        <a class="navbar-brand" href="#hiki">HiKi</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#services">SERVICES</a></li>
-        <li><a href="#developers">DEVELOPERS</a></li>
-        <li><a href="#links">LINKS</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<div class="jumbotron text-center">
-<div class="jumbotron-layer">
-
-  <div class="container-fluid">
-            <div class="row">
-                <h1>HiKi</h1>
-                <p>Enjoy your perfect day.</p>
-                <div class="col-sm-4 col-sm-offset-4">
-                    <form method="post" action="{% url 'diary_search_result' %}" >
-                    {% csrf_token %}
-                    <div id="imaginary_container">
-                        <div class="input-group stylish-input-group">
-                            <input type="text" class="form-control" name="search" placeholder="請輸入搜尋文字" >
-                            <span class="input-group-addon">
-                                <button type="submit">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </span>
+<body>
+    <div id="vc" class="carousel vert slide" data-interval="false" data-keyboard="true">
+        <div class="carousel-inner">
+            <!-- 搜尋列與登入/註冊 -->
+            <div id="index" class="carousel-item active tilted">
+                <div class="d-flex flex-column w-100">
+                    <div id="search" class="p-2">
+                        <form method="post" action="{% url 'diary_search_result' %}">{% csrf_token %}
+                            <div class="input-group">
+                                <input name="q" type="text" class="form-control" placeholder="Search for..." style="width:25%;min-width: 200px;">
+                                <span class="input-group-btn">
+								<button class="btn" type="submit">Search!</button>
+							</span>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="intro" class="p-2">
+                        <h1><strong>Hiki</strong></h1>
+                        <h3>Enjoy your perfect day.</h3>
+                        <a href="{% url 'accounts' %}" class="btn custom-button nohover">Start Now</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Services Section -->
+            <div id="services" class="carousel-item text-center">
+                <div class="d-flex flex-column w-100 p-1 align-self-center">
+                    <h1>SERVICES</h1>
+                    <div class="d-flex flex-wrap justify-content-center mt-5">
+                        <div class="p-2 m-1 m-sm-5">
+                        	<a href="{% url 'diary' %}" style="color:inherit;">
+	                            <span class="fa fa-book fa-3x" aria-hidden="true" style="color:#0ABAB5;"></span>
+	                            <h4>DIARY</h4>
+	                            <p>記錄生活點滴</p>
+                            </a>
+                        </div>
+                        <div class="p-2 m-1 m-sm-5">
+                        	<a href="{% url 'gallery' %}" style="color:inherit;">
+	                            <span class="fa fa-image fa-3x" aria-hidden="true" style="color:#0ABAB5;"></span>
+	                            <h4>ALBUM</h4>
+	                            <p>上傳生活照片</p>
+	                        </a>
+                        </div>
+                        <div class="p-2 m-1 m-sm-5">
+                            <a href="{% url 'tally' %}" style="color:inherit;">
+	                            <span class="fa fa-dollar fa-3x" aria-hidden="true" style="color:#0ABAB5;"></span>
+	                            <h4>ACCOUNT</h4>
+	                            <p>紀錄生活開銷</p>
+	                        </a>
+                        </div>
+                        <div class="p-2 m-1 m-sm-5">
+                        	<a href="{% url 'search' %}" style="color:inherit;">
+	                            <span class="fa fa-search fa-3x" aria-hidden="true" style="color:#0ABAB5;"></span>
+	                            <h4>SEARCH</h4>
+	                            <p>找到話題</p>
+	                        </a>
                         </div>
                     </div>
-                    </form>
-                    <br>
-
-                    <div class="btn-group">
-                        <a class="btn btn-default"  href="{% url 'diary' %}">我的日記<i class="fa fa-arrow-right"></i></a>
-                        <a class="btn btn-default"  href="{% url 'diary_search' %}">日記探索<i class="fa fa-arrow-right"></i></a>
-                    </div>
-
-
                 </div>
+            </div>
+            <!-- Developers Section -->
+            <div id="developers" class="carousel-item">
+                <div class="d-flex flex-column w-100 p-2 align-self-center">
+                    <h1 class="text-center">Developers</h1>
+                    <div class="d-flex flex-column flex-sm-row justify-content-center align-items-center mt-5">
+                        <div class="h3 mr-0 mr-sm-5">Hane</div>
+                        <div class="h3 mr-0 mr-sm-5">Irene</div>
+                        <div class="h3 mr-0 mr-sm-5">Issa</div>
+                        <div class="h3 mr-0">Kevin</div>
+                    </div>
+                    <div class="d-flex flex-column  justify-content-center align-items-center mt-5 thumbnail">
+                        <a href="https://github.com/IreneLai/HiKi">
+                            <img src="https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/github-48.png" style="width:48px;height:48px" />
+                        </a>
+                        <p> <span class="glyphicon glyphicon-envelope"></span> hikintnucsie@gmail.com</p>
+                    </div>
+                </div>
+            </div>
         </div>
+        <a class="left" href="#vc" data-slide="prev">&lsaquo;</a>
+        <a class="right" href="#vc" data-slide="next">&rsaquo;</a>
     </div>
-</div>
-</div>
-
-<!-- Container (Services Section) -->
-<div id="services" class="container-fluid text-center">
-  <h2>SERVICES</h2>
-  <br>
-  <div class="row slideanim">
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-book logo-small"></span>
-      <h4>DIARY</h4>
-      <p>記錄生活的點點滴滴</p>
-    </div>
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-picture logo-small"></span>
-      <h4>ALBUM</h4>
-      <p>收集上傳的媒體</p>
-    </div>
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-usd logo-small"></span>
-      <h4>ACCOUNT</h4>
-      <p>紀錄生活開銷</p>
-    </div>
-
-  </div>
-  <br><br>
-  <div class="row slideanim">
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-heart logo-small"></span>
-      <h4>SHARE</h4>
-      <p>與他人分享生活點滴</p>
-    </div>
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-search logo-small"></span>
-      <h4>SEARCH</h4>
-      <p>找到喜歡的話題</p>
-    </div>
-    <div class="col-sm-4">
-      <span class="glyphicon glyphicon-leaf logo-small"></span>
-      <h4>FREE</h4>
-      <p>免費使用</p>
-    </div>
-  </div>
-</div>
-
-<!-- Container (Developers Section) -->
-<div id="developers" class="container-fluid bg-grey">
-  <div class="row slideanim">
-    <h2 class="text-center">Developers</h2>
-    <div class="col-sm-3">
-      <h4>Hane</h4>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut </p>
-    </div>
-    <div class="col-sm-3">
-      <h4>Irene</h4>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut </p>
-    </div>
-    <div class="col-sm-3">
-      <h4>Issa</h4>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut </p>
-    </div>
-    <div class="col-sm-3">
-      <h4>Kevin</h4>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut </p>
-    </div>
-
-  </div>
-</div>
-
-<!-- Container (Link Section) -->
-<div id="links" class="container-fluid text-center ">
-  <h2>Links</h2><br>
-  <div class="row text-center slideanim">
-    <div class="col-sm-4 col-sm-offset-4">
-      <div class="thumbnail">
-        <a href="https://github.com/IreneLai/HiKi">
-            <img src="https://cdn4.iconfinder.com/data/icons/iconsimple-logotypes/512/github-48.png" style="width:48px;height:48px"/>
-        </a>
-        <p> <span class="glyphicon glyphicon-envelope"></span>  hikintnucsie@gmail.com</p>
-      </div>
-    </div>
-  </div>
-<footer class="container-fluid text-center">
-  <a href="#hiki" title="To Top">
-    <span class="glyphicon glyphicon-chevron-up"></span>
-  </a>
-</footer>
-
-<script>
-$(document).ready(function(){
-  // Add smooth scrolling to all links in navbar + footer link
-  $(".navbar a, footer a[href='#hiki']").on('click', function(event) {
-    // Make sure this.hash has a value before overriding default behavior
-    if (this.hash !== "") {
-      // Prevent default anchor click behavior
-      event.preventDefault();
-      // Store hash
-      var hash = this.hash;
-      // Using jQuery's animate() method to add smooth page scroll
-      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-      $('html, body').animate({
-        scrollTop: $(hash).offset().top
-      }, 900, function(){
-
-        // Add hash (#) to URL when done scrolling (default click behavior)
-        window.location.hash = hash;
-      });
-    } // End if
-  });
-
-  $(window).scroll(function() {
-    $(".slideanim").each(function(){
-      var pos = $(this).offset().top;
-      var winTop = $(window).scrollTop();
-        if (pos < winTop + 600) {
-          $(this).addClass("slide");
-        }
-    });
-  });
-})
-</script>
-
 </body>
+
 </html>
