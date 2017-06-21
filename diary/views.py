@@ -144,7 +144,14 @@ def edit(request, pk):
 @login_required
 def delete(request, pk):
     diary = get_object_or_404(request.user.diary_set, pk=pk)
+    tag_list = diary.tags.values_list()
+    if diary.location:
+        m = diary.location
     diary.delete()
+    m.delete()
+    for t in tag_list:
+        if not t.diary_set.count():
+            t.delete()
 
     messages.success(request, ugettext("Successfully delete " + str(diary)))
 
