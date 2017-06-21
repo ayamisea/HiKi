@@ -60,7 +60,7 @@ def new(request):
                         t = Tag.objects.create(name=tag)
                     else:
                         t = Tag.objects.get(name=tag)
-                    new_diary.tags.add(t)
+                    diary.tags.add(t)
 
             #map
             if not Map.objects.filter(location=loc).exists():
@@ -71,7 +71,7 @@ def new(request):
             diary.user = request.user
             diary.save()
 
-            return redirect('/gallery/new/?d=' + diary.pk)
+            return redirect('/gallery/new/?d=' + str(diary.pk))
         else:
             messages.warning(request, ugettext('Input format error')) # '格式輸入錯誤'
     else:

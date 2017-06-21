@@ -30,7 +30,7 @@
 		    	</iframe>
 		    </div>
 		    <div class="d-flex align-self-center">
-		    	<a class="btn custom-button" href="{% url 'diary_detail' pk=user.pk %}">確認</a>
+		    	<a class="btn custom-button" href="{% url 'diary_detail' pk={{ d }} %}">確認</a>
 		    </div>
         {% endif %}
 		</main>
