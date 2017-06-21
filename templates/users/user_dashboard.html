@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detail</title>
+    <!-- css -->
+    {% include 'include/bootstrap.html' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <style>
+    main, header {
+        min-width: 320px;
+        max-width: 960px;
+        margin: 0 auto;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    
+    .navbar {
+        background-color: #53cecb !important;
+        letter-spacing: 2px !important;
+    }
+
+    .navbar-nav li a {
+    	color:white !important;
+    }
+    
+    .new {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .edit {
+        padding-top: 2px;
+    }
+    
+    .edit:hover, .delete:hover, .new:hover {
+        cursor: pointer;
+    }
+    
+    .new:hover > .form-icon {
+        -webkit-transform: rotate(-15deg);
+        -moz-transform: rotate(-15deg);
+        -ms-transform: rotate(-15deg);
+        -o-transform: rotate(-15deg);
+        transform: rotate(-15deg);
+        -webkit-transition-duration: .5s;
+        -moz-transition-duration: .5s;
+        -ms-transition-duration: .5s;
+        -o-transition-duration: .5s;
+        transition-duration: .5s;
+    }
+    
+    .table {
+        border: 0px !important;
+        margin-top: 20px;
+    }
+    
+    .table > tbody > tr > td {
+        vertical-align: middle;
+    }
+    
+    .table-striped>tbody>tr:nth-child(odd)>td {
+        background-color: rgba(10, 186, 181, 0.1);
+    }
+    
+    .table-striped .table-hover > tbody > tr:hover > td {
+        background-color: rgba(10, 186, 181, 0.1);
+    }
+    </style>
+    <script>
+    $(function() {
+        $('.new').click(function() {
+            window.location.href = $(this).find('a').attr('href');
+        });
+    });
+
+    $(function() {
+        $('.edit').click(function() {
+            window.location.href = $(this).find('a').attr('href');
+        });
+    });
+
+    $(function() {
+        $('.delete').click(function() {
+            if (confirm('是否刪除？')) {
+                window.location.href = $(this).find('a').attr('href');
+            }
+        });
+    });
+    </script>
+</head>
+
+{% include 'include/message.html' %}
+<body>
+    <!-- 新增功能的導覽列 -->
+    <nav class="navbar navbar-toggleable-sm navbar-inverse custom-button mb-5">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNewContent" aria-controls="navbarNewContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-brand" href="#">DashBoard</div>
+        <div class="collapse navbar-collapse" id="navbarNewContent">
+            <ul class="navbar-nav">
+	            <!-- 回首頁 -->
+            	<li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
+                	<a class="nav-link" href="{% url 'hiki' %}">回首頁</a>
+                </li>
+	            <!-- 新增日記 -->
+	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
+	                <img class="form-icon mr-1" src="{% static 'icon/new_diary.png' %}">
+	                <a class="nav-link" href="{% url 'diary_new' %}">New Diary</a>
+	            </li>
+	            <!-- 新增相片 -->
+	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
+	                <img class="form-icon mr-1" src="{% static 'icon/new_photo.png' %}">
+	                <a class="nav-link" href="#">New Image</a>
+	            </li>
+	            <!-- 新增帳目 -->
+	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
+	                <img class="form-icon mr-1" src="{% static 'icon/new_tally.png' %}">
+	                <a class="nav-link" href="{% url 'tally_new' %}">New Tally</a>
+	            </li>
+	        </ul>
+        </div>
+    </nav>
+    <!-- 清單列 -->
+    <main>
+        <!-- 各功能分頁 -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#Diary" role="tab">Diary</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#Gallery" role="tab">Gallery</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#Tally" role="tab">Tally</a>
+            </li>
+        </ul>
+        <!-- 各功能欄位 -->
+        <div class="tab-content p-2">
+            <div class="tab-pane active" id="Diary" role="tabpanel">
+                <table class="table table-hover table-striped">
+                    <tbody>
+                    {% for d in diary %}
+	                    <tr>
+	                        <td class="edit">
+	                            <a href="{% url 'diary_edit' pk=d.pk %}"></a>
+	                            {{ d }}
+	                        </td>
+	                        <td>
+	                            <a href="{% url 'diary_delete' pk=d.pk %}"></a>
+	                            <img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
+	                        </td>
+	                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="Gallery" role="tabpanel">
+                <h1>Gallery</h1>
+                <ul>
+                </ul>
+            </div>
+            <div class="tab-pane" id="Tally" role="tabpanel">
+                <table class="table table-hover table-striped">
+                    <tbody>
+                    {% for t in tally %}
+	                    <tr>
+	                        <td class="edit">
+	                            <a href="{% url 'tally_edit' pk=t.pk %}"></a>
+	                            {{ t }}
+	                        </td>
+	                        <td>
+	                            <a href="{% url 'tally_delete' pk=t.pk %}"></a>
+	                            <img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
+	                        </td>
+	                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -11,11 +11,7 @@
 
 	.navbar , .dropdown-menu {
 		background-color: #53cecb !important;
-		border:0px !important;
-		font-family: Montserrat, sans-serif !important;
-		font-size: 12px !important;
-		line-height: 1.42857143 !important;
-		letter-spacing: 4px !important;
+		letter-spacing: 2px !important;
 	}
 
 	#navbar-collapse-1{
@@ -51,19 +47,22 @@
 					<a class="nav-link" href="{% url 'hiki' %}">首頁</a>
 				</li>
 				<li id="diary_" class="nav-item">
-					<a class="nav-link" href="{% url 'diary_display' %}">日記</a>
+					<a class="nav-link" href="{% url 'diary' %}">日記</a>
 				</li>
 		      	<li id="photo_" class="nav-item">
-		      		<a class="nav-link" href="{% url 'diary_media' %}">相簿</a>
+		      		<a class="nav-link" href="{% url 'gallery' %}">相簿</a>
 		      	</li>
 		      	<li id="map_" class="nav-item">
-		      		<a class="nav-link" href="{% url 'diary_map' %}">旅遊足跡</a>
+		      		<a class="nav-link" href="{% url 'map' %}">旅遊足跡</a>
 		      	</li>
 		      	<li id="tag_" class="nav-item">
-		      		<a class="nav-link" href="{% url 'diary_tag' %}">標籤</a>
+		      		<a class="nav-link" href="{% url 'tag' %}">標籤</a>
 		      	</li>
 		      	<li id="tally_" class="nav-item">
-		      		<a class="nav-link" href="{% url 'tally_display' %}">帳本</a>
+		      		<a class="nav-link" href="{% url 'tally' %}">帳本</a>
+		      	</li>
+		      	<li id="tally_summary_" class="nav-item">
+		      		<a class="nav-link" href="{% url 'tally' %}">統計</a>
 		      	</li>
 		    </ul>
 		    <ul class="navbar-nav ml-auto">
@@ -73,37 +72,9 @@
 		                </span> {{name}} <span class="caret"></span>
 		            </a>
 			        <ul class="dropdown-menu dropdown-menu-right pt-0 mt-0" aria-labelledby="navbarDropdownMenuLink">
-			        	<div class="dropdown-divider"></div>
-			            <li class="dropdown-header">
-			            	日記管理
-			            	<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-			            </li>
 			            <li>
-			            	<a id="new_diary_" class="dropdown-item" href="{% url 'diary_new' %}">
-			            		新增日記
-			            	</a>
-			            </li>
-			            <div class="dropdown-divider"></div>
-			            <li class="dropdown-header">
-			            	帳本管理
-			            	<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-			            </li>
-			            <li>
-			            	<a id="new_tally_" class="dropdown-item" href="{% url 'tally_new' %}">
-			            		新增明細
-			            	</a>
-			            	<a id="tally_summary_" class="dropdown-item" href="{% url 'tally_summary' %}">
-			            		帳本統計
-			            	</a>
-			            </li>
-			            <div class="dropdown-divider"></div>
-			            <li class="dropdown-header">
-			            	會員專區
-			            	<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-			            </li>
-			            <li>
-			            	<a class="dropdown-item" href="#">
-			            		帳號管理
+			            	<a id="user_dashboard_" class="dropdown-item" href="{% url 'user_dashboard' %}">
+			            		Dash Board
 			            	</a>
 			            </li>
 			            <li>
@@ -116,9 +87,9 @@
 	    	</ul>
 	    </div>
 	</nav>
-
 	<!-- 確認標籤位置 -->
 	<script>
 		var title = "{{title}}";
 		document.getElementById(title).classList.add("active");
 	</script>
+	{% include 'include/message.html' %}

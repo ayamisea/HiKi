@@ -1,8 +1,10 @@
 {% load static %}
+{% load sort %}
 <!DOCTYPE html>
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tally Detail</title>
     {% include 'include/bootstrap.html' %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
@@ -29,13 +31,9 @@
     	<hr>
     	<!-- 類別 -->
     	<div class="d-flex align-items-center">
-    		{% if tally.pay_type == '收入'%}
-    		<img class="detail-icon-img" src="{% static 'icon/detail/income.png' %}">
-	    	{% endif %}
-	    	{% if tally.pay_type == '支出'%}
-	    	<img class="detail-icon-img" src="{% static 'icon/detail/expense.png' %}">
-    		{% endif %}
-    		{{ tally.type }}&nbsp;&nbsp;{{ tally.subtype }}
+    		{% with tally.pay_type|get_type:choices|add:'.png' as img_type %}
+    		<img class="detail-icon-img" src="{% static 'icon/detail/'|add:img_type %}">{{ tally.pay_type }}&nbsp;&nbsp;{{ tally.subtype }}
+    		{% endwith %}
 	    </div>
 	    <hr>
 	    <!-- 多少錢 -->
@@ -56,6 +54,6 @@
 		<form method="post" >{% csrf_token %}
 	    	<input class="btn custom-button ml-2 mr-2" type="submit" name="delete" value="刪除">
 	    </form>
-	    <a class="btn custom-button" href="{% url 'tally_display' %}">回日記</a>
+	    <a class="btn custom-button" href="{% url 'tally' %}">回日記</a>
 	</div>
 </body>

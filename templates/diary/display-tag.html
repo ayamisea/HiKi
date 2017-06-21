@@ -45,7 +45,7 @@
                         <form action="" method="post">{% csrf_token %}
                         {% for tag in tagList %}
                             <button type="submit" class="tag btn ml-1 custom-button" style="display:inline;" name="tag" value={{tag.id}} >
-                               <span class="badge">{{tag.diary_set.all|length}}</span> {{tag.tagName}}
+                               <span class="badge">{{tag.diary_set.all|length}}</span> {{tag.name}}
                     		</button>
                         {% endfor %}
                         </form>
@@ -55,7 +55,7 @@
             <hr>
         </div>
         <!--日記-->
-        {% include 'diary/display-diary.html' with diaryList=tagDiary %}
+        {% include 'diary/display.html' with diaryList=tagDiary %}
     </main>
 </body>
 

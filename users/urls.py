@@ -13,6 +13,10 @@ urlpatterns = [
 
     url(r'^login/$', views.user_login, name='login'),
     url(r'^logout/$', auth.logout, {'next_page': '/accounts/'}, name='logout'),
+    url(r'^profile/$', views.user_profile_update, name='user_profile_update'),
 
-    url(r'^$', views.home,name='account'),
+    url(r'^password-change/$', views.password_change, name='password_change'),
+    url(r'^password-reset/$', views.password_reset, name='password_reset'),
+
+    url(r'^$', views.accounts, name='accounts'),
 ]

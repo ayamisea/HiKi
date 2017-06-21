@@ -11,11 +11,11 @@
         padding: 2rem;
         margin: 1rem;
     }
-    
+
     .carousel-row:hover {
         cursor: pointer;
     }
-    
+
     .carousel-inner {
         height: 200px;
         width: 200px;
@@ -26,24 +26,24 @@
         align-self: center;
         overflow: hidden;
     }
-    
+
     #article header {
         color: #0ABAB5;
         font-family: Montserrat, sans-serif;
         font-size: 1.6em;
     }
-    
+
     #article p span {
         color: #769072;
         font-size: 1.2rem;
     }
-    
+
     #article p {
         color: #696969;
         font-family: Montserrat, sans-serif;
         font-size: 1em;
     }
-    
+
     .media {
         margin-bottom: 1em;
     }
@@ -71,7 +71,7 @@
 </script>
 
 <!-- 列出日記 -->
-{% for diary in diaryList %}
+{% for diary in diary_list %}
 <div class="carousel-row d-flex flex-column flex-sm-row">
     <a href="{% url 'diary_detail' pk=diary.pk %}"></a>
     <div id="carouselExampleControls" class="carousel slide d-flex justify-content-center mr-sm-3 mb-3 mb-sm-0" data-ride="carousel" data-interval="4000">
@@ -90,33 +90,27 @@
             {% else %}
             {% for i in diary.media_set.all %}
             <div class='carousel-item {{ forloop.first|yesno:"active," }}'>
-                {% if i.type == "img" %}
-                <img class="img-rounded" src="{{mediaURL}}{{i.img}}" onerror="this.style.display='none'" style="display:block; margin:auto;" width="200" height="200"> {% endif %} {% if i.type == "video" %}
-                <video style="display:block; margin:auto;" class="img-rounded" width="200" height="200" controls>
-                    <source src="{{mediaURL}}{{i.img}}" type="video/mp4">
-                    <source src="{{mediaURL}}{{i.img}}" type="video/ogg"> Your browser does not support HTML5 video.
-                </video>
-                {% endif %}
+                <img class="img-rounded" src="{{ i.img.url }}" onerror="this.style.display='none'" style="display:block; margin:auto;" width="200" height="200">
             </div>
             {% endfor %}
             {% endif %}
         </div>
     </div>
     <div id="article" class="d-flex flex-column mw-80%">
-        <header class="h3 m-1"><strong>{{diary.title}}</strong></header>
+        <header class="h3 m-1"><strong>{{ diary.title }}</strong></header>
         <p class="m-1">
         	<span>
-        		<img class="m-1" width="23" height="23" src="{% static 'icon/detail/date.png' %}">{{diary.date}}
+        		<img class="m-1" width="23" height="23" src="{% static 'icon/detail/date.png' %}">{{ diary.date }}
         	</span>
         	<span>
             	{% with '/icon/weather/'|add:diary.weather_cond|add:'.png' as image_static %}
             	<img src="{% static image_static %}" onerror="this.style.display='none'" alt="null" height="25" width="25">
-            	{{diary.weather_meantemp}}℃
+            	{{ diary.weather_meantemp }}℃
             	{% endwith %}
             </span>
         </p>
         <p class="JQellipsis m-1">
-            {{diary.content}}
+            {{ diary.content }}
         </p>
     </div>
 </div>

@@ -4,6 +4,30 @@ html, body {
 	padding:0;
 }
 
+#background {
+    background: url('../img/account.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size：cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    height: 100vh;
+}
+
+#wrap {
+    background-color: rgba(255, 255, 255, 0.7);
+    width:350px;
+	height:80%;	
+    margin:0 auto;
+    padding-left: 35px;
+	padding-right: 35px;
+	padding-top: 30px;
+    display: flex;
+    align-self: center;
+}
+
 .custom-button {
 	background-color: #0ABAB5;
 	color:white;

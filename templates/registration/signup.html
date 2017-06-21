@@ -1,41 +1,28 @@
 <form method="POST" action="{% url 'signup' %}" class="d-flex flex-column align-self-center">{% csrf_token %}
-	<div class="formrow flex-column flex-sm-row p-1">
-		<div class="mr-sm-auto pr-1">
-      <label for='email'>Email：</label>
+    <div class="d-flex flex-column w-100 p-1">
+        <label for='email'>Email：</label>
+        <input id="email" name="email" maxlength="255" type="email" required>
     </div>
-		<div class="ml-sm-auto">
-      <input id="email" name="email" maxlength="255" type="email" required>
+    <div class="d-flex flex-column w-100 p-1">
+        <label for='password1'>密碼：</label>
+        <input id="password1" name="password1" type="password" required>
     </div>
-	</div>
-	<div class="formrow flex-column flex-sm-row p-1">
-		<div class="mr-sm-auto pr-1">
-      <label for='password1'>密碼：</label>
+    <div class="d-flex flex-column w-100 p-1">
+        <label for='password2'>密碼確認：</label>
+        <input id="password2" name="password2" type="password" required>
     </div>
-		<div class="ml-sm-auto">
-      <input id="password1" name="password1" type="password" required>
+    <div class="d-flex flex-column w-100 p-1 mt-2">
+        <input type="hidden" name="next" value="{{ next }}" />
+        <input class="btn custom-button w-100" type="submit" name="submit" value="註冊">
     </div>
-	</div>
-	<div class="formrow flex-column flex-sm-row p-1">
-		<div class="mr-sm-auto pr-1">
-      <label for='password2'>密碼確認：</label>
-    </div>
-		<div class="ml-sm-auto">
-      <input id="password2" name="password2" type="password" required>
-    </div>
-	</div>
-	<div class="formrow flex-column flex-sm-row p-1">
-    <input type="hidden" name="next" value="{{ next }}" />
-		<input class="btn custom-button w-100" type="submit" name="submit" value="註冊">
-	</div>
 </form>
 <div class="d-flex flex-row justify-content-center p-2">
-	<div class="h6">已有帳號？&nbsp;<a id="loginjump" href="#">按此登入。</a></div>
+    <div class="h6">已有帳號？&nbsp;<a id="loginjump" href="#">按此登入。</a></div>
 </div>
-
 <script>
-$(document).ready(function(){
-	$('#loginjump').click(function() {
-	    $('#logintab').trigger('click')
-	});
+$(document).ready(function() {
+    $('#loginjump').click(function() {
+        $('#logintab').trigger('click')
+    });
 });
 </script>

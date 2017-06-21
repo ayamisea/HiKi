@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hiki Diary</title>
+    <!-- Bootstrap -->
+    {% include 'include/bootstrap.html' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+</head>
+
+<body id="background" class="d-flex justify-content-center">
+    <div id="wrap" class="flex-column">
+        <header class="h2 mb-3">HIKI Diary</header>
+        <main class="d-flex flex-column w-100">
+            <ul class="nav nav-tabs mb-1" role="tablist">
+                <li class="nav-item text-center">
+                    <a id="signuptab" class="nav-link" data-toggle="tab" href="#signup">Sign up</a>
+                </li>
+                <li class="nav-item text-center">
+                    <a id="logintab" class="nav-link active" data-toggle="tab" href="#login">Login</a>
+                </li>
+            </ul>
+            <div class="tab-content w-100">
+                <div id="signup" class="tab-pane" role="tabpanel">
+                    {% include 'registration/signup.html' %}
+                </div>
+                <div id="login" class="tab-pane active" role="tabpanel">
+                    {% include 'registration/login.html' %}
+                </div>
+            </div>
+        </main>
+        {% include 'include/message.html' %}
+    </div>
+</body>
+
+</html>

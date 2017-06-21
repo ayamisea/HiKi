@@ -1,139 +1,170 @@
-from django.shortcuts import render
-from .forms import DiaryForm,MediaForm
-from .models import Tag,Diary,Map,Media
-from django.http import HttpResponseRedirect
-from django.http import Http404
-from django.http import HttpResponse
-from django.conf import settings
 from decimal import *
+
+from django.conf import settings
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import get_object_or_404, render, redirect
+from django.http import HttpResponseRedirect
+from django.http import Http404
+from django.utils.translation import ugettext
 
-# Create your views here.
+from users.decorators import user_valid
 
-#display all diaries
-@login_required(login_url='/accounts/')
+from .forms import DiaryForm
+from .models import Diary, Tag, Map
+
+@login_required
+@user_valid
 def display(request):
-    user = request.user
-    userName = request.user.name
-    diaryList = request.user.diary_set.all()
-    mediaURL = settings.MEDIA_URL
-    return render(request, 'diary/display.html',locals())
+    """Display all diaries.
+    """
+    diary_list = request.user.diary_set.all()
 
-#display one diariy
-@login_required(login_url='/accounts/')
-def detail(request,pk):
-    
-    mediaURL = settings.MEDIA_URL
+    return render(request, 'diary/display.html', locals())
+
+@login_required
+@user_valid
+def detail(request, pk):
+    """Display diary details.
+    """
     MapAPI = settings.GOOGLE_MAPS_API_KEY
-    user = request.user
-    diary = Diary.objects.get(pk=pk)
-    if request.method=='POST':
-        if 'delete' in request.POST:
-            d = Diary.objects.get(id=pk)
-            m = Map.objects.get(location = d.location)
-            for t in d.tags.all(): #delete tags
-                if t.diary_set.count() == 1:
-                    Tag.objects.get(id= t.id).delete()
-            for img in d.media_set.all(): #delete media
-                Media.objects.get(id=img.id).delete()
-            if m.diary_set.count() == 1: #delete maps
-                m.delete()
-            d.delete()
-            return HttpResponseRedirect('/diary/')
+    diary = get_object_or_404(request.user.diary_set, pk=pk)
+
     return render(request, 'diary/detail.html', locals())
 
-
-#create new diary
-@login_required(login_url='/accounts/')
-def newdiary(request):
-    user = request.user
+@login_required
+def new(request):
+    """Create new diary.
+    """
     MapAPI=settings.GOOGLE_MAPS_API_KEY
+
     if request.method == 'POST':
         #map
-        getlat = Decimal(request.POST.get('lat'))
-        getlon = Decimal(request.POST.get('lon'))
-        getloc = request.POST.get('loc')
+        lat = Decimal(request.POST.get('lat'))
+        lon = Decimal(request.POST.get('lon'))
+        loc = request.POST.get('loc')
         #tags
         tags = request.POST.getlist('tags')
         #diary
         diary_form = DiaryForm(request.POST)
         if diary_form.is_valid():
             #diary
-            new_diary = diary_form.save(commit=True)
+            diary = diary_form.save(commit=True)
+
             #tags
             taglist = tags[0].split(',')
             for tag in taglist:
-                if not tag == '':
-                    if not Tag.objects.filter(tagName=tag).exists():
-                        Tag.objects.create(tagName=tag)
-                    new_diary.tags.add(Tag.objects.get(tagName=tag))
+                if tag:
+                    if not Tag.objects.filter(name=tag).exists():
+                        t = Tag.objects.create(name=tag)
+                    else:
+                        t = Tag.objects.get(name=tag)
+                    new_diary.tags.add(t)
+
             #map
-            if not Map.objects.filter(location=getloc).exists():
-                Map.objects.create(location=getloc, latitude=getlat, longitude=getlon)
-            new_diary.location=Map.objects.get(location=getloc)
-            new_diary.getWeather()
-            new_diary.userID = request.user
-            new_diary.save()
-            request.session['diaryID'] = new_diary.id
-            return HttpResponseRedirect('/diary/media-upload/')
+            if not Map.objects.filter(location=loc).exists():
+                m = Map.objects.create(location=loc, latitude=lat, longitude=lon)
+            else:
+                m = Map.objects.get(location=loc)
+            diary.location = m
+            diary.user = request.user
+            diary.save()
+
+            return redirect('/gallery/new/?d=' + diary.pk)
         else:
-            messages.warning(request, '格式輸入錯誤')
+            messages.warning(request, ugettext('Input format error')) # '格式輸入錯誤'
     else:
         diary_form = DiaryForm()
-    return render(request, 'diary/newdiary.html', locals())
 
-# upload diary media
-@login_required(login_url='/accounts/')
-def media_upload(request):
-    user = request.user
-    diaryID = request.session['diaryID']
-    if request.method =='POST':
-        media_form = MediaForm(request.POST, request.FILES)
-        if media_form.is_valid():
-            newMedia = media_form.save()
-            newMedia.diary = Diary.objects.get(pk=diaryID)
-            newMedia.save()
-            return HttpResponseRedirect('/diary/media-upload/')
+    return render(request, 'diary/new.html', locals())
+
+@login_required
+@user_valid
+def edit(request, pk):
+    """Edit diary.
+    """
+    diary = get_object_or_404(request.user.diary_set, pk=pk)
+    MapAPI = settings.GOOGLE_MAPS_API_KEY
+
+    if request.method =="POST":
+        # image
+        media_num = diary.image_set.count()
+        # map
+        lat = Decimal(request.POST.get('lat'))
+        lon = Decimal(request.POST.get('lon'))
+        loc = request.POST.get('loc')
+        # tags
+        tags = request.POST.getlist('tags')
+        # diary
+        diary_form = DiaryForm(request.POST, instance=diary)
+        if diary_form.is_valid():
+            # update diary
+            """editDiary.title = diary_form.cleaned_data['title']
+            editDiary.date = diary_form.cleaned_data['date']
+            editDiary.type = diary_form.cleaned_data['type']
+            editDiary.content = diary_form.cleaned_data['content']"""
+            diary_form.save()
+            #delete tags
+            for tag in diary.tags.all():
+                diary.tags.remove(Tag.objects.get(id=tag.id))
+                if not tag.diary_set.count():
+                    tag.objects.get(id=tag.id).delete()
+            #add tags
+            taglist = tags[0].split(',')
+            for tag in taglist:
+                if tag:
+                    if not Tag.objects.filter(name = tag).exists():
+                        Tag.objects.create(name=tag)
+                    diary.tags.add(Tag.objects.get(name=tag))
+            #delete map
+            deleteMap = Map.objects.get(id=diary.location.id)
+            deleteMap.diary_set.remove(diary)
+            if not deleteMap.diary_set.count():
+                deleteMap.delete()
+            #add map
+            if not Map.objects.filter(location=loc).exists():
+                Map.objects.create(location=loc, latitude=lat, longitude=lon)
+            diary.location = Map.objects.get(location=loc)
+            diary.save()
+            return redirect('/gallery/new/?d=' + diary.pk)
         else:
             raise Http404
     else:
-        media_form = MediaForm()
-    return render(request, 'diary/upload-media.html',locals())
+        """editDiary = Diary.objects.get(id=pk)
+        editMap = editDiary.location
+        editTag = editDiary.tags.all()
+        diary_form = DiaryForm(initial={
+            'title': editDiary.title,
+            'date':editDiary.date,
+            'content':editDiary.content,
+            'type':editDiary.type})"""
+        diary_form = DiaryForm(instance=diary)
 
-# upload diary media display
-@login_required(login_url='/accounts/')
-def media_upload_show(request):
-    mediaURL = settings.MEDIA_URL
-    if request.method == 'POST':
-        deleteID=request.POST.get('dID')
-        Media.objects.get(id=deleteID).delete()
-        return HttpResponseRedirect('/diary/media-upload-show/')
-    if 'diaryID' in request.session:
-        diaryID = request.session['diaryID']
-        nowDiary = Diary.objects.get(pk = diaryID)
-        imgs= nowDiary.media_set.all().order_by('-id')
-    return render(request,'diary/upload-media-display.html',locals())
+    return render(request, 'diary/edit.html', locals())
 
-#display all map
-@login_required(login_url='/accounts/')
+@login_required
+def delete(request, pk):
+    diary = get_object_or_404(request.user.diary_set, pk=pk)
+    diary.delete()
+
+    pre_url = request.GET.get('from', None)
+    if pre_url:
+        return redirect(pre_url)
+    return redirect(settings.DASHBOARD_URL)
+
+@login_required
+@user_valid
 def map(request):
-    user = request.user
+    """Display check-in places on google map
+    """
     MapAPI = settings.GOOGLE_MAPS_API_KEY
     maps = set([diary.location for diary in request.user.diary_set.all()])
-    return render(request, 'diary/display-map.html', locals())
 
-#display all media
-@login_required(login_url='/accounts/')
-def media(request):
-    user = request.user
-    mediaList = [media for media in Media.objects.all() if media.diary.userID == request.user]
-    mediaURL = settings.MEDIA_URL
-    return render(request, 'diary/display-media.html', locals())
+    return render(request, 'diary/map.html', locals())
 
 #display all tags and its diaries
-@login_required(login_url='/accounts/')
+@login_required
 def tag(request):
     user = request.user
     mediaURL =  settings.MEDIA_URL
@@ -146,67 +177,6 @@ def tag(request):
         tagID = request.POST.get('tag')
         tagDiary = Tag.objects.get(id=tagID).diary_set.all()
     return render(request, 'diary/display-tag.html', locals())
-
-#edit diaries
-@login_required(login_url='/accounts/')
-def edit(request,pk):
-    user = request.user
-    if request.method =="POST":
-        diaryID = request.session['diaryID']
-        editDiary = Diary.objects.get(id=diaryID)
-        # media
-        media_num = editDiary.media_set.count()
-        # map
-        getlat = Decimal(request.POST.get('lat'))
-        getlon = Decimal(request.POST.get('lon'))
-        getloc = request.POST.get('loc')
-        # tags
-        tags = request.POST.getlist('tags')
-        # diary
-        diary_form = DiaryForm(request.POST)
-        if diary_form.is_valid():
-            # update diary
-            editDiary.title = diary_form.cleaned_data['title']
-            editDiary.date = diary_form.cleaned_data['date']
-            editDiary.type = diary_form.cleaned_data['type']
-            editDiary.content = diary_form.cleaned_data['content']
-            
-            #delete tags
-            for tag in editDiary.tags.all():
-                editDiary.tags.remove(Tag.objects.get(id=tag.id))
-                if tag.diary_set.count() == 0:
-                    Tag.objects.get(id=tag.id).delete()
-            #add tags
-            taglist = tags[0].split(',')
-            for tag in taglist:
-                if not tag =='':
-                    if not Tag.objects.filter(tagName = tag).exists():
-                        Tag.objects.create(tagName=tag)
-                    editDiary.tags.add(Tag.objects.get(tagName = tag))
-            #delete map
-            deleteMap = Map.objects.get(id = editDiary.location.id)
-            deleteMap.diary_set.remove(editDiary)
-            if deleteMap.diary_set.count() == 0:
-                deleteMap.delete()
-            #add map
-            if not Map.objects.filter(location=getloc).exists():
-                Map.objects.create(location=getloc, latitude=getlat, longitude=getlon)
-            editDiary.location = Map.objects.get(location=getloc)
-            editDiary.save()
-            return HttpResponseRedirect('/diary/media-upload/')
-        else:
-            raise Http404
-    editDiary = Diary.objects.get(id=pk)
-    MapAPI = settings.GOOGLE_MAPS_API_KEY
-    editMap = editDiary.location
-    editTag = editDiary.tags.all()
-    diary_form = DiaryForm(initial={
-        'title': editDiary.title,
-        'date':editDiary.date,
-        'content':editDiary.content,
-        'type':editDiary.type})
-    request.session['diaryID'] = pk
-    return render(request, 'diary/edit.html', locals())
 
 def search(request):
     user = request.user
@@ -256,7 +226,7 @@ def search_result(request):
             diaryList = filterList
     elif 'tag' in request.session:
         getTag=request.session['tag']
-        diaryList = Tag.objects.get(id = getTag).diary_set.filter(type__exact='Public') 
+        diaryList = Tag.objects.get(id = getTag).diary_set.filter(type__exact='Public')
         request.session['Smessage'] = '標籤'
         searchList = Tag.objects.get(id = getTag).tagName
 

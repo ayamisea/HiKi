@@ -18,13 +18,16 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 from diary.views import home
+from users.views import user_dashboard
 
 urlpatterns = [
+    url(r'^$',home, name='hiki'),
+    url(r'^dashboard/$', user_dashboard, name='user_dashboard'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('users.urls')),
     url(r'^diary/', include('diary.urls')),
+    url(r'^gallery/', include('gallery.urls')),
     url(r'^tally/', include('tally.urls')),
-    url(r'^$',home, name='hiki'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

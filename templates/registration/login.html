@@ -1,33 +1,25 @@
 <form method="POST" action="{% url 'login' %}" class="d-flex flex-column align-self-center">{% csrf_token %}
-	<div class="formrow flex-column flex-sm-row p-1">
-		<div class="mr-sm-auto pr-1">
-      <label for='email'>Email：</label>
+    <div class="d-flex flex-column w-100 p-1">
+        <label for='email'>Email：</label>
+        <input id="email" name="email" maxlength="255" type="email" required>
     </div>
-		<div class="ml-sm-auto">
-      <input id="email" name="email" maxlength="255" type="email" required>
+    <div class="d-flex flex-column w-100 p-1">
+    	<label for='password'>密碼：</label>
+    	<input id="password" name="password" type="password" required>
     </div>
-	</div>
-	<div class="formrow flex-column flex-sm-row p-1">
-		<div class="mr-sm-auto pr-1">
-      <label for='password'>密碼：</label>
+    <div class="d-flex flex-column w-100 p-1 mt-2">
+        <input type="hidden" name="next" value="{{ next }}" />
+        <input class="btn custom-button" type="submit" name="submit" value="登入">
     </div>
-		<div class="ml-sm-auto">
-      <input id="password" name="password" type="password" required>
-    </div>
-	</div>
-	<div class="formrow flex-column flex-sm-row p-1">
-		<input type="hidden" name="next" value="{{ next }}" />
-		<input class="btn custom-button w-100" type="submit" name="submit" value="登入">
-	</div>
 </form>
-<div class="d-flex flex-row justify-content-center p-2">
-	<div class="h6">沒有帳號？&nbsp;<a id="signupjump" href="#">現在就註冊！</a></div>
+<div class="d-flex flex-column align-items-center p-2">
+	<a href="{% url 'password_reset' %}">忘記密碼？</a>
+    <div class="h6">沒有帳號？&nbsp;<a id="signupjump" href="#">現在就註冊！</a></div>
 </div>
-
 <script>
-$(document).ready(function(){
-	$('#signupjump').click(function() {
-	    $('#signuptab').trigger('click')
-	});
+$(document).ready(function() {
+    $('#signupjump').click(function() {
+        $('#signuptab').trigger('click')
+    });
 });
 </script>
