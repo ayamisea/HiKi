@@ -1,6 +1,9 @@
+{% load i18n %}
+{% blocktrans %}
 {{ user }} 已於 {{ host }} 創立帳號。
 
 欲啟用此帳號並確認使用此信箱地址，請至
 {{ verification_url }}
 
 若您沒有在本站註冊過，則可以忽略此訊息。
+{% endblocktrans %}

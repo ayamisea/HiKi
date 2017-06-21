@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hiki Diary\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-21 22:28+0800\n"
+"POT-Creation-Date: 2017-06-21 23:14+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Hane <hane0131@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -193,17 +193,95 @@ msgstr "李方"
 msgid "Kevin"
 msgstr "建堯"
 
+#: templates/registration/accounts.html:19
+msgid "Sign up"
+msgstr ""
+
+#: templates/registration/accounts.html:22 templates/search.html:53
+msgid "Login"
+msgstr "登入"
+
+#: templates/registration/login.html:4
+#: templates/registration/password_reset.html:16
+#: templates/registration/signup.html:4
+msgid "Email："
+msgstr ""
+
+#: templates/registration/login.html:8 templates/registration/signup.html:8
+msgid "密碼："
+msgstr ""
+
+#: templates/registration/login.html:13
+msgid "登入"
+msgstr ""
+
+#: templates/registration/login.html:17
+msgid "忘記密碼？"
+msgstr ""
+
+#: templates/registration/login.html:18
+msgid "沒有帳號？"
+msgstr ""
+
+#: templates/registration/login.html:18
+msgid "現在就註冊！"
+msgstr ""
+
+#: templates/registration/password_reset.html:18
+msgid "Send Email"
+msgstr ""
+
+#: templates/registration/password_reset.html:20
+msgid "稍後將寄驗證信到您的信箱"
+msgstr ""
+
+#: templates/registration/password_reset_email.txt:2
+#, python-format
+msgid ""
+"\n"
+"您收到此信的原因為某人申請重設您在 %(host)s 的使用者帳號 %(user)s。\n"
+"\n"
+"請使用以下密碼登入並修改密碼。\n"
+"%(password)s\n"
+"\n"
+"若您沒有在本站註冊過，則可以忽略此訊息。\n"
+msgstr ""
+
+#: templates/registration/signup.html:12
+msgid "密碼確認："
+msgstr ""
+
+#: templates/registration/signup.html:17
+msgid "註冊"
+msgstr ""
+
+#: templates/registration/signup.html:21
+msgid "已有帳號？"
+msgstr ""
+
+#: templates/registration/signup.html:21
+msgid "按此登入。"
+msgstr ""
+
+#: templates/registration/verification_email.txt:2
+#, python-format
+msgid ""
+"\n"
+"%(user)s 已於 %(host)s 創立帳號。\n"
+"\n"
+"欲啟用此帳號並確認使用此信箱地址，請至\n"
+"%(verification_url)s\n"
+"\n"
+"若您沒有在本站註冊過，則可以忽略此訊息。\n"
+msgstr ""
+
 #: templates/search.html:4
 msgid "Search"
 msgstr "搜尋"
 
-#: templates/search.html:47
+#: templates/search.html:47 templates/users/user_dashboard.html:108
 msgid "回首頁"
 msgstr "回首頁"
-
-#: templates/search.html:53
-msgid "Login"
-msgstr "登入"
 
 #: templates/search.html:66
 msgid "請輸入搜尋文字"
@@ -245,6 +323,72 @@ msgstr "上一頁"
 msgid "Next"
 msgstr "下一頁"
 
+#: templates/tally/detail.html:8
+msgid "Tally Detail"
+msgstr ""
+
+#: templates/tally/detail.html:53
+msgid "編輯"
+msgstr ""
+
+#: templates/tally/detail.html:55
+msgid "刪除"
+msgstr ""
+
+#: templates/tally/detail.html:57
+msgid "回帳本"
+msgstr ""
+
+#: templates/tally/display.html:8 templates/users/user_dashboard.html:139
+msgid "Tally"
+msgstr ""
+
+#: templates/tally/display.html:60
+msgid "帳本"
+msgstr ""
+
+#: templates/tally/edit.html:4
+msgid "Edit Tally"
+msgstr ""
+
+#: templates/tally/tally-form.html:48
+msgid "完成"
+msgstr ""
+
+#: templates/users/change_password.html:10
+msgid "Save changes"
+msgstr ""
+
+#: templates/users/user_dashboard.html:7
+#: templates/users/user_dashboard.html:103
+msgid "DashBoard"
+msgstr ""
+
+#: templates/users/user_dashboard.html:88
+msgid "是否刪除？"
+msgstr ""
+
+#: templates/users/user_dashboard.html:113
+msgid "New Diary"
+msgstr ""
+
+#: templates/users/user_dashboard.html:118
+msgid "New Image"
+msgstr ""
+
+#: templates/users/user_dashboard.html:123
+msgid "New Tally"
+msgstr ""
+
+#: templates/users/user_dashboard.html:133
+msgid "Diary"
+msgstr ""
+
+#: templates/users/user_dashboard.html:136
+#: templates/users/user_dashboard.html:163
+msgid "Gallery"
+msgstr ""
+
 #: users/admin.py:17
 msgid "Personal info"
 msgstr "個人資訊"
@@ -282,21 +426,27 @@ msgstr ""
 "原始的密碼並沒有儲存在資料庫中，因此沒有任何方法能看到本使用者的密碼，但你可"
 "以透過<a href=\"password/\">本表單</a>更改密碼。"
 
-#: users/forms.py:122 users/models.py:100
+#: users/forms.py:121
+#, fuzzy
+#| msgid "User Name"
+msgid "Name"
+msgstr "使用者名稱"
+
+#: users/forms.py:122 users/models.py:112
+msgid "Biography"
+msgstr "自我介紹"
+
+#: users/forms.py:123 users/models.py:108
+msgid "Photo"
+msgstr "照片"
+
+#: users/forms.py:127 users/models.py:100
 msgid "Email Address"
 msgstr "電子郵件信箱"
 
 #: users/models.py:104
 msgid "User Name"
 msgstr "使用者名稱"
-
-#: users/models.py:108
-msgid "Photo"
-msgstr "照片"
-
-#: users/models.py:112
-msgid "Biography"
-msgstr "自我介紹"
 
 #: users/models.py:115
 msgid ""
