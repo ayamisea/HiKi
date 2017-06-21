@@ -127,108 +127,106 @@ msgstr "這頁不存在喔。"
 
 #: templates/diary/detail.html:7
 msgid "Diary Detail"
-msgstr ""
+msgstr "完整日記"
 
 #: templates/diary/detail.html:99
 #, python-format
 msgid "共%(diary.image_set.all|length)s個媒體"
-msgstr ""
+msgstr "共%(diary.image_set.all|length)s個影像"
 
 #: templates/diary/detail.html:134 templates/gallery/diary-image-show.html:116
 #: templates/tally/detail.html:55
 msgid "刪除"
-msgstr ""
+msgstr "刪除"
 
 #: templates/diary/detail.html:135 templates/tally/detail.html:53
 msgid "編輯"
-msgstr ""
+msgstr "編輯"
 
 #: templates/diary/detail.html:138
-#, fuzzy
-#| msgid "進入日記"
 msgid "回日記"
-msgstr "進入日記"
+msgstr "回日記"
 
 #: templates/diary/diary-form.html:46
 msgid "請輸入標籤"
-msgstr ""
+msgstr "請輸入標籤"
 
 #: templates/diary/diary-form.html:47
 msgid "新增"
-msgstr ""
+msgstr "新增"
 
 #: templates/diary/diary-form.html:58
 msgid "輸入位置"
-msgstr ""
+msgstr "輸入位置"
 
 #: templates/diary/diary-form.html:67
 msgid "下一步"
-msgstr ""
+msgstr "下一步"
 
 #: templates/diary/display-tag.html:6
 msgid "Tags"
-msgstr ""
+msgstr "標籤"
 
 #: templates/diary/display-tag.html:41
 msgid "所有標籤"
-msgstr ""
+msgstr "所有標籤"
 
 #: templates/diary/display.html:6 templates/users/user_dashboard.html:133
 msgid "Diary"
-msgstr ""
+msgstr "日記"
 
 #: templates/diary/display.html:29
 msgid "所有日記"
-msgstr ""
+msgstr "所有日記"
 
 #: templates/diary/edit.html:5
 msgid "Edit Diary"
-msgstr ""
+msgstr "編輯日記"
 
 #: templates/diary/map.html:8
 msgid "Map"
-msgstr ""
+msgstr "旅遊足跡"
 
 #: templates/gallery/diary-image-show.html:116
 msgid "成功刪除"
-msgstr ""
+msgstr "成功刪除"
 
 #: templates/gallery/display.html:6 templates/users/user_dashboard.html:136
 #: templates/users/user_dashboard.html:163
 msgid "Gallery"
-msgstr ""
+msgstr "相簿"
 
 #: templates/gallery/display.html:134
 msgid "Close"
-msgstr ""
+msgstr "關閉"
 
 #: templates/gallery/display.html:142 templates/include/nav.html:53
 msgid "相簿"
-msgstr ""
+msgstr "相簿"
 
 #: templates/gallery/edit.html:7
 msgid "Edit Image"
-msgstr ""
+msgstr "編輯影像"
 
 #: templates/gallery/edit.html:13 templates/gallery/new.html:13
 msgid "瀏覽"
-msgstr ""
+msgstr "瀏覽"
 
 #: templates/gallery/image-form.html:9
 msgid "添加檔案..."
-msgstr ""
+msgstr "添加檔案..."
 
 #: templates/gallery/image-form.html:24
 msgid "新增圖片"
-msgstr ""
+msgstr "新增影像"
 
 #: templates/gallery/new.html:7 templates/users/user_dashboard.html:118
 msgid "New Image"
-msgstr ""
+msgstr "新增影像"
 
 #: templates/gallery/new.html:33
 msgid "確認"
-msgstr ""
+msgstr "確認"
 
 #: templates/home.html:34
 msgid "Search!"
@@ -299,45 +297,41 @@ msgid "Kevin"
 msgstr "建堯"
 
 #: templates/include/nav.html:47
-#, fuzzy
-#| msgid "回首頁"
 msgid "首頁"
-msgstr "回首頁"
+msgstr "首頁"
 
 #: templates/include/nav.html:50
-#, fuzzy
-#| msgid "進入日記"
 msgid "日記"
-msgstr "進入日記"
+msgstr "日記"
 
 #: templates/include/nav.html:56
 msgid "旅遊足跡"
-msgstr ""
+msgstr "旅遊足跡"
 
 #: templates/include/nav.html:59
 msgid "標籤"
-msgstr ""
+msgstr "標籤"
 
 #: templates/include/nav.html:62
 msgid "帳本"
-msgstr ""
+msgstr "帳本"
 
 #: templates/include/nav.html:65
 msgid "統計"
-msgstr ""
+msgstr "統計"
 
 #: templates/include/nav.html:77 templates/users/user_dashboard.html:7
 #: templates/users/user_dashboard.html:103
 msgid "DashBoard"
-msgstr ""
+msgstr "控制面板"
 
 #: templates/include/nav.html:82
 msgid "登出"
-msgstr ""
+msgstr "登出"
 
 #: templates/registration/accounts.html:19
 msgid "Sign up"
-msgstr ""
+msgstr "註冊"
 
 #: templates/registration/accounts.html:22 templates/search.html:53
 msgid "Login"
@@ -347,35 +341,35 @@ msgstr "登入"
 #: templates/registration/password_reset.html:16
 #: templates/registration/signup.html:4
 msgid "Email："
-msgstr ""
+msgstr "電子郵件信箱："
 
 #: templates/registration/login.html:8 templates/registration/signup.html:8
 msgid "密碼："
-msgstr ""
+msgstr "密碼："
 
 #: templates/registration/login.html:13
 msgid "登入"
-msgstr ""
+msgstr "登入"
 
 #: templates/registration/login.html:17
 msgid "忘記密碼？"
-msgstr ""
+msgstr "忘記密碼？"
 
 #: templates/registration/login.html:18
 msgid "沒有帳號？"
-msgstr ""
+msgstr "沒有帳號？"
 
 #: templates/registration/login.html:18
 msgid "現在就註冊！"
-msgstr ""
+msgstr "現在就註冊！"
 
 #: templates/registration/password_reset.html:18
 msgid "Send Email"
-msgstr ""
+msgstr "寄信"
 
 #: templates/registration/password_reset.html:20
 msgid "稍後將寄驗證信到您的信箱"
-msgstr ""
+msgstr "稍後將寄驗證信到您的信箱"
 
 #: templates/registration/password_reset_email.txt:2
 #, python-format
@@ -388,22 +382,29 @@ msgid ""
 "\n"
 "若您沒有在本站註冊過，則可以忽略此訊息。\n"
 msgstr ""
+"\n"
+"您收到此信的原因為某人申請重設您在 %(host)s 的使用者帳號 %(user)s。\n"
+"\n"
+"請使用以下密碼登入並修改密碼。\n"
+"%(password)s\n"
+"\n"
+"若您沒有在本站註冊過，則可以忽略此訊息。\n"
 
 #: templates/registration/signup.html:12
 msgid "密碼確認："
-msgstr ""
+msgstr "密碼確認："
 
 #: templates/registration/signup.html:17
 msgid "註冊"
-msgstr ""
+msgstr "註冊"
 
 #: templates/registration/signup.html:21
 msgid "已有帳號？"
-msgstr ""
+msgstr "已有帳號？"
 
 #: templates/registration/signup.html:21
 msgid "按此登入。"
-msgstr ""
+msgstr "按此登入。"
 
 #: templates/registration/verification_email.txt:2
 #, python-format
@@ -416,6 +417,13 @@ msgid ""
 "\n"
 "若您沒有在本站註冊過，則可以忽略此訊息。\n"
 msgstr ""
+"\n"
+"%(user)s 已於 %(host)s 創立帳號。\n"
+"\n"
+"欲啟用此帳號並確認使用此信箱地址，請至\n"
+"%(verification_url)s\n"
+"\n"
+"若您沒有在本站註冊過，則可以忽略此訊息。\n"
 
 #: templates/search.html:4
 msgid "Search"
@@ -467,43 +475,43 @@ msgstr "下一頁"
 
 #: templates/tally/detail.html:8
 msgid "Tally Detail"
-msgstr ""
+msgstr "詳細帳目"
 
 #: templates/tally/detail.html:57
 msgid "回帳本"
-msgstr ""
+msgstr "回帳本"
 
 #: templates/tally/display.html:8 templates/users/user_dashboard.html:139
 msgid "Tally"
-msgstr ""
+msgstr "帳本"
 
 #: templates/tally/display.html:60
 msgid "所有紀錄"
-msgstr ""
+msgstr "所有帳目"
 
 #: templates/tally/edit.html:4
 msgid "Edit Tally"
-msgstr ""
+msgstr "編輯帳目"
 
 #: templates/tally/tally-form.html:48
 msgid "完成"
-msgstr ""
+msgstr "完成"
 
 #: templates/users/change_password.html:10
 msgid "Save changes"
-msgstr ""
+msgstr "儲存更改"
 
 #: templates/users/user_dashboard.html:88
 msgid "是否刪除？"
-msgstr ""
+msgstr "是否刪除？"
 
 #: templates/users/user_dashboard.html:113
 msgid "New Diary"
-msgstr ""
+msgstr "新增日記"
 
 #: templates/users/user_dashboard.html:123
 msgid "New Tally"
-msgstr ""
+msgstr "新增帳目"
 
 #: users/admin.py:17
 msgid "Personal info"
@@ -543,10 +551,8 @@ msgstr ""
 "以透過<a href=\"password/\">本表單</a>更改密碼。"
 
 #: users/forms.py:121
-#, fuzzy
-#| msgid "User Name"
 msgid "Name"
-msgstr "使用者名稱"
+msgstr "名稱"
 
 #: users/forms.py:122 users/models.py:112
 msgid "Biography"
