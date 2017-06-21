@@ -89,7 +89,7 @@ class Diary(models.Model):
         self.getWeather()
         super(Diary, self).save(*args, **kwargs)
 
-    def searchFilter(self,slst):
+    def searchFilter(self, slst):
         slst = [x.lower() for x in slst]
         if any(e in self.title.lower() for e in slst):
             return True
