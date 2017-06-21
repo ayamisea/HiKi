@@ -1,10 +1,10 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Summary</title>
+    <title>{% trans 'Summary' %}</title>
     <!-- css -->
     {% include 'include/bootstrap.html' %} {% include 'include/jquery-ui.html' %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
@@ -38,7 +38,7 @@
 	            ['類別', '元']
 	        ];
 	        {% for pl in list %}
-	        	arr.push(["{{ pl.0 }}", {{pl.1}}]); 
+	        	arr.push(["{{ pl.0 }}", {{pl.1}}]);
 	        {% endfor %}
 	        var data = google.visualization.arrayToDataTable(arr);
 	        var chart = new google.visualization.PieChart(document.getElementById(divs[i]));
@@ -48,7 +48,7 @@
 			});
 	        i++;
         {% endfor %}
-    }   
+    }
     </script>
     <script>
     	//避免重新傳送的煩人 alert 出現
@@ -62,9 +62,9 @@
 <body>
 	<header class="mb-3">
 		<!-- 日期表單 -->
-	    <form id="DateForm" method="post" class="d-flex flex-column flex-sm-row align-items-sm-center h5">{% csrf_token %} 
+	    <form id="DateForm" method="post" class="d-flex flex-column flex-sm-row align-items-sm-center h5">{% csrf_token %}
     		<div class="d-flex justify-content-center justify-content-sm-start align-items-center mr-0 mr-sm-1 mb-2 mb-sm-0" style="display: inline-block;">
-    			從&nbsp;{{ date_form.dateA }}&nbsp;至&nbsp;{{ date_form.dateB }}
+    			{% blocktrans %}從&nbsp;{{ date_form.dateA }}&nbsp;至&nbsp;{{ date_form.dateB }}{% endblocktrans %}
     		</div>
     		<input type="submit" name="send" value="統計" class="btn custom-button" style="width:80px;"/>
 	    </form>
@@ -73,10 +73,10 @@
 	    <!-- 收入支出 nav -->
 	    <ul class="nav nav-tabs" role="tablist">
 	        <li class="nav-item">
-    			<a class="nav-link active" data-toggle="tab" href="#imcome" role="tab">收入</a>
+    			<a class="nav-link active" data-toggle="tab" href="#imcome" role="tab">{% trans '收入' %}</a>
     		</li>
     		<li class="nav-item">
-    			<a class="nav-link" data-toggle="tab" href="#expense" role="tab">支出</a>
+    			<a class="nav-link" data-toggle="tab" href="#expense" role="tab">{% trans '支出' %}</a>
     		</li>
 	    </ul>
 	    <!-- 收入支出 tab -->
@@ -86,14 +86,14 @@
 					<div class="d-flex" style="min-width: 50%;">
 						<table class="table table-hover">
 							<thead>
-								<tr><th>項目</th><th>總金額</th></tr>
+								<tr><th>{% trans '項目' %}</th><th>{% trans '總金額' %}</th></tr>
 							</thead>
 							<tbody>
-								{% for pl in price_lists|first %} 
+								{% for pl in price_lists|first %}
 								<tr><th>{{ pl.0 }}</th><th>${{ pl.1 }}</th></tr>
 					        	{% endfor %}
 					        	<tr class="table-info">
-					        		<th>總收入</th><th>{{ total_prices|first }}</th>
+					        		<th>{% trans '總收入' %}</th><th>{{ total_prices|first }}</th>
 					        	</tr>
 				        	</tbody>
 				        </table>
@@ -106,14 +106,14 @@
 					<div class="d-flex" style="min-width: 50%;">
 						<table class="table table-hover">
 							<thead>
-								<tr><th>項目</th><th>總金額</th></tr>
+								<tr><th>{% trans '項目' %}</th><th>{% trans '總金額' %}</th></tr>
 							</thead>
 							<tbody>
-								{% for pl in price_lists|last %} 
+								{% for pl in price_lists|last %}
 								<tr><th>{{ pl.0 }}</th><th>${{ pl.1 }}</th></tr>
 					        	{% endfor %}
 					        	<tr class="table-info">
-					        		<th>總支出</th><th>{{ total_prices|first }}</th>
+					        		<th>{% trans '總支出' %}</th><th>{{ total_prices|first }}</th>
 					        	</tr>
 				        	</tbody>
 				        </table>
