@@ -17,32 +17,32 @@
         padding-left: 5%;
         padding-right: 5%;
     }
-
+    
     .navbar {
         background-color: #53cecb !important;
         letter-spacing: 2px !important;
     }
-
+    
     .navbar-nav li a {
         color: white !important;
     }
-
+    
     .new {
         display: flex;
         flex-direction: row;
         align-items: center;
     }
-
+    
     .edit {
         padding-top: 2px;
     }
-
+    
     .edit:hover,
     .delete:hover,
     .new:hover {
         cursor: pointer;
     }
-
+    
     .new:hover > .form-icon {
         -webkit-transform: rotate(-15deg);
         -moz-transform: rotate(-15deg);
@@ -55,20 +55,20 @@
         -o-transition-duration: .5s;
         transition-duration: .5s;
     }
-
+    
     .table {
         border: 0px !important;
         margin-top: 20px;
     }
-
+    
     .table > tbody > tr > td {
         vertical-align: middle;
     }
-
+    
     .table-striped>tbody>tr:nth-child(odd)>td {
         background-color: rgba(10, 186, 181, 0.1);
     }
-
+    
     .table-striped .table-hover > tbody > tr:hover > td {
         background-color: rgba(10, 186, 181, 0.1);
     }
@@ -99,35 +99,26 @@
 
 <body>
     <!-- 新增功能的導覽列 -->
-    <nav class="navbar navbar-toggleable-sm navbar-inverse custom-button mb-5">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNewContent" aria-controls="navbarNewContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-brand" href="/">{% trans "DashBoard" %}</div>
-        <div class="collapse navbar-collapse" id="navbarNewContent">
-            <ul class="navbar-nav">
-	            <!-- 回首頁 -->
-            	<li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
-                	<a class="nav-link" href="{% url 'index' %}">{% trans "回首頁" %}</a>
-                </li>
-	            <!-- 新增日記 -->
-	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
-	                <img class="form-icon mr-1" src="{% static 'icon/new_diary.png' %}">
-	                <a class="nav-link" href="{% url 'diary_new' %}">{% trans "New Diary" %}</a>
-	            </li>
-	            <!-- 新增相片 -->
-	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
-	                <img class="form-icon mr-1" src="{% static 'icon/new_photo.png' %}">
-	                <a class="nav-link" href="{% url 'gallery_new' %}">{% trans "New Image" %}</a>
-	            </li>
-	            <!-- 新增帳目 -->
-	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
-	                <img class="form-icon mr-1" src="{% static 'icon/new_tally.png' %}">
-	                <a class="nav-link" href="{% url 'tally_new' %}">{% trans "New Tally" %}</a>
-	            </li>
-	        </ul>
-        </div>
-    </nav>
+    <header class="d-flex flex-column">
+        <div class="d-flex justify-content-around p-3">
+	        <!-- 新增日記 -->
+	        <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
+	            <img class="form-icon mr-1" src="{% static 'icon/new_diary.png' %}">
+	            <a class="nav-link" href="{% url 'diary_new' %}">{% trans "New Diary" %}</a>
+	        </li>
+	        <!-- 新增相片 -->
+	        <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
+	            <img class="form-icon mr-1" src="{% static 'icon/new_photo.png' %}">
+	            <a class="nav-link" href="#">{% trans "New Image" %}</a>
+	        </li>
+	        <!-- 新增帳目 -->
+	        <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
+	            <img class="form-icon mr-1" src="{% static 'icon/new_tally.png' %}">
+	            <a class="nav-link" href="{% url 'tally_new' %}">{% trans "New Tally" %}</a>
+	        </li>
+	    </div>
+	    <hr>
+    </header>
     <!-- 清單列 -->
     <main class="mt-4">
         <!-- 各功能分頁 -->
@@ -165,9 +156,6 @@
             <div class="tab-pane" id="Gallery" role="tabpanel">
                 <h1>{% trans "Gallery" %}</h1>
                 <ul>
-                  {% for i in image %}
-                    <li>{{ i }}</li>
-                  {% endfor %}
                 </ul>
             </div>
             <div class="tab-pane" id="Tally" role="tabpanel">
