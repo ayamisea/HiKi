@@ -1,12 +1,14 @@
-from django.db import models
-from django.contrib.auth import get_user_model
-User =  get_user_model()
-import urllib3
-import json
 from collections import Counter
+import json
+
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.db import models
 from django.utils import timezone
 
+import urllib3
+
+User =  get_user_model()
 
 class Map(models.Model):
     location = models.CharField(max_length=50, null=True,)
@@ -38,7 +40,7 @@ class Diary(models.Model):
         default=AUTH_CHOICES[0][0],
     )
     title = models.CharField(max_length=30,)
-    date = models.DateField(default=timezone.now,)
+    date = models.DateField()
     content = models.TextField(max_length=1000,)
     location = models.ForeignKey(
         Map,
@@ -47,10 +49,10 @@ class Diary(models.Model):
     )
     tags = models.ManyToManyField(Tag, blank=True,)
     weather_meantemp = models.CharField(
-        max_length=50, editable=False,
+        max_length=50, default='null', editable=False,
         blank=True, null=True,)
     weather_cond = models.CharField(
-        max_length=50, editable=False,
+        max_length=50, default='null', editable=False,
         blank=True, null=True,)
 
     def __str__(self):
@@ -62,7 +64,7 @@ class Diary(models.Model):
             urlGeo = 'http://api.wunderground.com/api/' + weatherAPI + '/geolookup/q/' \
             + str(self.location.latitude) + ',' + str(self.location.longitude) + '.json'
         except:
-            return None
+            return
         http = urllib3.PoolManager()
         g = http.request('GET', urlGeo)
         zmw = json.loads(g.data.decode('utf-8'))['location']['l']

@@ -100,17 +100,23 @@ def request_verification(request):
 @login_required
 def user_profile_update(request):
     user = request.user
+    if not user.verified:
+        messages.info(request, ugettext(
+            'You need to confirm your email. \
+            Check your mailbox for verification link.'
+        ))
     if request.method == 'POST':
         form = UserProfileUpdateForm(
-            data=request.POST, files=request.FILES,
+            request.POST, request.FILES,
             instance=request.user,
         )
         if form.is_valid():
+            #form.photo =request.FILES.get('photo')
             form.save()
             messages.success(request, ugettext(
                 'Your profile has been updated successfully.',
             ))
-        return redirect('/')
+        return redirect('user_dashboard')
     else:
         form = UserProfileUpdateForm(instance=request.user)
         """messages.info(request, ugettext(
