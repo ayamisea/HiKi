@@ -18,18 +18,13 @@
         padding-right: 5%;
     }
     
-    .navbar {
-        background-color: #53cecb !important;
-        letter-spacing: 2px !important;
+	li a, li a:hover, li a:link, li a:visited {
+        color: #0ABAB5 !important;
     }
-    
-    .navbar-nav li a {
-        color: white !important;
-    }
-    
+
     .new {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
     }
     
@@ -102,17 +97,17 @@
     <header class="d-flex flex-column">
         <div class="d-flex justify-content-around p-3">
 	        <!-- 新增日記 -->
-	        <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
+	        <li class="new">
 	            <img class="form-icon mr-1" src="{% static 'icon/new_diary.png' %}">
 	            <a class="nav-link" href="{% url 'diary_new' %}">{% trans "New Diary" %}</a>
 	        </li>
 	        <!-- 新增相片 -->
-	        <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
+	        <li class="new">
 	            <img class="form-icon mr-1" src="{% static 'icon/new_photo.png' %}">
 	            <a class="nav-link" href="#">{% trans "New Image" %}</a>
 	        </li>
 	        <!-- 新增帳目 -->
-	        <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
+	        <li class="new">
 	            <img class="form-icon mr-1" src="{% static 'icon/new_tally.png' %}">
 	            <a class="nav-link" href="{% url 'tally_new' %}">{% trans "New Tally" %}</a>
 	        </li>
@@ -140,11 +135,11 @@
                     <tbody>
                         {% for d in diary %}
                         <tr>
-                            <td class="edit">
+                            <td class="edit" style="width:90%;">
                                 <a href="{% url 'diary_edit' pk=d.pk %}"></a>
                                 {{ d }}
                             </td>
-                            <td>
+                            <td class="delete" style="width:10%;">
                                 <a href="{% url 'diary_delete' pk=d.pk %}"></a>
                                 <img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
                             </td>
@@ -163,11 +158,11 @@
                     <tbody>
                         {% for t in tally %}
                         <tr>
-                            <td class="edit">
+                            <td class="edit" style="width:90%;">
                                 <a href="{% url 'tally_edit' pk=t.pk %}"></a>
                                 {{ t }}
                             </td>
-                            <td>
+                            <td class="delete" style="width:10%;">
                                 <a href="{% url 'tally_delete' pk=t.pk %}"></a>
                                 <img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
                             </td>
