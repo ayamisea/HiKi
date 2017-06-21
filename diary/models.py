@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 
 import urllib3
 
@@ -26,8 +27,8 @@ class Tag(models.Model):
 
 class Diary(models.Model):
     AUTH_CHOICES = (
-        ('Private', '私密'),
-        ('Public', '公開'),
+        ('Private', _('Private')),
+        ('Public', _('Public')),
     )
     user = models.ForeignKey(
         User,

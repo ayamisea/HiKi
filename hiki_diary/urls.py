@@ -21,17 +21,23 @@ from django.conf.urls.i18n import i18n_patterns
 from django.views.i18n import set_language
 
 from core.views import index, search
+from diary import views as diary
+from gallery import views as gallery
 from users.views import user_dashboard
 
 urlpatterns = i18n_patterns(
     url(r'^$', index, name='index'),
-    url(r'^dashboard/$', user_dashboard, name='user_dashboard'),
     url(r'^search/$', search, name='search'),
 
     url(r'^accounts/', include('users.urls')),
     url(r'^diary/', include('diary.urls')),
     url(r'^gallery/', include('gallery.urls')),
     url(r'^tally/', include('tally.urls')),
+
+    url(r'^dashboard/$', user_dashboard, name='user_dashboard'),
+    url(r'^dashboard/diary/', include('diary.dashboard_urls')),
+    url(r'^dashboard/gallery/', include('gallery.dashboard_urls')),
+    url(r'^dashboard/tally/', include('tally.dashboard_urls')),
 )
 
 # set-langauge and admin should not be prefixed with language.
@@ -41,6 +47,4 @@ urlpatterns += [
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

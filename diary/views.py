@@ -1,12 +1,11 @@
-#from decimal import *
+from decimal import Decimal
 
 from django.conf import settings
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponseRedirect
 from django.http import Http404
+from django.urls import reverse
 from django.utils.translation import ugettext
 
 from users.decorators import user_valid
@@ -72,9 +71,12 @@ def new(request):
             diary.user = request.user
             diary.save()
 
-            return redirect('/gallery/new/?d=' + str(diary.pk))
+            messages.success(request, ugettext("Post a diary successfully!"))
+            messages.info(request, ugettext("Let's upload some images for this diary."))
+
+            return redirect(reverse('gallery_new') + '?d=' + str(diary.pk))
         else:
-            messages.warning(request, ugettext('Input format error')) # '格式輸入錯誤'
+            messages.warning(request, ugettext('Input format error'))
     else:
         diary_form = DiaryForm()
 
@@ -102,10 +104,6 @@ def edit(request, pk):
         diary_form = DiaryForm(request.POST, instance=diary)
         if diary_form.is_valid():
             # update diary
-            """diary.title = diary_form.cleaned_data['title']
-            diary.date = diary_form.cleaned_data['date']
-            diary.type = diary_form.cleaned_data['type']
-            diary.content = diary_form.cleaned_data['content']"""
             diary_form.save()
             #delete tags
             for tag in diary.tags.all():
@@ -116,7 +114,7 @@ def edit(request, pk):
             taglist = tags[0].split(',')
             for tag in taglist:
                 if tag:
-                    if not Tag.objects.filter(name = tag).exists():
+                    if not Tag.objects.filter(name=tag).exists():
                         Tag.objects.create(name=tag)
                     diary.tags.add(Tag.objects.get(name=tag))
             #delete map
@@ -129,18 +127,16 @@ def edit(request, pk):
                 Map.objects.create(location=loc, latitude=lat, longitude=lon)
             diary.location = Map.objects.get(location=loc)
             diary.save()
-            return redirect('/gallery/new/?d=' + str(diary.pk))
+
+            messages.success(request, ugettext("Complete editing this diary!"))
+            messages.info(request, ugettext("Do you want to add/delete images for this diary?"))
+
+            return redirect(reverse('gallery_new') + '?d=' + str(diary.pk))
         else:
             raise Http404
     else:
-        editDiary = Diary.objects.get(id=pk)
         editMap = diary.location
         editTag = diary.tags.all()
-        """diary_form = DiaryForm(initial={
-            'title': editDiary.title,
-            'date':editDiary.date,
-            'content':editDiary.content,
-            'type':editDiary.type})"""
         diary_form = DiaryForm(instance=diary)
 
     return render(request, 'diary/edit.html', locals())
@@ -150,9 +146,12 @@ def delete(request, pk):
     diary = get_object_or_404(request.user.diary_set, pk=pk)
     diary.delete()
 
+    messages.success(request, ugettext("Successfully delete " + str(diary)))
+
     pre_url = request.GET.get('from', None)
     if pre_url:
         return redirect(pre_url)
+
     return redirect(settings.DASHBOARD_URL)
 
 @login_required
@@ -170,8 +169,6 @@ def map(request):
 def tag(request):
     """Display all tags and its diaries
     """
-    user = request.user
-    mediaURL =  settings.MEDIA_URL
     tagList = []
     for diary in request.user.diary_set.all():
         for tag in diary.tags.all():
@@ -180,5 +177,5 @@ def tag(request):
     if request.method == 'POST':
         tagID = request.POST.get('tag')
         tagDiary = Tag.objects.get(id=tagID).diary_set.all()
-        print(tagDiary)
+
     return render(request, 'diary/display-tag.html', locals())

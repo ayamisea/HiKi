@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Detail</title>
+    <title>DashBoard</title>
     <!-- css -->
     {% include 'include/bootstrap.html' %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
@@ -16,7 +16,7 @@
         padding-left: 5%;
         padding-right: 5%;
     }
-    
+
     .navbar {
         background-color: #53cecb !important;
         letter-spacing: 2px !important;
@@ -25,21 +25,21 @@
     .navbar-nav li a {
     	color:white !important;
     }
-    
+
     .new {
         display: flex;
         flex-direction: row;
         align-items: center;
     }
-    
+
     .edit {
         padding-top: 2px;
     }
-    
+
     .edit:hover, .delete:hover, .new:hover {
         cursor: pointer;
     }
-    
+
     .new:hover > .form-icon {
         -webkit-transform: rotate(-15deg);
         -moz-transform: rotate(-15deg);
@@ -52,20 +52,20 @@
         -o-transition-duration: .5s;
         transition-duration: .5s;
     }
-    
+
     .table {
         border: 0px !important;
         margin-top: 20px;
     }
-    
+
     .table > tbody > tr > td {
         vertical-align: middle;
     }
-    
+
     .table-striped>tbody>tr:nth-child(odd)>td {
         background-color: rgba(10, 186, 181, 0.1);
     }
-    
+
     .table-striped .table-hover > tbody > tr:hover > td {
         background-color: rgba(10, 186, 181, 0.1);
     }
@@ -105,7 +105,7 @@
             <ul class="navbar-nav">
 	            <!-- 回首頁 -->
             	<li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
-                	<a class="nav-link" href="{% url 'hiki' %}">回首頁</a>
+                	<a class="nav-link" href="{% url 'index' %}">回首頁</a>
                 </li>
 	            <!-- 新增日記 -->
 	            <li class="nav-item new mr-sm-3 mb-3 mb-sm-0">
