@@ -61,6 +61,9 @@
 		      	<li id="tally_" class="nav-item">
 		      		<a class="nav-link" href="{% url 'tally' %}">帳本</a>
 		      	</li>
+		      	<li id="tally_summary_" class="nav-item">
+		      		<a class="nav-link" href="{% url 'tally' %}">統計</a>
+		      	</li>
 		    </ul>
 		    <ul class="navbar-nav ml-auto">
 		      	<li class="nav-item dropdown">
@@ -69,37 +72,9 @@
 		                </span> {{name}} <span class="caret"></span>
 		            </a>
 			        <ul class="dropdown-menu dropdown-menu-right pt-0 mt-0" aria-labelledby="navbarDropdownMenuLink">
-			        	<div class="dropdown-divider"></div>
-			            <li class="dropdown-header">
-			            	日記管理
-			            	<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-			            </li>
-			            <li>
-			            	<a id="new_diary_" class="dropdown-item" href="{% url 'diary_new' %}">
-			            		新增日記
-			            	</a>
-			            </li>
-			            <div class="dropdown-divider"></div>
-			            <li class="dropdown-header">
-			            	帳本管理
-			            	<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
-			            </li>
-			            <li>
-			            	<a id="new_tally_" class="dropdown-item" href="{% url 'tally_new' %}">
-			            		新增明細
-			            	</a>
-			            	<a id="tally_summary_" class="dropdown-item" href="{% url 'tally_summary' %}">
-			            		帳本統計
-			            	</a>
-			            </li>
-			            <div class="dropdown-divider"></div>
-			            <li class="dropdown-header">
-			            	會員專區
-			            	<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
-			            </li>
 			            <li>
 			            	<a id="user_dashboard_" class="dropdown-item" href="{% url 'user_dashboard' %}">
-			            		帳號管理
+			            		Dash Board
 			            	</a>
 			            </li>
 			            <li>
