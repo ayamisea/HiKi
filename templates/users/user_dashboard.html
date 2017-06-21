@@ -154,11 +154,11 @@
                         {% for i in image %}
                         <tr>
                             <td class="edit" style="width:90%;">
-                                <a href="{% url 'gallery_edit' pk=i.pk %}"></a>
-                                {{ i }}
+                                <a href="{% url 'image_edit' pk=i.pk %}"></a>
+                                <img class="detail-icon" src="{{i.img.url}}">
                             </td>
                             <td class="delete" style="width:10%;">
-                                <a href="{% url 'gallery_delete' pk=i.pk %}"></a>
+                                <a href="{% url 'image_delete' pk=i.pk %}"></a>
                                 <img class="detail-icon-img" src="{% static 'icon/delete.png' %}">
                             </td>
                         </tr>

@@ -32,7 +32,10 @@ class Tally(models.Model) :
     notes = models.CharField(max_length=200, blank=True)
 
     def __str__(self):
-        return '{} {}->{}'.format(self.date, self.pay_type, self.subtype)
+    	if self.subtype:
+    		return '{} {}->{} ${}'.format(self.date, self.pay_type, self.subtype , self.cash)
+    	else:
+        	return '{} {} ${}'.format(self.date, self.pay_type, self.cash)
 
     class MoneyTypes(DjangoChoices) :
         income = ChoiceItem()

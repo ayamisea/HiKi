@@ -85,24 +85,10 @@
 	    //bound media into modal
 	    var area = document.getElementById("modal-body");
 	    var newElement = null;
-	    if (type == 'img') {
-	        newElement = document.createElement('img');
-	        newElement.style.width = '300px';
-	    	newElement.style.height = 'auto';
-	        newElement.setAttribute('onerror', 'this.style.display="none"');
-	    }
-	    if (type == 'video') {
-	        newElement = document.createElement('video');
-	        newElement.style.width = '500px';
-	    	newElement.style.height = 'auto';
-	        sourceElement1 = document.createElement('source');
-	        sourceElement1.setAttribute('type', 'video/mp4');
-	        sourceElement2 = document.createElement('source');
-	        sourceElement2.setAttribute('type', 'video/ogg');
-	        newElement.appendChild(sourceElement1);
-	        newElement.appendChild(sourceElement2);
-	        newElement.controls = true;
-	    }
+        newElement = document.createElement('img');
+        newElement.style.width = '300px';
+    	newElement.style.height = 'auto';
+        newElement.setAttribute('onerror', 'this.style.display="none"');
 	    newElement.setAttribute('src', url);
 	    newElement.classList.add('img-thumbnail');
 	    newElement.classList.add('m-1');

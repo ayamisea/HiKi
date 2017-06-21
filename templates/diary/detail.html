@@ -96,7 +96,7 @@
       <div class="detail-icon">
         <img class="detail-icon-img" src="{%static '/icon/detail/picture.png' %}">
       </div>
-      <h5 class="ml-1 mt-0 mr-0 mb-0">{% blocktrans %}共{{ diary.image_set.all|length }}個媒體{% endblocktrans %}</h5>
+      <h5 class="ml-1 mt-0 mr-0 mb-0">{% blocktrans %}共{% endblocktrans %}{{ diary.image_set.all|length }}{% blocktrans %}個媒體{% endblocktrans %}</h5>
     </div>
     <!-- 圖片欄位 -->
     <div class="d-flex pt-0 pl-1 pr-1 pb-1">

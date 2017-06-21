@@ -22,7 +22,7 @@ def display(request):
 def new(request):
     """Upload new image.
     """
-    d = request.GET.get('d', None)
+    d = request.GET.get('d','')
     if request.method == 'POST':
         form = ImageForm(request.POST, request.FILES)
 

@@ -186,3 +186,5 @@ def tag(request):
         tagDiary = Tag.objects.get(id=tagID).diary_set.all()
 
     return render(request, 'diary/display-tag.html', locals())
+
+
